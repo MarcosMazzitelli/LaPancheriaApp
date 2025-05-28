@@ -1,9 +1,12 @@
 #include <iostream>
+#include "Producto.h"
+#include "Tests.h"
 
 using namespace std;
 
 int main()
 {
-    cout << "Hola chicos !" << endl;
+    cargarYMostrarProducto();
+
     return 0;
 }

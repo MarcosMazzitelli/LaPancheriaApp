@@ -41,11 +41,19 @@
 		<Unit filename="FormaDePago.h" />
 		<Unit filename="FormaDePagoArchivo.cpp" />
 		<Unit filename="FormaDePagoArchivo.h" />
+<<<<<<< Updated upstream
 =======
 		<Unit filename="Venta.cpp" />
 		<Unit filename="Venta.h" />
 		<Unit filename="VentaArchivo.cpp" />
 		<Unit filename="VentaArchivo.h" />
+>>>>>>> Stashed changes
+=======
+		<Unit filename="Producto.cpp" />
+		<Unit filename="Producto.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="Tests.h" />
 >>>>>>> Stashed changes
 		<Unit filename="main.cpp" />
 		<Extensions>
