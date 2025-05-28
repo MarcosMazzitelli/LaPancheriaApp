@@ -16,51 +16,48 @@
 1748375082 c:\users\valen\documents\tec. en programacion\programacion ii\proyecto pancheria\lapancheriaapp\lapancheriaapp\formadepago.h
 	<string>
 
-<<<<<<< Updated upstream
 1748298841 source:c:\users\user\desktop\utn\progra 2\lapancheriaapp\lapancheriaapp\main.cpp
 	<iostream>
 
 1748386135 source:c:\users\user\desktop\utn\progra 2\lapancheriaapp\lapancheriaapp\ventaarchivo.cpp
 
-=======
-1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\costofijo.cpp
+1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programaciï¿½n ii\tpi\lapancheriaapp\lapancheriaapp\costofijo.cpp
 	"CostoFijo.h"
 	<cstring>
 
-1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\costofijo.h
+1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programaciï¿½n ii\tpi\lapancheriaapp\lapancheriaapp\costofijo.h
 	<string>
 
-1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\costofijoarchivo.cpp
+1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programaciï¿½n ii\tpi\lapancheriaapp\lapancheriaapp\costofijoarchivo.cpp
 	"CostoFijoArchivo.h"
 
-1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\costofijoarchivo.h
+1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programaciï¿½n ii\tpi\lapancheriaapp\lapancheriaapp\costofijoarchivo.h
 	"CostoFijo.h"
 	<string>
 
-1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\formadepago.cpp
+1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programaciï¿½n ii\tpi\lapancheriaapp\lapancheriaapp\formadepago.cpp
 	"FormaDePago.h"
 	<cstring>
 
-1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\formadepago.h
+1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programaciï¿½n ii\tpi\lapancheriaapp\lapancheriaapp\formadepago.h
 	<string>
 
-1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\formadepagoarchivo.cpp
+1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programaciï¿½n ii\tpi\lapancheriaapp\lapancheriaapp\formadepagoarchivo.cpp
 	"FormaDePagoArchivo.h"
 
-1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\formadepagoarchivo.h
+1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programaciï¿½n ii\tpi\lapancheriaapp\lapancheriaapp\formadepagoarchivo.h
 	"FormaDePago.h"
 	<string>
 
-1748393117 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\main.cpp
+1748393117 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programaciï¿½n ii\tpi\lapancheriaapp\lapancheriaapp\main.cpp
 	<iostream>
 	"Producto.h"
 
-1748393412 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\producto.h
+1748393412 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programaciï¿½n ii\tpi\lapancheriaapp\lapancheriaapp\producto.h
 	<string>
 
-1748393196 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\producto.cpp
+1748393196 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programaciï¿½n ii\tpi\lapancheriaapp\lapancheriaapp\producto.cpp
 	"Producto.h"
 	<cstring>
 	<iostream>
 
->>>>>>> Stashed changes
