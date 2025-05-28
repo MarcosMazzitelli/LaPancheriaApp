@@ -9,17 +9,17 @@ private:
     int _idEmpleado;
     float _importeTotal;
     int _formaDePago;
-    Fecha _fechaVenta;
+  //  Fecha _fechaVenta;
 public:
     Venta();
-    Venta(int nroFactura, std::string dniCliente, int idEmpleado, float importeTotal, int formaDePago,Fecha fechaVenta);
+ //   Venta(int nroFactura, std::string dniCliente, int idEmpleado, float importeTotal, int formaDePago,Fecha fechaVenta);
 
    int getNroFactura();
    std::string getDniCliente();
    int getIdEmpleado();
-   float getImporte Total();
+   float getImporteTotal();
    int getFormaDePago();
-   Fecha getFechaVenta();
+ //  Fecha getFechaVenta();
 
 
     void setNroFactura (int nroFactura);
@@ -27,7 +27,7 @@ public:
     void setIdEmpleado (int idEmpleado);
     void setImporteTotal (float importeTotal);
     void setFormaDePago (int formaDePago);
-    void setFechaVenta (Fecha fechaVenta);
+  //  void setFechaVenta (Fecha fechaVenta);
 };
 
 

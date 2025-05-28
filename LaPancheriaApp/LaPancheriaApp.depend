@@ -61,3 +61,61 @@
 	<cstring>
 	<iostream>
 
+1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\costofijo.cpp
+	"CostoFijo.h"
+	<cstring>
+
+1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\costofijo.h
+	<string>
+
+1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\costofijoarchivo.cpp
+	"CostoFijoArchivo.h"
+
+1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\costofijoarchivo.h
+	"CostoFijo.h"
+	<string>
+
+1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\formadepago.cpp
+	"FormaDePago.h"
+	<cstring>
+
+1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\formadepago.h
+	<string>
+
+1748385583 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\formadepagoarchivo.cpp
+	"FormaDePagoArchivo.h"
+
+1748385583 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\formadepagoarchivo.h
+	"FormaDePago.h"
+	<string>
+
+1748394354 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\main.cpp
+	<iostream>
+	"Producto.h"
+	"Tests.h"
+
+1748394354 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\producto.h
+	<string>
+
+1748394354 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\tests.h
+	<iostream>
+
+1748394354 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\producto.cpp
+	"Producto.h"
+	<cstring>
+	<iostream>
+
+1748393893 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\ventaarchivo.cpp
+	"VentaArchivo.h"
+
+1748393893 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\ventaarchivo.h
+	"Venta.h"
+	<string>
+
+1748397568 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\venta.h
+	<string>
+
+1748398186 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\venta.cpp
+	"Venta.h"
+	<cstring>
+
