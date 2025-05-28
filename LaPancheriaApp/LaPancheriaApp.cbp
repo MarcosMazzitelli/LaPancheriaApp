@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+<<<<<<< Updated upstream
 		<Unit filename="CostoFijo.cpp" />
 		<Unit filename="CostoFijo.h" />
 		<Unit filename="CostoFijoArchivo.cpp" />
@@ -40,6 +41,12 @@
 		<Unit filename="FormaDePago.h" />
 		<Unit filename="FormaDePagoArchivo.cpp" />
 		<Unit filename="FormaDePagoArchivo.h" />
+=======
+		<Unit filename="Venta.cpp" />
+		<Unit filename="Venta.h" />
+		<Unit filename="VentaArchivo.cpp" />
+		<Unit filename="VentaArchivo.h" />
+>>>>>>> Stashed changes
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
