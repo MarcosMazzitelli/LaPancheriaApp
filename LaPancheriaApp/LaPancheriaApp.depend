@@ -89,15 +89,16 @@
 	"FormaDePago.h"
 	<string>
 
-1748394354 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\main.cpp
+1748400594 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\main.cpp
 	<iostream>
 	"Producto.h"
+	"Venta.h"
 	"Tests.h"
 
 1748394354 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\producto.h
 	<string>
 
-1748394354 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\tests.h
+1748400692 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\tests.h
 	<iostream>
 
 1748394354 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\producto.cpp
@@ -112,10 +113,17 @@
 	"Venta.h"
 	<string>
 
-1748397568 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\venta.h
+1748400372 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\venta.h
 	<string>
+	"Fecha.h"
 
-1748398186 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\venta.cpp
+1748400506 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\venta.cpp
 	"Venta.h"
 	<cstring>
+
+1743894171 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\fecha.h
+
+1748400348 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\fecha.cpp
+	<iostream>
+	"Fecha.h"
 

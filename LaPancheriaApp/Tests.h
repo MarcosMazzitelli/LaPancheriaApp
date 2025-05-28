@@ -32,10 +32,16 @@ void cargarYMostrarProducto(){
     cout << "Ingrese estado: ";
     cin >> estado;
 
+
     p= Producto(idProducto, idCategoria, nombreProducto, precioUnitario, costoProducto, estado);
     cout << endl << endl << p.mostrarToCsv();
     cout << endl << endl;
     p.mostrar();
+    cout << endl << endl;
+
+    Venta v;
+    v.getFechaVenta().mostrarFecha();
+
 }
 
 

@@ -36,19 +36,21 @@
 		<Unit filename="CostoFijo.h" />
 		<Unit filename="CostoFijoArchivo.cpp" />
 		<Unit filename="CostoFijoArchivo.h" />
+		<Unit filename="Fecha.cpp" />
+		<Unit filename="Fecha.h" />
 		<Unit filename="FormaDePago.cpp" />
 		<Unit filename="FormaDePago.h" />
 		<Unit filename="FormaDePagoArchivo.cpp" />
 		<Unit filename="FormaDePagoArchivo.h" />
-		<Unit filename="Venta.cpp" />
-		<Unit filename="Venta.h" />
-		<Unit filename="VentaArchivo.cpp" />
-		<Unit filename="VentaArchivo.h" />
 		<Unit filename="Producto.cpp" />
 		<Unit filename="Producto.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="Tests.h" />
+		<Unit filename="Venta.cpp" />
+		<Unit filename="Venta.h" />
+		<Unit filename="VentaArchivo.cpp" />
+		<Unit filename="VentaArchivo.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

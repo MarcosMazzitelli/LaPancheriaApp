@@ -9,19 +9,19 @@ Venta::Venta(){
     _idEmpleado=0;
     _importeTotal=0;
     _formaDePago=0;
-  //  _fechaVenta=0; comentado porque no compila hasta agregar fecha a
+    _fechaVenta=Fecha(); //llama al constructor vacio de fecha
 
 }
 
 ///Constructor por parametros
-/*Venta::Venta(int nroFactura, std::string dniCliente, int idEmpleado, float importeTotal, int formaDePago,Fecha fechaVenta){
+Venta::Venta(int nroFactura, std::string dniCliente, int idEmpleado, float importeTotal, int formaDePago,Fecha fechaVenta){
         setNroFactura(nroFactura);
         setDniCliente(dniCliente);
         setIdEmpleado(idEmpleado);
         setImporteTotal(importeTotal);
         setFormaDePago(formaDePago);
         setFechaVenta(fechaVenta);
-}  */
+}
 
 ///Getters
     int Venta::getNroFactura(){
@@ -39,9 +39,9 @@ Venta::Venta(){
     int Venta::getFormaDePago(){
     return _formaDePago;
     }
-   // Fecha Venta::getFechaVenta(){
-  //  return _fechaVenta;
- //   }
+    Fecha Venta::getFechaVenta(){
+    return _fechaVenta;
+    }
 
 
 
@@ -62,8 +62,8 @@ Venta::Venta(){
     void Venta::setFormaDePago(int formaDePago){
         _formaDePago=formaDePago;
     }
-   /* void Venta::setFechaVenta(Fecha fechaVenta){
+    void Venta::setFechaVenta(Fecha fechaVenta){
         _fechaVenta=fechaVenta;
-    } */
+    }
 
 
