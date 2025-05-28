@@ -127,3 +127,27 @@
 	<iostream>
 	"Fecha.h"
 
+1748395366 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\costofijoarchivo.cpp
+	"CostoFijoArchivo.h"
+
+1748395366 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\costofijoarchivo.h
+	"CostoFijo.h"
+	<string>
+
+1748395366 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\costofijo.h
+	<string>
+
+1748395366 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\formadepago.cpp
+	"FormaDePago.h"
+	<cstring>
+
+1748395366 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\formadepago.h
+	<string>
+
+1748395366 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\formadepagoarchivo.cpp
+	"FormaDePagoArchivo.h"
+
+1748395366 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\formadepagoarchivo.h
+	"FormaDePago.h"
+	<string>
+
