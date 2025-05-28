@@ -8,6 +8,7 @@ using namespace std;
 int main()
 {
     cargarYMostrarProducto();
+    cargarYMostrarPersona();
 
     return 0;
 }

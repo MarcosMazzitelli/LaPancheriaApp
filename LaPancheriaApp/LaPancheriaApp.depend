@@ -151,3 +151,54 @@
 	"FormaDePago.h"
 	<string>
 
+1748395366 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\costofijo.cpp
+	"CostoFijo.h"
+	<cstring>
+
+1748404512 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\main.cpp
+	<iostream>
+	"Producto.h"
+	"Venta.h"
+	"Tests.h"
+
+1748397412 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\producto.h
+	<string>
+
+1748400964 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\venta.h
+	<string>
+	"Fecha.h"
+
+1748400964 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\fecha.h
+
+1748404596 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\tests.h
+	"Persona.h"
+	<iostream>
+
+1748397412 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\producto.cpp
+	"Producto.h"
+	<cstring>
+	<iostream>
+
+1748400964 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\fecha.cpp
+	<iostream>
+	"Fecha.h"
+
+1748400964 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\venta.cpp
+	"Venta.h"
+	<cstring>
+
+1748395366 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\ventaarchivo.cpp
+	"VentaArchivo.h"
+
+1748395366 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\ventaarchivo.h
+	"Venta.h"
+	<string>
+
+1748404298 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\persona.cpp
+	"Persona.h"
+	<cstring>
+	<iostream>
+
+1748404261 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\persona.h
+	<string>
+

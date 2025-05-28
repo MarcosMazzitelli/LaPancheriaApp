@@ -36,6 +36,8 @@
 		<Unit filename="CostoFijo.h" />
 		<Unit filename="CostoFijoArchivo.cpp" />
 		<Unit filename="CostoFijoArchivo.h" />
+		<Unit filename="Fecha.cpp" />
+		<Unit filename="Fecha.h" />
 		<Unit filename="FormaDePago.cpp" />
 		<Unit filename="FormaDePago.h" />
 		<Unit filename="FormaDePagoArchivo.cpp" />

@@ -1,6 +1,6 @@
 #ifndef TESTS_H_INCLUDED
 #define TESTS_H_INCLUDED
-
+#include "Persona.h"
 #include <iostream>
 using namespace std;
 
@@ -44,6 +44,27 @@ void cargarYMostrarProducto(){
 
 }
 
+void cargarYMostrarPersona(){
+    string nombre;
+    string apellido;
+    string dni;
 
+    Persona p;
+    cout << "Ingrese nombre: ";
+    cin >> nombre;
+
+    cout << "Ingrese apellido: ";
+    cin >> apellido;
+
+    cout << "Ingrese dni: ";
+    cin >> dni;
+
+    p= Persona(nombre, apellido, dni);
+    cout << endl << endl << p.mostrarToCsv();
+    cout << endl << endl;
+    p.mostrar();
+    cout << endl << endl;
+
+}
 
 #endif // TESTS_H_INCLUDED
