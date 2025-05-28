@@ -9,7 +9,7 @@ Venta::Venta(){
     _idEmpleado=0;
     _importeTotal=0;
     _formaDePago=0;
-  //  _fechaVenta=0;
+  //  _fechaVenta=0; comentado porque no compila hasta agregar fecha a
 
 }
 
