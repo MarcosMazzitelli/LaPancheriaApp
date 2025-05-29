@@ -156,7 +156,7 @@
 	"CostoFijo.h"
 	<cstring>
 
-1748491359 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\main.cpp
+1748494005 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\main.cpp
 	<iostream>
 	"Producto.h"
 	"Venta.h"
@@ -171,7 +171,7 @@
 
 1748400964 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\fecha.h
 
-1748493348 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\tests.h
+1748493695 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\tests.h
 	"Persona.h"
 	"Cliente.h"
 	"Empleado.h"
