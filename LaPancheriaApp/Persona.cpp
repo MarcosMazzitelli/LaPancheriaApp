@@ -46,8 +46,8 @@ void Persona::setDni(std::string dni){
 /*Metodos mostrar*/
 void Persona::mostrar(){
     cout << "Nombre: " << getNombre() << endl;
-    cout << "Nombre: " << getApellido() << endl;
-    cout << "Nombre: " << getDni() << endl;
+    cout << "Apellido: " << getApellido() << endl;
+    cout << "Dni: " << getDni() << endl;
 }
 
 std::string Persona::mostrarToCsv(){

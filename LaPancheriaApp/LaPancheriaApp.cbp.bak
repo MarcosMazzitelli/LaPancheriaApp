@@ -40,12 +40,15 @@
 		<Unit filename="CostoFijo.h" />
 		<Unit filename="CostoFijoArchivo.cpp" />
 		<Unit filename="CostoFijoArchivo.h" />
+<<<<<<< Updated upstream
 		<Unit filename="DetalleIngrediente.cpp" />
 		<Unit filename="DetalleIngrediente.h" />
+=======
 		<Unit filename="Empleado.cpp" />
 		<Unit filename="Empleado.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+>>>>>>> Stashed changes
 		<Unit filename="Fecha.cpp" />
 		<Unit filename="Fecha.h" />
 		<Unit filename="FormaDePago.cpp" />

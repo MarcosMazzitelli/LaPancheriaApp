@@ -2,6 +2,7 @@
 #define TESTS_H_INCLUDED
 #include "Persona.h"
 #include "Cliente.h"
+#include "Empleado.h"
 #include <iostream>
 using namespace std;
 
@@ -93,6 +94,80 @@ void cargarYMostrarCliente(){
     cout << endl << endl;
 
 }
+
+void cargarYMostrarEmpleado(){
+    string nombre, apellido, dni, contrasenia, puesto, email, cel;
+    int idEmpleado, permiso, dia, mes, anio;
+    float sueldo;
+    Fecha fechaIngreso;
+    Fecha fechaNacimiento;
+    bool estado;
+
+    Empleado p;
+
+    cout << "Ingrese nombre: ";
+    cin >> nombre;
+
+    cout << "Ingrese apellido: ";
+    cin >> apellido;
+
+    cout << "Ingrese dni: ";
+    cin >> dni;
+
+    cout << "Ingrese id: ";
+    cin >> idEmpleado;
+
+    cout << "Ingrese contraseña: ";
+    cin >> contrasenia;
+
+    cout << "Ingrese permiso: ";
+    cin >> permiso;
+
+    cout << "Ingrese puesto: ";
+    cin >> puesto;
+
+    cout << "Ingrese sueldo: ";
+    cin >> sueldo;
+
+    cout<< "Ingrese dia de ingreso: ";
+    cin >> dia;
+
+    cout<< "Ingrese mes de ingreso: ";
+    cin >> mes;
+
+    cout<< "Ingrese mes de ingreso: ";
+    cin >> anio;
+    fechaIngreso.setFecha(dia,mes,anio);
+
+    cout<< "Ingrese dia de nacimiento: ";
+    cin >> dia;
+
+    cout<< "Ingrese mes de nacimiento: ";
+    cin >> mes;
+
+    cout<< "Ingrese mes de nacimiento: ";
+    cin >> anio;
+
+    cout<< "Ingrese estado- true/false: ";
+    cin >> estado;
+
+    cout << "Ingrese email: ";
+    cin>>email;
+
+    cout << "Ingrese celular: ";
+    cin>>cel;
+
+    fechaNacimiento.setFecha(dia,mes,anio);
+
+
+    p= Empleado(nombre, apellido, dni,idEmpleado,contrasenia,permiso,puesto,sueldo,fechaIngreso,fechaNacimiento,estado,email,cel);
+    //cout << endl << endl << p.mostrarToCsv();
+    //cout << endl << endl;
+    p.mostrar();
+    cout << endl << endl;
+
+}
+
 
 
 ///=======
