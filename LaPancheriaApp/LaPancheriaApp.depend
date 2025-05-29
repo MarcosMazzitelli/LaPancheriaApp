@@ -155,7 +155,7 @@
 	"CostoFijo.h"
 	<cstring>
 
-1748404512 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\main.cpp
+1748404838 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\main.cpp
 	<iostream>
 	"Producto.h"
 	"Venta.h"
@@ -170,7 +170,7 @@
 
 1748400964 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\fecha.h
 
-1748404596 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\tests.h
+1748404838 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\tests.h
 	"Persona.h"
 	<iostream>
 
@@ -199,6 +199,12 @@
 	<cstring>
 	<iostream>
 
-1748404261 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\persona.h
+1748404866 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\persona.h
 	<string>
+
+1748483220 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\cliente.cpp
+	"Cliente.h"
+
+1748483209 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\cliente.h
+	"Persona.h"
 

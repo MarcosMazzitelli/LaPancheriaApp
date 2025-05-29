@@ -7,8 +7,10 @@ using namespace std;
 
 int main()
 {
-    cargarYMostrarProducto();
-    cargarYMostrarPersona();
+    //cargarYMostrarProducto();
+    //cargarYMostrarPersona();
+    cargarYMostrarCliente();
+
 
     return 0;
 }
