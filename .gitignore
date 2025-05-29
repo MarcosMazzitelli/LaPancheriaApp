@@ -30,6 +30,7 @@
 *.exe
 *.out
 *.app
-LaPancheriaApp/LaPancheriaApp.depend
-LaPancheriaApp/LaPancheriaApp.layout
-LaPancheriaApp/LaPancheriaApp.cbp
+*.depend
+*.layout
+*.cbp
+
