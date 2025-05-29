@@ -2,7 +2,7 @@
 #include <cstring>
 using namespace std;
 
-///Constructor por ominisi�n
+///Constructor por omision
 Venta::Venta(){
     _nroFactura=0;
     strcpy(_dniCliente,"");
