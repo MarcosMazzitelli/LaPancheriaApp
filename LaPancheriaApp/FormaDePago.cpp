@@ -17,7 +17,7 @@ FormaDePago::FormaDePago(int formaDePago, float descuento, std::string nombreFor
         setNombreFormaDePago(nombreFormaDePago);
 }
 
-//Getters
+///Getters
     int FormaDePago::getFormaDePago(){
     return _formaDePago;
     }
