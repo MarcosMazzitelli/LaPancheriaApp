@@ -40,12 +40,16 @@
 		<Unit filename="CostoFijo.h" />
 		<Unit filename="CostoFijoArchivo.cpp" />
 		<Unit filename="CostoFijoArchivo.h" />
+		<Unit filename="DetalleIngrediente.cpp" />
+		<Unit filename="DetalleIngrediente.h" />
 		<Unit filename="Fecha.cpp" />
 		<Unit filename="Fecha.h" />
 		<Unit filename="FormaDePago.cpp" />
 		<Unit filename="FormaDePago.h" />
 		<Unit filename="FormaDePagoArchivo.cpp" />
 		<Unit filename="FormaDePagoArchivo.h" />
+		<Unit filename="Ingrediente.cpp" />
+		<Unit filename="Ingrediente.h" />
 		<Unit filename="Persona.cpp" />
 		<Unit filename="Persona.h">
 			<Option target="&lt;{~None~}&gt;" />

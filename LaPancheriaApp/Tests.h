@@ -22,7 +22,8 @@ void cargarYMostrarProducto(){
     cin >> idCategoria;
 
     cout << "Ingrese nombre producto: ";
-    cin >> nombreProducto;
+    cin.ignore();
+    getline(cin,nombreProducto);
 
     cout << "Ingrese precio unitario: ";
     cin >> precioUnitario;
@@ -40,6 +41,7 @@ void cargarYMostrarProducto(){
     p.mostrar();
     cout << endl << endl;
 
+    ///Prueba mostrar fecha de venta (no tiene que ver con clase producto)
     Venta v;
     v.getFechaVenta().mostrarFecha();
 
@@ -68,6 +70,7 @@ void cargarYMostrarPersona(){
 
 }
 
+<<<<<<< Updated upstream
 void cargarYMostrarCliente(){
     string nombre;
     string apellido;
@@ -92,4 +95,57 @@ void cargarYMostrarCliente(){
 }
 
 
+=======
+void cargarPancho(){
+    int idCategoria;
+    string nombreProducto;
+    float precioUnitario;
+    float costoProducto;
+    bool estado;
+
+    int idProducto=1; //autonumerico
+
+    cout << "Ingrese la categoria 1)Panchos   2)Guarniciones   3)Bebidas)\n";
+    cin >> idCategoria;
+
+    cout << "Ingrese el nombre del producto: ";
+    cin.ignore();
+    getline(cin,nombreProducto);
+
+    cout << "Ingrese el precio de venta del producto: ";
+    cin >> precioUnitario;
+
+    cout << "Ingrese el costo del producto: ";
+    cin >> costoProducto;
+
+    int opcion=0;
+    int idProductoDetalle, idIngrediente;
+    float cantidadPorProducto;
+    bool bandera=false;
+    while (bandera==false){
+        idProductoDetalle=idProducto;
+        cout << "Listado de ingredientes: \n\n";
+        cout << "0: Pan" << endl;
+        cout << "1: Salchicha" << endl;
+        cout << "2: Papas fritas" << endl;
+        cout << "3: Bacon" << endl;
+        cout << "4: Chochlo" << endl;
+        cout << "5: Arvejas" << endl << endl;
+
+        cout << "Seleccione un ingrediente para su producto: ";
+        cin >> idIngrediente;
+
+        cout << "Ingrese la cantidad de ese ingrediente que llevara el producto: ";
+        cin >> cantidadPorProducto;
+
+        cout << "\n\nDesea ingresar otro ingrediente? 1)si  2)no" << endl;
+        cin >> opcion;
+        if(opcion==2){
+            bandera=true;
+            cout << "Producto " << nombreProducto << " creado!\n\n";
+        }
+    }
+}
+
+>>>>>>> Stashed changes
 #endif // TESTS_H_INCLUDED
