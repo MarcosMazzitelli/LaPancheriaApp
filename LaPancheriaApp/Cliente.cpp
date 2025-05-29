@@ -1,10 +1,10 @@
 #include "Cliente.h"
 
-    Cliente::Cliente()
+/*Constructores por omisión (llamado al de clase Padre)*/
+Cliente::Cliente()
     :Persona(){
-
-    }
-
-    Cliente::Cliente(std::string nombre, std::string apellido, std::string dni)
+}
+/*Constructores por parámetros (llamando al de clase Padre)*/
+Cliente::Cliente(std::string nombre, std::string apellido, std::string dni)
     :Persona(nombre,apellido,dni){
-    }
+}

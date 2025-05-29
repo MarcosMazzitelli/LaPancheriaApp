@@ -89,7 +89,7 @@
 	"FormaDePago.h"
 	<string>
 
-1748400594 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\main.cpp
+1748488174 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\main.cpp
 	<iostream>
 	"Producto.h"
 	"Venta.h"
@@ -98,7 +98,8 @@
 1748394354 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\producto.h
 	<string>
 
-1748400692 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\tests.h
+1748488835 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\tests.h
+	"Persona.h"
 	<iostream>
 
 1748394354 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\producto.cpp
@@ -155,7 +156,7 @@
 	"CostoFijo.h"
 	<cstring>
 
-1748404838 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\main.cpp
+1748494005 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\main.cpp
 	<iostream>
 	"Producto.h"
 	"Venta.h"
@@ -170,11 +171,13 @@
 
 1748400964 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\fecha.h
 
-1748404838 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\tests.h
+1748493695 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\tests.h
 	"Persona.h"
+	"Cliente.h"
+	"Empleado.h"
 	<iostream>
 
-1748397412 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\producto.cpp
+1748491359 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\producto.cpp
 	"Producto.h"
 	<cstring>
 	<iostream>
@@ -194,7 +197,7 @@
 	"Venta.h"
 	<string>
 
-1748404298 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\persona.cpp
+1748493695 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\persona.cpp
 	"Persona.h"
 	<cstring>
 	<iostream>
@@ -202,9 +205,61 @@
 1748404866 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\persona.h
 	<string>
 
-1748483220 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\cliente.cpp
+1748493695 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\cliente.cpp
 	"Cliente.h"
 
-1748483209 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\cliente.h
+1748493695 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\cliente.h
 	"Persona.h"
+
+1748493484 ated upstream
+
+1748467996 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\persona.cpp
+	"Persona.h"
+	<cstring>
+	<iostream>
+	"Persona.h"
+	<cstring>
+	<iostream>
+
+1748467996 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\persona.h
+	<string>
+	<string>
+
+1748488982 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\cliente.cpp
+	"Cliente.h"
+
+1748488982 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\cliente.h
+	"Persona.h"
+
+1748488988 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\detalleingrediente.cpp
+	"DetalleIngrediente.h"
+
+1748488988 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\detalleingrediente.h
+
+1748488988 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\ingrediente.cpp
+	"Ingrediente.h"
+	<cstring>
+	<iostream>
+
+1748488988 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\ingrediente.h
+	<string>
+
+1748493695 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\empleado.cpp
+	"Empleado.h"
+	<cstring>
+	<iostream>
+
+1748493695 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\empleado.h
+	"Persona.h"
+	"Fecha.h"
+
+1748491359 shed changes
+
+1748493627 source:c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\ingrediente.cpp
+	"Ingrediente.h"
+	<cstring>
+	<iostream>
+
+1748493627 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\ingrediente.h
+	<string>
 

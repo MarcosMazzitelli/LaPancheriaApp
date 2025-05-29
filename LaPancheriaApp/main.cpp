@@ -9,8 +9,15 @@ int main()
 {
     //cargarYMostrarProducto();
     //cargarYMostrarPersona();
-    cargarYMostrarCliente();
+    //cargarYMostrarCliente();
+    cargarYMostrarEmpleado();
 
 
+   // cargarYMostrarProducto();
+   // cargarYMostrarPersona();
+   //cargarPancho();
+   // cargarYMostrarProducto();
+   // cargarYMostrarPersona();
+  // cargarPancho();
     return 0;
 }
