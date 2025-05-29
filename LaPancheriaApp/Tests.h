@@ -70,7 +70,6 @@ void cargarYMostrarPersona(){
 
 }
 
-<<<<<<< Updated upstream
 void cargarYMostrarCliente(){
     string nombre;
     string apellido;
@@ -95,7 +94,6 @@ void cargarYMostrarCliente(){
 }
 
 
-=======
 void cargarPancho(){
     int idCategoria;
     string nombreProducto;
@@ -147,5 +145,4 @@ void cargarPancho(){
     }
 }
 
->>>>>>> Stashed changes
 #endif // TESTS_H_INCLUDED

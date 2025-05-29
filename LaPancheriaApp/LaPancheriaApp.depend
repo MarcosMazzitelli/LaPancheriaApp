@@ -208,3 +208,30 @@
 1748483209 c:\users\julieta sanchez\documents\utn\2do semestre\programacion 2\trabajofinal\lapancheriaapp\lapancheriaapp\cliente.h
 	"Persona.h"
 
+1748467996 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\persona.cpp
+	"Persona.h"
+	<cstring>
+	<iostream>
+
+1748467996 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\persona.h
+	<string>
+
+1748488982 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\cliente.cpp
+	"Cliente.h"
+
+1748488982 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\cliente.h
+	"Persona.h"
+
+1748488988 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\detalleingrediente.cpp
+	"DetalleIngrediente.h"
+
+1748488988 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\detalleingrediente.h
+
+1748488988 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\ingrediente.cpp
+	"Ingrediente.h"
+	<cstring>
+	<iostream>
+
+1748488988 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\ingrediente.h
+	<string>
+
