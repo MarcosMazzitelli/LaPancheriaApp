@@ -7,16 +7,16 @@ using namespace std;
 
 int main()
 {
-///<<<<<<< Updated upstream  (no borrar, mostrar el profesor)
     //cargarYMostrarProducto();
     //cargarYMostrarPersona();
     cargarYMostrarCliente();
 
 
-///=======  (no borrar, mostrar el profesor)
    // cargarYMostrarProducto();
    // cargarYMostrarPersona();
    cargarPancho();
-///>>>>>>> Stashed changes     (no borrar, mostrar el profesor)
+   // cargarYMostrarProducto();
+   // cargarYMostrarPersona();
+   cargarPancho();
     return 0;
 }

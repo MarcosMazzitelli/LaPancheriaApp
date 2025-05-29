@@ -89,7 +89,7 @@
 	"FormaDePago.h"
 	<string>
 
-1748400594 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\main.cpp
+1748488174 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\main.cpp
 	<iostream>
 	"Producto.h"
 	"Venta.h"
@@ -98,7 +98,8 @@
 1748394354 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\producto.h
 	<string>
 
-1748400692 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\tests.h
+1748488835 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\tests.h
+	"Persona.h"
 	<iostream>
 
 1748394354 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\producto.cpp
@@ -212,8 +213,12 @@
 	"Persona.h"
 	<cstring>
 	<iostream>
+	"Persona.h"
+	<cstring>
+	<iostream>
 
 1748467996 c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\persona.h
+	<string>
 	<string>
 
 1748488982 source:c:\users\marcos\desktop\utn frgp (tup)\2do cuatrimestre\programación ii\tpi\lapancheriaapp\lapancheriaapp\cliente.cpp
