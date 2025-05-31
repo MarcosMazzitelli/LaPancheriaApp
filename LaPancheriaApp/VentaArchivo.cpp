@@ -1,6 +1,6 @@
 #include "VentaArchivo.h"
 
-//Constructor por omision
+///Constructor vacio
 VentaArchivo::VentaArchivo(){
     _nombreArchivo="venta.dat";
 

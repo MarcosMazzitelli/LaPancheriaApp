@@ -16,6 +16,9 @@ public:
 
     void setPrecio (float precio);
     void setIdCosto(int idCosto);
+
+    void mostrar();
+    std::string mostrarToCsv();
 };
 
 
