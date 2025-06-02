@@ -9,16 +9,16 @@ using namespace std;
 DetalleVenta::DetalleVenta(){
     _nroFactura=0;
     _idProducto=0;
-    _cantidadProducto=0;
+    _cantProducto=0;
     _precioUnitario=0.0f;
     _importeBruto=0.0f;
 
 }
 
-DetalleVenta::DetalleVenta(int nroFactura, int idProducto, int cantidadProducto, float precioUnitario, float importeTotal){
+DetalleVenta::DetalleVenta(int nroFactura, int idProducto, int cantProducto, float precioUnitario, float importeBruto){
     setNroFactura(nroFactura);
     setIdProducto(idProducto);
-    setCantidadProducto(cantidadProducto);
+    setCantProducto(cantProducto);
     setPrecioUnitario(precioUnitario);
     setImporteBruto(importeBruto);
 }
@@ -32,9 +32,9 @@ void DetalleVenta::setIdProducto(int idProducto){
     _idProducto=idProducto;
 }
 
-void DetalleVenta::setCantidadProducto(int cantidadProducto){
-    _cantidadProducto=cantidadProducto;
-
+void DetalleVenta::setCantProducto(int cantProducto){
+    _cantProducto=cantProducto;
+}
 void DetalleVenta::setPrecioUnitario(float precioUnitario){
     _precioUnitario=precioUnitario;
 }
@@ -53,7 +53,7 @@ int DetalleVenta::getIdProducto(){
     return _idProducto;
 }
 
-int DetalleVenta::getCantidadProducto(){
+int DetalleVenta::getCantProducto(){
     return _cantProducto;
 }
 
@@ -70,7 +70,7 @@ float DetalleVenta::getImporteBruto(){
 void DetalleVenta::mostrar(){
     cout << "Numero de Factura: " << getNroFactura() << endl;
     cout << "Id Producto: " << getIdProducto() << endl;
-    cout << "Cantidad de Producto: " << getCantidadProducto() << endl;
+    cout << "Cantidad de Producto: " << getCantProducto() << endl;
     cout << "Precio unitario: " << getPrecioUnitario() << endl;
     cout << "Importe Bruto: " << getImporteBruto() << endl;
 }

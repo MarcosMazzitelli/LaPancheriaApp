@@ -1,5 +1,6 @@
 #ifndef DETALLEVENTA_H_INCLUDED
 #define DETALLEVENTA_H_INCLUDED
+#include <string>
 
 
 class DetalleVenta{
@@ -19,7 +20,7 @@ public:
     ///Setters
     void setNroFactura(int nroFactura);
     void setIdProducto(int idPrducto);
-    void setCantidadProducto(int cantidadProducto);
+    void setCantProducto(int cantProducto);
     void setPrecioUnitario(float precioUnitario);
     void setImporteBruto(float importeBruto);
 
@@ -27,7 +28,7 @@ public:
     ///Getters
     int getNroFactura();
     int getIdProducto();
-    int getCantidadProducto();
+    int getCantProducto();
     float getPrecioUnitario();
     float getImporteBruto();
 
@@ -37,7 +38,7 @@ public:
     std::string mostrarToCsv();
 
     ///Pruebas
-    void testCargarYMostrar();
+    //void testCargarYMostrar();
 };
 
 
