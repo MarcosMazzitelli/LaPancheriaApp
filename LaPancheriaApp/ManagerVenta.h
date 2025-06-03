@@ -10,6 +10,7 @@ private:
 
 public:
     void registrarVenta();
+    void listarVenta();
 
 
 

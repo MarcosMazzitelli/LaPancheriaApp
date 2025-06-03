@@ -32,6 +32,13 @@ void ManagerVenta::registrarVenta(){
     cin>>  anio;
 
     fechaVenta.setFecha(dia,mes,anio);
+    v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
+
+}
+void ManagerVenta::listarVenta(){
+
+
 
 
 }
+
