@@ -3,6 +3,7 @@
 #include "Persona.h"
 #include "Cliente.h"
 #include "Empleado.h"
+#include "IngredientesManager.h"
 #include <iostream>
 using namespace std;
 
@@ -221,6 +222,15 @@ void cargarPancho(){
             cout << "Producto " << nombreProducto << " creado!\n\n";
         }
     }
+}
+
+void cargarIngrediente(){
+    IngredientesManager ingManager;
+
+    ingManager.cargarIngrediente();
+    cout << endl << endl << "Listado " << endl << endl;
+    ingManager.listarIngredientes();
+
 }
 
 #endif // TESTS_H_INCLUDED

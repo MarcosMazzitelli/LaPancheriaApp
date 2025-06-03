@@ -45,3 +45,22 @@ int ArchivoIngrediente::getCantidadRegistros(){
     fclose(pFile);
     return cantidad;
 }
+
+
+Ingrediente ArchivoIngrediente::leer(int pos){
+FILE* pFile;
+Ingrediente registro;
+
+pFile = fopen(_nombreArchivo.c_str(), "rb");
+
+if (pFile==nullptr){
+    return registro;
+}
+
+fseek(pFile, sizeof(Ingrediente) * pos , SEEK_SET);
+fread(&registro, sizeof(Ingrediente), 1, pFile);
+
+fclose(pFile);
+return registro;
+}
+

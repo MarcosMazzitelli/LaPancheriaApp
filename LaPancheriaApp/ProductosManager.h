@@ -5,5 +5,8 @@ class ProductoManager{
 private:
 
 public:
-    cargarProducto();
+    void cargarProducto();
+    void modificarProducto();
+    void listarProductos();
+    int cantidadRegistros();
 };

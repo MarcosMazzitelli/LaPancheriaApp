@@ -14,5 +14,6 @@ public:
     ///Metodos
     bool guardar(Ingrediente registro);
     int getCantidadRegistros();
+    Ingrediente leer(int pos);
 
 };
