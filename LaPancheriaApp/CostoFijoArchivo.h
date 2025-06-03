@@ -1,5 +1,3 @@
-#ifndef COSTOFIJOARCHIVO_H_INCLUDED
-#define COSTOFIJOARCHIVO_H_INCLUDED
 #pragma once
 #include "CostoFijo.h"
 #include <string>
@@ -11,6 +9,8 @@ public:
     CostoFijoArchivo();
     CostoFijoArchivo(std::string nombreArchivo);
 
+    //Metodos
+    bool guardar(CostoFijo registro);
+    int getCantidadRegistros();
 };
 
-#endif // COSTOFIJOARCHIVO_H_INCLUDED
