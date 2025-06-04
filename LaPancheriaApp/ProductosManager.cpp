@@ -49,12 +49,11 @@ void ProductosManager::cargarProducto(){
             cout << "Ingrese un valor valido" << endl << endl;
         }
         else{
-            validacion=true; //fin del while
+            validacion=true; //fin del while de validacion
         }
     } ///todavia no hace nada pero deberia mostrar un menu para separar las bebidas y cargarlas distinto que a los panchos y guarniciones ya que no deberia pedir mas de un ingrediente"
 
     cout << "Ingrese el nombre del nuevo producto: ";
-    //proximamente va el cin.ignore() porque estara dentro de un menu.
     cin.ignore();
     getline(cin,nombreProducto);
 
@@ -67,21 +66,21 @@ void ProductosManager::cargarProducto(){
             cout << "Ingrese un valor valido" << endl << endl;
         }
         else{
-            validacion=true; //fin del while
+            validacion=true; //fin del while de validacion
         }
     }
-
+ ///desde linea 73 hasta  linea 126 se puede hacer una funcion o metodo cargarIngredientes, en este caso está hecho para panchos o guarniciones. No bebidas (solo deberia pedir un ingrediente).
     bool cargaIngredientes=false;
     int opcion;
-    while (!cargaIngredientes){
+    while (!cargaIngredientes){ ///ciclo para ingresar ingredientes de un producto
         cout << "Seleccione el ingrediente que desee agregar: " << endl << endl;
-        ingManager.listarIngredientes();
+        ingManager.listarIngredientes(); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
         cin >> idIngrediente;
 
         while (idIngrediente < 0 || idIngrediente > ingManager.cantidadRegistros()){
             cout << "Ingrese un Id de ingrediente valido" << endl << endl;
             cout << "Seleccione el ingrediente que desee agregar: " << endl << endl;
-            ingManager.listarIngredientes();
+            ingManager.listarIngredientes(); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
             cin >> idIngrediente;
         }
         validacion=false;
@@ -92,10 +91,10 @@ void ProductosManager::cargarProducto(){
                 cout << "Ingrese una cantidad valida" << endl << endl;
             }
             else{
-                validacion=true; //fin del while
+                validacion=true; //fin del while de validacion
             }
         }
-        // ingreso de ID ingrediente y cantidad por productos valido
+        // a partir de aca esta OK el ingreso de ID ingrediente y cantidad por productos
 
         detalleIng= DetalleIngrediente(idProducto, idIngrediente, cantidadPorProducto);
 
@@ -106,7 +105,7 @@ void ProductosManager::cargarProducto(){
             cout << "Hubo un problema al guardar el registro." << endl << endl;
         }
 
-        //Un ingrediente guardado en el detalle
+        //acá se guarda UN ingrediente en el detalle
 
         validacion=false;
         while (!validacion){
@@ -116,7 +115,7 @@ void ProductosManager::cargarProducto(){
                 cout << "Ingrese un valor valido" << endl << endl;
             }
             else if(opcion==0){
-                cargaIngredientes=true; //fin del while de carga de ingredientes
+                cargaIngredientes=true; //fin del while general de carga de ingredientes
                 validacion=true;
             }
             else{ //si la opcion es 1:
@@ -135,7 +134,7 @@ void ProductosManager::cargarProducto(){
             cout << "Ingrese un valor valido" << endl << endl;
         }
         else{
-            validacion=true;
+            validacion=true;  //fin del while de validacion
         }
     }
 
@@ -177,7 +176,7 @@ void ProductosManager::listarProductosConIngredientes(){
     cantRegistrosProducto = cantidadRegistrosProducto();
     cantRegistrosDetalleIngrediente=cantidadRegistrosDetalleIngredientes();
 
-    for (int i=0; i<cantRegistrosProducto; i++){
+    for (int i=0; i<cantRegistrosProducto; i++){ //recorre el archivo de productos
         prod = prodArchi.leer(i);
         prod.mostrar();
         cout << "Producto: " << prod.getIdProducto() << endl;
@@ -185,15 +184,14 @@ void ProductosManager::listarProductosConIngredientes(){
 
         cout << "Ingredientes: " << endl << endl;
 
-        for (int i=0; i<cantRegistrosDetalleIngrediente; i++){
+        for (int i=0; i<cantRegistrosDetalleIngrediente; i++){ //recorre el archivo detalle de ingredientes
             detalleIng = detalleArchi.leer(i);
-            pos = ingArchi.buscar(detalleIng.getIdIngrediente());
-            ing = ingArchi.leer(pos);
-            cout << ing.getNombreIngrediente() << "  " << detalleIng.getCantidadPorProducto() << " " << ing.getTipoDeUnidad() << endl;
-
+            if(detalleIng.getIdProducto() == prod.getIdProducto()){ //Si encuentra el ID del producto en el archivo detalle de ingredientes
+                pos = ingArchi.buscar(detalleIng.getIdIngrediente());//lo busca en el archivo de ingredientes
+                ing = ingArchi.leer(pos); //trae el ingrediente a memoria y lo informa
+                cout << ing.getNombreIngrediente() << "  " << detalleIng.getCantidadPorProducto() << " " << ing.getTipoDeUnidad() << endl;
+            }
         }
-
-        //recorrer detalleIngredientes, traer todas las instancias con ese id producto y buscar los ingredientes para mostrar sus caracteristicas
 
     }
 
