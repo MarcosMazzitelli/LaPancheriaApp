@@ -4,6 +4,7 @@
 #include "Cliente.h"
 #include "Empleado.h"
 #include "IngredientesManager.h"
+#include "ProductosManager.h"
 #include <iostream>
 using namespace std;
 
@@ -230,6 +231,19 @@ void cargarIngrediente(){
     ingManager.cargarIngrediente();
     cout << endl << endl << "Listado " << endl << endl;
     ingManager.listarIngredientes();
+
+}
+
+void cargarProducto(){
+    ProductosManager prodManager;
+
+    prodManager.cargarProducto();
+}
+
+void mostrarProductosConIngredientes(){
+    ProductosManager prodManager;
+    cout << endl << endl << "Listado " << endl << endl;
+    prodManager.listarProductosConIngredientes();
 
 }
 

@@ -39,10 +39,17 @@ void IngredientesManager::cargarIngrediente(){
             validacion=true;
         }
     }
-
-    cout << "Ingrese el costo unitario: $";
-    cin >> costoUnitario;
-
+    validacion=false;
+    while (!validacion){
+        cout << "Ingrese el costo unitario: $";
+        cin >> costoUnitario;
+        if(costoUnitario<0){
+            cout << "Ingrese un valor valido" << endl << endl;
+        }
+        else{
+            validacion=true;
+        }
+    }
     cout << "Especifique el tipo de unidad (unidades, gramos, kgs, litros): ";
     cin.ignore();
     getline(cin,tipoDeUnidad); //validar luego
@@ -58,7 +65,7 @@ void IngredientesManager::cargarIngrediente(){
 
 }
 
-void IngredientesManager::modificarIngrediente(){
+void IngredientesManager::modificarIngrediente(){ ///sin realizar todavia
 }
 
 void IngredientesManager::listarIngredientes(){

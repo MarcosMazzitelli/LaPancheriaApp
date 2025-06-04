@@ -19,6 +19,8 @@ int main()
    // cargarYMostrarProducto();
    // cargarYMostrarPersona();
   // cargarPancho();
-  cargarIngrediente();
+  //cargarIngrediente();
+  //cargarProducto();
+  mostrarProductosConIngredientes();
     return 0;
 }
