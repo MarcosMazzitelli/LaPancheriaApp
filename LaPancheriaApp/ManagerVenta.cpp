@@ -2,6 +2,7 @@
 #include <iostream>
 #include "ManagerVenta.h"
 #include "Venta.h"
+#include "VentaArchivo.h"
 #include "Fecha.h"
 
 using namespace std;
@@ -37,7 +38,17 @@ void ManagerVenta::registrarVenta(){
 }
 void ManagerVenta::listarVenta(){
 
+VentaArchivo archi;
+Venta vent;
 
+int cantRegistros = cantidadRegistros();
+
+for (int i=0;i<cantRegistros;i++){
+
+    vent = archi.leer(i);
+    vent.mostrar();
+    cout<<endl <<endl;
+}
 
 
 }

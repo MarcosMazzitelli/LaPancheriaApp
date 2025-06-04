@@ -11,11 +11,6 @@ private:
 public:
     void registrarVenta();
     void listarVenta();
-
-
-
-
-
-
+    int cantidadRegistros();
 
 };

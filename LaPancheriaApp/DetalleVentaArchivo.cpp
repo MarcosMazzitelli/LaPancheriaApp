@@ -44,3 +44,4 @@ int DetalleVentaArchivo::getCantidadRegistros(){
     return cantidad;
 
 }
+
