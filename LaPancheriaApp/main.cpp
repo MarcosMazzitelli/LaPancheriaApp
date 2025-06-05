@@ -2,6 +2,7 @@
 #include "Producto.h"
 #include "Venta.h"
 #include "Tests.h"
+#include "Utilidades.h"
 
 using namespace std;
 
@@ -18,9 +19,14 @@ int main()
    //cargarPancho();
    // cargarYMostrarProducto();
    // cargarYMostrarPersona();
-  // cargarPancho();
-  //cargarIngrediente();
+  //cargarPancho();
+  /*for(int i=0; i<5; i++){
+    cargarIngrediente();
+  } */
   //cargarProducto();
-  mostrarProductosConIngredientes();
+  //mostrarProductosConIngredientes();
+  menuAdmin();
+  //listarIngredientes();
+
     return 0;
 }

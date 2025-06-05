@@ -229,9 +229,13 @@ void cargarIngrediente(){
     IngredientesManager ingManager;
 
     ingManager.cargarIngrediente();
-    cout << endl << endl << "Listado " << endl << endl;
-    ingManager.listarIngredientes();
 
+}
+
+void listarIngredientes(){
+    IngredientesManager ingManager;
+    cout << endl << endl << "Listado Ingredientes" << endl << endl;
+    ingManager.listarIngredientes();
 }
 
 void cargarProducto(){

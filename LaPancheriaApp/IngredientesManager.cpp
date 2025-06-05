@@ -1,6 +1,7 @@
 #include "IngredientesManager.h"
 #include "Ingrediente.h"
 #include "ArchivoIngrediente.h"
+#include "Utilidades.h"
 #include <iostream>
 using namespace std;
 
@@ -25,6 +26,7 @@ void IngredientesManager::cargarIngrediente(){
 
     cout << "Ingrese el nombre del nuevo ingrediente: ";
     //proximamente va el cin.ignore() porque estara dentro de un menu.
+    cin.ignore();
     getline(cin,nombreIngrediente);
 
     validacion = false;
@@ -39,6 +41,8 @@ void IngredientesManager::cargarIngrediente(){
             validacion=true;
         }
     }
+    tipoDeUnidad = pedirTipoDeUnidad(cantidadStock);
+
     validacion=false;
     while (!validacion){
         cout << "Ingrese el costo unitario: $";
@@ -50,10 +54,6 @@ void IngredientesManager::cargarIngrediente(){
             validacion=true;
         }
     }
-    cout << "Especifique el tipo de unidad (unidades, gramos, kgs, litros): ";
-    cin.ignore();
-    getline(cin,tipoDeUnidad); //validar luego
-
     ing = Ingrediente(idIngrediente,nombreIngrediente,cantidadStock, costoUnitario, tipoDeUnidad,estado);
 
     if (archi.guardar(ing)){

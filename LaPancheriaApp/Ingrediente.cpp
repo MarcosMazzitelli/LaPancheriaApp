@@ -84,7 +84,15 @@ bool Ingrediente::getEstado(){
 void Ingrediente::mostrar(){
     cout << "Id Ingrediente: " << getIdIngrediente() << endl;
     cout << "Nombre del ingrediente: " << getNombreIngrediente() << endl;
-    cout << "Cantidad en stock: " << getCantidadStock() << " " << getTipoDeUnidad() << endl;
+    if (getTipoDeUnidad()=="Gramos"){
+        cout << "Cantidad en stock: " << getCantidadStock() << " " << getTipoDeUnidad() << " (" << getCantidadStock()/1000 << " Kilos)" << endl;
+    }
+    else if (getTipoDeUnidad() == "Mililitros"){
+        cout << "Cantidad en stock: " << getCantidadStock() << " " << getTipoDeUnidad() << " (" << getCantidadStock()/1000 << " Litros)" << endl;
+    }
+    else{
+        cout << "Cantidad en stock: " << getCantidadStock() << " " << getTipoDeUnidad() << endl;
+    }
     cout << "Costo unitario: $" << getCostoUnitario() << endl;
 
 }

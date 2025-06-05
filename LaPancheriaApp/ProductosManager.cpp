@@ -192,6 +192,7 @@ void ProductosManager::listarProductosConIngredientes(){
                 cout << ing.getNombreIngrediente() << "  " << detalleIng.getCantidadPorProducto() << " " << ing.getTipoDeUnidad() << endl;
             }
         }
+        cout << endl << endl;
 
     }
 
