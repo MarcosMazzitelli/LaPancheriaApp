@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 
 
@@ -10,7 +11,7 @@ private:
 
 
 public:
-    void registrarVenta();
+    void registrarVenta(std::string dniEmpleado);
     void listarVenta();
     int cantidadRegistros();
 

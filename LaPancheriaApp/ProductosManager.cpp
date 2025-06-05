@@ -167,6 +167,7 @@ void ProductosManager::listarProductos(){
     for (int i=0; i<cantRegistros; i++){
         prod = prodArchi.leer(i);
         prod.mostrar();
+        cout << endl << endl;
     }
 
 }

@@ -15,5 +15,7 @@ public:
     bool guardar(Producto registro);
     int getCantidadRegistros();
     Producto leer(int pos);
+    int buscar(int idProducto);
+
 
 };

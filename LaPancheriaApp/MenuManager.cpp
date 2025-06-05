@@ -5,6 +5,7 @@
 #include "PersonaManager.h"
 #include "IngredientesManager.h"
 #include "ProductosManager.h"
+#include "ManagerVenta.h"
 
 #include <iostream>
 using namespace std;
@@ -46,7 +47,7 @@ void MenuManager::login(){
             emp = archiEmp.leer(pos);
             validacion=true;
             if(emp.getPermiso() == 1){
-                menuAdmin();
+                menuAdmin(usuario);
             }
             else{
                 //menuEmpleado();
@@ -61,9 +62,9 @@ void MenuManager::login(){
 }
 
 
-void MenuManager::menuAdmin(){
+void MenuManager::menuAdmin(std::string dni){
 
-
+    ManagerVenta ventaManager;
     int opcion, opcionSalida;
     do{
     cout << "========================================================" << endl;
@@ -75,6 +76,8 @@ void MenuManager::menuAdmin(){
     cout << "4. Gestion de costos" << endl;
     cout << "5. Cargar venta" << endl;
     cout << "6. Reportes" << endl;
+    cout << "7. Listar ventas" << endl;
+
 
     cout << "0. Salir" << endl;
     cout << "===============================" << endl;
@@ -105,6 +108,7 @@ void MenuManager::menuAdmin(){
                 break;
             case 5:
                 system("cls");
+                ventaManager.registrarVenta(dni);
                 //manager cargar venta
                 system("pause");
                 break;
@@ -113,6 +117,12 @@ void MenuManager::menuAdmin(){
                 //menu reportes
                 system("pause");
                 break;
+            case 7:
+                system("cls");
+                ventaManager.listarVenta();
+                system("pause");
+                break;
+
 
             case 0:
                 cout << "Confirma que desea salir? 1- si  0- no\n";

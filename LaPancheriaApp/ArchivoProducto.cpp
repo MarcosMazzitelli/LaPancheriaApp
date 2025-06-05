@@ -63,3 +63,29 @@ fclose(pFile);
 return registro;
 }
 
+
+int ArchivoProducto::buscar(int idProducto){
+   FILE *pFile;
+   Producto registro;
+   int posicion = 0;
+
+   pFile = fopen(_nombreArchivo.c_str(), "rb");
+
+   if (pFile == nullptr){
+      return -2;
+   }
+   while(fread(&registro, sizeof(Producto), 1, pFile) == 1){
+      if (registro.getIdProducto() == idProducto){
+         fclose(pFile);
+         return posicion;
+      }
+      posicion++;
+   }
+
+   fclose(pFile);
+   return -1; // si llega hasta aca es porque no encontro un valor valido y retorno -1
+
+
+}
+
+

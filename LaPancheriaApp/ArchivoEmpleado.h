@@ -15,6 +15,8 @@ class ArchivoEmpleado{
         bool guardar(Empleado registro);
         int getCantidadRegistros();
         Empleado leer(int pos);
+        int buscar(std::string dniEmpleado);
+
 
 };
 

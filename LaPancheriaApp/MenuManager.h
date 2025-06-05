@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class MenuManager{
 private:
@@ -6,7 +7,7 @@ private:
 public:
 
     void login();
-    void menuAdmin();
+    void menuAdmin(std::string dni);
     void menuEmpleados();
     void menuProductos();
     void menuIngredientes();
