@@ -36,6 +36,19 @@ void ManagerVenta::registrarVenta(){
     v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
 
 }
+int ManagerVenta::cantidadRegistros(){
+
+VentaArchivo archi;
+int cant;
+
+
+cant= archi.getCantidadRegistros();
+return cant;
+
+
+}
+
+
 void ManagerVenta::listarVenta(){
 
 VentaArchivo archi;

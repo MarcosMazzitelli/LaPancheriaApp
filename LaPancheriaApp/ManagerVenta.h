@@ -2,6 +2,7 @@
 
 
 
+
 class ManagerVenta{
 private:
 
