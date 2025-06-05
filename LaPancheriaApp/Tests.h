@@ -3,6 +3,8 @@
 #include "Persona.h"
 #include "Cliente.h"
 #include "Empleado.h"
+#include "IngredientesManager.h"
+#include "PersonaManager.h"
 #include <iostream>
 using namespace std;
 
@@ -221,6 +223,25 @@ void cargarPancho(){
             cout << "Producto " << nombreProducto << " creado!\n\n";
         }
     }
+}
+
+void cargarIngrediente(){
+    IngredientesManager ingManager;
+
+    ingManager.cargarIngrediente();
+    cout << endl << endl << "Listado " << endl << endl;
+    ingManager.listarIngredientes();
+
+}
+void cargarEmpleado(){
+    PersonaManager pManager;
+    pManager.cargarEmpleado();
+
+}
+void mostrarEmpleado(){
+    PersonaManager pManager;
+    pManager.listarEmpleados();
+
 }
 
 #endif // TESTS_H_INCLUDED
