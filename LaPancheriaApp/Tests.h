@@ -5,6 +5,8 @@
 #include "IngredientesManager.h"
 #include "PersonaManager.h"
 #include "ProductosManager.h"
+#include "FormaDePago.h"
+#include "CostoFijo.h"
 #include <iostream>
 using namespace std;
 

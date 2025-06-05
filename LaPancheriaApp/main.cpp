@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Producto.h"
 #include "Venta.h"
+#include "FormaDePago.h"
 #include "Tests.h"
 #include "Utilidades.h"
 #include "MenuManager.h"

@@ -21,6 +21,9 @@ public:
     void setDescuento (float descuento);
     void setNombreFormaDePago(std::string nombreFormaDePago);
 
+    void mostrar();
+    std::string mostrarToCsv();
+
 
 };
 

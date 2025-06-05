@@ -1,5 +1,4 @@
-#ifndef VENTAARCHIVO_H_INCLUDED
-#define VENTAARCHIVO_H_INCLUDED
+
 #pragma once
 #include "Venta.h"
 #include <string>
@@ -10,8 +9,12 @@ private:
 public:
     VentaArchivo();
     VentaArchivo(std::string nombreArchivo);
+    //Metodos
+    bool guardar(Venta registro);
+    int getCantidadRegistros();
+    Venta leer(int pos);
 
 };
 
 
-#endif // VENTAARCHIVO_H_INCLUDED
+
