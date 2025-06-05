@@ -1,12 +1,15 @@
 #pragma once
 
-class ProductoManager{
+class ProductosManager{
 
 private:
 
 public:
     void cargarProducto();
     void modificarProducto();
+    void listarProductosConIngredientes();
     void listarProductos();
-    int cantidadRegistros();
+    int cantidadRegistrosProducto();
+    int cantidadRegistrosDetalleIngredientes();
+
 };

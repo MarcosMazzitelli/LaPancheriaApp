@@ -14,5 +14,6 @@ public:
     ///Metodos
     bool guardar(DetalleIngrediente registro);
     int getCantidadRegistros();
+    DetalleIngrediente leer(int pos);
 
 };

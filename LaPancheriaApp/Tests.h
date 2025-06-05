@@ -5,6 +5,7 @@
 #include "Empleado.h"
 #include "IngredientesManager.h"
 #include "PersonaManager.h"
+#include "ProductosManager.h"
 #include <iostream>
 using namespace std;
 
@@ -119,7 +120,7 @@ void cargarYMostrarEmpleado(){
     cout << "Ingrese id: ";
     cin >> idEmpleado;
 
-    cout << "Ingrese contraseña: ";
+    cout << "Ingrese contraseï¿½a: ";
     cin >> contrasenia;
 
     cout << "Ingrese permiso: ";
@@ -229,8 +230,25 @@ void cargarIngrediente(){
     IngredientesManager ingManager;
 
     ingManager.cargarIngrediente();
-    cout << endl << endl << "Listado " << endl << endl;
+
+}
+
+void listarIngredientes(){
+    IngredientesManager ingManager;
+    cout << endl << endl << "Listado Ingredientes" << endl << endl;
     ingManager.listarIngredientes();
+}
+
+void cargarProducto(){
+    ProductosManager prodManager;
+
+    prodManager.cargarProducto();
+}
+
+void mostrarProductosConIngredientes(){
+    ProductosManager prodManager;
+    cout << endl << endl << "Listado " << endl << endl;
+    prodManager.listarProductosConIngredientes();
 
 }
 void cargarEmpleado(){
