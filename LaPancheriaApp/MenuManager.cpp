@@ -1,13 +1,21 @@
 #include "MenuManager.h"
+#include "Empleado.h"
+#include "ArchivoEmpleado.h"
+#include "Utilidades.h"
+#include "PersonaManager.h"
+#include "IngredientesManager.h"
+#include "ProductosManager.h"
 
 #include <iostream>
 using namespace std;
 
-void login(){
-
+void MenuManager::login(){
     string usuario, contrasenia;
     bool validacion=false;
     int cantidadIntentos=0;
+    int pos;
+    Empleado emp;
+    ArchivoEmpleado archiEmp;
 
     cout << "========================================================" << endl;
     cout << "        MENU DE GESTION DE COSTOS" << endl;
@@ -19,39 +27,41 @@ void login(){
     cout << "Ingrese su contrasenia: ";
     cin >> contrasenia;
 
-    /*while (!validacion && cantidadIntentos!=3){
+    while (!validacion && cantidadIntentos<3){
 
-        pos = verificarCoincidencia(usuario,contrasenia)
-          if(pos)== -1 ) {
+        pos = verificarCoincidencia(usuario,contrasenia);
+          if(pos == -1) {
             cantidadIntentos++;
             cout << "Credenciales invalidas." << endl <<"Intento "<<cantidadIntentos<<" de 3" << endl << endl;
+            if(cantidadIntentos<3){
+                cout << "Ingrese su nombre de usuario: ";
+                cin >> usuario;
 
-            cout << "Ingrese su nombre de usuario: ";
-            cin >> usuario;
-
-            cout << "Ingrese su contrasenia: ";
-            cin >> contrasenia;
+                cout << "Ingrese su contrasenia: ";
+                cin >> contrasenia;
+            }
         }
         else{
             //buscamos y traemos a memoria un empleado
-            instanciaempleado = archivoempleado.leer(pos)
+            emp = archiEmp.leer(pos);
             validacion=true;
-            if(usuario.getpermiso() == 1){
+            if(emp.getPermiso() == 1){
                 menuAdmin();
             }
             else{
-                menuEmpleado();
+                //menuEmpleado();
+                cout <<"Menu empleado sin crear" << endl;
+            }
+        }
     }
     if (!validacion){
-        cout << "Se han agotado los intentos." << endl << "Su usuario ha sido bloqueado!\n\n" <<  El programa finaliza." << endl;
+        cout << "Credenciales invalidas." << endl <<"Intento "<<cantidadIntentos<<" de 3" << endl << endl;
+        cout << "Se han agotado los intentos." << endl << "Su usuario ha sido bloqueado!\n\n" <<  "El programa finaliza" << endl;
     }
-      */
-
-
 }
 
 
-void menuAdmin(){
+void MenuManager::menuAdmin(){
 
 
     int opcion, opcionSalida;
@@ -75,7 +85,6 @@ void menuAdmin(){
     switch(opcion) {
             case 1:
                 system("cls");
-                //menuEmpleados
                 menuEmpleados();
                 system("pause");
                 break;
@@ -127,7 +136,8 @@ void menuAdmin(){
     } while(opcion != 0);
 }
 
-void menuEmpleados(){
+void MenuManager::menuEmpleados(){
+    PersonaManager persona;
     int opcion, opcionSalida;
     do{
     cout << "========================================================" << endl;
@@ -147,7 +157,7 @@ void menuEmpleados(){
     switch(opcion) {
             case 1:
                 system("cls");
-                //manager crear empleado
+                persona.cargarEmpleado();
                 system("pause");
                 break;
             case 2:
@@ -162,7 +172,7 @@ void menuEmpleados(){
                 break;
             case 4:
                 system("cls");
-                //manager mostrar empleados
+                persona.listarEmpleados();
                 system("pause");
                 break;
             case 0:
@@ -188,8 +198,9 @@ void menuEmpleados(){
     } while(opcion != 0);
 }
 
-void menuProductos(){
+void MenuManager::menuProductos(){
     int opcion, opcionSalida;
+    ProductosManager prodManager;
     do{
     cout << "========================================================" << endl;
     cout << "        MENU DE GESTION DE PRODUCTOS" << endl;
@@ -210,6 +221,7 @@ void menuProductos(){
     switch(opcion) {
             case 1:
                 system("cls");
+                prodManager.cargarProducto();
                 //manager crear producto
                 system("pause");
                 break;
@@ -225,12 +237,12 @@ void menuProductos(){
                 break;
             case 4:
                 system("cls");
-                //manager Listar productos
+                prodManager.listarProductos();
                 system("pause");
                 break;
             case 5:
                 system("cls");
-                //manager Listar recetas
+                prodManager.listarProductosConIngredientes();
                 system("pause");
                 break;
 
@@ -256,7 +268,8 @@ void menuProductos(){
 
     } while(opcion != 0);
 }
-void menuIngredientes(){
+void MenuManager::menuIngredientes(){
+    IngredientesManager ingManager;
     int opcion, opcionSalida;
     do{
     cout << "========================================================" << endl;
@@ -278,6 +291,7 @@ void menuIngredientes(){
             case 1:
                 system("cls");
                 //manager crear ingrediente
+                ingManager.cargarIngrediente();
                 system("pause");
                 break;
             case 2:
@@ -293,6 +307,7 @@ void menuIngredientes(){
             case 4:
                 system("cls");
                 //manager Listar ingredientes
+                ingManager.listarIngredientes();
                 system("pause");
                 break;
 
@@ -321,7 +336,7 @@ void menuIngredientes(){
 
 }
 
-void menuCostos(){
+void MenuManager::menuCostos(){
     int opcion, opcionSalida;
     do{
     cout << "========================================================" << endl;

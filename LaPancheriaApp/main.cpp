@@ -3,6 +3,7 @@
 #include "Venta.h"
 #include "Tests.h"
 #include "Utilidades.h"
+#include "MenuManager.h"
 
 using namespace std;
 
@@ -21,16 +22,18 @@ int main()
    // cargarYMostrarPersona();
   // cargarPancho();
   //cargarIngrediente();
-  cargarEmpleado();
-  mostrarEmpleado();
+  //cargarEmpleado();
+  //mostrarEmpleado();
   //cargarPancho();
   /*for(int i=0; i<5; i++){
     cargarIngrediente();
   } */
   //cargarProducto();
   //mostrarProductosConIngredientes();
-  menuAdmin();
+  //menuAdmin();
   //listarIngredientes();
+  MenuManager menu;
+  menu.login();
 
     return 0;
 }

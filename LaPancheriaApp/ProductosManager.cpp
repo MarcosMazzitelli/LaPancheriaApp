@@ -4,6 +4,7 @@
 #include "ArchivoIngrediente.h"
 #include "ArchivoDetalleIngrediente.h"
 #include "IngredientesManager.h"
+#include "Ingrediente.h"
 
 #include <iostream>
 using namespace std;
@@ -31,6 +32,7 @@ void ProductosManager::cargarProducto(){
     ArchivoIngrediente ingArchi;
     ArchivoProducto prodArchi;
     IngredientesManager ingManager;
+    Ingrediente ing;
 
     int idProducto, idCategoria, idIngrediente;
     string nombreProducto;
@@ -79,13 +81,16 @@ void ProductosManager::cargarProducto(){
 
         while (idIngrediente < 0 || idIngrediente > ingManager.cantidadRegistros()){
             cout << "Ingrese un Id de ingrediente valido" << endl << endl;
-            cout << "Seleccione el ingrediente que desee agregar: " << endl << endl;
             ingManager.listarIngredientes(); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
+            cout << "Seleccione el ingrediente que desee agregar: " << endl << endl;
             cin >> idIngrediente;
         }
         validacion=false;
         while (!validacion){
-            cout << "Ingrese la cantidad del ingrediente a colocar en el producto: ";
+            int posicion;
+            posicion = ingArchi.buscar(idIngrediente);
+            ing = ingArchi.leer(posicion);
+            cout << "Ingrese la cantidad de " << ing.getNombreIngrediente() << " a colocar en el producto en " << ing.getTipoDeUnidad() << ": ";
             cin >> cantidadPorProducto;
             if(cantidadPorProducto<0){
                 cout << "Ingrese una cantidad valida" << endl << endl;
@@ -96,7 +101,8 @@ void ProductosManager::cargarProducto(){
         }
         // a partir de aca esta OK el ingreso de ID ingrediente y cantidad por productos
 
-        detalleIng= DetalleIngrediente(idProducto, idIngrediente, cantidadPorProducto);
+        // en caso de cerrar la consola antes de terminar de cargar el producto, los ingredientes quedan guardados en el archivo
+        detalleIng = DetalleIngrediente(idProducto, idIngrediente, cantidadPorProducto);
 
         if(detalleArchi.guardar(detalleIng)){
             cout << "Registro guardado correctamente." << endl << endl;

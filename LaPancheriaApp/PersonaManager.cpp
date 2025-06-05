@@ -25,52 +25,55 @@ void PersonaManager::cargarEmpleado(){
 
     Empleado e;
 
-    cout << "Ingrese el nombre del empleado a registrar: ";
+    cout << "\n Ingrese el nombre del empleado a registrar: ";
+    cin.ignore();
     getline(cin,nombre);
 
-    cout << "Ingrese apellido del empleado: ";
+    cout << "\n Ingrese apellido del empleado: ";
     getline(cin,apellido);
 
-    cout << "Ingrese dni del empleado: ";
-    cin >> dni;
+    cout << "\n Ingrese dni del empleado: ";
+    getline(cin,dni);
 
-    cout << "Ingrese contraseña del empleado: ";
-    cin >> contrasenia;
+    cout << "\n Ingrese contraseña del empleado: ";
+    getline(cin,contrasenia);
 
-    cout << "Ingrese permiso: 1-Admin o 2- User: ";
+    cout << "\n Ingrese permiso: 1-Admin o 2- User: ";
     cin >> permiso;
 
-    cout << "Ingrese puesto del empleado: ";
-    cin >> puesto;
+    cout << "\n Ingrese puesto del empleado: ";
+    cin.ignore();
+    getline(cin,puesto);
 
-    cout << "Ingrese sueldo del empleado: ";
+    cout << "\n Ingrese sueldo del empleado: ";
     cin >> sueldo;
 
-    cout<< "Ingrese dia de ingreso del empleado: ";
+    cout<< "\n Ingrese dia de ingreso del empleado: ";
     cin >> dia;
 
-    cout<< "Ingrese mes de ingreso del empleado: ";
+    cout<< "\n Ingrese mes de ingreso del empleado: ";
     cin >> mes;
 
-    cout<< "Ingrese año de ingreso del empleado: ";
+    cout<< "\n Ingrese año de ingreso del empleado: ";
     cin >> anio;
 
     fechaIngreso.setFecha(dia,mes,anio);
 
-    cout<< "Ingrese dia de nacimiento del empleado: ";
+    cout<< "\n Ingrese dia de nacimiento del empleado: ";
     cin >> dia;
 
-    cout<< "Ingrese mes de nacimiento del empleado: ";
+    cout<< "\n Ingrese mes de nacimiento del empleado: ";
     cin >> mes;
 
-    cout<< "Ingrese año de nacimiento del empleado: ";
+    cout<< "\n Ingrese año de nacimiento del empleado: ";
     cin >> anio;
 
-    cout << "Ingrese email: ";
-    cin>>email;
+    cout << "\n Ingrese email: ";
+    cin.ignore();
+    getline(cin,email);
 
-    cout << "Ingrese celular: ";
-    cin>>nCelular;
+    cout << "\n Ingrese celular: ";
+    getline(cin,nCelular);
 
     fechaNacimiento.setFecha(dia,mes,anio);
 

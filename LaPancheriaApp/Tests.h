@@ -1,5 +1,4 @@
-#ifndef TESTS_H_INCLUDED
-#define TESTS_H_INCLUDED
+#pragma once
 #include "Persona.h"
 #include "Cliente.h"
 #include "Empleado.h"
@@ -262,4 +261,3 @@ void mostrarEmpleado(){
 
 }
 
-#endif // TESTS_H_INCLUDED

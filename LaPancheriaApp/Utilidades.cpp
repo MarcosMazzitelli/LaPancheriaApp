@@ -1,9 +1,27 @@
 #include "Utilidades.h"
+#include "ArchivoEmpleado.h"
+#include "Empleado.h"
 
 #include <iostream>
 using namespace std;
 
 
+int verificarCoincidencia(std::string usuario, std::string contrasenia){
+    ArchivoEmpleado archiEmp;
+    Empleado emp;
+    int cantRegistros = archiEmp.getCantidadRegistros();
+
+    for (int i=0; i<cantRegistros; i++){
+        emp = archiEmp.leer(i);
+        if(emp.getDni() == usuario && emp.getContrasenia() == contrasenia){
+            return i;
+        }
+    }
+    return -1;
+
+
+}
+/*
 void menuAdmin(){
 
 
@@ -343,7 +361,7 @@ void menuCostos(){
 
 }
 
-
+ */
 
 
 

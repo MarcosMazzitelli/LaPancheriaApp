@@ -11,3 +11,5 @@ void menuEmpleados();
 void menuProductos();
 void menuIngredientes();
 void menuCostos();
+
+int verificarCoincidencia(std::string usuario, std::string contrasenia);
