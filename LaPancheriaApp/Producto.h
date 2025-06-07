@@ -4,7 +4,7 @@
 class Producto{
 private:
     int _idProducto;
-    int _idCategoria;
+    int _idCategoria; //1) Panchos  2)Guarniciones  3)Bebidas
     char _nombreProducto[50];
     float _precioUnitario;
     float _costoProducto;

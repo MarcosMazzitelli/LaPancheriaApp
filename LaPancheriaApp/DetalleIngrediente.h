@@ -23,4 +23,5 @@ public:
     int getIdIngrediente();
     float getCantidadPorProducto();
 
+
 };
