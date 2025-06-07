@@ -1,8 +1,10 @@
-#ifndef TESTS_H_INCLUDED
-#define TESTS_H_INCLUDED
+#pragma once
 #include "Persona.h"
 #include "Cliente.h"
 #include "Empleado.h"
+#include "IngredientesManager.h"
+#include "PersonaManager.h"
+#include "ProductosManager.h"
 #include "FormaDePago.h"
 #include "CostoFijo.h"
 #include "Tests.h"
@@ -122,7 +124,7 @@ void cargarYMostrarEmpleado(){
     cout << "Ingrese id: ";
     cin >> idEmpleado;
 
-    cout << "Ingrese contraseña: ";
+    cout << "Ingrese contraseï¿½a: ";
     cin >> contrasenia;
 
     cout << "Ingrese permiso: ";
@@ -228,125 +230,39 @@ void cargarPancho(){
     }
 }
 
-void cargarYMostrarFormaDePago(){
-    int formaDePago;
-    string nombreFormaDePago;
-    float descuento=0;
+void cargarIngrediente(){
+    IngredientesManager ingManager;
 
-    FormaDePago f;
-    cout << "Ingrese la opcion de pago: 1- Efectivo 2- Debito 3- Creidto " << endl;
-    cin >> formaDePago;
+    ingManager.cargarIngrediente();
 
-    switch(formaDePago){
-    case 1:
-        nombreFormaDePago="Efectivo";
-        descuento=10,5;
-        break;
-    case 2:
-        nombreFormaDePago="Debito";
-        descuento=0,0;
-        break;
-    case 3:
-        nombreFormaDePago="Credito";
-        descuento=0,0;
-        break;
-    default:
-        cout<<"No corresponde a una opcion válida"<<endl;
-    }
-
-
-    f = FormaDePago(formaDePago,descuento, nombreFormaDePago);
-    cout << endl << endl << f.mostrarToCsv();
-    cout << endl << endl;
-    f.mostrar();
-    cout << endl << endl;
 }
 
-void cargarYMostrarCostoFijo(){
-    float precio;
-    int idCostoFijo=0; //autonumerico
-    int opc;
-    bool bandera=true;
-
-    CostoFijo c;
-
-    while(bandera){
-        cout<<"Ingrese precio del costo fijo"<< endl;
-        cin>> precio;
-
-        idCostoFijo++;
-        cout<<"Quiere agregar otro costo fijo? Opcion 1- Si 2- No"<< endl;
-        cin>> opc;
-
-        if(opc==1){
-            bandera=true;
-        }else{
-            bandera=false;
-        }
-    }
-     c = CostoFijo(precio, idCostoFijo);
-    cout << endl << endl << c.mostrarToCsv();
-    cout << endl << endl;
-    c.mostrar();
-    cout << endl << endl;
+void listarIngredientes(){
+    IngredientesManager ingManager;
+    cout << endl << endl << "Listado Ingredientes" << endl << endl;
+    ingManager.listarIngredientes();
 }
 
-void CargarYMostrarVenta(){
+void cargarProducto(){
+    ProductosManager prodManager;
 
-    int nroFactura,idEmpleado,formaDePago,dia,mes,anio;
-    string dniCliente;
-    float importeTotal;
-    Fecha fechaVenta;
-    Venta v;
-
-    cout<<"Ingrese numero de factura: "<<endl;
-    cin>>nroFactura;
-    cout<<"Ingrese el ID del empleado: "<<endl;
-    cin>>idEmpleado;
-    cout<<"Ingrese la forma de pago: "<<endl;
-    cin>>formaDePago;
-    cout<<"Ingrese el DNI del cliente: "<<endl;
-    cin>>dniCliente;
-    cout<<"Ingrese el importe total: "<<endl;
-    cin>>importeTotal;
-    cout<<"Ingrese el dia de la venta : "<<endl;
-    cin>>dia;
-    cout<<"Ingrese el mes de la venta : "<<endl;
-    cin>>mes;
-    cout<<"Ingrese el año de la venta : "<<endl;
-    cin>>anio;
-    fechaVenta.setFecha(dia, mes, anio);
-    v= Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
-    v.mostrar();
+    prodManager.cargarProducto();
 }
 
-/*void CargarYMostrarDetalleVenta(){
-int nroFactura,idProducto,cantProducto;
-float precioUnitario,importeBruto;
-DetalleVenta d;
+void mostrarProductosConIngredientes(){
+    ProductosManager prodManager;
+    cout << endl << endl << "Listado " << endl << endl;
+    prodManager.listarProductosConIngredientes();
 
-
-cout<<"Ingrese el Nro de Factura: "<<endl;
-cin>>nroFactura;
-cout<<"Ingrese el ID del producto: "<<endl;
-cin>>idProducto;
-cout<<"Ingrese la cantidad del producto: "<<endl;
-cin>>cantProducto;
-cout<<"Ingrese el precio unitario: "<<endl;
-cin>>precioUnitario;
-cout<<"Ingrese el ID del producto: "<<endl;
-cin>>importeBruto;
-d= DetalleVenta(nroFactura, idProducto, cantProducto,precioUnitario, importeBruto);
-d.mostrar();
 }
-*/
+void cargarEmpleado(){
+    PersonaManager pManager;
+    pManager.cargarEmpleado();
 
+}
+void mostrarEmpleado(){
+    PersonaManager pManager;
+    pManager.listarEmpleados();
 
+}
 
-
-
-
-
-
-
-#endif // TESTS_H_INCLUDED
