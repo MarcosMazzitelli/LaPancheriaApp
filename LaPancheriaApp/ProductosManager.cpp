@@ -46,7 +46,12 @@ void ProductosManager::cargarProducto(){
     while (!validacion){
         cout << "Ingrese la categoria del producto: " << endl << "1) Panchos" << endl <<"2) Guarniciones" << endl <<"3) Bebidas" << endl << endl;
         cin >> idCategoria;
-
+        while(cin.fail()){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            cin >> idCategoria;
+        }
         if (idCategoria!= 1 && idCategoria!= 2 && idCategoria!= 3){
             cout << "Ingrese un valor valido" << endl << endl;
         }
@@ -63,7 +68,12 @@ void ProductosManager::cargarProducto(){
     while (!validacion){
         cout << "Ingrese el precio unitario de venta del producto: $";
         cin >> precioUnitario;
-
+        while(cin.fail()){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            cin >> precioUnitario;
+        }
         if(precioUnitario<0){
             cout << "Ingrese un valor valido" << endl << endl;
         }
@@ -78,12 +88,24 @@ void ProductosManager::cargarProducto(){
         cout << "Seleccione el ingrediente que desee agregar: " << endl << endl;
         ingManager.listarIngredientes(); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
         cin >> idIngrediente;
+        while(cin.fail()){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            cin >> idIngrediente;
+        }
 
         while (idIngrediente < 0 || idIngrediente > ingManager.cantidadRegistros()){
             cout << "Ingrese un Id de ingrediente valido" << endl << endl;
             ingManager.listarIngredientes(); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
             cout << "Seleccione el ingrediente que desee agregar: " << endl << endl;
             cin >> idIngrediente;
+            while(cin.fail()){
+                cin.clear();
+                cin.ignore(1000,'\n');
+                cout << "Ingrese un valor valido" << endl << endl;
+                cin >> idIngrediente;
+            }
         }
         validacion=false;
         while (!validacion){
@@ -92,7 +114,13 @@ void ProductosManager::cargarProducto(){
             ing = ingArchi.leer(posicion);
             cout << "Ingrese la cantidad de " << ing.getNombreIngrediente() << " a colocar en el producto en " << ing.getTipoDeUnidad() << ": ";
             cin >> cantidadPorProducto;
-            if(cantidadPorProducto<0){
+            while(cin.fail()){
+                cin.clear();
+                cin.ignore(1000,'\n');
+                cout << "Ingrese un valor valido" << endl << endl;
+                cin >> cantidadPorProducto;
+            }
+            if(cantidadPorProducto<=0){
                 cout << "Ingrese una cantidad valida" << endl << endl;
             }
             else{
@@ -117,6 +145,13 @@ void ProductosManager::cargarProducto(){
         while (!validacion){
             cout << endl << "¿Desea ingresar mas ingredientes?  " << endl <<"1) si" << endl <<"0) no" << endl << endl;
             cin>>opcion;
+            while(cin.fail()){
+                cin.clear();
+                cin.ignore(1000,'\n');
+                cout << "Ingrese un valor valido" << endl << endl;
+                cin >> opcion;
+            }
+
             if(opcion<0 || opcion >1){
                 cout << "Ingrese un valor valido" << endl << endl;
             }
@@ -135,6 +170,13 @@ void ProductosManager::cargarProducto(){
     while (!validacion){
         cout << "Ingrese el costo de hacer el producto: $";
         cin >> costoProducto;
+        while(cin.fail()){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            cin >> costoProducto;
+        }
+
 
         if(costoProducto<0){
             cout << "Ingrese un valor valido" << endl << endl;
@@ -186,8 +228,6 @@ void ProductosManager::listarProductosConIngredientes(){
     for (int i=0; i<cantRegistrosProducto; i++){ //recorre el archivo de productos
         prod = prodArchi.leer(i);
         prod.mostrar();
-        cout << "Producto: " << prod.getIdProducto() << endl;
-        cout << "Nombre: " << prod.getNombreProducto() << endl << endl;
 
         cout << "Ingredientes: " << endl << endl;
 
