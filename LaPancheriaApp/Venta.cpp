@@ -67,14 +67,14 @@ Venta::Venta(int nroFactura, std::string dniCliente, int idEmpleado, float impor
         _fechaVenta=fechaVenta;
     }
 
-
-    void Venta::mostrar(){
-    cout<<"Nro de Factura: "<<getNroFactura()<<endl;
-    cout<<"DNI Cliente: "<<getDniCliente()<<endl;
-    cout<<"ID del Empleado: "<<getIdEmpleado()<<endl;
-    cout<<"Importe Total: "<<getImporteTotal()<<endl;
-    cout<<"Forma de Pago: "<<getFormaDePago()<<endl;
-    cout<<"Fecha Venta: ";getFechaVenta().mostrarFecha();
+//mostrar
+void Venta::mostrar(){
+  cout << "Numero de Factura: " << getNroFactura() << endl;
+    cout << "DNI cliente: " << getDniCliente() << endl;
+    cout << "ID empleado: " << getIdEmpleado() << endl;
+    cout << "Importe total: " << getImporteTotal() << endl;
+    cout << "Forma de pago: " << getFormaDePago() << endl;
+    cout << "Fecha de venta: " ; getFechaVenta().mostrarFecha();
 
 
     }

@@ -3,6 +3,7 @@
 #include <string>
 #include "Fecha.h"
 
+
 class Venta{
 private:
     int _nroFactura;

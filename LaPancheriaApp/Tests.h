@@ -5,6 +5,9 @@
 #include "Empleado.h"
 #include "FormaDePago.h"
 #include "CostoFijo.h"
+#include "Tests.h"
+#include "Venta.h"
+#include "DetalleVenta.h"
 #include <iostream>
 using namespace std;
 
@@ -288,8 +291,55 @@ void cargarYMostrarCostoFijo(){
     cout << endl << endl;
 }
 
+void CargarYMostrarVenta(){
+
+    int nroFactura,idEmpleado,formaDePago,dia,mes,anio;
+    string dniCliente;
+    float importeTotal;
+    Fecha fechaVenta;
+    Venta v;
+
+    cout<<"Ingrese numero de factura: "<<endl;
+    cin>>nroFactura;
+    cout<<"Ingrese el ID del empleado: "<<endl;
+    cin>>idEmpleado;
+    cout<<"Ingrese la forma de pago: "<<endl;
+    cin>>formaDePago;
+    cout<<"Ingrese el DNI del cliente: "<<endl;
+    cin>>dniCliente;
+    cout<<"Ingrese el importe total: "<<endl;
+    cin>>importeTotal;
+    cout<<"Ingrese el dia de la venta : "<<endl;
+    cin>>dia;
+    cout<<"Ingrese el mes de la venta : "<<endl;
+    cin>>mes;
+    cout<<"Ingrese el año de la venta : "<<endl;
+    cin>>anio;
+    fechaVenta.setFecha(dia, mes, anio);
+    v= Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
+    v.mostrar();
+}
+
+/*void CargarYMostrarDetalleVenta(){
+int nroFactura,idProducto,cantProducto;
+float precioUnitario,importeBruto;
+DetalleVenta d;
 
 
+cout<<"Ingrese el Nro de Factura: "<<endl;
+cin>>nroFactura;
+cout<<"Ingrese el ID del producto: "<<endl;
+cin>>idProducto;
+cout<<"Ingrese la cantidad del producto: "<<endl;
+cin>>cantProducto;
+cout<<"Ingrese el precio unitario: "<<endl;
+cin>>precioUnitario;
+cout<<"Ingrese el ID del producto: "<<endl;
+cin>>importeBruto;
+d= DetalleVenta(nroFactura, idProducto, cantProducto,precioUnitario, importeBruto);
+d.mostrar();
+}
+*/
 
 
 
