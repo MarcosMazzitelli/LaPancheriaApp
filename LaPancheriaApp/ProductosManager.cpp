@@ -200,7 +200,7 @@ void ProductosManager::modificarProducto(){
   ///sin utilizar todavia
 }
 
-void ProductosManager::listarProductos(){
+void ProductosManager::mostrarProductosCompletos(){
     ArchivoProducto prodArchi;
     Producto prod;
     int cantRegistros;
@@ -213,6 +213,37 @@ void ProductosManager::listarProductos(){
     }
 
 }
+
+void ProductosManager::listarProductos(){
+    ArchivoProducto prodArchi;
+    Producto prod;
+    int cantRegistros;
+    cantRegistros = cantidadRegistrosProducto();
+    /*    cout << getIdProducto() << "          ";  //10 espacios
+    cout << getIdCategoria() "          ";    //10 espacios
+    cout << getNombreProducto() "                    " //20 espacios
+    cout << getPrecioUnitario() << "          " //10 espacios
+    cout << getCostoProducto() << "          ";//10 espacios
+*/
+    cout << "ID Producto    "; //15 caracteres
+    cout << "ID Categoria   "; //15 caracteres
+    cout << "Nombre del producto           "; //40 caracteres
+    cout << "Precio de venta     "; //20 caracteres
+    cout << "Costo de preparacion";//20 caracteres
+    cout << endl;
+    cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
+    for (int i=0; i<cantRegistros; i++){
+        prod = prodArchi.leer(i);
+        prod.mostrarEnLista();
+        cout << endl;
+    }
+    cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
+
+
+}
+
+
+
 
 void ProductosManager::listarProductosConIngredientes(){
     ArchivoProducto prodArchi;
