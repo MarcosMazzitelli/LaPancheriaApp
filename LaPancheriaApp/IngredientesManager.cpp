@@ -33,6 +33,13 @@ void IngredientesManager::cargarIngrediente(){
     while (!validacion){
         cout << "Ingrese el stock inicial del ingrediente: ";
         cin >> cantidadStock;
+        while(cin.fail()){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            cin >> cantidadStock;
+        }
+
 
         if(cantidadStock<0){
             cout << "Ingrese un valor valido" << endl << endl;
@@ -47,6 +54,13 @@ void IngredientesManager::cargarIngrediente(){
     while (!validacion){
         cout << "Ingrese el costo unitario: $";
         cin >> costoUnitario;
+        while(cin.fail()){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            cin >> costoUnitario;
+        }
+
         if(costoUnitario<0){
             cout << "Ingrese un valor valido" << endl << endl;
         }
