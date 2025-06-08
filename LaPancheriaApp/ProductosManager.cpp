@@ -5,6 +5,7 @@
 #include "ArchivoDetalleIngrediente.h"
 #include "IngredientesManager.h"
 #include "Ingrediente.h"
+#include <iomanip>
 
 #include <iostream>
 using namespace std;
@@ -219,18 +220,14 @@ void ProductosManager::listarProductos(){
     Producto prod;
     int cantRegistros;
     cantRegistros = cantidadRegistrosProducto();
-    /*    cout << getIdProducto() << "          ";  //10 espacios
-    cout << getIdCategoria() "          ";    //10 espacios
-    cout << getNombreProducto() "                    " //20 espacios
-    cout << getPrecioUnitario() << "          " //10 espacios
-    cout << getCostoProducto() << "          ";//10 espacios
-*/
-    cout << "ID Producto    "; //15 caracteres
-    cout << "ID Categoria   "; //15 caracteres
-    cout << "Nombre del producto           "; //40 caracteres
-    cout << "Precio de venta     "; //20 caracteres
-    cout << "Costo de preparacion";//20 caracteres
-    cout << endl;
+
+
+    cout << left << setw(15) << "ID Producto";
+    cout << left << setw(15) << "ID Categoria";
+    cout << left << setw(30) << "Nombre del producto";
+    cout << left << setw(20) << "Precio de venta";
+    cout << left << setw(20) << "Costo de preparacion" << endl;
+
     cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
     for (int i=0; i<cantRegistros; i++){
         prod = prodArchi.leer(i);
@@ -254,24 +251,26 @@ void ProductosManager::listarProductosConIngredientes(){
     DetalleIngrediente detalleIng;
     int cantRegistrosProducto, cantRegistrosDetalleIngrediente, pos;
     cantRegistrosProducto = cantidadRegistrosProducto();
-    cantRegistrosDetalleIngrediente=cantidadRegistrosDetalleIngredientes();
+    cantRegistrosDetalleIngrediente = cantidadRegistrosDetalleIngredientes();
 
     for (int i=0; i<cantRegistrosProducto; i++){ //recorre el archivo de productos
         prod = prodArchi.leer(i);
-        prod.mostrar();
-
-        cout << "Ingredientes: " << endl << endl;
-
-        for (int i=0; i<cantRegistrosDetalleIngrediente; i++){ //recorre el archivo detalle de ingredientes
-            detalleIng = detalleArchi.leer(i);
+       // prod.mostrar();
+        cout << "==============================================" << endl;
+        cout << "ID Producto: " << prod.getIdProducto() << endl;
+        cout << "Nombre: " <<  prod.getNombreProducto() << endl;
+        cout << "Ingredientes: " << endl;
+        cout << "----------------------------------------------" << endl;
+        cout << left << setw(25) << "Nombre Ingrediente" << setw(10) << "Cantidad" << setw(10) << "Unidad" << endl;
+        for (int j=0; j<cantRegistrosDetalleIngrediente; j++){ //recorre el archivo detalle de ingredientes
+            detalleIng = detalleArchi.leer(j);
             if(detalleIng.getIdProducto() == prod.getIdProducto()){ //Si encuentra el ID del producto en el archivo detalle de ingredientes
                 pos = ingArchi.buscar(detalleIng.getIdIngrediente());//lo busca en el archivo de ingredientes
                 ing = ingArchi.leer(pos); //trae el ingrediente a memoria y lo informa
-                cout << ing.getNombreIngrediente() << "  " << detalleIng.getCantidadPorProducto() << " " << ing.getTipoDeUnidad() << endl;
+                cout << left << setw(25) << ing.getNombreIngrediente() << setw(10) << detalleIng.getCantidadPorProducto() << setw(10) << ing.getTipoDeUnidad() << endl;
             }
         }
-        cout << endl << endl;
-
+        cout << "==============================================" << endl << endl;
     }
 
 }

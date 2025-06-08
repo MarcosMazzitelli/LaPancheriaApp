@@ -85,7 +85,6 @@ void IngredientesManager::modificarIngrediente(){ ///sin realizar todavia
 void IngredientesManager::listarIngredientes(){
     ArchivoIngrediente archi;
     Ingrediente ing;
-
     int cantRegistros = cantidadRegistros();
 
     for (int i=0; i<cantRegistros; i++){
@@ -93,8 +92,57 @@ void IngredientesManager::listarIngredientes(){
         ing.mostrar();
         cout << endl << endl;
     }
-
 }
+
+void IngredientesManager::listarIngredientesl(){
+    ArchivoIngrediente archi;
+    Ingrediente ing;
+    /*    cout << "ID Producto    "; //15 caracteres
+    cout << "ID Categoria   "; //15 caracteres
+    cout << "Nombre del producto           "; //30 caracteres
+    cout << "Precio de venta     "; //20 caracteres
+    cout << "Costo de preparacion";//20 caracteres
+    cout << endl;
+    cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
+    for (int i=0; i<cantRegistros; i++){
+        prod = prodArchi.leer(i);
+        prod.mostrarEnLista();
+        cout << endl;
+    }
+    cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
+*/
+
+/**    cout << left << setw(15) << getIdIngrediente();// right lo alinea a la izquierda y setw setea el ancho del campo, lo que sobra lo rellena son espacios hasta completar esa cantidad de caracteres
+    cout << left << setw(30) <<getNombreIngrediente();
+    if (getTipoDeUnidad()=="Gramos"){
+        cout << left << setw(15) << getCantidadStock() << " " << getTipoDeUnidad() << " (" << getCantidadStock()/1000 << " Kilos)" //cantidad en stock
+    }
+    else if (getTipoDeUnidad() == "Mililitros"){
+        cout << left << setw(15) << getCantidadStock() << " " << getTipoDeUnidad() << " (" << getCantidadStock()/1000 << " Litros)"
+    }
+    else{
+        cout << left << setw(15) << getCantidadStock() << " " << getTipoDeUnidad();
+    }
+    cout << "$ " <<  left << setw(25) << getCostoUnitario();
+*/
+    int cantRegistros = cantidadRegistros();
+    cout << "ID Ingrediente     "; //20 caracteres
+    cout << "Nombre del ingrediente        "; //30 caracteres
+    cout << "Costo unitario      ";//20 caracteres
+    cout << "Cantidad en stock   "; //20 caracteres
+    cout << endl;
+    cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
+
+    for (int i=0; i<cantRegistros; i++){
+        ing = archi.leer(i);
+        ing.mostrarEnLista();
+        cout << endl;
+    }
+    cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
+}
+
+
+
 
 
 

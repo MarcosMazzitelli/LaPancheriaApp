@@ -34,6 +34,8 @@ public:
     ///Metodos
     void mostrar();
     std::string mostrarToCsv();
+    void mostrarEnLista();
+
 
 
 };

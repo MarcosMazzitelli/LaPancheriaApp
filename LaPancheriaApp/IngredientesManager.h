@@ -8,6 +8,7 @@ public:
     void modificarIngrediente();
     void listarIngredientes();
     int cantidadRegistros();
+    void listarIngredientesl();
 
 
 };

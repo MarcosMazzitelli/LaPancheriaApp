@@ -369,7 +369,7 @@ void MenuManager::menuIngredientes(){
             case 4:
                 system("cls");
                 //manager Listar ingredientes
-                ingManager.listarIngredientes();
+                ingManager.listarIngredientesl();
                 system("pause");
                 break;
 
