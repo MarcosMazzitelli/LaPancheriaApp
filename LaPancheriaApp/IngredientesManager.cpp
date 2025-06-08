@@ -3,6 +3,7 @@
 #include "ArchivoIngrediente.h"
 #include "Utilidades.h"
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 int IngredientesManager::cantidadRegistros(){
@@ -126,10 +127,10 @@ void IngredientesManager::listarIngredientesl(){
     cout << "$ " <<  left << setw(25) << getCostoUnitario();
 */
     int cantRegistros = cantidadRegistros();
-    cout << "ID Ingrediente     "; //20 caracteres
-    cout << "Nombre del ingrediente        "; //30 caracteres
-    cout << "Costo unitario      ";//20 caracteres
-    cout << "Cantidad en stock   "; //20 caracteres
+    cout << left << setw(19) << "ID Ingrediente     ";
+    cout << left << setw(30) << "Nombre del ingrediente        ";
+    cout << left << setw(20) << "Costo unitario      ";
+    cout << left << setw(20) << "Cantidad en stock   ";
     cout << endl;
     cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
 
