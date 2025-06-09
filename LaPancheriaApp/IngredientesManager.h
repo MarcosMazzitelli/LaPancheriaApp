@@ -6,9 +6,9 @@ private:
 public:
     void cargarIngrediente();
     void modificarIngrediente();
-    void listarIngredientes();
+    void mostrarIngredientesCompletos();
     int cantidadRegistros();
-    void listarIngredientesl();
+    void listarIngredientes();
 
 
 };

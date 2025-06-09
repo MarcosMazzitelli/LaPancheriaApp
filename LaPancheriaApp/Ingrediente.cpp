@@ -112,7 +112,7 @@ std::string Ingrediente::mostrarToCsv(){
 }
 
 void Ingrediente::mostrarEnLista(){
-    cout << left << setw(19) << getIdIngrediente();// right lo alinea a la izquierda y setw setea el ancho del campo, lo que sobra lo rellena son espacios hasta completar esa cantidad de caracteres
+    cout << left << setw(20) << getIdIngrediente();// right lo alinea a la izquierda y setw setea el ancho del campo, lo que sobra lo rellena son espacios hasta completar esa cantidad de caracteres
     cout << left << setw(30) <<getNombreIngrediente();
     cout << "$ " <<  left << setw(18) << getCostoUnitario();
     if (getTipoDeUnidad()=="Gramos"){

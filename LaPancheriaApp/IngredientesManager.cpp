@@ -17,9 +17,8 @@ int IngredientesManager::cantidadRegistros(){
 void IngredientesManager::cargarIngrediente(){
     int idIngrediente;
     string nombreIngrediente, tipoDeUnidad;
-    float cantidadStock, costoUnitario;
+    float cantidadStock, costoUnitario, costoTotal;
     bool estado = true;
-    bool validacion;
     Ingrediente ing;
     ArchivoIngrediente archi;
 
@@ -30,45 +29,33 @@ void IngredientesManager::cargarIngrediente(){
     cin.ignore();
     getline(cin,nombreIngrediente);
 
-    validacion = false;
-    while (!validacion){
+    cout << "Ingrese el stock inicial del ingrediente: ";
+    cin >> cantidadStock;
+    while(cin.fail() || cantidadStock < 0){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << "Ingrese un valor valido" << endl;
+        system("pause");
+        system("cls");
         cout << "Ingrese el stock inicial del ingrediente: ";
         cin >> cantidadStock;
-        while(cin.fail()){
-            cin.clear();
-            cin.ignore(1000,'\n');
-            cout << "Ingrese un valor valido" << endl << endl;
-            cin >> cantidadStock;
-        }
-
-
-        if(cantidadStock<0){
-            cout << "Ingrese un valor valido" << endl << endl;
-        }
-        else{
-            validacion=true;
-        }
     }
-    tipoDeUnidad = pedirTipoDeUnidad(cantidadStock);
 
-    validacion=false;
-    while (!validacion){
-        cout << "Ingrese el costo unitario: $";
-        cin >> costoUnitario;
-        while(cin.fail()){
-            cin.clear();
-            cin.ignore(1000,'\n');
-            cout << "Ingrese un valor valido" << endl << endl;
-            cin >> costoUnitario;
-        }
+    tipoDeUnidad = pedirTipoDeUnidad(cantidadStock); //devuelve un string, tipo de unidad al valor mas chico (si coloca kgs lo convierte a gramos, lo mismo con litros y mililitros)
 
-        if(costoUnitario<0){
-            cout << "Ingrese un valor valido" << endl << endl;
-        }
-        else{
-            validacion=true;
-        }
+    cout << "Ingrese el costo del ingrediente: $";
+    cin >> costoTotal;
+    while(cin.fail() || costoTotal < 0){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << "Ingrese un valor valido" << endl;
+        system("pause");
+        system("cls");
+        cout << "Ingrese el costo del ingrediente: $";
+        cin >> costoTotal;
     }
+    costoUnitario = costoTotal / cantidadStock;
+    cout << endl << "Costo unitario: $ " << costoUnitario << endl;
     ing = Ingrediente(idIngrediente,nombreIngrediente,cantidadStock, costoUnitario, tipoDeUnidad,estado);
 
     if (archi.guardar(ing)){
@@ -83,7 +70,7 @@ void IngredientesManager::cargarIngrediente(){
 void IngredientesManager::modificarIngrediente(){ ///sin realizar todavia
 }
 
-void IngredientesManager::listarIngredientes(){
+void IngredientesManager::mostrarIngredientesCompletos(){
     ArchivoIngrediente archi;
     Ingrediente ing;
     int cantRegistros = cantidadRegistros();
@@ -95,42 +82,15 @@ void IngredientesManager::listarIngredientes(){
     }
 }
 
-void IngredientesManager::listarIngredientesl(){
+void IngredientesManager::listarIngredientes(){
     ArchivoIngrediente archi;
     Ingrediente ing;
-    /*    cout << "ID Producto    "; //15 caracteres
-    cout << "ID Categoria   "; //15 caracteres
-    cout << "Nombre del producto           "; //30 caracteres
-    cout << "Precio de venta     "; //20 caracteres
-    cout << "Costo de preparacion";//20 caracteres
-    cout << endl;
-    cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
-    for (int i=0; i<cantRegistros; i++){
-        prod = prodArchi.leer(i);
-        prod.mostrarEnLista();
-        cout << endl;
-    }
-    cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
-*/
 
-/**    cout << left << setw(15) << getIdIngrediente();// right lo alinea a la izquierda y setw setea el ancho del campo, lo que sobra lo rellena son espacios hasta completar esa cantidad de caracteres
-    cout << left << setw(30) <<getNombreIngrediente();
-    if (getTipoDeUnidad()=="Gramos"){
-        cout << left << setw(15) << getCantidadStock() << " " << getTipoDeUnidad() << " (" << getCantidadStock()/1000 << " Kilos)" //cantidad en stock
-    }
-    else if (getTipoDeUnidad() == "Mililitros"){
-        cout << left << setw(15) << getCantidadStock() << " " << getTipoDeUnidad() << " (" << getCantidadStock()/1000 << " Litros)"
-    }
-    else{
-        cout << left << setw(15) << getCantidadStock() << " " << getTipoDeUnidad();
-    }
-    cout << "$ " <<  left << setw(25) << getCostoUnitario();
-*/
     int cantRegistros = cantidadRegistros();
-    cout << left << setw(19) << "ID Ingrediente     ";
+    cout << left << setw(20) << "ID Ingrediente     ";
     cout << left << setw(30) << "Nombre del ingrediente        ";
     cout << left << setw(20) << "Costo unitario      ";
-    cout << left << setw(20) << "Cantidad en stock   ";
+    cout << left << "Cantidad en stock   ";
     cout << endl;
     cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
 
