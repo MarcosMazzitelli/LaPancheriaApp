@@ -194,10 +194,10 @@ void ProductosManager::listarProductos(){
 
 
     cout << left << setw(15) << "ID Producto";
-    cout << left << setw(15) << "ID Categoria";
-    cout << left << setw(30) << "Nombre del producto";
-    cout << left << setw(20) << "Precio de venta";
-    cout << left << setw(20) << "Costo de preparacion" << endl;
+    cout << setw(15) << "ID Categoria";
+    cout << setw(30) << "Nombre del producto";
+    cout << setw(20) << "Precio de venta";
+    cout << setw(20) << "Costo de preparacion" << endl;
 
     cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
     for (int i=0; i<cantRegistros; i++){
@@ -232,13 +232,17 @@ void ProductosManager::listarProductosConIngredientes(){
         cout << "Nombre: " <<  prod.getNombreProducto() << endl;
         cout << "Ingredientes: " << endl;
         cout << "----------------------------------------------" << endl;
-        cout << left << setw(25) << "Nombre Ingrediente" << setw(10) << "Cantidad" << setw(10) << "Unidad" << endl;
+        cout << left << setw(25) << "Nombre Ingrediente";
+        cout << setw(10) << "Cantidad";
+        cout << setw(10) << "Unidad" << endl;
         for (int j=0; j<cantRegistrosDetalleIngrediente; j++){ //recorre el archivo detalle de ingredientes
             detalleIng = detalleArchi.leer(j);
             if(detalleIng.getIdProducto() == prod.getIdProducto()){ //Si encuentra el ID del producto en el archivo detalle de ingredientes
                 pos = ingArchi.buscar(detalleIng.getIdIngrediente());//lo busca en el archivo de ingredientes
                 ing = ingArchi.leer(pos); //trae el ingrediente a memoria y lo informa
-                cout << left << setw(25) << ing.getNombreIngrediente() << setw(10) << detalleIng.getCantidadPorProducto() << setw(10) << ing.getTipoDeUnidad() << endl;
+                cout << left << setw(25) << ing.getNombreIngrediente();
+                cout << setw(10) << detalleIng.getCantidadPorProducto();
+                cout << setw(10) << ing.getTipoDeUnidad() << endl;
             }
         }
         cout << "==============================================" << endl << endl;

@@ -87,10 +87,10 @@ void IngredientesManager::listarIngredientes(){
     Ingrediente ing;
 
     int cantRegistros = cantidadRegistros();
-    cout << left << setw(20) << "ID Ingrediente     ";
-    cout << left << setw(30) << "Nombre del ingrediente        ";
-    cout << left << setw(20) << "Costo unitario      ";
-    cout << left << "Cantidad en stock   ";
+    cout << left << setw(20) << "ID Ingrediente";
+    cout << setw(30) << "Nombre del ingrediente";
+    cout << setw(20) << "Costo unitario";
+    cout << "Cantidad en stock";
     cout << endl;
     cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
 

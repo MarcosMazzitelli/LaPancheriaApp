@@ -6,7 +6,7 @@ using namespace std;
 //Constructor por ominisión
 FormaDePago::FormaDePago(){
     _formaDePago=0;
-    _descuento=0,0;
+    _descuento=0;
     strcpy(_nombreFormaDePago, "");
 }
 
