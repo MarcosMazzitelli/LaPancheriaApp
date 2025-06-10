@@ -27,5 +27,6 @@ public:
     /*metodos mostrar*/
     void mostrar();
     std::string mostrarToCsv();
+    void mostrarEnTabla();
 
 };

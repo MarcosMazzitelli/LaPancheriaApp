@@ -1,6 +1,7 @@
 #include "Persona.h"
 #include <cstring>
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 /*Constructores por omisión*/
@@ -48,6 +49,13 @@ void Persona::mostrar(){
     cout << "Nombre: " << getNombre() << endl;
     cout << "Apellido: " << getApellido() << endl;
     cout << "Dni: " << getDni() << endl;
+}
+
+void Persona::mostrarEnTabla(){
+
+    cout << left <<setw(30) << "Nombre";
+    cout << left << setw(30) << "Apellido";
+    cout << left << setw(10) << "Dni" << endl;
 }
 
 std::string Persona::mostrarToCsv(){

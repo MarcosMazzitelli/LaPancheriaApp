@@ -21,6 +21,11 @@ int verificarCoincidencia(std::string usuario, std::string contrasenia){
 
 
 }
+
+void limpiarPantalla(){
+    system("pause");
+    system("cls");
+}
 /*
 void menuAdmin(){
 

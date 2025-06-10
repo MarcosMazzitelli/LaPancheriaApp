@@ -19,8 +19,8 @@ void MenuManager::login(){
     ArchivoEmpleado archiEmp;
 
     cout << "========================================================" << endl;
-    cout << "        MENU DE GESTION DE COSTOS" << endl;
-    cout << "========================================================" << endl << "\n\n\n\n\n\n\n";
+    cout << "        MENU INICIO DE SESION" << endl;
+    cout << "========================================================" << endl << "\n";
 
     cout << "Ingrese su nombre de usuario: ";
     cin >> usuario;
