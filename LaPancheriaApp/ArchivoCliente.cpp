@@ -59,6 +59,32 @@ Cliente ArchivoCliente::leer(int pos){
     return registro;
 }
 
+int ArchivoCliente::buscar(std::string dniCliente){
+   FILE *pFile;
+   Cliente registro;
+   int posicion = 0;
+
+   pFile = fopen(_nombreArchivo.c_str(), "rb");
+
+   if (pFile == nullptr){
+      return -2;
+   }
+   while(fread(&registro, sizeof(Cliente), 1, pFile) == 1){
+      if (registro.getDni() == dniCliente){
+         fclose(pFile);
+         return posicion;
+      }
+      posicion++;
+   }
+
+   fclose(pFile);
+   return -1;
+}
+
+
+
+
+
 
 
 

@@ -8,7 +8,7 @@
 #include <iomanip>
 using namespace std;
 
-int PersonaManager::cantidadRegistros(){
+int PersonaManager::cantidadRegistrosEmpleado(){
     ArchivoEmpleado a;
 
     return a.getCantidadRegistros();
@@ -114,8 +114,8 @@ void PersonaManager::listarEmpleados(){
     Empleado e;
 
     e.mostrarEnTabla();
-
-    int cantRegistros = cantidadRegistros();
+    // hacer un if para cuando no hayan registros, avise que no hay nada guardado
+    int cantRegistros = cantidadRegistrosEmpleado();
 
     for (int i=0; i<cantRegistros; i++){
         e = a.leer(i);
@@ -153,17 +153,92 @@ void PersonaManager::listarEmpleados(){
 
 }
 void PersonaManager::eliminarEmpleado(){
-}
+}*/
+
 ///Metodos para clientes
+
+int PersonaManager::cantidadRegistrosCliente(){
+    ArchivoCliente a;
+
+    return a.getCantidadRegistros();
+}
+
 void PersonaManager::cargarCliente(){
+    int opcion, pos;
+    string nombre, apellido, dni;
+
+    ArchivoCliente archivo;
+    Cliente cliente;
+
+    cout << "----REGISTRO CLIENTE ----"<<endl;
+    cout<< "Ingrese 1 o 2. \n 1- Ticket personalizado\n 2- Ticket consumidor final"<<endl;
+    cin >> opcion;
+
+    while(cin.fail() || opcion!= 1 && opcion != 2){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << "Ingrese una opcion valida! \n";
+        limpiarPantalla();
+        cout<< "Ingrese 1 o 2. \n 1- Ticket personalizado\n 2- Ticket consumidor final"<<endl;
+        cin >> opcion;
+    }
+    if(opcion==1){
+
+        cout << "Ingrese dni del cliente: \n";
+        cin.ignore();
+        getline(cin,dni);
+        limpiarPantalla();
+
+       pos = archivo.buscar(dni);
+
+
+        if(pos < 0){
+            cout << "Ingrese el nombre del cliente registrar: \n";
+            getline(cin,nombre);
+            limpiarPantalla();
+
+            cout << "Ingrese apellido del cliente: \n";
+            getline(cin,apellido);
+            cin.ignore();
+            limpiarPantalla();
+
+            cliente = Cliente(nombre, apellido, dni);
+            if(archivo.guardar(cliente)){
+            cout <<"El cliente se registro correctamente"<<endl;
+            }else{
+                cout << "No se pudo guardar el registro" << endl;
+            }
+            //venta.setDniCliente(dni); ESTO LO TENGO QUE INTEGRAR A LA CLASE DE VENTA
+        }else{
+            cout << "El cliente se encuentra registado. " << endl;
+            //venta.setDniCliente(dni); ESTO LO TENGO QUE INTEGRAR A LA CLASE DE VENTA
+        }
+    }else{
+        //venta.setDniCliente(0); // Consumidor final podria estar registrado con dni 0
+        cout << "Cliente como consumidor final"<< endl;
+    }
 }
 void PersonaManager::listarClientes(){
+    ArchivoCliente archivo;
+    Cliente cliente;
+
+    cliente.mostrarEnTabla();
+// hacer un if para cuando no hayan registros, avise que no hay nada guardado
+    int cantRegistros = cantidadRegistrosCliente();
+    cout << cantRegistros << endl;
+
+    for (int i=0; i<cantRegistros; i++){
+        cliente = archivo.leer(i);
+        cout<< i;
+        cout << left  << setw(30) << cliente.getNombre();
+        cout << setw(30) << cliente.getApellido();
+        cout << setw(10) << cliente.getDni() << endl;
+    }
 }
-void PersonaManager::modificarCliente(){
-}
-void PersonaManager::eliminarCliente(){
-}
-*/
+//void PersonaManager::modificarCliente(){
+//}
+//void PersonaManager::eliminarCliente(){
+//}
 
 
 

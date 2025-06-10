@@ -83,7 +83,7 @@ int ArchivoEmpleado::buscar(std::string dniEmpleado){
    }
 
    fclose(pFile);
-   return -1; // si llega hasta aca es porque no encontro un valor valido y retorno -1
+   return -1;
 }
 
 
