@@ -240,10 +240,10 @@ void listarIngredientes(){
     ingManager.listarIngredientes();
 }
 
-void cargarProducto(){
+void crearProducto(){
     ProductosManager prodManager;
 
-    prodManager.cargarProducto();
+    prodManager.crearProducto();
 }
 
 void mostrarProductosConIngredientes(){

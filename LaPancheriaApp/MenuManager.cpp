@@ -270,7 +270,7 @@ void MenuManager::menuProductos(){
         switch(opcion) {
             case 1:
                 system("cls");
-                prodManager.cargarProducto();
+                prodManager.crearProducto();
                 //manager crear producto
                 system("pause");
                 break;
@@ -281,7 +281,10 @@ void MenuManager::menuProductos(){
                 break;
             case 3:
                 system("cls");
-                //manager eliminar productos
+                cout << "Ingrese categoria 1 2 o 3" << endl;
+                int idCategoria;
+                cin >> idCategoria;
+                prodManager.listarProductosPorCategoria(idCategoria);
                 system("pause");
                 break;
             case 4:

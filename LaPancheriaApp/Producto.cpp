@@ -103,6 +103,6 @@ void Producto::mostrarEnLista(){
     cout << setw(15) << getIdCategoria();
     cout << setw(30) <<getNombreProducto();
     cout << "$ " << setw(18) << getPrecioUnitario();
-    cout << "$ " << setw(25) << getCostoProducto();
+    cout << "$ " << setw(10) << getCostoProducto();
 }
 

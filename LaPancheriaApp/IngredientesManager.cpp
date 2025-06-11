@@ -102,6 +102,8 @@ void IngredientesManager::listarIngredientes(){
     cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
 }
 
+
+
 void IngredientesManager::comprarIngrediente(){
     ArchivoIngrediente archi;
     Ingrediente ing;
