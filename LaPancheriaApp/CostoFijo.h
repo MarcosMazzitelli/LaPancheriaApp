@@ -1,24 +1,38 @@
 #ifndef COSTOFIJO_H_INCLUDED
 #define COSTOFIJO_H_INCLUDED
 #include <string>
+#include "Fecha.h"
 
 class CostoFijo{
 private:
-    float _precio;
     int  _idCosto;
+    char _nombreCosto[20];
+    float _precio;
+    Fecha _fechaCosto;
+     bool _estado;
+
 
 public:
     CostoFijo();
-    CostoFijo(float precio, int idCosto);
+    CostoFijo(int idCosto, std::string nombreCosto, float precio, Fecha fechaCosto, bool estado);
 
-    float getPrecio();
     int getIdCosto();
+    std::string getNombreCosto();
+    float getPrecio();
+    Fecha getFechaCosto();
+    bool getEstado();
 
-    void setPrecio (float precio);
+
     void setIdCosto(int idCosto);
+    void setNombreCosto(std::string nombreCosto);
+    void setPrecio (float precio);
+    void setFechaCosto(Fecha fechaCosto);
+    void setEstado(bool estado);
 
     void mostrar();
     std::string mostrarToCsv();
+    void mostrarEnLista();
+    void mostrarTabla();
 };
 
 

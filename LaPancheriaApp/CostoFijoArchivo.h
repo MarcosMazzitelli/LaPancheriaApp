@@ -12,5 +12,7 @@ public:
     //Metodos
     bool guardar(CostoFijo registro);
     int getCantidadRegistros();
+    CostoFijo leer(int posicion);
+
 };
 

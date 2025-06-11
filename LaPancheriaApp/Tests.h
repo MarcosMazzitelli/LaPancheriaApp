@@ -252,7 +252,7 @@ void cargarYMostrarFormaDePago(){
     }
 
 
-    f = FormaDePago(formaDePago,descuento, nombreFormaDePago);
+    f = FormaDePago(formaDePago, nombreFormaDePago,descuento);
     cout << endl << endl << f.mostrarToCsv();
     cout << endl << endl;
     f.mostrar();
@@ -261,6 +261,7 @@ void cargarYMostrarFormaDePago(){
 
 void cargarYMostrarCostoFijo(){
     float precio;
+    string nombreCosto;
     int idCostoFijo=0; //autonumerico
     int opc;
     bool bandera=true;
@@ -268,6 +269,8 @@ void cargarYMostrarCostoFijo(){
     CostoFijo c;
 
     while(bandera){
+        cout<<"Ingrese nombre del costo fijo"<< endl;
+        getline(cin,nombreCosto);
         cout<<"Ingrese precio del costo fijo"<< endl;
         cin>> precio;
 
@@ -281,10 +284,10 @@ void cargarYMostrarCostoFijo(){
             bandera=false;
         }
     }
-     c = CostoFijo(precio, idCostoFijo);
-    cout << endl << endl << c.mostrarToCsv();
+    // c = CostoFijo(idCostoFijo,nombreCosto,precio, fechaCosto, estado);
+    //cout << endl << endl << c.mostrarToCsv();
     cout << endl << endl;
-    c.mostrar();
+    //c.mostrar();
     cout << endl << endl;
 }
 

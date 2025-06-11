@@ -2,25 +2,36 @@
 #define FORMADEPAGO_H_INCLUDED
 #include <string>
 
+
 class FormaDePago{
 private:
     int  _formaDePago;
-    float _descuento;
     char _nombreFormaDePago[20];
+    float _descuento;
+
+
 
 public:
     FormaDePago();
-    FormaDePago(int formaDePago, float descuento, std::string nombreFormaDePago);
+    FormaDePago(int formaDePago, std::string nombreFormaDePago, float descuento);
 
+    //getters
     int getFormaDePago();
-    float getDescuento();
     std::string getNombreFormaDePago();
+    float getDescuento();
 
 
+
+    //setters
     void setFormaDePago(int formaDePago);
-    void setDescuento (float descuento);
     void setNombreFormaDePago(std::string nombreFormaDePago);
+    void setDescuento (float descuento);
 
+    //metodos
+    void cargarFormaDePago();
+    //void elegirFormaDePago();
+    //void mostrar tabla();
+    //void mostrarLista();
     void mostrar();
     std::string mostrarToCsv();
 

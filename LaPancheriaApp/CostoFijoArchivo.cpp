@@ -1,4 +1,7 @@
 #include "CostoFijoArchivo.h"
+#include <cstring>
+#include <iostream>
+using namespace std;
 
 //Constructor por omision
 CostoFijoArchivo::CostoFijoArchivo(){
@@ -45,4 +48,22 @@ int CostoFijoArchivo::getCantidadRegistros(){
     fclose(pfile);
     return cantidad;
 }
+
+CostoFijo CostoFijoArchivo::leer(int posicion){
+FILE *pFile;
+CostoFijo costoF;
+costoF.setIdCosto(-1);
+pFile=fopen(_nombreArchivo.c_str(),"rb");
+    if(pFile==nullptr){
+    cout<<"No se pudo abrir el archivo"<<endl;
+    return costoF;
+}
+fseek(pFile,posicion*sizeof(CostoFijo),0);
+fread(&costoF,sizeof(CostoFijo),1,pFile);
+fclose(pFile);
+return costoF;
+
+}
+
+
 
