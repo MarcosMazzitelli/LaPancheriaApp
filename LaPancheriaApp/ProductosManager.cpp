@@ -5,8 +5,9 @@
 #include "ArchivoDetalleIngrediente.h"
 #include "IngredientesManager.h"
 #include "Ingrediente.h"
+#include "Utilidades.h"
 #include <iomanip>
-
+#include <vector>
 #include <iostream>
 using namespace std;
 
@@ -34,8 +35,8 @@ void ProductosManager::cargarProducto(){
     ArchivoProducto prodArchi;
     IngredientesManager ingManager;
     Ingrediente ing;
-
-    int idProducto, idCategoria, idIngrediente;
+    vector<DetalleIngrediente> vecDetalleIngredientes;
+    int idProducto, idCategoria, idIngrediente, posicion;
     string nombreProducto;
     float precioUnitario, cantidadPorProducto, precioSugerido;
     float costoProducto=0;
@@ -80,7 +81,6 @@ void ProductosManager::cargarProducto(){
             cout << "Seleccione el ID del ingrediente que desee agregar: ";
             cin >> idIngrediente;
         }
-        int posicion;
         posicion = ingArchi.buscar(idIngrediente);
         ing = ingArchi.leer(posicion);
         cout << "Ingrese la cantidad de " << ing.getNombreIngrediente() << " a colocar en el producto (en " << ing.getTipoDeUnidad() << "): ";
@@ -99,28 +99,11 @@ void ProductosManager::cargarProducto(){
         // a partir de aca esta OK el ingreso de ID ingrediente y cantidad por productos
 
         // en caso de cerrar la consola antes de terminar de cargar el producto, los ingredientes quedan guardados en el archivo
-        detalleIng = DetalleIngrediente(idProducto, idIngrediente, cantidadPorProducto);
-
-        if(detalleArchi.guardar(detalleIng)){
-            cout << "Registro guardado correctamente." << endl << endl;
-        }
-        else{
-            cout << "Hubo un problema al guardar el registro." << endl << endl;
-        }
+        detalleIng = DetalleIngrediente(idProducto, idIngrediente, cantidadPorProducto); //
+        vecDetalleIngredientes.push_back(detalleIng);
 
         //acá se guarda UN ingrediente en el detalle
-
-        cout << "Desea agregar mas ingredientes?  " << endl <<"1) si" << endl << "0) no" << endl << endl;
-        cin >> opcion;
-        while(cin.fail() || opcion < 0 || opcion > 1){
-            cin.clear();
-            cin.ignore(1000,'\n');
-            cout << "Ingrese un valor valido" << endl << endl;
-            system("pause");
-            system("cls");
-            cout << "Desea agregar mas ingredientes?  " << endl <<"1) si" << endl <<"0) no" << endl << endl;
-            cin >> opcion;
-        }
+        opcion = pedirYValidarConfirmacion("\nDesea agregar mas ingredientes? \n1)Si \n0)No \n\n");
         if(opcion==0){
             cargaIngredientes=true; //fin del while general de carga de ingredientes
         }
@@ -158,14 +141,38 @@ void ProductosManager::cargarProducto(){
             cin >> precioUnitario;
         }
     }
+    ///FIN DE CARGA DEL PRODUCTO Y SU RECETA:
     prod = Producto(idProducto, idCategoria, nombreProducto, precioUnitario, costoProducto, estado);
 
-    if (prodArchi.guardar(prod)){
-        cout << "Registro guardado correctamente." << endl << endl;
+    opcion = pedirYValidarConfirmacion("\nDesea guardar la receta? \n1) Si \n0) No \n\n");
+    if(opcion==1){ //si confirma, se guardan los detalles de ingredientes (receta) y el producto
+        for (int i=0; i< vecDetalleIngredientes.size(); i++){
+            if(detalleArchi.guardar(vecDetalleIngredientes[i])){
+                cout << "Ingrediente aniadido a la receta correctamente." << endl;
+                /**posicion = ingArchi.buscar(vecDetalleIngredientes[i].getIdIngrediente());
+                ing = ingArchi.leer(posicion);//instancia de ingrediente traida a memoria
+                ing.descontarStock(vecDetalleIngredientes[i].getCantidadPorProducto() ); //es un solo parametro, descuenta la cantidad del stock que se coloca en el pancho
+                if(ingArchi.modificar(ing, posicion)){
+                    cout << "Stock descontado correctamente." << endl;  /// ESTO SE DEBE EJECUTAR POR CADA DETALLE DE VENTA. vecDetalleIngredientes se reemplaza por un vector de detalle ventas.
+                } */
+
+
+            }
+            else{
+                cout << "Hubo un problema al guardar el registro." << endl << endl;
+            }
+        }
+        if (prodArchi.guardar(prod)){
+            cout << "Producto guardado correctamente." << endl << endl;
+        }
+        else{
+            cout << "Hubo un problema al guardar el registro." << endl << endl;
+        }
     }
     else{
-        cout << "Hubo un problema al guardar el registro." << endl << endl;
+        cout << "Creacion de producto descartada..." << endl << endl;
     }
+
 }
 
 void ProductosManager::modificarProducto(){

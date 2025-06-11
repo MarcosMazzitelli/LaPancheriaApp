@@ -126,3 +126,13 @@ void Ingrediente::mostrarEnLista(){
     }
 }
 
+void Ingrediente::descontarStock(float cantidad){
+    _cantidadStock-=cantidad;
+}
+
+void Ingrediente::aniadirStock(float cantidad){
+    _cantidadStock+=cantidad;
+}
+
+
+

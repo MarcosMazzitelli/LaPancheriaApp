@@ -10,7 +10,7 @@ ArchivoIngrediente::ArchivoIngrediente(std::string nombreArchivo){
 
 
 ///Metodos
-bool ArchivoIngrediente::guardar(Ingrediente registro){
+bool ArchivoIngrediente::guardar(Ingrediente &registro){
     FILE* pFile;
     bool result;
 
@@ -65,7 +65,7 @@ return registro;
 }
 
 int ArchivoIngrediente::buscar(int idIngrediente){
-   FILE *pFile;
+   FILE* pFile;
    Ingrediente registro;
    int posicion = 0;
 
@@ -85,5 +85,24 @@ int ArchivoIngrediente::buscar(int idIngrediente){
    fclose(pFile);
    return -1; // si llega hasta aca es porque no encontro un valor valido y retorno -1
 }
+
+bool ArchivoIngrediente::modificar(Ingrediente &registro, int posicion){
+    FILE* pFile;
+    bool result;
+
+    pFile = fopen(_nombreArchivo.c_str(), "rb+");
+
+    if(pFile == nullptr){
+        return false;
+    }
+
+    fseek(pFile, posicion * sizeof(Ingrediente), 0);
+    result = fwrite(&registro, sizeof(Ingrediente), 1, pFile);
+
+    fclose(pFile);
+    return result;
+
+}
+
 
 

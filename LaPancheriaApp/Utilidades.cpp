@@ -23,32 +23,23 @@ int verificarCoincidencia(std::string usuario, std::string contrasenia){
 }
 
 
-int validarConfirmacion(std::string mensaje){
+int pedirYValidarConfirmacion(std::string mensaje){
     int opcion;
     cout << mensaje;
     cin >> opcion;
-    while(cin.fail()){
+    while(cin.fail() || opcion < 0 || opcion > 1){
         cin.clear();
         cin.ignore(1000,'\n');
         cout << "Ingrese un valor valido" << endl << endl;
+        system("pause");
+        system("cls");
+        cout << mensaje << endl;
         cin >> opcion;
-    }
-
-    while(opcion!= 1 && opcion!= 2){
-        cout << "Opcion incorrecta" << endl;
-        cout << mensaje;
-        cin >> opcion;
-        while(cin.fail()){
-            cin.clear();
-            cin.ignore(1000,'\n');
-            cout << "Ingrese un valor valido" << endl << endl;
-            cin >> opcion;
-        }
     }
     return opcion;
 }
 
-std::string pedirTipoDeUnidad(float &cantidadStock){
+std::string seleccionarYConvertirUnidad(float &cantidadStock){
     int opcion;
     int confirmacion;
     string tipoDeUnidad;
@@ -66,8 +57,8 @@ std::string pedirTipoDeUnidad(float &cantidadStock){
             case 1:
                 tipoDeUnidad = "Unidades";
 
-                cout << "Ha elegido " << tipoDeUnidad << endl;
-                confirmacion= validarConfirmacion("Desea confirmar? \n 1)Si\n 2)No\n");
+                cout << endl << "Ha elegido " << tipoDeUnidad << endl;
+                confirmacion= pedirYValidarConfirmacion("Desea confirmar? \n 1)Si\n 2)No\n");
                 if (confirmacion == 1){
                     return tipoDeUnidad;
                 }
@@ -75,16 +66,16 @@ std::string pedirTipoDeUnidad(float &cantidadStock){
                 break;
             case 2:
                 tipoDeUnidad = "Gramos";
-                cout << "Ha elegido " << tipoDeUnidad << endl;
-                confirmacion= validarConfirmacion("Desea confirmar? \n 1)Si\n 2)No\n");
+                cout << endl << "Ha elegido " << tipoDeUnidad << endl;
+                confirmacion= pedirYValidarConfirmacion("Desea confirmar? \n1) Si\n2) No\n");
                 if (confirmacion == 1){
                     return tipoDeUnidad;
                 }
                 break;
             case 3:
                 tipoDeUnidad = "Kilos";
-                cout << "Ha elegido " << tipoDeUnidad << endl;
-                confirmacion= validarConfirmacion("Desea confirmar? \n 1)Si\n 2)No\n");
+                cout << endl << "Ha elegido " << tipoDeUnidad << endl;
+                confirmacion= pedirYValidarConfirmacion("Desea confirmar? \n1) Si\n2) No\n");
                 if (confirmacion == 1){
                     cantidadStock = cantidadStock*1000;
                     tipoDeUnidad="Gramos";
@@ -94,8 +85,8 @@ std::string pedirTipoDeUnidad(float &cantidadStock){
                 break;
             case 4:
                 tipoDeUnidad = "Litros";
-                cout << "Ha elegido " << tipoDeUnidad << endl;
-                confirmacion= validarConfirmacion("Desea confirmar? \n 1)Si\n 2)No\n");
+                cout << endl << "Ha elegido " << tipoDeUnidad << endl;
+                confirmacion= pedirYValidarConfirmacion("Desea confirmar? \n1) Si\n2) No\n");
                 if (confirmacion == 1){
                     cantidadStock = cantidadStock*1000;
                     tipoDeUnidad="Mililitros";
@@ -105,16 +96,97 @@ std::string pedirTipoDeUnidad(float &cantidadStock){
                 break;
             case 5:
                 tipoDeUnidad = "Mililitros";
-                cout << "Ha elegido " << tipoDeUnidad << endl;
-                confirmacion= validarConfirmacion("Desea confirmar? \n 1)Si\n 2)No\n");
+                cout << endl << "Ha elegido " << tipoDeUnidad << endl;
+                confirmacion= pedirYValidarConfirmacion("Desea confirmar? \n1) Si\n2) No\n");
                 if (confirmacion == 1){
                     return tipoDeUnidad;
                 }
 
                 break;
             default:
-                cout << "Entrada inválida. Por favor, ingresá un número entre 1 y 5.\n";
+                cout << "Entrada invalida. Por favor, ingresa un numero entre 1 y 5.\n";
                 break;
         }
     }
 }
+
+
+std::string seleccionarYConvertirUnidad(float &cantidadStock, std::string tipoDeUnidad){
+    int opcion, confirmacion;
+    if(tipoDeUnidad == "Gramos"){
+            while (true){
+            cout << "Especifique el tipo de unidad \n\n" << "1) Gramos \n" << "2) Kilos \n" ;
+            cin >> opcion;
+            while(cin.fail()){
+                cin.clear();
+                cin.ignore(1000,'\n');
+                cout << "Ingrese un valor valido" << endl << endl;
+                cin >> opcion;
+            }
+
+            switch (opcion) {
+                case 1:
+                    tipoDeUnidad = "Gramos";
+                    cout << endl << "Ha elegido " << tipoDeUnidad << endl;
+                    confirmacion= pedirYValidarConfirmacion("Desea confirmar? \n1) Si\n2) No\n");
+                    if (confirmacion == 1){
+                        return tipoDeUnidad;
+                    }
+                    break;
+                case 2:
+                    tipoDeUnidad = "Kilos";
+                    cout << endl << "Ha elegido " << tipoDeUnidad << endl;
+                    confirmacion= pedirYValidarConfirmacion("Desea confirmar? \n1) Si\n2) No\n");
+                    if (confirmacion == 1){
+                        cantidadStock = cantidadStock*1000;
+                        tipoDeUnidad="Gramos";
+                        cout << "Stock convertido a " << cantidadStock << " " << tipoDeUnidad << endl;
+                        return tipoDeUnidad;
+                    }
+                    break;
+                default:
+                    cout << "Entrada invalida. Por favor, ingresa un numero entre 1 y 2.\n";
+                    break;
+            }
+        }
+    }
+    else if (tipoDeUnidad == "Mililitros"){
+        while (true){
+            cout << "Especifique el tipo de unidad \n\n" << "1) Litros \n" << "2) Mililitros \n" ;
+            cin >> opcion;
+            while(cin.fail()){
+                cin.clear();
+                cin.ignore(1000,'\n');
+                cout << "Ingrese un valor valido" << endl << endl;
+                cin >> opcion;
+            }
+
+            switch (opcion) {
+                case 1:
+                    tipoDeUnidad = "Litros";
+                    cout << endl << "Ha elegido " << tipoDeUnidad << endl;
+                    confirmacion= pedirYValidarConfirmacion("Desea confirmar? \n1) Si\n2) No\n");
+                    if (confirmacion == 1){
+                        cantidadStock = cantidadStock*1000;
+                        tipoDeUnidad="Mililitros";
+                        cout << "Stock convertido a " << cantidadStock << " " << tipoDeUnidad << endl;
+                        return tipoDeUnidad;
+                    }
+                    break;
+                case 2:
+                    tipoDeUnidad = "Mililitros";
+                    cout << endl << "Ha elegido " << tipoDeUnidad << endl;
+                    confirmacion= pedirYValidarConfirmacion("Desea confirmar? \n1) Si\n2) No\n");
+                    if (confirmacion == 1){
+                        return tipoDeUnidad;
+                    }
+
+                    break;
+                default:
+                    cout << "Entrada invalida. Por favor, ingresa un numero entre 1 y 2.\n";
+                    break;
+            }
+        }
+    }
+}
+

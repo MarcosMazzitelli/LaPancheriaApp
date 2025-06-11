@@ -170,7 +170,7 @@ void MenuManager::menuEmpleados(){
         cout << "        MENU DE GESTION DE EMPLEADOS" << endl;
         cout << "========================================================" << endl;
         cout << "1. Crear nuevo empleado" << endl;
-        cout << "2. Modificar datos de un emleado " << endl;
+        cout << "2. Modificar datos de un empleado " << endl;
         cout << "3. Eliminar empleado" << endl;
         cout << "4. Mostrar empleados" << endl;
 
@@ -334,7 +334,7 @@ void MenuManager::menuIngredientes(){
         cout << "2. Modificar stock " << endl;
         cout << "3. Eliminar ingrediente" << endl;
         cout << "4. Listar ingredientes" << endl;
-
+        cout << "5. Comprar ingrediente" << endl;
 
         cout << "0. Salir" << endl;
         cout << "===============================" << endl;
@@ -358,7 +358,7 @@ void MenuManager::menuIngredientes(){
                 break;
             case 2:
                 system("cls");
-                //manager modificar stock
+                ingManager.modificarStock();
                 system("pause");
                 break;
             case 3:
@@ -368,8 +368,12 @@ void MenuManager::menuIngredientes(){
                 break;
             case 4:
                 system("cls");
-                //manager Listar ingredientes
                 ingManager.listarIngredientes();
+                system("pause");
+                break;
+            case 5:
+                system("cls");
+                ingManager.comprarIngrediente();
                 system("pause");
                 break;
 

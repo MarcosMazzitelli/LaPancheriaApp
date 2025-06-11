@@ -9,6 +9,8 @@ public:
     void mostrarIngredientesCompletos();
     int cantidadRegistros();
     void listarIngredientes();
+    void comprarIngrediente();
+    void modificarStock();
 
 
 };

@@ -12,7 +12,8 @@ public:
     ArchivoIngrediente(std::string nombreArchivo);
 
     ///Metodos
-    bool guardar(Ingrediente registro);
+    bool guardar(Ingrediente &registro);
+    bool modificar(Ingrediente &registro, int posicion);
     int getCantidadRegistros();
     Ingrediente leer(int pos);
     int buscar(int idIngrediente);
