@@ -95,7 +95,7 @@ cout << left << setw(20) << "Fecha";
 }
 
 void CostoFijo::mostrarEnLista(){
-cout << left << setw(20) << getIdCosto(); // right lo alinea a la izquierda y setw setea el ancho del campo, lo que sobra lo rellena son espacios hasta completar esa cantidad de caracteres
+cout << left << setw(20) << getIdCosto();
 cout << left << setw(20) << getNombreCosto();
 cout << "$ " << left << setw(18) <<getPrecio();
 cout << left << setw(20) ; getFechaCosto(); //corregir

@@ -29,12 +29,11 @@ public:
 
     //metodos
     void cargarFormaDePago();
-    //void elegirFormaDePago();
-    //void mostrar tabla();
-    //void mostrarLista();
+    void elegirFormaDePago();
+    void mostrarTabla();
+    void mostrarEnLista();
     void mostrar();
     std::string mostrarToCsv();
-
 
 };
 

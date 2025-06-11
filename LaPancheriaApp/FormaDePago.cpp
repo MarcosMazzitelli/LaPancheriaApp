@@ -2,6 +2,7 @@
 #include "FormaDePagoArchivo.h"
 #include <cstring>
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 //Constructor por ominisión
@@ -53,8 +54,8 @@ float descuento;
 FormaDePago f;
 FormaDePagoArchivo archi;
 bool bandera=false;
-while(!bandera){
 
+while(!bandera){
 formaDePago=archi.getCantidadRegistros()+1;
 
 cout << "Ingrese el nombre" << endl;
@@ -94,6 +95,58 @@ else{
 }
 }
 
+void FormaDePago::elegirFormaDePago(){
+
+FormaDePago fdp;
+FormaDePagoArchivo aFdp;
+int cantRegistros=aFdp.getCantidadRegistros();
+
+cout<<"FORMAS DE PAGO"<<endl;
+fdp.mostrarTabla();
+cout<<"-----------------------------------------------------------"<<endl;
+
+for(int i=0;i<cantRegistros;i++){
+    fdp=aFdp.leer(i);
+    fdp.mostrarEnLista();
+}
+cout<<"-----------------------------------------------------------"<<endl;
+
+bool confirmacion=false;
+int opc, opcion;
+
+while(!confirmacion){
+cout<<"Elija la forma de pago"<<endl;
+cin>> opc;
+
+for(int i=0;i<cantRegistros;i++){
+
+fdp=aFdp.leer(i);
+bool bandera=false;
+
+if(fdp.getFormaDePago()==opc){
+while(!bandera){
+
+cout<<"Desea confirmar esta opcion? 1)Si 0)No"<<endl;
+cin>>opcion;
+
+if(opcion==1){
+    confirmacion=true;
+    bandera=true;
+}else{
+    if(opcion==0){
+        confirmacion=false;
+        bandera=true;
+    }else{
+        cout<<"Ingrese una opcion valida"<<endl;
+        bandera=false;}
+     }
+    }
+   }
+  }
+ }
+}
+
+
 void FormaDePago::mostrar(){
     cout << "N de forma de pago: " << getFormaDePago() << endl;
     cout << "Nombre de forma de pago: " << getNombreFormaDePago() << endl;
@@ -110,5 +163,16 @@ std::string FormaDePago::mostrarToCsv(){
     return str;
 }
 
+void FormaDePago::mostrarTabla(){
+cout << left << setw(20) << "NRO Forma De Pago";
+cout << left << setw(20) << "Nombre Forma De Pago";
+cout << left << setw(20) << "Descuento";
+}
+
+void FormaDePago::mostrarEnLista(){
+cout << left << setw(20) << getFormaDePago();
+cout << left << setw(20) << getNombreFormaDePago();
+cout << left << setw(20) << getDescuento();
+}
 
 
