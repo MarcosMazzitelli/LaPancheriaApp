@@ -116,43 +116,74 @@ void PersonaManager::listarEmpleados(){
     e.mostrarEnTabla();
     // hacer un if para cuando no hayan registros, avise que no hay nada guardado
     int cantRegistros = cantidadRegistrosEmpleado();
-
     for (int i=0; i<cantRegistros; i++){
         e = a.leer(i);
-        cout << left << setw(15) << e.getIdEmpleado();
-        cout << setw(30) << e.getNombre();
-        cout << setw(30) << e.getApellido();
-        cout << setw(10) << e.getDni() << endl;
+        if(e.getEstado()){
+            cout << left << setw(15) << e.getIdEmpleado();
+            cout << setw(30) << e.getNombre();
+            cout << setw(30) << e.getApellido();
+            cout << setw(10) << e.getDni() << endl;
+        }
+
     }
 }
 
+void PersonaManager::eliminarEmpleado(){
+    ArchivoEmpleado archivo;
+    Empleado empleado;
+    bool modifico;
 
+    int id, cantidadRegistros,pos;
+
+    listarEmpleados();
+    cout << "\n\n\n----------------ELIMINAR EMPLEADO------------------" <<endl;
+    cout << "Ingrese el ID del empleado a eliminar " << endl << endl;
+    cin >> id;
+    cantidadRegistros = cantidadRegistrosEmpleado();
+
+    for(int i=0; i<cantidadRegistros;i++){
+        empleado=archivo.leer(i);
+        if(empleado.getIdEmpleado()==id){
+
+            empleado.setEstado(false);
+            pos=i;
+            modifico=archivo.modificarEmpleado(empleado,pos);
+        }
+    }
+    if(modifico){
+        cout<< "El empleado  de ID: " << id <<" fue dado de baja."<<endl;
+    }else{
+        cout << "El empleado no pudo ser dado de baja. No existente." <<endl;
+    }
+}
 
 /*void PersonaManager::modificarEmpleados(){
-    int idEmpleado, cantidadRegistros;
+    int idEmpleado, cantidadRegistros, pos;
     ArchivoEmpleado a;
     Empleado e;
+    bool validacion;
     //pido el id del empleado que quiero modificar
     cout << "Ingrese el id del empleado a modificar: " <<endl;
     cin >> idEmpleado;
 
-    cantidadRegistros = cantidadRegistros();
+    cantidadRegistros = cantidadRegistrosEmpleado();
 
     //recorro el archivo comparando el id
-    for(int i=0,i < cantidadRegistros;i++){
+    for(int i=0;i < cantidadRegistros;i++){
             e=a.leer(i);
             if(idEmpleado == e.getIdEmpleado()){
+                pos=i;
 
             }else{
                 cout << "No se hallo el empleado a modificar" <<endl;
             }
     }
+
+
     //si hay coincidencias lo traigo
     //pregunto que atributo desea modificar y lo seteo
     //ubico con la pos el puntero en el archivo y seteo todo el objeto
 
-}
-void PersonaManager::eliminarEmpleado(){
 }*/
 
 ///Metodos para clientes
@@ -199,7 +230,7 @@ void PersonaManager::cargarCliente(){
 
             cout << "Ingrese apellido del cliente: \n";
             getline(cin,apellido);
-            cin.ignore();
+
             limpiarPantalla();
 
             cliente = Cliente(nombre, apellido, dni);
@@ -218,23 +249,26 @@ void PersonaManager::cargarCliente(){
         cout << "Cliente como consumidor final"<< endl;
     }
 }
+
 void PersonaManager::listarClientes(){
     ArchivoCliente archivo;
     Cliente cliente;
 
-    cliente.mostrarEnTabla();
-// hacer un if para cuando no hayan registros, avise que no hay nada guardado
     int cantRegistros = cantidadRegistrosCliente();
-    cout << cantRegistros << endl;
 
-    for (int i=0; i<cantRegistros; i++){
-        cliente = archivo.leer(i);
-        cout<< i;
-        cout << left  << setw(30) << cliente.getNombre();
-        cout << setw(30) << cliente.getApellido();
-        cout << setw(10) << cliente.getDni() << endl;
+    if(cantRegistros>0){
+        cliente.mostrarEnTabla();
+        for(int i=0; i<cantRegistros;i++){
+            cliente = archivo.leer(i);
+            cout << left  << setw(30) << cliente.getNombre();
+            cout << setw(30) << cliente.getApellido();
+            cout << setw(10) << cliente.getDni() << endl;
+        }
+    }else{
+        cout << "No se encontrron registros de clientes."<<endl<<endl;
     }
 }
+
 //void PersonaManager::modificarCliente(){
 //}
 //void PersonaManager::eliminarCliente(){

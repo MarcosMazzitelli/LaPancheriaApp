@@ -86,4 +86,17 @@ int ArchivoEmpleado::buscar(std::string dniEmpleado){
    return -1;
 }
 
+bool ArchivoEmpleado::modificarEmpleado(Empleado e, int pos){
+    FILE* pFile;
+    pFile = fopen(_nombreArchivo.c_str(),"rb+");
+
+    if(pFile==nullptr){
+        return false;
+    }
+    fseek(pFile,pos*sizeof(e),0);
+    bool escribio = fwrite(&e,sizeof(e),1,pFile);
+    fclose(pFile);
+    return escribio;
+}
+
 

@@ -173,13 +173,13 @@ void MenuManager::menuEmpleados(){
             case 2:
                 system("cls");
                 //manager modificar empleado
-                //persona.cargarCliente();
+                persona.cargarCliente();
                 persona.listarClientes();
                 system("pause");
                 break;
             case 3:
                 system("cls");
-                //manager eliminar empleado
+                persona.eliminarEmpleado();
                 system("pause");
                 break;
             case 4:

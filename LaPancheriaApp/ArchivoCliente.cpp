@@ -45,6 +45,7 @@ Cliente ArchivoCliente::leer(int pos){
     FILE* pFile;
 
     Cliente registro;
+    pFile= fopen(_nombreArchivo.c_str(),"rb");
 
     if(pFile==nullptr){
         return registro;

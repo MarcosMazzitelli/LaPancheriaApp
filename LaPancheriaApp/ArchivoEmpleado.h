@@ -16,6 +16,7 @@ class ArchivoEmpleado{
         int getCantidadRegistros();
         Empleado leer(int pos);
         int buscar(std::string dniEmpleado);
+        bool modificarEmpleado(Empleado e, int pos);
 
 
 };
