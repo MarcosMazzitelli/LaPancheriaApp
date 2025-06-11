@@ -10,13 +10,15 @@ FormaDePago::FormaDePago(){
     _formaDePago=0;
     strcpy(_nombreFormaDePago, "");
     _descuento=0,0;
+    _estado=true;
 }
 
 //Constructor por parametros
-FormaDePago::FormaDePago(int formaDePago, std::string nombreFormaDePago, float descuento){
+FormaDePago::FormaDePago(int formaDePago, std::string nombreFormaDePago, float descuento, bool estado){
         setFormaDePago(formaDePago);
         setNombreFormaDePago(nombreFormaDePago);
         setDescuento(descuento);
+        setEstado(estado);
 }
 
 ///Getters
@@ -29,7 +31,9 @@ return _nombreFormaDePago;
 float FormaDePago::getDescuento(){
 return _descuento;
 }
-
+bool FormaDePago::getEstado(){
+return _estado;
+}
 
 
 //Setters
@@ -41,6 +45,9 @@ strcpy(_nombreFormaDePago,nombreFormaDePago.c_str());
 }
 void FormaDePago::setDescuento(float descuento){
     _descuento=descuento;
+}
+void FormaDePago::setEstado(bool estado){
+    _estado=estado;
 }
 
 
@@ -54,6 +61,7 @@ float descuento;
 FormaDePago f;
 FormaDePagoArchivo archi;
 bool bandera=false;
+bool estado=true;
 
 while(!bandera){
 formaDePago=archi.getCantidadRegistros()+1;
@@ -75,7 +83,7 @@ else{
 }
 }
 
-f = FormaDePago(formaDePago, nombreFormaDePago, descuento);
+f = FormaDePago(formaDePago, nombreFormaDePago, descuento, estado);
 
 if(archi.guardar(f)){
     cout<<"Forma de pago guardada con exito"<< endl << endl;
@@ -103,6 +111,7 @@ int cantRegistros=aFdp.getCantidadRegistros();
 
 cout<<"FORMAS DE PAGO"<<endl;
 fdp.mostrarTabla();
+cout<<endl;
 cout<<"-----------------------------------------------------------"<<endl;
 
 for(int i=0;i<cantRegistros;i++){
@@ -123,7 +132,7 @@ for(int i=0;i<cantRegistros;i++){
 fdp=aFdp.leer(i);
 bool bandera=false;
 
-if(fdp.getFormaDePago()==opc){
+if(fdp.getFormaDePago()==opc && fdp.getEstado()==true){
 while(!bandera){
 
 cout<<"Desea confirmar esta opcion? 1)Si 0)No"<<endl;
@@ -170,9 +179,17 @@ cout << left << setw(20) << "Descuento";
 }
 
 void FormaDePago::mostrarEnLista(){
+FormaDePago fdp;
+FormaDePagoArchivo aFdp;
+int cantRegistros=aFdp.getCantidadRegistros();
+for(int i=0; i<cantRegistros; i++){
+fdp=aFdp.leer(i);
+if(fdp.getEstado()==true){
 cout << left << setw(20) << getFormaDePago();
 cout << left << setw(20) << getNombreFormaDePago();
 cout << left << setw(20) << getDescuento();
+}
+}
 }
 
 

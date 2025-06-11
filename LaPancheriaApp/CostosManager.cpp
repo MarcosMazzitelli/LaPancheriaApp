@@ -11,7 +11,7 @@ int idCosto;
 float precio;
 string nombreCosto;
 Fecha fechaCosto;
-bool estado;
+bool estado=true;
 CostoFijo costo;
 CostoFijoArchivo archi;
 
@@ -76,8 +76,10 @@ for(int i=0;i<cantRegistros;i++){
 
     if(costoF.getNombreCosto()== nombreCosto){
         cout<<"Costo Fijo Encontrado"<<endl;
-        cout<<"--------------------------------------------------------------------------"<<endl;
+        cout<<endl;
         costoF.mostrarTabla();
+        cout<<"--------------------------------------------------------------------------"<<endl;
+        cout<<endl;
         costoF.mostrarEnLista();
         cout<<"--------------------------------------------------------------------------"<<endl;
     }
@@ -95,15 +97,16 @@ CostoFijo cf;
 
 int cantRegistros= archi.getCantidadRegistros();
 
+cout<<"COSTOS FIJOS"<<endl;
+cf.mostrarTabla();
+cout<<"--------------------------------------------------------------------------"<<endl;
+cout<<endl;
 for(int i=0; i<cantRegistros;i++){
     if(cantRegistros ==0){
         cout<<"No se encontraron registros. "<<endl;
     }
     else{
         cf=archi.leer(i);
-        cout<<"COSTOS FIJOS"<<endl;
-        cout<<"--------------------------------------------------------------------------"<<endl;
-        cf.mostrarTabla();
         cf.mostrarEnLista();
         cout<<"--------------------------------------------------------------------------"<<endl;
         cout<<endl <<endl;
