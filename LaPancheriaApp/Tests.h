@@ -227,18 +227,6 @@ void cargarPancho(){
     }
 }
 
-void cargarIngrediente(){
-    IngredientesManager ingManager;
-
-    ingManager.cargarIngrediente();
-
-}
-
-void listarIngredientes(){
-    IngredientesManager ingManager;
-    cout << endl << endl << "Listado Ingredientes" << endl << endl;
-    ingManager.listarIngredientes();
-}
 
 void crearProducto(){
     ProductosManager prodManager;
