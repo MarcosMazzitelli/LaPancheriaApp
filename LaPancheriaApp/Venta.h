@@ -3,6 +3,7 @@
 #include <string>
 #include "Fecha.h"
 
+
 class Venta{
 private:
     int _nroFactura;
@@ -29,7 +30,13 @@ public:
     void setImporteTotal (float importeTotal);
     void setFormaDePago (int formaDePago);
     void setFechaVenta (Fecha fechaVenta);
+
+
     void mostrar();
+    void mostrarEnLista();
+    Fecha obtenerFechaVenta();
+    void mostrarTabla();
+
 };
 
 

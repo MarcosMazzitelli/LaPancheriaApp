@@ -105,8 +105,8 @@ void Empleado::mostrar(){
     cout << "Permiso: " << getPermiso() << endl;
     cout << "Puesto: " << getPuesto() << endl;
     cout << "Sueldo: " << getSueldo() << endl;
-    cout << "Fecha de ingreso: " ; getFechaIngreso().mostrarFecha();
-    cout << "Fecha de nacimiento: " ; getFechaNacimiento().mostrarFecha();
+    cout << "Fecha de ingreso: " << getFechaIngreso().mostrarFecha();
+    cout << "Fecha de nacimiento: " << getFechaNacimiento().mostrarFecha();
     cout << "Estado: " << getEstado() << endl;
     cout << "Email: " << getEmail() << endl;
     cout << "Celular: " << getNCelular() << endl;

@@ -13,6 +13,7 @@ public:
     void menuProductos();
     void menuIngredientes();
     void menuCostos();
-
+    void menuReportes();
+    void menuVentas(std::string dni);
 
 };

@@ -7,6 +7,9 @@
 #include "ProductosManager.h"
 #include "FormaDePago.h"
 #include "CostoFijo.h"
+#include "Tests.h"
+#include "Venta.h"
+#include "DetalleVenta.h"
 #include <iostream>
 using namespace std;
 
@@ -227,23 +230,11 @@ void cargarPancho(){
     }
 }
 
-void cargarIngrediente(){
-    IngredientesManager ingManager;
 
-    ingManager.cargarIngrediente();
-
-}
-
-void listarIngredientes(){
-    IngredientesManager ingManager;
-    cout << endl << endl << "Listado Ingredientes" << endl << endl;
-    ingManager.listarIngredientes();
-}
-
-void cargarProducto(){
+void crearProducto(){
     ProductosManager prodManager;
 
-    prodManager.cargarProducto();
+    prodManager.crearProducto();
 }
 
 void mostrarProductosConIngredientes(){

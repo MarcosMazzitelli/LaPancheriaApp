@@ -13,7 +13,7 @@ VentaArchivo::VentaArchivo(std::string nombreArchivo){
 //Metodos
 //Cargar un Registro
 bool VentaArchivo::guardar(Venta registro){
-    FILE* pfile;
+    FILE *pfile;
     bool result;
 
     pfile= fopen(_nombreArchivo.c_str(),"ab");
@@ -28,7 +28,7 @@ bool VentaArchivo::guardar(Venta registro){
 //Leer un Archivo
 int VentaArchivo::getCantidadRegistros(){
 
-    FILE* pfile;
+    FILE *pfile;
     int tamRegistro,total,cantidad;
 
 
@@ -46,7 +46,7 @@ int VentaArchivo::getCantidadRegistros(){
 
 }
 Venta VentaArchivo::leer(int pos){
-FILE* pFile;
+FILE *pFile;
 Venta registro;
 
 
@@ -65,3 +65,4 @@ fclose(pFile);
 return registro;
 
 }
+

@@ -2,6 +2,8 @@
 #define DETALLEVENTA_H_INCLUDED
 #include <string>
 
+#include <cstring>
+#include <iostream>
 
 class DetalleVenta{
 private:
