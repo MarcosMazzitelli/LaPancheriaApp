@@ -6,12 +6,13 @@
 #include "IngredientesManager.h"
 #include "ProductosManager.h"
 #include "ManagerVenta.h"
+#include "FormaDePago.h"
 
 #include <iostream>
 using namespace std;
 
 void MenuManager::login(){
-    string usuario, contrasenia;
+    string dni, contrasenia;
     bool validacion=false;
     int cantidadIntentos=0;
     int pos;
@@ -22,21 +23,21 @@ void MenuManager::login(){
     cout << "        MENU INICIO DE SESION" << endl;
     cout << "========================================================" << endl << "\n";
 
-    cout << "Ingrese su nombre de usuario: ";
-    cin >> usuario;
+    cout << "Ingrese su DNI: ";
+    cin >> dni;
 
     cout << "Ingrese su contrasenia: ";
     cin >> contrasenia;
 
     while (!validacion && cantidadIntentos<3){
 
-        pos = verificarCoincidencia(usuario,contrasenia);
+        pos = verificarCoincidencia(dni,contrasenia);
           if(pos == -1) {
             cantidadIntentos++;
             cout << "Credenciales invalidas." << endl <<"Intento "<<cantidadIntentos<<" de 3" << endl << endl;
             if(cantidadIntentos<3){
-                cout << "Ingrese su nombre de usuario: ";
-                cin >> usuario;
+                cout << "Ingrese su nombre de DNI: ";
+                cin >> dni;
 
                 cout << "Ingrese su contrasenia: ";
                 cin >> contrasenia;
@@ -47,7 +48,7 @@ void MenuManager::login(){
             emp = archiEmp.leer(pos);
             validacion=true;
             if(emp.getPermiso() == 1){
-                menuAdmin(usuario);
+                menuAdmin(dni);
             }
             else{
                 //menuEmpleado();
@@ -75,9 +76,8 @@ void MenuManager::menuAdmin(std::string dni){
         cout << "2. Gestion de productos " << endl;
         cout << "3. Gestion de ingredientes" << endl;
         cout << "4. Gestion de costos" << endl;
-        cout << "5. Cargar venta" << endl;
+        cout << "5. Gestion de ventas" << endl;
         cout << "6. Reportes" << endl;
-        cout << "7. Listar ventas" << endl;
 
 
         cout << "0. Salir" << endl;
@@ -117,7 +117,7 @@ void MenuManager::menuAdmin(std::string dni){
                 break;
             case 5:
                 system("cls");
-                ventaManager.registrarVenta(dni);
+                menuVentas(dni);
                 //manager cargar venta
                 system("pause");
                 break;
@@ -126,9 +126,78 @@ void MenuManager::menuAdmin(std::string dni){
                 menuReportes();
                 system("pause");
                 break;
-            case 7:
+            case 0:
+                cout << "Confirma que desea salir? 1- si  0- no\n";
+                cin >> opcionSalida;
+                while (opcionSalida != 1 && opcionSalida != 0){
+                    cout << "Confirma que desea salir? 1- si  0- no\n";
+                    cin >> opcionSalida;
+                }
+                if (opcionSalida == 1){
+                    cout << "Saliendo del menu...\n";
+                    return; //el while nunca llega a ejecutarse porque el case 0 hace return.
+                }
+                break;
+            default:
+                if (cin.fail()) {
+                    cin.clear(); // limpia el estado de error
+                    cin.ignore(1000, '\n'); // descarta el resto de la l�nea
+                    cout << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
+                    system("pause");
+                    system("cls");
+                    //saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
+                }
+                else{
+                    cout << "Opcion invalida. Por favor, ingrese un numero valido." << endl;
+                    system("pause");
+                }
+            }
+    }
+}
+
+void MenuManager::menuVentas(std::string dni){
+
+    FormaDePago fdp;
+    ManagerVenta ventaManager;
+    int opcion, opcionSalida;
+    while(true){
+        system("cls");
+        cout << "========================================================" << endl;
+        cout << "        MENU DE GESTION DE VENTAS" << endl;
+        cout << "========================================================" << endl;
+        cout << "1. Cargar venta" << endl;
+        cout << "2. Listar ventas" << endl;
+        cout << "3. Formas de pago" << endl;
+
+        cout << "0. Salir" << endl;
+        cout << "===============================" << endl;
+        cout << "Ingrese una opcion: ";
+
+        cin >> opcion;
+        if (cin.fail()) {
+            cin.clear(); // limpia el estado de error
+            cin.ignore(1000, '\n'); // descarta el resto de la l�nea
+            cout << "Entrada invalida. Por favor, ingrese un numero valido" << endl;
+            system("pause");
+            system("cls");
+            continue; //saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
+        }
+
+        switch(opcion) {
+            case 1:
+                system("cls");
+                ventaManager.registrarVenta(dni);
+                //manager cargar venta
+                system("pause");
+                break;
+            case 2:
                 system("cls");
                 ventaManager.listarVenta();
+                system("pause");
+                break;
+            case 3:
+                system("cls");
+                fdp.opcionesFormasDePago();
                 system("pause");
                 break;
 
@@ -162,6 +231,7 @@ void MenuManager::menuAdmin(std::string dni){
     }
 }
 
+
 void MenuManager::menuEmpleados(std::string dni){
     PersonaManager persona;
     int opcion, opcionSalida;
@@ -187,7 +257,7 @@ void MenuManager::menuEmpleados(std::string dni){
             system("cls");
             continue;//saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
         }
-switch(opcion) {
+        switch(opcion) {
             case 1:
                 system("cls");
                 persona.cargarEmpleado();
@@ -196,8 +266,6 @@ switch(opcion) {
             case 2:
                 system("cls");
                 persona.modificarEmpleados();
-                //persona.cargarCliente();
-                //persona.listarClientes();
                 system("pause");
                 break;
             case 3:

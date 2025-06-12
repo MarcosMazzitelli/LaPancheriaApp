@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string>
 
 class PersonaManager{
     private:
@@ -14,7 +15,7 @@ class PersonaManager{
         void listarEmpleadosDeBaja();
 
         int cantidadRegistrosCliente();
-        void cargarCliente();
+        void cargarCliente(std::string &dniCliente);
         void listarClientes();
         void modificarCliente(std::string dniUsuario);
         void eliminarCliente();

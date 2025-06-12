@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class Fecha{
     private:
@@ -17,7 +18,7 @@ class Fecha{
         int getDia();
         int getMes();
         int getAnio();
-        void mostrarFecha();
+        std::string mostrarFecha();
 };
 
 

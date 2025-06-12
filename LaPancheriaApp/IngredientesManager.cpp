@@ -22,7 +22,7 @@ void IngredientesManager::cargarIngrediente(){
     Ingrediente ing;
     ArchivoIngrediente archi;
 
-    idIngrediente=cantidadRegistros(); //autonumerico
+    idIngrediente=cantidadRegistros()+1; //autonumerico
 
     cout << "Ingrese el nombre del nuevo ingrediente: ";
     //proximamente va el cin.ignore() porque estara dentro de un menu.

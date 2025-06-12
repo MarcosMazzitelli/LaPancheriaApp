@@ -1,5 +1,6 @@
 #include "FormaDePago.h"
 #include "FormaDePagoArchivo.h"
+#include "Utilidades.h"
 #include <cstring>
 #include <iostream>
 #include <iomanip>
@@ -53,6 +54,54 @@ void FormaDePago::setEstado(bool estado){
 
 
     //METODOS
+void FormaDePago::opcionesFormasDePago(){
+    int opcion;
+    int opcSalida;
+
+
+    while(true){
+        cout << "Elija una opcion:" << endl;
+        cout << "1) Cargar forma de pago" << endl;
+        cout << "2) Listar forma de pago" << endl;
+        cout << "0) Salir" << endl;
+        cin >> opcion;
+        while(cin.fail() || opcion != 1 && opcion != 2 && opcion != 0){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            system("pause");
+            system("cls");
+            cout << "Elija una opcion:" << endl;
+            cout << "1) Cargar forma de pago" << endl;
+            cout << "2) Listar forma de pago" << endl;
+            cout << "0) Salir" << endl;
+            cin >> opcion;
+        }
+        switch (opcion){
+        case 1:
+            system("cls");
+            cargarFormaDePago();
+            system("pause");
+            break;
+
+        case 2:
+            system("cls");
+            mostrarEnLista();
+            system("pause");
+            break;
+        case 0:
+            system("cls");
+            opcSalida = pedirYValidarConfirmacion("\n Desea confirmar salida? \n1)Si \n0)No \n\n");
+            if(opcSalida==1){
+                cout << "Saliendo..." << endl;
+                return;
+            }
+            system("pause");
+            break;
+
+        }
+    }
+}
 
 void FormaDePago::cargarFormaDePago(){
 int formaDePago;
@@ -72,15 +121,15 @@ getline(cin,nombreFormaDePago);
 
 bool validar=false;
 while(!validar){
-cout << "Ingrese el descuento" << endl;
-cin >> descuento;
-if(descuento<0){ //falta validar que sea numero
-    cout<<"Valor incorrecto"<<endl;
-    validar=false;
-}
-else{
-   validar=true;
-}
+    cout << "Ingrese el descuento" << endl;
+    cin >> descuento;
+    if(descuento<0 && descuento > 1){ //falta validar que sea numero
+        cout<<"Valor incorrecto"<<endl;
+        validar=false;
+    }
+    else{
+       validar=true;
+    }
 }
 
 f = FormaDePago(formaDePago, nombreFormaDePago, descuento, estado);
@@ -103,25 +152,16 @@ else{
 }
 }
 
-void FormaDePago::elegirFormaDePago(){
+void FormaDePago::elegirFormaDePago(int &opc){
 
 FormaDePago fdp;
 FormaDePagoArchivo aFdp;
 int cantRegistros=aFdp.getCantidadRegistros();
 
-cout<<"FORMAS DE PAGO"<<endl;
-fdp.mostrarTabla();
-cout<<endl;
-cout<<"-----------------------------------------------------------"<<endl;
-
-for(int i=0;i<cantRegistros;i++){
-    fdp=aFdp.leer(i);
-    fdp.mostrarEnLista();
-}
-cout<<"-----------------------------------------------------------"<<endl;
+mostrarEnLista();
 
 bool confirmacion=false;
-int opc, opcion;
+int opcion;
 
 while(!confirmacion){
 cout<<"Elija la forma de pago"<<endl;
@@ -173,23 +213,27 @@ std::string FormaDePago::mostrarToCsv(){
 }
 
 void FormaDePago::mostrarTabla(){
-cout << left << setw(20) << "NRO Forma De Pago";
-cout << left << setw(20) << "Nombre Forma De Pago";
-cout << left << setw(20) << "Descuento";
+    cout << left << setw(20) << "Nro ID:";
+    cout << left << setw(20) << "Tipo";
+    cout << left << setw(20) << "Descuento";
 }
 
 void FormaDePago::mostrarEnLista(){
-FormaDePago fdp;
-FormaDePagoArchivo aFdp;
-int cantRegistros=aFdp.getCantidadRegistros();
-for(int i=0; i<cantRegistros; i++){
-fdp=aFdp.leer(i);
-if(fdp.getEstado()==true){
-cout << left << setw(20) << getFormaDePago();
-cout << left << setw(20) << getNombreFormaDePago();
-cout << left << setw(20) << getDescuento();
-}
-}
+    FormaDePago fdp;
+    FormaDePagoArchivo aFdp;
+    int cantRegistros=aFdp.getCantidadRegistros();
+    mostrarTabla();
+    cout<< endl << "-----------------------------------------------------------" << endl;
+    for(int i=0; i<cantRegistros; i++){
+        fdp=aFdp.leer(i);
+        if(fdp.getEstado()==true){
+            cout << left << setw(20) << fdp.getFormaDePago();
+            cout << left << setw(20) << fdp.getNombreFormaDePago();
+            cout << left << setw(20) << fdp.getDescuento();
+            cout << endl;
+        }
+    }
+    cout <<"-----------------------------------------------------------"<<endl;
 }
 
 

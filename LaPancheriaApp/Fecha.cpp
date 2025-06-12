@@ -11,11 +11,11 @@ Fecha::Fecha(){
 
 bool Fecha::cargar(){
     int m, d, a;
-        cout<<"Ingrese dia: \n";
+        cout<<"Ingrese dia: ";
         cin>>d;
-        cout<<"Ingrese mes: \n";
+        cout<<"Ingrese mes: ";
         cin>>m;
-        cout<<"Ingrese año: \n";
+        cout<<"Ingrese anio: ";
         cin>>a;
 
         if (!setFecha(d,m,a)){
@@ -100,8 +100,14 @@ bool Fecha::setFecha(int d, int m, int a){
 }
 
 
-void Fecha::mostrarFecha(){
-    cout<<_dia<<"/"<<_mes<<"/"<<_anio<<endl;
+std::string Fecha::mostrarFecha(){
+    string str = "";
+
+    str = to_string(_dia) + "/";
+    str+= to_string(_mes) + "/";
+    str+= to_string(_anio);
+
+    return str;
 }
 
 int Fecha::getDia(){

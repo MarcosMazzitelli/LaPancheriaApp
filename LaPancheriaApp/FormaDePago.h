@@ -32,11 +32,12 @@ public:
 
     //metodos
     void cargarFormaDePago();
-    void elegirFormaDePago();
+    void elegirFormaDePago(int &opc);
     void mostrarTabla();
     void mostrarEnLista();
     void mostrar();
     std::string mostrarToCsv();
+    void opcionesFormasDePago();
 
 };
 

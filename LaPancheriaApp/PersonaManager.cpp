@@ -371,33 +371,23 @@ int PersonaManager::cantidadRegistrosCliente(){
     return a.getCantidadRegistros();
 }
 
-void PersonaManager::cargarCliente(){
+void PersonaManager::cargarCliente(std::string &dniCliente){
     int opcion, pos;
-    string nombre, apellido, dni;
+    string nombre, apellido;
 
     ArchivoCliente archivo;
     Cliente cliente;
 
     cout << "----REGISTRO CLIENTE ----"<<endl;
-    cout<< "Ingrese 1 o 2. \n 1- Ticket personalizado\n 2- Ticket consumidor final"<<endl;
-    cin >> opcion;
-
-    while(cin.fail() || opcion!= 1 && opcion != 2){
-        cin.clear();
-        cin.ignore(1000,'\n');
-        cout << "Ingrese una opcion valida! \n";
-        limpiarPantalla();
-        cout<< "Ingrese 1 o 2. \n 1- Ticket personalizado\n 2- Ticket consumidor final"<<endl;
-        cin >> opcion;
-    }
+    opcion = pedirYValidarConfirmacion("Ingrese 1 o 0. \n 1- Ticket personalizado\n 0- Ticket consumidor final \n");
     if(opcion==1){
 
         cout << "Ingrese dni del cliente: \n";
         cin.ignore();
-        getline(cin,dni);
+        getline(cin,dniCliente);
         limpiarPantalla();
 
-       pos = archivo.buscar(dni);
+       pos = archivo.buscar(dniCliente);
 
 
         if(pos < 0){
@@ -410,20 +400,18 @@ void PersonaManager::cargarCliente(){
 
             limpiarPantalla();
 
-            cliente = Cliente(nombre, apellido, dni);
+            cliente = Cliente(nombre, apellido, dniCliente);
             if(archivo.guardar(cliente)){
             cout <<"El cliente se registro correctamente"<<endl;
             }else{
                 cout << "No se pudo guardar el registro" << endl;
             }
-            //venta.setDniCliente(dni); ESTO LO TENGO QUE INTEGRAR A LA CLASE DE VENTA
         }else{
             cout << "El cliente se encuentra registado. " << endl;
-            //venta.setDniCliente(dni); ESTO LO TENGO QUE INTEGRAR A LA CLASE DE VENTA
         }
     }else{
-        //venta.setDniCliente(0); // Consumidor final podria estar registrado con dni 0
         cout << "Cliente como consumidor final"<< endl;
+        dniCliente = "0";
     }
 }
 

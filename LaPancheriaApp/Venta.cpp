@@ -79,7 +79,7 @@ void Venta::mostrar(){
     cout << "ID empleado: " << getIdEmpleado() << endl;
     cout << "Importe total: " << getImporteTotal() << endl;
     cout << "Forma de pago: " << getFormaDePago() << endl;
-    cout << "Fecha de venta: " ; getFechaVenta().mostrarFecha();
+    cout << "Fecha de venta: " << getFechaVenta().mostrarFecha();
 }
 void Venta::mostrarTabla(){
 
@@ -99,7 +99,8 @@ void Venta::mostrarEnLista(){
     cout << setw(18) <<getIdEmpleado();
     cout << "$ "<< setw(16) <<  getImporteTotal();
     cout << setw(18) << getFormaDePago();
-    cout << left << setw(18) ; getFechaVenta().mostrarFecha();/// Arreglar como se muestra la fecha
+    cout << left << setw(18) << getFechaVenta().mostrarFecha();
+
 }
 
 
