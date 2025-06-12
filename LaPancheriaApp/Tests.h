@@ -76,7 +76,7 @@ void cargarYMostrarPersona(){
 }
 
 ///<<<<<<< Updated upstream
-void cargarYMostrarCliente(){
+/* cargarYMostrarCliente(){
     string nombre;
     string apellido;
     string dni;
@@ -97,7 +97,7 @@ void cargarYMostrarCliente(){
     p.mostrar();
     cout << endl << endl;
 
-}
+}*/
 
 void cargarYMostrarEmpleado(){
     string nombre, apellido, dni, contrasenia, puesto, email, cel;

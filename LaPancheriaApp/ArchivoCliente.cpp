@@ -45,6 +45,7 @@ Cliente ArchivoCliente::leer(int pos){
     FILE* pFile;
 
     Cliente registro;
+    pFile= fopen(_nombreArchivo.c_str(),"rb");
 
     if(pFile==nullptr){
         return registro;
@@ -58,6 +59,45 @@ Cliente ArchivoCliente::leer(int pos){
 
     return registro;
 }
+
+int ArchivoCliente::buscar(std::string dniCliente){
+   FILE *pFile;
+   Cliente registro;
+   int posicion = 0;
+
+   pFile = fopen(_nombreArchivo.c_str(), "rb");
+
+   if (pFile == nullptr){
+      return -2;
+   }
+   while(fread(&registro, sizeof(Cliente), 1, pFile) == 1){
+      if (registro.getDni() == dniCliente){
+         fclose(pFile);
+         return posicion;
+      }
+      posicion++;
+   }
+
+   fclose(pFile);
+   return -1;
+}
+bool ArchivoCliente::modificarCliente(Cliente c, int pos){
+    FILE* pFile;
+    pFile = fopen(_nombreArchivo.c_str(),"rb+");
+
+    if(pFile==nullptr){
+        return false;
+    }
+    fseek(pFile,pos*sizeof(c),0);
+    bool escribio = fwrite(&c,sizeof(c),1,pFile);
+    fclose(pFile);
+    return escribio;
+}
+
+
+
+
+
 
 
 

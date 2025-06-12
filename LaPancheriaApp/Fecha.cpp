@@ -11,15 +11,14 @@ Fecha::Fecha(){
 
 bool Fecha::cargar(){
     int m, d, a;
-        cout<<"DIA ";
+        cout<<"Ingrese dia: \n";
         cin>>d;
-        cout<<"MES ";
+        cout<<"Ingrese mes: \n";
         cin>>m;
-        cout<<"ANIO ";
+        cout<<"Ingrese año: \n";
         cin>>a;
 
         if (!setFecha(d,m,a)){
-            cout << "Fecha invalida." << endl;
             return false;
         }
         return true;

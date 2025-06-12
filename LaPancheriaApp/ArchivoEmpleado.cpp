@@ -83,7 +83,20 @@ int ArchivoEmpleado::buscar(std::string dniEmpleado){
    }
 
    fclose(pFile);
-   return -1; // si llega hasta aca es porque no encontro un valor valido y retorno -1
+   return -1;
+}
+
+bool ArchivoEmpleado::modificarEmpleado(Empleado e, int pos){
+    FILE* pFile;
+    pFile = fopen(_nombreArchivo.c_str(),"rb+");
+
+    if(pFile==nullptr){
+        return false;
+    }
+    fseek(pFile,pos*sizeof(e),0);
+    bool escribio = fwrite(&e,sizeof(e),1,pFile);
+    fclose(pFile);
+    return escribio;
 }
 
 

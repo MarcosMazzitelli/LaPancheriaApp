@@ -49,6 +49,6 @@ public:
     /*metodo mostrar*/
     std::string mostrarToCsv();
     void mostrar();
-
+    void mostrarEnTabla();
 };
 

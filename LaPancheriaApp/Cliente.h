@@ -11,5 +11,12 @@ public:
 
     /*contructor por parametros*/
     Cliente(std::string nombre, std::string apellido, std::string dni);
+
+
+    /*metodo mostrar*/
+    std::string mostrarToCsv();
+    void mostrar();
+    void mostrarEnTabla();
+
 };
 

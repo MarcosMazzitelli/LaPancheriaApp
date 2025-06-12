@@ -1,6 +1,5 @@
 #pragma once
 #include "Cliente.h"
-
 #include <string>
 
 class ArchivoCliente{
@@ -16,6 +15,8 @@ class ArchivoCliente{
         bool guardar(Cliente registro);
         int getCantidadRegistros();
         Cliente leer(int pos);
+        int buscar(std::string dni);
+        bool modificarCliente(Cliente c, int pos);
 };
 
 

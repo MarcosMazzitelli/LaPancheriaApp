@@ -1,6 +1,7 @@
 #include "Empleado.h"
 #include <cstring>
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 /*contructor por omisión*/
@@ -109,5 +110,15 @@ void Empleado::mostrar(){
     cout << "Estado: " << getEstado() << endl;
     cout << "Email: " << getEmail() << endl;
     cout << "Celular: " << getNCelular() << endl;
+}
+
+void Empleado::mostrarEnTabla(){
+    cout << " -----------------------------------------------------------------------------"<< endl;
+    cout << "                                  TABLA EMPLEADOS                             "<<endl;
+    cout << " -----------------------------------------------------------------------------"<< endl;
+    cout << left << setw(15)<<"Id Empleado";
+    Persona::mostrarEnTabla();
+
+
 }
 

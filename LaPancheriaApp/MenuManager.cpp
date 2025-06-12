@@ -19,8 +19,8 @@ void MenuManager::login(){
     ArchivoEmpleado archiEmp;
 
     cout << "========================================================" << endl;
-    cout << "                      MENU DE GESTION DE COSTOS" << endl;
-    cout << "========================================================" << endl << "\n\n\n\n";
+    cout << "        MENU INICIO DE SESION" << endl;
+    cout << "========================================================" << endl << "\n";
 
     cout << "Ingrese su nombre de usuario: ";
     cin >> usuario;
@@ -87,7 +87,7 @@ void MenuManager::menuAdmin(std::string dni){
         cin >> opcion;
         if (cin.fail()) {
             cin.clear(); // limpia el estado de error
-            cin.ignore(1000, '\n'); // descarta el resto de la línea
+            cin.ignore(1000, '\n'); // descarta el resto de la lï¿½nea
             cout << "Entrada invalida. Por favor, ingrese un numero valido" << endl;
             system("pause");
             system("cls");
@@ -97,7 +97,7 @@ void MenuManager::menuAdmin(std::string dni){
         switch(opcion) {
             case 1:
                 system("cls");
-                menuEmpleados();
+                menuEmpleados(dni);
                 system("pause");
                 break;
             case 2:
@@ -148,7 +148,7 @@ void MenuManager::menuAdmin(std::string dni){
             default:
                 if (cin.fail()) {
                     cin.clear(); // limpia el estado de error
-                    cin.ignore(1000, '\n'); // descarta el resto de la línea
+                    cin.ignore(1000, '\n'); // descarta el resto de la lï¿½nea
                     cout << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
                     system("pause");
                     system("cls");
@@ -162,7 +162,7 @@ void MenuManager::menuAdmin(std::string dni){
     }
 }
 
-void MenuManager::menuEmpleados(){
+void MenuManager::menuEmpleados(std::string dni){
     PersonaManager persona;
     int opcion, opcionSalida;
     while(true){
@@ -181,7 +181,7 @@ void MenuManager::menuEmpleados(){
         cin >> opcion;
         if (cin.fail()) {
             cin.clear(); // limpia el estado de error
-            cin.ignore(1000, '\n'); // descarta el resto de la línea
+            cin.ignore(1000, '\n'); // descarta el resto de la lï¿½nea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
             system("pause");
             system("cls");
@@ -195,12 +195,14 @@ switch(opcion) {
                 break;
             case 2:
                 system("cls");
-                //manager modificar empleado
+                persona.modificarEmpleados();
+                //persona.cargarCliente();
+                //persona.listarClientes();
                 system("pause");
                 break;
             case 3:
                 system("cls");
-                //manager eliminar empleado
+                persona.eliminarEmpleado();
                 system("pause");
                 break;
             case 4:
@@ -224,7 +226,7 @@ switch(opcion) {
             default:
                 if (cin.fail()) {
                     cin.clear(); // limpia el estado de error
-                    cin.ignore(1000, '\n'); // descarta el resto de la línea
+                    cin.ignore(1000, '\n'); // descarta el resto de la lï¿½nea
                     cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
                     system("pause");
                     system("cls");
@@ -261,7 +263,7 @@ void MenuManager::menuProductos(){
         cin >> opcion;
         if (cin.fail()) {
             cin.clear(); // limpia el estado de error
-            cin.ignore(1000, '\n'); // descarta el resto de la línea
+            cin.ignore(1000, '\n'); // descarta el resto de la lï¿½nea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
             system("pause");
             system("cls");
@@ -314,7 +316,7 @@ void MenuManager::menuProductos(){
             default:
                 if (cin.fail()) {
                     cin.clear(); // limpia el estado de error
-                    cin.ignore(1000, '\n'); // descarta el resto de la línea
+                    cin.ignore(1000, '\n'); // descarta el resto de la lï¿½nea
                     cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
                     system("pause");
                     system("cls");
@@ -346,7 +348,7 @@ void MenuManager::menuIngredientes(){
         cin >> opcion;
         if (cin.fail()) {
             cin.clear(); // limpia el estado de error
-            cin.ignore(1000, '\n'); // descarta el resto de la línea
+            cin.ignore(1000, '\n'); // descarta el resto de la lï¿½nea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
             system("pause");
             system("cls");
@@ -396,7 +398,7 @@ void MenuManager::menuIngredientes(){
             default:
                 if (cin.fail()) {
                     cin.clear(); // limpia el estado de error
-                    cin.ignore(1000, '\n'); // descarta el resto de la línea
+                    cin.ignore(1000, '\n'); // descarta el resto de la lï¿½nea
                     cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
                     system("pause");
                     system("cls");
@@ -431,7 +433,7 @@ void MenuManager::menuCostos(){
         cin >> opcion;
         if (cin.fail()) {
             cin.clear(); // limpia el estado de error
-            cin.ignore(1000, '\n'); // descarta el resto de la línea
+            cin.ignore(1000, '\n'); // descarta el resto de la lï¿½nea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
             system("pause");
             system("cls");
@@ -480,7 +482,7 @@ void MenuManager::menuCostos(){
             default:
                 if (cin.fail()) {
                     cin.clear(); // limpia el estado de error
-                    cin.ignore(1000, '\n'); // descarta el resto de la línea
+                    cin.ignore(1000, '\n'); // descarta el resto de la lï¿½nea
                     cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
                     system("pause");
                     system("cls");
