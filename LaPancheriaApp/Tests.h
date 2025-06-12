@@ -7,6 +7,9 @@
 #include "ProductosManager.h"
 #include "FormaDePago.h"
 #include "CostoFijo.h"
+#include "Tests.h"
+#include "Venta.h"
+#include "DetalleVenta.h"
 #include <iostream>
 using namespace std;
 

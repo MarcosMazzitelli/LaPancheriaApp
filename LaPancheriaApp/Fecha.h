@@ -14,6 +14,9 @@ class Fecha{
         Fecha();
         bool cargar();
         bool setFecha(int d, int m, int a);
+        int getDia();
+        int getMes();
+        int getAnio();
         void mostrarFecha();
 };
 

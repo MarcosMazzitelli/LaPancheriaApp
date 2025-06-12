@@ -13,6 +13,6 @@ public:
     void menuProductos();
     void menuIngredientes();
     void menuCostos();
-
+    void menuReportes();
 
 };

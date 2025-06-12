@@ -12,7 +12,7 @@ DetalleVentaArchivo::DetalleVentaArchivo(std::string nombreArchivo){
 }
 
 bool DetalleVentaArchivo::guardar(DetalleVenta registro){
-    FILE* pfile;
+    FILE *pfile;
     bool result;
 
     pfile= fopen(_nombreArchivo.c_str(),"ab");
@@ -27,7 +27,7 @@ bool DetalleVentaArchivo::guardar(DetalleVenta registro){
 
 int DetalleVentaArchivo::getCantidadRegistros(){
 
-    FILE* pfile;
+    FILE *pfile;
     int tamRegistro,total,cantidad;
 
 
@@ -44,4 +44,5 @@ int DetalleVentaArchivo::getCantidadRegistros(){
     return cantidad;
 
 }
+
 

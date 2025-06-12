@@ -104,4 +104,12 @@ void Fecha::mostrarFecha(){
     cout<<_dia<<"/"<<_mes<<"/"<<_anio<<endl;
 }
 
-
+int Fecha::getDia(){
+    return _dia;
+}
+int Fecha::getMes(){
+    return _mes;
+}
+int Fecha::getAnio(){
+    return _anio;
+}
