@@ -276,7 +276,7 @@ void MenuManager::menuProductos(){
                 break;
             case 2:
                 system("cls");
-                //manager modificar producto
+                prodManager.modificarProducto();
                 system("pause");
                 break;
             case 3:

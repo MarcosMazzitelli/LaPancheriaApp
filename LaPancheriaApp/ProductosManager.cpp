@@ -6,7 +6,7 @@
 #include "IngredientesManager.h"
 #include "Ingrediente.h"
 #include "Utilidades.h"
-#include <vector>
+//#include <vector>
 #include <iomanip>
 #include <iostream>
 using namespace std;
@@ -323,10 +323,171 @@ void ProductosManager::crearProducto(){
 ///todavia no hace nada pero deberia mostrar un menu para separar las bebidas y cargarlas distinto que a los panchos y guarniciones ya que no deberia pedir mas de un ingrediente"
 
 }
+void ProductosManager::menuModificacion(Producto &prod, int pos){
+    ArchivoProducto prodArchi;
+    int opcion;
+    string nombreProducto;
+    float precioUnitario, costoProducto;
+
+    while(true) {
+        cout << "\n--- Menu de Modificacion --- \n";
+        prod.mostrar();
+        cout << endl << endl;
+        cout << "1. Modificar Nombre \n";
+        cout << "2. Modificar Precio unitario \n";
+        cout << "3. Modificar CostoProducto \n";
+        cout << "4. Mostrar Datos \n";
+        cout << "0. Salir \n";
+
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        while(cin.fail() || opcion < 0 || opcion > 4 ){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            system("pause");
+            system("cls");
+            prod.mostrar();
+            cout << endl << endl;
+            cout << "\n--- Menu de Modificacion --- \n";
+            cout << "1. Modificar Nombre \n";
+            cout << "2. Modificar precio unitario \n";
+            cout << "3. Modificar costo del producto \n";
+            cout << "4. Mostrar Datos \n";
+            cout << "0. Salir \n";
+
+            cout << "Seleccione una opcion: ";
+            cin >> opcion;
+        }
+        switch (opcion) {
+            case 1:
+                system("cls");
+                cout << "Ingrese el nuevo nombre: ";
+                cin.ignore();
+                getline(cin, nombreProducto);
+                prod.setNombreProducto(nombreProducto);
+                cout << "Nombre modificado exitosamente.\n";
+                system("pause");
+                break;
+            case 2:
+                system("cls");
+                cout << "Ingrese el nuevo precio unitario: ";
+                cin >> precioUnitario;
+                while (cin.fail() || precioUnitario < 0){
+                    cin.clear();
+                    cin.ignore(1000,'\n');
+                    cout << "Ingrese un valor valido" << endl << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "Ingrese el nuevo precio unitario: ";
+                    cin >> precioUnitario;
+                }
+                prod.setPrecioUnitario(precioUnitario);
+                cout << "Precio unitario modificado.\n";
+                system("pause");
+                break;
+            case 3:
+                system("cls");
+                cout << "Ingrese el nuevo costo del producto: ";
+                cin >> costoProducto;
+                while (cin.fail() || costoProducto < 0){
+                    cin.clear();
+                    cin.ignore(1000,'\n');
+                    cout << "Ingrese un valor valido" << endl << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "Ingrese el nuevo costo del producto: ";
+                    cin >> costoProducto;
+                }
+                prod.setCostoProducto(costoProducto);
+                cout << "Costo del producto modificado.\n";
+                system("pause");
+                break;
+            case 4:
+                system("cls");
+                cout << "\nDatos actuales del producto:\n";
+                prod.mostrar();
+                system("pause");
+                break;
+            case 0:
+                system("cls");
+                opcion = pedirYValidarConfirmacion("\nDesea guardar antes de salir? \n1)Si  0)No \n");
+                if (opcion == 1){
+                    if (prodArchi.modificar(prod, pos)){
+                        cout << endl << "Registro guardado correctamente." << endl << endl;
+                    }
+                    else{
+                        cout << endl <<"Hubo un error al guardar el registro." << endl << endl;
+                    }
+                }
+                else{
+                    cout << "No se ha realizado la modificacion\n\n";
+                }
+                cout << "Saliendo del programa...\n";
+                return;
+                break;
+            default:  //nunca deberia ejecutarse
+                cout << "Opcion invalida. Intente nuevamente.\n";
+                break;
+        }
+    }
+}
 
 void ProductosManager::modificarProducto(){
-  ///sin utilizar todavia
+    int pos, idProducto, opcion;
+    Producto prod;
+    ArchivoProducto prodArchi;
+
+
+    cout << "\r\r MENU MODIFICACION" << endl << endl;
+    listarProductos();
+    cout << "Ingrese el ID del producto a modificar: ";
+    cin >> idProducto;
+    listarProductos();
+    while(cin.fail() || idProducto <= 0 || idProducto > cantidadRegistrosProducto()+1){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << "Ingrese un valor valido" << endl << endl;
+        system("pause");
+        system("cls");
+        cout << "\r\r MENU MODIFICACION" << endl << endl;
+        listarProductos();
+        cout << "Ingrese el ID del producto a modificar: ";
+        cin >> idProducto;
+    }
+    pos = prodArchi.buscar(idProducto);
+
+    if (pos > 0){
+        prod = prodArchi.leer(pos);
+
+        if(prod.getEstado() == true){
+            system("cls");
+            menuModificacion(prod, pos);
+
+        }
+        else{
+            cout << "El producto se encuentra dado de baja." << endl;
+            prod.mostrar();
+            opcion = pedirYValidarConfirmacion("\nDesea darlo de alta? \n1)Si \n0)No \n");
+            if (opcion == 1){
+                prod.setEstado(true);
+                if(prodArchi.modificar(prod, pos)){
+                    cout << "El producto ha sido dado de alta." << endl << endl;
+                }
+                else{
+                    cout << "Hubo un error al guardar el registro." << endl << endl;
+                }
+            }
+            else{
+                cout << "Saliendo sin guardar..." << endl << endl;
+            }
+        }
+    }
+    else{
+        cout << "No se ha encontrado el ID" << endl << endl;
+    }
 }
+
 
 void ProductosManager::mostrarProductosCompletos(){
     ArchivoProducto prodArchi;

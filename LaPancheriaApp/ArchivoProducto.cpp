@@ -10,7 +10,7 @@ ArchivoProducto::ArchivoProducto(std::string nombreArchivo){
 
 
 ///Metodos
-bool ArchivoProducto::guardar(Producto registro){
+bool ArchivoProducto::guardar(Producto &registro){
     FILE* pFile;
     bool result;
 
@@ -87,5 +87,24 @@ int ArchivoProducto::buscar(int idProducto){
 
 
 }
+
+bool ArchivoProducto::modificar(Producto &registro, int posicion){
+    FILE* pFile;
+    bool result;
+
+    pFile = fopen(_nombreArchivo.c_str(), "rb+");
+
+    if(pFile == nullptr){
+        return false;
+    }
+
+    fseek(pFile, posicion * sizeof(Producto), 0);
+    result = fwrite(&registro, sizeof(Producto), 1, pFile);
+
+    fclose(pFile);
+    return result;
+
+}
+
 
 
