@@ -1,6 +1,7 @@
 #include "Venta.h"
 #include <cstring>
 #include <iostream>
+#include <iomanip> //libreria para controlar el formato de los datos especialmente en los cout
 using namespace std;
 
 ///Constructor por omision
@@ -67,6 +68,10 @@ Venta::Venta(int nroFactura, std::string dniCliente, int idEmpleado, float impor
         _fechaVenta=fechaVenta;
     }
 
+    Fecha Venta::obtenerFechaVenta(){
+    return _fechaVenta;
+    }
+
 //mostrar
 void Venta::mostrar(){
   cout << "Numero de Factura: " << getNroFactura() << endl;
@@ -75,6 +80,28 @@ void Venta::mostrar(){
     cout << "Importe total: " << getImporteTotal() << endl;
     cout << "Forma de pago: " << getFormaDePago() << endl;
     cout << "Fecha de venta: " ; getFechaVenta().mostrarFecha();
+}
+void Venta::mostrarTabla(){
+
+    cout << left << setw(18) <<"NRO de Factura";
+    cout << setw(18) << "DNI Cliente";
+    cout << setw(18) <<"ID Empleado";
+    cout << setw(18) <<  "Importe total";
+    cout << setw(18) << "Forma de pago";
+    cout << left << setw(18)<< "Fecha";
+}
 
 
-    }
+void Venta::mostrarEnLista(){
+
+    cout << left << setw(18) << getNroFactura();// right lo alinea a la izquierda y setw setea el ancho del campo, lo que sobra lo rellena son espacios hasta completar esa cantidad de caracteres
+    cout << setw(18) << getDniCliente();
+    cout << setw(18) <<getIdEmpleado();
+    cout << "$ "<< setw(16) <<  getImporteTotal();
+    cout << setw(18) << getFormaDePago();
+    cout << left << setw(18) ; getFechaVenta().mostrarFecha();/// Arreglar como se muestra la fecha
+}
+
+
+
+

@@ -30,7 +30,13 @@ public:
     void setImporteTotal (float importeTotal);
     void setFormaDePago (int formaDePago);
     void setFechaVenta (Fecha fechaVenta);
+
+
     void mostrar();
+    void mostrarEnLista();
+    Fecha obtenerFechaVenta();
+    void mostrarTabla();
+
 };
 
 

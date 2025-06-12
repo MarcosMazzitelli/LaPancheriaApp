@@ -14,13 +14,17 @@
 #include "ArchivoProducto.h"
 #include "DetalleVenta.h"
 #include "DetalleVentaArchivo.h"
+#include "Fecha.h"
 
 using namespace std;
 
 
+
 void ManagerVenta::registrarVenta(std::string dniEmpleado){
+
     int nroFactura,idEmpleado,formaDePago,dia,mes,anio;
-    string dniCliente;
+    //FormaDePago fdp; //FormaDePagoArchivo aFdp;
+    string dniCliente; //Cliente client; /ClienteArchivo aCliente;
     float importeTotal=0;
     float importeBruto;
     VentaArchivo ventaArchi;
@@ -34,14 +38,18 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     int cantidad, opcion;
 
 
+
+
     nroFactura = ventaArchi.getCantidadRegistros()+1; //autonumerico
-    cout<<"ingrese DNI cliente : "<<endl;
+
+    cout<<"ingrese DNI cliente : "<<endl; //Llamar al cliente.cargar();
     cin.ignore();
     getline(cin, dniCliente);
 
     pos = empArchi.buscar(dniEmpleado);
     emp= empArchi.leer(pos);
     idEmpleado = emp.getIdEmpleado();
+
 
     ///carga de productos
     ProductosManager prodManager;
@@ -71,7 +79,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
                 cout << "Ingrese una cantidad valida" << endl << endl;
             }
             else{
-                validacion=true; //fin del while de validacion
+                validacion=true; ///fin del while de validacion
             }
         }
         // a partir de aca esta OK el ingreso de productos
@@ -88,7 +96,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
             cout << "Hubo un problema al guardar el registro." << endl << endl;
         }
 
-        //acá se guarda UN detalle de venta en el detalle
+        ///acá se guarda UN detalle de venta en el detalle
 
         validacion=false;
         while (!validacion){
@@ -107,16 +115,18 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
         }
 
     }
-    cout<<"ingrese la forma de pago : "<<endl;
-    cin>>  formaDePago;
-    cout<<"ingrese el dia : "<<endl;
-    cin>>  dia;
-    cout<<"ingrese el mes: "<<endl;
-    cin>>  mes;
-    cout<<"ingrese ingrese el año: "<<endl;
-    cin>>  anio;
 
-    fechaVenta.setFecha(dia,mes,anio);
+
+    cout<<"ingrese la forma de pago : "<<endl;
+    cin>>  formaDePago; /// Unir con la forma de pago de Vale // formaDePago.cargar();
+
+    cout<<"ingrese la fecha de venta : "<<endl;
+
+    fechaVenta.cargar();
+    while(!fechaVenta.cargar()){
+        fechaVenta.cargar();
+    }
+
     v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
 
     if (ventaArchi.guardar(v)){
@@ -150,14 +160,47 @@ VentaArchivo archi;
 Venta vent;
 
 int cantRegistros = cantidadRegistros();
-
+vent.mostrarTabla();
+cout<<endl;
+cout<<"================================================================================================"<<endl;
 for (int i=0;i<cantRegistros;i++){
-
+    if(cantRegistros ==0){
+        cout<<"No se encontraron registros. "<<endl;
+    }else{
     vent = archi.leer(i);
-    vent.mostrar();
-    cout<<endl <<endl;
+    vent.mostrarEnLista();
+    cout<<endl <<endl;}
+}
 }
 
+void ManagerVenta::listarVentaFecha(){
+Venta vent;
+Fecha aux;
+VentaArchivo  archi;
 
+int cantRegistro=archi.getCantidadRegistros();
+int cont=0;
+
+cout<<"LISTADO DE VENTA POR FECHA"<<endl;
+while(!aux.cargar()){
+    aux.cargar();
 }
+cout<<endl<<"Listado de Ventas: "<<endl;
+cout<<endl;
+vent.mostrarTabla();
+for(int i=0;i<cantRegistro;i++){
 
+    vent=archi.leer(i);
+
+    if(aux.getDia()== vent.getFechaVenta().getDia()&&aux.getMes()== vent.getFechaVenta().getMes()&&aux.getAnio()== vent.getFechaVenta().getAnio()){
+        cont++;
+
+        cout<<endl;
+        cout<<"=============================================================================================================="<<endl;
+        vent.mostrarEnLista();
+    }
+}
+if(cont==0){
+    cout<<"No hay ventas registradas en esta fecha. "<<endl;
+}
+}
