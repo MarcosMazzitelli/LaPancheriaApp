@@ -172,7 +172,7 @@ void MenuManager::menuEmpleados(std::string dni){
                 break;
             case 2:
                 system("cls");
-                persona.modificarEmpleados(dni);
+                persona.modificarEmpleados();
                 //persona.cargarCliente();
                 //persona.listarClientes();
                 system("pause");

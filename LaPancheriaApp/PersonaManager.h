@@ -9,7 +9,7 @@ class PersonaManager{
 
         void cargarEmpleado();
         void listarEmpleados();
-        void modificarEmpleados(std::string dni);
+        void modificarEmpleados();
         void eliminarEmpleado();
         void listarEmpleadosDeBaja();
 

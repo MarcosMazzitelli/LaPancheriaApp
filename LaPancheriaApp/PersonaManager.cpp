@@ -193,10 +193,10 @@ void PersonaManager::eliminarEmpleado(){
         cout << "El empleado no pudo ser dado de baja. No existente." <<endl;
     }
 }
-//Debo pasar un empleado que sea el usuario y corroborar que permiso tiene. Si es admin, modifica todo de todo, si es user solo su contraseña
-//Debo validar
-void PersonaManager::modificarEmpleados(std::string dniUsuario){
-    Empleado usuario;
+
+
+void PersonaManager::modificarEmpleados(){
+
     Empleado empleado;
     ArchivoEmpleado archivo;
 
@@ -205,11 +205,6 @@ void PersonaManager::modificarEmpleados(std::string dniUsuario){
     float sueldo;
     string nombre, apellido,dni,contrasenia,email,celular;
     bool modifico, permanecer=true, seEncontro=false;
-    pos=archivo.buscar(dniUsuario);
-    usuario=archivo.leer(pos);
-    cout<< usuario.getNombre();
-
-    if(usuario.getPermiso()==1){
 
         listarEmpleados();
         cout << "\n\n\n--------------MODIFICAR EMPLEADO------------------" <<endl;
@@ -231,7 +226,16 @@ void PersonaManager::modificarEmpleados(std::string dniUsuario){
                     cout<< "Opcion a modificar: \n 1-Nombre \n 2-Apellido \n 3-DNI \n 4-Contrasenia \n 5-permiso \n 6-E-mail \n 7-Celular \n 8- Sueldo \n 9-Salir " <<endl;
                     cout << " Ingrese una opcion"<<endl;
                     cin>>opcion;
-                    limpiarPantalla();
+                        while(cin.fail()){
+                            cin.clear();
+                            cin.ignore(1000,'\n');
+                            cout << "Ingrese una opcion valida! \n";
+                            limpiarPantalla();
+                            cout<< "Opcion a modificar: \n 1-Nombre \n 2-Apellido \n 3-DNI \n 4-Contrasenia \n 5-permiso \n 6-E-mail \n 7-Celular \n 8- Sueldo \n 9-Salir " <<endl;
+                            cout << " Ingrese una opcion"<<endl;
+                            cin>>opcion;
+                            }
+
 
                     switch(opcion){
                         case 1:
@@ -306,6 +310,14 @@ void PersonaManager::modificarEmpleados(std::string dniUsuario){
                         case 9:
                             cout << "Desea salir. Ingrese 1- si o 2- No" << endl;
                             cin>>opcion;
+                             while(cin.fail() || opcion!=1 && opcion!=2){
+                                cin.clear();
+                                cin.ignore(1000,'\n');
+                                cout << "Ingrese una opcion valida! \n";
+                                limpiarPantalla();
+                                cout << "Desea salir. Ingrese 1- si o 2- No" << endl;
+                                cin>>opcion;
+                            }
                             if(opcion==1){
                                 modifico=archivo.modificarEmpleado(empleado,pos);
                                 if(modifico){
@@ -328,25 +340,14 @@ void PersonaManager::modificarEmpleados(std::string dniUsuario){
 
                 }
 
-
             }
         }
         if(!seEncontro){
             cout<<"No se encontro empleado con ID "<< idEmpleado << endl;
         }
-    }else{
-        cout << "Solo puede cambiar su contraseña. Desea hacerlo? Opcion 1-si o 2-No"<<endl;
-        cin >> opcion;
-        if(opcion==1){
-            cout << "Ingrese nueva contrasenia: " << endl;
-            cin.ignore();
-            getline(cin,contrasenia);
-            usuario.setContrasenia(contrasenia);
-            limpiarPantalla();
-        }
     }
 
-}
+
 
 
 
@@ -433,7 +434,7 @@ void PersonaManager::listarClientes(){
     }
 }
 
-void PersonaManager::modificarCliente(std::string dniUsuario){
+/*void PersonaManager::modificarCliente(std::string dniUsuario){
     Empleado usuario;
     Cliente cliente;
     ArchivoEmpleado archiEmpleado;
@@ -441,7 +442,7 @@ void PersonaManager::modificarCliente(std::string dniUsuario){
 
 
     int opcion,cantidadRegistros, pos;
-    string nombre, apellido,dniCliente;
+    string nombre, apellido, dniCliente;
     bool modifico, permanecer=true, seEncontro=false;
     pos=archiEmpleado.buscar(dniUsuario);
     usuario=archiEmpleado.leer(pos);
@@ -486,13 +487,13 @@ void PersonaManager::modificarCliente(std::string dniUsuario){
                             cliente.setApellido(apellido);
                             limpiarPantalla();
                             break;
-                        /*case 3:
+                        case 3:
                             cout << "Ingrese nuevo dni: " << endl;
                             cin.ignore();
                             getline(cin,dni);
                             empleado.setDni(dni);
                             limpiarPantalla();
-                            break;*/
+                            break;
                         case 3:
                             cout << "Desea salir. Ingrese 1- si o 2- No" << endl;
                             cin>>opcion;
@@ -532,9 +533,9 @@ void PersonaManager::modificarCliente(std::string dniUsuario){
 }
 
 
+void PersonaManager::modificarCliente(){
+}
 
-//void PersonaManager::modificarCliente(){
-//}
-
+*/
 
 
