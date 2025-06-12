@@ -1,6 +1,7 @@
 #include "Ingrediente.h"
 #include <cstring>
 #include <iostream>
+#include <iomanip> //libreria para controlar el formato de los datos especialmente en los cout
 
 using namespace std;
 
@@ -109,3 +110,29 @@ std::string Ingrediente::mostrarToCsv(){
 
     return str;
 }
+
+void Ingrediente::mostrarEnLista(){
+    cout << left << setw(20) << getIdIngrediente();// right lo alinea a la izquierda y setw setea el ancho del campo, lo que sobra lo rellena son espacios hasta completar esa cantidad de caracteres
+    cout << setw(30) << getNombreIngrediente();
+    cout << "$ " << setw(18) << getCostoUnitario();
+    if (getTipoDeUnidad()=="Gramos"){
+        cout << getCantidadStock() << " " << getTipoDeUnidad() << " (" << getCantidadStock()/1000 << " Kilos)"; //cantidad en stock
+    }
+    else if (getTipoDeUnidad() == "Mililitros"){
+        cout << getCantidadStock() << " " << getTipoDeUnidad() << " (" << getCantidadStock()/1000 << " Litros)"; //cantidad en stock
+    }
+    else{
+        cout << getCantidadStock() << " " << getTipoDeUnidad();
+    }
+}
+
+void Ingrediente::descontarStock(float cantidad){
+    _cantidadStock-=cantidad;
+}
+
+void Ingrediente::aniadirStock(float cantidad){
+    _cantidadStock+=cantidad;
+}
+
+
+

@@ -32,8 +32,12 @@ public:
     bool getEstado();
 
     ///Metodos
+    void descontarStock(float cantidad);
+    void aniadirStock(float cantidad);
     void mostrar();
     std::string mostrarToCsv();
+    void mostrarEnLista();
+
 
 
 };

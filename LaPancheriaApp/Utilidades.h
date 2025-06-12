@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
 
-std::string pedirTipoDeUnidad(float &cantidadStock);
-int validarConfirmacion(std::string mensaje);
+std::string seleccionarYConvertirUnidad(float &cantidadStock);
+std::string seleccionarYConvertirUnidad(float &cantidadStock, std::string tipoDeUnidad);
+
+int pedirYValidarConfirmacion(std::string mensaje = "\nDesea confirmar? \n1)Si \n0)No \n\n");
 
 void menuAdmin();
 

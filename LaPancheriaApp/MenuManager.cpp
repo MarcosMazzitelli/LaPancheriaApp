@@ -19,8 +19,8 @@ void MenuManager::login(){
     ArchivoEmpleado archiEmp;
 
     cout << "========================================================" << endl;
-    cout << "        MENU DE GESTION DE COSTOS" << endl;
-    cout << "========================================================" << endl << "\n\n\n\n\n\n\n";
+    cout << "                      MENU DE GESTION DE COSTOS" << endl;
+    cout << "========================================================" << endl << "\n\n\n\n";
 
     cout << "Ingrese su nombre de usuario: ";
     cin >> usuario;
@@ -66,26 +66,35 @@ void MenuManager::menuAdmin(std::string dni){
 
     ManagerVenta ventaManager;
     int opcion, opcionSalida;
-    do{
-    cout << "========================================================" << endl;
-    cout << "        SISTEMA DE ADMINISTRACION DE PANCHERIA" << endl;
-    cout << "========================================================" << endl;
-    cout << "1. Gestion de empleados" << endl;
-    cout << "2. Gestion de productos " << endl;
-    cout << "3. Gestion de ingredientes" << endl;
-    cout << "4. Gestion de costos" << endl;
-    cout << "5. Cargar venta" << endl;
-    cout << "6. Reportes" << endl;
-    cout << "7. Listar ventas" << endl;
+    while(true){
+        system("cls");
+        cout << "========================================================" << endl;
+        cout << "        SISTEMA DE ADMINISTRACION DE PANCHERIA" << endl;
+        cout << "========================================================" << endl;
+        cout << "1. Gestion de empleados" << endl;
+        cout << "2. Gestion de productos " << endl;
+        cout << "3. Gestion de ingredientes" << endl;
+        cout << "4. Gestion de costos" << endl;
+        cout << "5. Cargar venta" << endl;
+        cout << "6. Reportes" << endl;
+        cout << "7. Listar ventas" << endl;
 
 
-    cout << "0. Salir" << endl;
-    cout << "===============================" << endl;
-    cout << "Ingrese una opcion: ";
+        cout << "0. Salir" << endl;
+        cout << "===============================" << endl;
+        cout << "Ingrese una opcion: ";
 
-    cin >> opcion;
+        cin >> opcion;
+        if (cin.fail()) {
+            cin.clear(); // limpia el estado de error
+            cin.ignore(1000, '\n'); // descarta el resto de la línea
+            cout << "Entrada invalida. Por favor, ingrese un numero valido" << endl;
+            system("pause");
+            system("cls");
+            continue; //saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
+        }
 
-    switch(opcion) {
+        switch(opcion) {
             case 1:
                 system("cls");
                 menuEmpleados();
@@ -137,34 +146,48 @@ void MenuManager::menuAdmin(std::string dni){
                 }
                 break;
             default:
-                cout << "Opción inválida. Por favor, intente de nuevo." << endl;
-                system("pause");
-        }
-
-      system("cls");
-
-    } while(opcion != 0);
+                if (cin.fail()) {
+                    cin.clear(); // limpia el estado de error
+                    cin.ignore(1000, '\n'); // descarta el resto de la línea
+                    cout << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
+                    system("pause");
+                    system("cls");
+                    //saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
+                }
+                else{
+                    cout << "Opcion invalida. Por favor, ingrese un numero valido." << endl;
+                    system("pause");
+                }
+            }
+    }
 }
 
 void MenuManager::menuEmpleados(){
     PersonaManager persona;
     int opcion, opcionSalida;
-    do{
-    cout << "========================================================" << endl;
-    cout << "        MENU DE GESTION DE EMPLEADOS" << endl;
-    cout << "========================================================" << endl;
-    cout << "1. Crear nuevo empleado" << endl;
-    cout << "2. Modificar datos de un emleado " << endl;
-    cout << "3. Eliminar empleado" << endl;
-    cout << "4. Mostrar empleados" << endl;
+    while(true){
+        cout << "========================================================" << endl;
+        cout << "        MENU DE GESTION DE EMPLEADOS" << endl;
+        cout << "========================================================" << endl;
+        cout << "1. Crear nuevo empleado" << endl;
+        cout << "2. Modificar datos de un empleado " << endl;
+        cout << "3. Eliminar empleado" << endl;
+        cout << "4. Mostrar empleados" << endl;
 
-    cout << "0. Salir" << endl;
-    cout << "===============================" << endl;
-    cout << "Ingrese una opcion: ";
+        cout << "0. Salir" << endl;
+        cout << "===============================" << endl;
+        cout << "Ingrese una opcion: ";
 
-    cin >> opcion;
-
-    switch(opcion) {
+        cin >> opcion;
+        if (cin.fail()) {
+            cin.clear(); // limpia el estado de error
+            cin.ignore(1000, '\n'); // descarta el resto de la línea
+            cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
+            system("pause");
+            system("cls");
+            continue;//saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
+        }
+switch(opcion) {
             case 1:
                 system("cls");
                 persona.cargarEmpleado();
@@ -199,50 +222,69 @@ void MenuManager::menuEmpleados(){
 
                 break;
             default:
-                cout << "Opción inválida. Por favor, intente de nuevo." << endl;
-                system("pause");
+                if (cin.fail()) {
+                    cin.clear(); // limpia el estado de error
+                    cin.ignore(1000, '\n'); // descarta el resto de la línea
+                    cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
+                    system("pause");
+                    system("cls");
+                }
+                else{
+                    cout << "Opcion invalida. Por favor, intente de nuevo." << endl;
+                    system("pause");
+                }
         }
 
-      system("cls");
+    system("cls");
 
-    } while(opcion != 0);
+    }
 }
 
 void MenuManager::menuProductos(){
     int opcion, opcionSalida;
     ProductosManager prodManager;
-    do{
-    cout << "========================================================" << endl;
-    cout << "        MENU DE GESTION DE PRODUCTOS" << endl;
-    cout << "========================================================" << endl;
-    cout << "1. Crear nuevo producto" << endl;
-    cout << "2. Modificar producto " << endl;
-    cout << "3. Eliminar producto" << endl;
-    cout << "4. Listar productos" << endl;
-    cout << "5. Listar recetas" << endl;
+    while(true){
+        cout << "========================================================" << endl;
+        cout << "        MENU DE GESTION DE PRODUCTOS" << endl;
+        cout << "========================================================" << endl;
+        cout << "1. Crear nuevo producto" << endl;
+        cout << "2. Modificar producto " << endl;
+        cout << "3. Eliminar producto" << endl;
+        cout << "4. Listar productos" << endl;
+        cout << "5. Listar recetas" << endl;
 
 
-    cout << "0. Salir" << endl;
-    cout << "===============================" << endl;
-    cout << "Ingrese una opcion: ";
+        cout << "0. Salir" << endl;
+        cout << "===============================" << endl;
+        cout << "Ingrese una opcion: ";
 
-    cin >> opcion;
-
-    switch(opcion) {
+        cin >> opcion;
+        if (cin.fail()) {
+            cin.clear(); // limpia el estado de error
+            cin.ignore(1000, '\n'); // descarta el resto de la línea
+            cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
+            system("pause");
+            system("cls");
+            continue; //saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
+        }
+        switch(opcion) {
             case 1:
                 system("cls");
-                prodManager.cargarProducto();
+                prodManager.crearProducto();
                 //manager crear producto
                 system("pause");
                 break;
             case 2:
                 system("cls");
-                //manager modificar producto
+                prodManager.modificarProducto();
                 system("pause");
                 break;
             case 3:
                 system("cls");
-                //manager eliminar productos
+                cout << "Ingrese categoria 1 2 o 3" << endl;
+                int idCategoria;
+                cin >> idCategoria;
+                prodManager.listarProductosPorCategoria(idCategoria);
                 system("pause");
                 break;
             case 4:
@@ -270,34 +312,47 @@ void MenuManager::menuProductos(){
 
                 break;
             default:
-                cout << "Opción inválida. Por favor, intente de nuevo." << endl;
+                if (cin.fail()) {
+                    cin.clear(); // limpia el estado de error
+                    cin.ignore(1000, '\n'); // descarta el resto de la línea
+                    cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
+                    system("pause");
+                    system("cls");
+                }
+
+                cout << "Opcion invalida. Por favor, intente de nuevo." << endl;
                 system("pause");
         }
-
-      system("cls");
-
-    } while(opcion != 0);
+        system("cls");
+    }
 }
 void MenuManager::menuIngredientes(){
     IngredientesManager ingManager;
     int opcion, opcionSalida;
-    do{
-    cout << "========================================================" << endl;
-    cout << "        MENU DE GESTION DE INGREDIENTES" << endl;
-    cout << "========================================================" << endl;
-    cout << "1. Crear nuevo ingrediente" << endl;
-    cout << "2. Modificar stock " << endl;
-    cout << "3. Eliminar ingrediente" << endl;
-    cout << "4. Listar ingredientes" << endl;
+    while(true){
+        cout << "========================================================" << endl;
+        cout << "        MENU DE GESTION DE INGREDIENTES" << endl;
+        cout << "========================================================" << endl;
+        cout << "1. Crear nuevo ingrediente" << endl;
+        cout << "2. Modificar stock " << endl;
+        cout << "3. Eliminar ingrediente" << endl;
+        cout << "4. Listar ingredientes" << endl;
+        cout << "5. Comprar ingrediente" << endl;
 
+        cout << "0. Salir" << endl;
+        cout << "===============================" << endl;
+        cout << "Ingrese una opcion: ";
 
-    cout << "0. Salir" << endl;
-    cout << "===============================" << endl;
-    cout << "Ingrese una opcion: ";
-
-    cin >> opcion;
-
-    switch(opcion) {
+        cin >> opcion;
+        if (cin.fail()) {
+            cin.clear(); // limpia el estado de error
+            cin.ignore(1000, '\n'); // descarta el resto de la línea
+            cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
+            system("pause");
+            system("cls");
+            continue;  //saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
+        }
+        switch(opcion) {
             case 1:
                 system("cls");
                 //manager crear ingrediente
@@ -306,7 +361,7 @@ void MenuManager::menuIngredientes(){
                 break;
             case 2:
                 system("cls");
-                //manager modificar stock
+                ingManager.modificarStock();
                 system("pause");
                 break;
             case 3:
@@ -316,8 +371,12 @@ void MenuManager::menuIngredientes(){
                 break;
             case 4:
                 system("cls");
-                //manager Listar ingredientes
                 ingManager.listarIngredientes();
+                system("pause");
+                break;
+            case 5:
+                system("cls");
+                ingManager.comprarIngrediente();
                 system("pause");
                 break;
 
@@ -335,36 +394,50 @@ void MenuManager::menuIngredientes(){
 
                 break;
             default:
-                cout << "Opción inválida. Por favor, intente de nuevo." << endl;
+                if (cin.fail()) {
+                    cin.clear(); // limpia el estado de error
+                    cin.ignore(1000, '\n'); // descarta el resto de la línea
+                    cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
+                    system("pause");
+                    system("cls");
+                }
+
+                cout << "Opcion invalida. Por favor, intente de nuevo." << endl;
                 system("pause");
         }
+        system("cls");
 
-      system("cls");
-
-    } while(opcion != 0);
+    }
 
 
 }
 
 void MenuManager::menuCostos(){
     int opcion, opcionSalida;
-    do{
-    cout << "========================================================" << endl;
-    cout << "        MENU DE GESTION DE COSTOS" << endl;
-    cout << "========================================================" << endl;
-    cout << "1. Cargar costo fijo" << endl;
-    cout << "2. Modificar costo fijo " << endl;
-    cout << "3. Eliminar costo" << endl;
-    cout << "4. Listar costos fijos por mes" << endl;
-    cout << "5. Listar costos totales por mes" << endl;
+    while(true){
+        cout << "========================================================" << endl;
+        cout << "        MENU DE GESTION DE COSTOS" << endl;
+        cout << "========================================================" << endl;
+        cout << "1. Cargar costo fijo" << endl;
+        cout << "2. Modificar costo fijo " << endl;
+        cout << "3. Eliminar costo" << endl;
+        cout << "4. Listar costos fijos por mes" << endl;
+        cout << "5. Listar costos totales por mes" << endl;
 
-    cout << "0. Salir" << endl;
-    cout << "===============================" << endl;
-    cout << "Ingrese una opcion: ";
+        cout << "0. Salir" << endl;
+        cout << "===============================" << endl;
+        cout << "Ingrese una opcion: ";
 
-    cin >> opcion;
-
-    switch(opcion) {
+        cin >> opcion;
+        if (cin.fail()) {
+            cin.clear(); // limpia el estado de error
+            cin.ignore(1000, '\n'); // descarta el resto de la línea
+            cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
+            system("pause");
+            system("cls");
+            continue; //saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
+        }
+        switch(opcion) {
             case 1:
                 system("cls");
                 //manager cargar costo fijo
@@ -405,12 +478,17 @@ void MenuManager::menuCostos(){
 
                 break;
             default:
-                cout << "Opción inválida. Por favor, intente de nuevo." << endl;
+                if (cin.fail()) {
+                    cin.clear(); // limpia el estado de error
+                    cin.ignore(1000, '\n'); // descarta el resto de la línea
+                    cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
+                    system("pause");
+                    system("cls");
+                }
+
+                cout << "Opcion invalida. Por favor, intente de nuevo." << endl;
                 system("pause");
         }
-
-      system("cls");
-
-    } while(opcion != 0);
-
+        system("cls");
+    }
 }

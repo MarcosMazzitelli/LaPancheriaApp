@@ -12,7 +12,8 @@ public:
     ArchivoProducto(std::string nombreArchivo);
 
     ///Metodos
-    bool guardar(Producto registro);
+    bool guardar(Producto &registro);
+    bool modificar(Producto &registro, int posicion);
     int getCantidadRegistros();
     Producto leer(int pos);
     int buscar(int idProducto);

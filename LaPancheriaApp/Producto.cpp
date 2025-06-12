@@ -1,6 +1,8 @@
 #include "Producto.h"
 #include <cstring>
 #include <iostream>
+#include <iomanip> //libreria para controlar el formato de los datos especialmente en los cout
+
 
 using namespace std;
 
@@ -95,3 +97,12 @@ std::string Producto::mostrarToCsv(){
 
     return str;
 }
+
+void Producto::mostrarEnLista(){
+    cout << left << setw(15) << getIdProducto();// right lo alinea a la izquierda y setw setea el ancho del campo, lo que sobra lo rellena son espacios hasta completar esa cantidad de caracteres
+    cout << setw(15) << getIdCategoria();
+    cout << setw(30) <<getNombreProducto();
+    cout << "$ " << setw(18) << getPrecioUnitario();
+    cout << "$ " << setw(10) << getCostoProducto();
+}
+
