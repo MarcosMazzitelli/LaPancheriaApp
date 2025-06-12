@@ -1,8 +1,10 @@
-#ifndef TESTS_H_INCLUDED
-#define TESTS_H_INCLUDED
+#pragma once
 #include "Persona.h"
 #include "Cliente.h"
 #include "Empleado.h"
+#include "IngredientesManager.h"
+#include "PersonaManager.h"
+#include "ProductosManager.h"
 #include "FormaDePago.h"
 #include "CostoFijo.h"
 #include <iostream>
@@ -119,7 +121,7 @@ void cargarYMostrarEmpleado(){
     cout << "Ingrese id: ";
     cin >> idEmpleado;
 
-    cout << "Ingrese contraseña: ";
+    cout << "Ingrese contraseï¿½a: ";
     cin >> contrasenia;
 
     cout << "Ingrese permiso: ";
@@ -226,15 +228,26 @@ void cargarPancho(){
 }
 
 
+void cargarProducto(){
+    ProductosManager prodManager;
 
+    prodManager.cargarProducto();
+}
 
+void mostrarProductosConIngredientes(){
+    ProductosManager prodManager;
+    cout << endl << endl << "Listado " << endl << endl;
+    prodManager.listarProductosConIngredientes();
 
+}
+void cargarEmpleado(){
+    PersonaManager pManager;
+    pManager.cargarEmpleado();
 
+}
+void mostrarEmpleado(){
+    PersonaManager pManager;
+    pManager.listarEmpleados();
 
+}
 
-
-
-
-
-
-#endif // TESTS_H_INCLUDED

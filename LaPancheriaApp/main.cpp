@@ -3,6 +3,8 @@
 #include "Venta.h"
 #include "FormaDePago.h"
 #include "Tests.h"
+#include "Utilidades.h"
+#include "MenuManager.h"
 
 using namespace std;
 
@@ -12,14 +14,27 @@ int main()
     //cargarYMostrarPersona();
     //cargarYMostrarCliente();
     //cargarYMostrarEmpleado();
-    //cargarYMostrarFormaDePago();
-    //cargarYMostrarCostoFijo();
 
-    // cargarYMostrarProducto();
-    // cargarYMostrarPersona();
-    // cargarPancho();
-    // cargarYMostrarProducto();
-    // cargarYMostrarPersona();
-   //  cargarPancho();
+
+   // cargarYMostrarProducto();
+   // cargarYMostrarPersona();
+   //cargarPancho();
+   // cargarYMostrarProducto();
+   // cargarYMostrarPersona();
+  // cargarPancho();
+  //cargarIngrediente();
+  //cargarEmpleado();
+  //mostrarEmpleado();
+  //cargarPancho();
+  /*for(int i=0; i<5; i++){
+    cargarIngrediente();
+  } */
+  //cargarProducto();
+  //mostrarProductosConIngredientes();
+  //menuAdmin();
+  //listarIngredientes();
+  MenuManager menu;
+  menu.login();
+
     return 0;
 }

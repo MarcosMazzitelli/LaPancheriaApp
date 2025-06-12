@@ -10,15 +10,17 @@ Ingrediente::Ingrediente(){
     _idIngrediente=0;
     strcpy(_nombreIngrediente,"");
     _cantidadStock=0.0f;
+    _costoUnitario=0.0f;
     strcpy(_tipoDeUnidad,"");
     _estado=true;
 
 }
 
-Ingrediente::Ingrediente(int idIngrediente, std::string nombreIngrediente, float cantidadStock, std::string tipoDeUnidad, bool estado){
+Ingrediente::Ingrediente(int idIngrediente, std::string nombreIngrediente, float cantidadStock, float costoUnitario, std::string tipoDeUnidad, bool estado){
     setIdIngrediente(idIngrediente);
     setNombreIngrediente(nombreIngrediente);
     setCantidadStock(cantidadStock);
+    setCostoUnitario(costoUnitario);
     setTipoDeUnidad(tipoDeUnidad);
     setEstado(estado);
 
@@ -36,6 +38,10 @@ void Ingrediente::setNombreIngrediente(std::string nombreIngrediente){
 
 void Ingrediente::setCantidadStock(float cantidadStock){
     _cantidadStock=cantidadStock;
+}
+
+void Ingrediente::setCostoUnitario(float costoUnitario){
+    _costoUnitario=costoUnitario;
 }
 
 void Ingrediente::setTipoDeUnidad(std::string tipoDeUnidad){
@@ -60,6 +66,11 @@ float Ingrediente::getCantidadStock(){
     return _cantidadStock;
 }
 
+float Ingrediente::getCostoUnitario(){
+    return _costoUnitario;
+}
+
+
 std::string Ingrediente::getTipoDeUnidad(){
     return _tipoDeUnidad;
 }
@@ -73,7 +84,17 @@ bool Ingrediente::getEstado(){
 void Ingrediente::mostrar(){
     cout << "Id Ingrediente: " << getIdIngrediente() << endl;
     cout << "Nombre del ingrediente: " << getNombreIngrediente() << endl;
-    cout << "Cantidad en stock: " << getCantidadStock() << " " << getTipoDeUnidad() << endl;
+    if (getTipoDeUnidad()=="Gramos"){
+        cout << "Cantidad en stock: " << getCantidadStock() << " " << getTipoDeUnidad() << " (" << getCantidadStock()/1000 << " Kilos)" << endl;
+    }
+    else if (getTipoDeUnidad() == "Mililitros"){
+        cout << "Cantidad en stock: " << getCantidadStock() << " " << getTipoDeUnidad() << " (" << getCantidadStock()/1000 << " Litros)" << endl;
+    }
+    else{
+        cout << "Cantidad en stock: " << getCantidadStock() << " " << getTipoDeUnidad() << endl;
+    }
+    cout << "Costo unitario: $" << getCostoUnitario() << endl;
+
 }
 
 std::string Ingrediente::mostrarToCsv(){
@@ -82,6 +103,7 @@ std::string Ingrediente::mostrarToCsv(){
     str = to_string(_idIngrediente) + ",";
     str+= string(_nombreIngrediente) + ",";
     str+= to_string(_cantidadStock) + ",";
+    str+= to_string(_costoUnitario) + ",";
     str+= string(_tipoDeUnidad) + ",";
     str+= to_string(_estado);
 
