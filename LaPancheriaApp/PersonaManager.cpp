@@ -210,6 +210,16 @@ void PersonaManager::modificarEmpleados(){
         cout << "\n\n\n--------------MODIFICAR EMPLEADO------------------" <<endl;
         cout << "Ingrese el ID del empleado a modificar " << endl;
         cin >> idEmpleado;
+        while(cin.fail()){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese una opcion valida! \n";
+            limpiarPantalla();
+            listarEmpleados();
+            cout << "\n\n\n--------------MODIFICAR EMPLEADO------------------" <<endl;
+            cout << "Ingrese el ID del empleado a modificar " << endl;
+            cin >> idEmpleado;
+        }
 
         cantidadRegistros = cantidadRegistrosEmpleado();
 
@@ -218,6 +228,7 @@ void PersonaManager::modificarEmpleados(){
             empleado=archivo.leer(i);
 
             if(empleado.getIdEmpleado()==idEmpleado){
+
                 pos=i;
                 seEncontro=true;
 
@@ -226,15 +237,16 @@ void PersonaManager::modificarEmpleados(){
                     cout<< "Opcion a modificar: \n 1-Nombre \n 2-Apellido \n 3-DNI \n 4-Contrasenia \n 5-permiso \n 6-E-mail \n 7-Celular \n 8- Sueldo \n 9-Salir " <<endl;
                     cout << " Ingrese una opcion"<<endl;
                     cin>>opcion;
-                        while(cin.fail()){
-                            cin.clear();
-                            cin.ignore(1000,'\n');
-                            cout << "Ingrese una opcion valida! \n";
-                            limpiarPantalla();
-                            cout<< "Opcion a modificar: \n 1-Nombre \n 2-Apellido \n 3-DNI \n 4-Contrasenia \n 5-permiso \n 6-E-mail \n 7-Celular \n 8- Sueldo \n 9-Salir " <<endl;
-                            cout << " Ingrese una opcion"<<endl;
-                            cin>>opcion;
-                            }
+
+                    while(cin.fail()){
+                        cin.clear();
+                        cin.ignore(1000,'\n');
+                        cout << "Ingrese una opcion valida! \n";
+                        limpiarPantalla();
+                        cout<< "Opcion a modificar: \n 1-Nombre \n 2-Apellido \n 3-DNI \n 4-Contrasenia \n 5-permiso \n 6-E-mail \n 7-Celular \n 8- Sueldo \n 9-Salir " <<endl;
+                        cout << " Ingrese una opcion"<<endl;
+                        cin>>opcion;
+                    }
 
 
                     switch(opcion){
