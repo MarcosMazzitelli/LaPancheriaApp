@@ -81,6 +81,19 @@ int ArchivoCliente::buscar(std::string dniCliente){
    fclose(pFile);
    return -1;
 }
+bool ArchivoCliente::modificarCliente(Cliente c, int pos){
+    FILE* pFile;
+    pFile = fopen(_nombreArchivo.c_str(),"rb+");
+
+    if(pFile==nullptr){
+        return false;
+    }
+    fseek(pFile,pos*sizeof(c),0);
+    bool escribio = fwrite(&c,sizeof(c),1,pFile);
+    fclose(pFile);
+    return escribio;
+}
+
 
 
 

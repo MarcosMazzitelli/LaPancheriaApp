@@ -16,6 +16,7 @@ class ArchivoCliente{
         int getCantidadRegistros();
         Cliente leer(int pos);
         int buscar(std::string dni);
+        bool modificarCliente(Cliente c, int pos);
 };
 
 

@@ -112,19 +112,56 @@ void PersonaManager::cargarEmpleado(){
 void PersonaManager::listarEmpleados(){
     ArchivoEmpleado a;
     Empleado e;
+    bool hayActivos=false;
 
     e.mostrarEnTabla();
-    // hacer un if para cuando no hayan registros, avise que no hay nada guardado
     int cantRegistros = cantidadRegistrosEmpleado();
-    for (int i=0; i<cantRegistros; i++){
-        e = a.leer(i);
-        if(e.getEstado()){
-            cout << left << setw(15) << e.getIdEmpleado();
-            cout << setw(30) << e.getNombre();
-            cout << setw(30) << e.getApellido();
-            cout << setw(10) << e.getDni() << endl;
-        }
 
+    if(cantRegistros>0){
+        for (int i=0; i<cantRegistros; i++){
+            e = a.leer(i);
+            if(e.getEstado()){
+                cout << left << setw(15) << e.getIdEmpleado();
+                cout << setw(30) << e.getNombre();
+                cout << setw(30) << e.getApellido();
+                cout << setw(10) << e.getDni() << endl;
+                hayActivos=true;
+            }
+        }
+        if(!hayActivos){
+            cout << "No se encuentran empleados activos."<<endl;
+        }
+    }else{
+        cout << "No se encuentran empleados registrados" << endl;
+    }
+}
+
+void PersonaManager::listarEmpleadosDeBaja(){
+    ArchivoEmpleado a;
+    Empleado e;
+    bool hayBajas=false;
+
+    e.mostrarEnTabla();
+
+    int cantRegistros = cantidadRegistrosEmpleado();
+    if(cantRegistros>0){
+
+        for (int i=0; i<cantRegistros; i++){
+            e = a.leer(i);
+            if(!e.getEstado()){
+                cout << left << setw(15) << e.getIdEmpleado();
+                cout << setw(30) << e.getNombre();
+                cout << setw(30) << e.getApellido();
+                cout << setw(10) << e.getDni() << endl;
+                hayBajas = true;
+            }
+
+        }
+        if(!hayBajas){
+            cout << "No se encuentran empleados dados de baja"<<endl;
+        }
+    }else{
+        cout << "No se encuentran empleados registrados" << endl;
     }
 }
 
@@ -156,35 +193,162 @@ void PersonaManager::eliminarEmpleado(){
         cout << "El empleado no pudo ser dado de baja. No existente." <<endl;
     }
 }
+//Debo pasar un empleado que sea el usuario y corroborar que permiso tiene. Si es admin, modifica todo de todo, si es user solo su contraseña
+//Debo validar
+void PersonaManager::modificarEmpleados(std::string dniUsuario){
+    Empleado usuario;
+    Empleado empleado;
+    ArchivoEmpleado archivo;
 
-/*void PersonaManager::modificarEmpleados(){
-    int idEmpleado, cantidadRegistros, pos;
-    ArchivoEmpleado a;
-    Empleado e;
-    bool validacion;
-    //pido el id del empleado que quiero modificar
-    cout << "Ingrese el id del empleado a modificar: " <<endl;
-    cin >> idEmpleado;
 
-    cantidadRegistros = cantidadRegistrosEmpleado();
+    int opcion, idEmpleado, permiso, cantidadRegistros, pos;
+    float sueldo;
+    string nombre, apellido,dni,contrasenia,email,celular;
+    bool modifico, permanecer=true, seEncontro=false;
+    pos=archivo.buscar(dniUsuario);
+    usuario=archivo.leer(pos);
+    cout<< usuario.getNombre();
 
-    //recorro el archivo comparando el id
-    for(int i=0;i < cantidadRegistros;i++){
-            e=a.leer(i);
-            if(idEmpleado == e.getIdEmpleado()){
+    if(usuario.getPermiso()==1){
+
+        listarEmpleados();
+        cout << "\n\n\n--------------MODIFICAR EMPLEADO------------------" <<endl;
+        cout << "Ingrese el ID del empleado a modificar " << endl;
+        cin >> idEmpleado;
+
+        cantidadRegistros = cantidadRegistrosEmpleado();
+
+        for(int i=0; i<cantidadRegistros;i++){
+
+            empleado=archivo.leer(i);
+
+            if(empleado.getIdEmpleado()==idEmpleado){
                 pos=i;
+                seEncontro=true;
 
-            }else{
-                cout << "No se hallo el empleado a modificar" <<endl;
+                while(permanecer){
+
+                    cout<< "Opcion a modificar: \n 1-Nombre \n 2-Apellido \n 3-DNI \n 4-Contrasenia \n 5-permiso \n 6-E-mail \n 7-Celular \n 8- Sueldo \n 9-Salir " <<endl;
+                    cout << " Ingrese una opcion"<<endl;
+                    cin>>opcion;
+                    limpiarPantalla();
+
+                    switch(opcion){
+                        case 1:
+                            cout << "Ingrese nuevo nombre: " << endl;
+                            cin.ignore();
+                            getline(cin,nombre);
+                            empleado.setNombre(nombre);
+                            limpiarPantalla();
+                            break;
+                        case 2:
+                            cout << "Ingrese nuevo apellido: " << endl;
+                            cin.ignore();
+                            getline(cin,apellido);
+                            empleado.setApellido(apellido);
+                            limpiarPantalla();
+                            break;
+                        case 3:
+                            cout << "Ingrese nuevo dni: " << endl;
+                            cin.ignore();
+                            getline(cin,dni);
+                            empleado.setDni(dni);
+                            limpiarPantalla();
+                            break;
+                        case 4:
+                            cout << "Ingrese nueva contrasenia: " << endl;
+                            cin.ignore();
+                            getline(cin,contrasenia);
+                            empleado.setContrasenia(contrasenia);
+                            limpiarPantalla();
+                            break;
+                        case 5:
+                            cout << "Ingrese permiso: 1-Admin o 2- User: \n";
+                            cin >> permiso;
+                            while(cin.fail() || permiso!=1 && permiso!=2){
+                                cin.clear();
+                                cin.ignore(1000,'\n');
+                                cout << "Ingrese una opcion valida! \n";
+                                limpiarPantalla();
+                                cout << "Ingrese permiso: 1- Admin o 2- User: \n";
+                                cin >> permiso;
+                            }
+                            limpiarPantalla();
+                            break;
+                        case 6:
+                            cout << "Ingrese nuevo email: " << endl;
+                            cin.ignore();
+                            getline(cin,email);
+                            empleado.setEmail(email);
+                            limpiarPantalla();
+                            break;
+                        case 7:
+                            cin.ignore();
+                            cout << "Ingrese nuevo celular: " << endl;
+                            getline(cin,celular);
+                            empleado.setNCelular(celular);
+                            limpiarPantalla();
+                            break;
+                        case 8:
+                            cout << "Ingrese sueldo del empleado: \n";
+                            cin >> sueldo;
+                            while(cin.fail() || sueldo<=0){
+                                cin.clear();
+                                cin.ignore(1000,'\n');
+                                cout << "Ingrese una opcion valida! \n";
+                                limpiarPantalla();
+                                cout << "Ingrese sueldo del empleado: \n";
+                                cin >> sueldo;
+                            }
+                            break;
+                            limpiarPantalla();
+
+                        case 9:
+                            cout << "Desea salir. Ingrese 1- si o 2- No" << endl;
+                            cin>>opcion;
+                            if(opcion==1){
+                                modifico=archivo.modificarEmpleado(empleado,pos);
+                                if(modifico){
+                                    cout<<"Registro modificado correctamente"<<endl;
+
+                                }else{
+                                    cout << "No se pudo modificar el registro."<< endl;
+
+                                }
+                                permanecer=false;
+                                break;
+                                limpiarPantalla();
+                            }else{
+                                break;
+                            }
+                        default:
+                            cout << "Opcion invalida" <<endl;
+                            limpiarPantalla();
+                        }
+
+                }
+
+
             }
+        }
+        if(!seEncontro){
+            cout<<"No se encontro empleado con ID "<< idEmpleado << endl;
+        }
+    }else{
+        cout << "Solo puede cambiar su contraseña. Desea hacerlo? Opcion 1-si o 2-No"<<endl;
+        cin >> opcion;
+        if(opcion==1){
+            cout << "Ingrese nueva contrasenia: " << endl;
+            cin.ignore();
+            getline(cin,contrasenia);
+            usuario.setContrasenia(contrasenia);
+            limpiarPantalla();
+        }
     }
 
+}
 
-    //si hay coincidencias lo traigo
-    //pregunto que atributo desea modificar y lo seteo
-    //ubico con la pos el puntero en el archivo y seteo todo el objeto
 
-}*/
 
 ///Metodos para clientes
 
@@ -269,11 +433,108 @@ void PersonaManager::listarClientes(){
     }
 }
 
+void PersonaManager::modificarCliente(std::string dniUsuario){
+    Empleado usuario;
+    Cliente cliente;
+    ArchivoEmpleado archiEmpleado;
+    ArchivoCliente archivo;
+
+
+    int opcion,cantidadRegistros, pos;
+    string nombre, apellido,dniCliente;
+    bool modifico, permanecer=true, seEncontro=false;
+    pos=archiEmpleado.buscar(dniUsuario);
+    usuario=archiEmpleado.leer(pos);
+
+    if(usuario.getPermiso()==1){
+
+        listarClientes();
+        cout << "\n\n\n--------------MODIFICAR CLIENTE------------------" <<endl;
+        cout << "Ingrese el DNI del cliente a modificar " << endl;
+        cin >> dniCliente;
+
+        cantidadRegistros = cantidadRegistrosCliente();
+
+        for(int i=0; i<cantidadRegistros;i++){
+
+            cliente=archivo.leer(i);
+
+            if(cliente.getDni()==dniCliente){
+                pos=i;
+                seEncontro=true;
+
+                while(permanecer){
+
+                    //cout<< "Opcion a modificar: \n 1-Nombre \n 2-Apellido \n 3-DNI \n 4-Salir " <<endl;
+                    cout<< "Opcion a modificar: \n 1-Nombre \n 2-Apellido \n 3-Salir " <<endl;
+                    cout << " Ingrese una opcion"<<endl;
+                    cin>>opcion;
+                    limpiarPantalla();
+
+                    switch(opcion){
+                        case 1:
+                            cout << "Ingrese nuevo nombre: " << endl;
+                            cin.ignore();
+                            getline(cin,nombre);
+                            cliente.setNombre(nombre);
+                            limpiarPantalla();
+                            break;
+                        case 2:
+                            cout << "Ingrese nuevo apellido: " << endl;
+                            cin.ignore();
+                            getline(cin,apellido);
+                            cliente.setApellido(apellido);
+                            limpiarPantalla();
+                            break;
+                        /*case 3:
+                            cout << "Ingrese nuevo dni: " << endl;
+                            cin.ignore();
+                            getline(cin,dni);
+                            empleado.setDni(dni);
+                            limpiarPantalla();
+                            break;*/
+                        case 3:
+                            cout << "Desea salir. Ingrese 1- si o 2- No" << endl;
+                            cin>>opcion;
+                            if(opcion==1){
+                                modifico=archivo.modificarCliente(cliente,pos);
+                                if(modifico){
+                                    cout<<"Registro modificado correctamente"<<endl;
+
+                                }else{
+                                    cout << "No se pudo modificar el registro."<< endl;
+
+                                }
+                                permanecer=false;
+                                break;
+                                limpiarPantalla();
+                            }else{
+                                break;
+                            }
+                        default:
+                            cout << "Opcion invalida" <<endl;
+                            limpiarPantalla();
+                        }
+
+                }
+
+
+            }
+        }
+        if(!seEncontro){
+            cout<<"No se encontro cliente con DNI "<< dniCliente << endl;
+        }
+    }else{
+        cout << "No cuenta con permiso para realizar cambios en sistema. Comuniquese con el administrador."<<endl;
+
+    }
+
+}
+
+
+
 //void PersonaManager::modificarCliente(){
 //}
-//void PersonaManager::eliminarCliente(){
-//}
-
 
 
 

@@ -88,7 +88,7 @@ void MenuManager::menuAdmin(std::string dni){
     switch(opcion) {
             case 1:
                 system("cls");
-                menuEmpleados();
+                menuEmpleados(dni);
                 system("pause");
                 break;
             case 2:
@@ -146,7 +146,7 @@ void MenuManager::menuAdmin(std::string dni){
     } while(opcion != 0);
 }
 
-void MenuManager::menuEmpleados(){
+void MenuManager::menuEmpleados(std::string dni){
     PersonaManager persona;
     int opcion, opcionSalida;
     do{
@@ -172,9 +172,9 @@ void MenuManager::menuEmpleados(){
                 break;
             case 2:
                 system("cls");
-                //manager modificar empleado
-                persona.cargarCliente();
-                persona.listarClientes();
+                persona.modificarEmpleados(dni);
+                //persona.cargarCliente();
+                //persona.listarClientes();
                 system("pause");
                 break;
             case 3:
