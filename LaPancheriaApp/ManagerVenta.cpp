@@ -17,6 +17,9 @@
 #include "Fecha.h"
 #include "PersonaManager.h"
 #include "Utilidades.h"
+#include "ArchivoIngrediente.h"
+#include "Ingrediente.h"
+#include "ArchivoDetalleIngrediente.h"
 #include <vector>
 
 using namespace std;
@@ -42,9 +45,14 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     int pos;
     DetalleVenta detVenta;
     Producto prod;
-    int cantidad, opcion;
+    int cantidad, opcion, posIngArchi, posArchiDetIng;
     vector<DetalleVenta> vecDetalleVenta;
-
+    ArchivoIngrediente ingArchi;
+    Ingrediente ing;
+    DetalleIngrediente detIng;
+    ArchivoDetalleIngrediente archiDetIng;
+    float cantidadIngredientePorProducto;
+    int cantidadVendida;
 
     nroFactura = ventaArchi.getCantidadRegistros()+1; //autonumerico
 
@@ -115,7 +123,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
 
     ///fin carga de productos
-
+    int tam = vecDetalleVenta.size();
     opcion = pedirYValidarConfirmacion("Desea registrar la venta? \n1) si \n0) no \n\n");
     if(opcion == 1){
         if (ventaArchi.guardar(v)){
@@ -124,16 +132,99 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
         else{
             cout << "Hubo un problema al guardar el registro." << endl << endl;
         }
-        for (int i=0; i < vecDetalleVenta.size() ; i++){
+        descontarStock(vecDetalleVenta, tam);
+        /*for (int i=0; i < vecDetalleVenta.size() ; i++){
             if(archiDetVenta.guardar(vecDetalleVenta[i])){
                 cout << "Producto guardado correctamente." << endl << endl;
+               // posArchiDetIng = archiDetIng.buscar(vecDetalleVenta[i].getIdProducto());
+                for (int j=0; j < archiDetIng.getCantidadRegistros(); j++){  ///recorre el archivo detalle de ingredientes (o recetas)
+                    /**detIng = archiDetIng.leer(j);
+                    if (vecDetalleVenta[i].getIdProducto() == detIng.getIdProducto() ){ //si coincide un producto vendido con alguna receta, traigo el ingrediente y me guardo la posicion en archivo de ingrediente para obtener el stock
+                        posIngArchi = ingArchi.buscar(detIng.getIdIngrediente());//busco el id obtenido en el detalleIng
+                        if (posIngArchi >= 0){ //si existe esa posicion en el archivo de ingredientes, leo la instancia y desciento el stock
+                            ing = ingArchi.leer(posIngArchi);
+                            cantidadVendida = vecDetalleVenta[i].getCantProducto();
+                            cantidadIngredientePorProducto = cantidadVendida * detIng.getCantidadPorProducto();
+                            ing.descontarStock(cantidadIngredientePorProducto);
+                            if (ingArchi.modificar(ing, posIngArchi)){
+
+                                cout << "Stock descontado correctamente." << endl;
+                            }
+                            else{
+                                cout << "No se ha podido descontar el stock." << endl;
+                            }
+                        }
+                        else{
+                            cout << "No se encontro ninguna receta con ese ID de ingrediente" << endl;
+                        }
+                    }
+                }
             }
             else{
                 cout << "Hubo un problema al guardar el registro." << endl << endl;
             }
+        }  */
+    }
+}
+
+void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta, int tam){
+    ArchivoDetalleIngrediente archivoDetalleIng;
+    ArchivoIngrediente archivoIngrediente;
+    Ingrediente ing;
+    DetalleIngrediente detalleIng;
+    int posicion;
+    float cantidadProductoPorReceta, stockADescontar;
+    int cantidadProducto;
+    DetalleVentaArchivo archivoDetalleVenta;
+
+    for (int i=0; i < tam; i++){
+        vecDetalleVenta[i].mostrar();
+        if(archivoDetalleVenta.guardar(vecDetalleVenta[i])){
+            cout << "Producto guardado correctamente." << endl << endl;
+        }
+        for(int j=0; j < archivoDetalleIng.getCantidadRegistros(); j++){
+            detalleIng = archivoDetalleIng.leer(j);
+            if(vecDetalleVenta[i].getIdProducto() == detalleIng.getIdProducto()){ // si el producto vendido me coincide con el detalle recorrido en el for:
+                cantidadProductoPorReceta = detalleIng.getCantidadPorProducto(); //traigo la cantidad de ingrediente que lleva ese producto vendido
+                cantidadProducto = vecDetalleVenta[i].getCantProducto(); //traigo la cantidad de ese producto vendido
+                stockADescontar = cantidadProducto * cantidadProductoPorReceta; //obtengo la cantidad total de ingrediente. luego la descuento.
+                posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
+                cout << posicion << endl;
+                if (posicion >= 0){ //hacer >= cuando se actualicen los .dat
+                    ing = archivoIngrediente.leer(posicion);
+                    ing.descontarStock(stockADescontar);
+                    cout << "Stock descontado correctamente." << endl << endl;
+                    if (archivoIngrediente.modificar(ing,posicion)){
+                        cout << "Registro guardado" << endl;
+                    }
+                    else{
+                        cout << "Error al guardar stock "<< endl;
+                    }
+                }
+                else{
+                    cout << "No se ha encontrado el ingrediente en el archivo" << endl;
+                }
+            }
+
         }
     }
 }
+/*        for (int i=0; i < vecDetalleIngredientes.size(); i++){
+            if(detalleArchi.guardar(vecDetalleIngredientes[i])){
+                cout << "Ingrediente aniadido a la receta correctamente." << endl;
+                /**posicion = ingArchi.buscar(vecDetalleIngredientes[i].getIdIngrediente());
+                ing = ingArchi.leer(posicion);//instancia de ingrediente traida a memoria
+                ing.descontarStock(vecDetalleIngredientes[i].getCantidadPorProducto() ); //es un solo parametro, descuenta la cantidad del stock que se coloca en el pancho
+                if(ingArchi.modificar(ing, posicion)){
+                    cout << "Stock descontado correctamente." << endl;  /// ESTO SE DEBE EJECUTAR POR CADA DETALLE DE VENTA. vecDetalleIngredientes se reemplaza por un vector de detalle ventas.
+                }
+            }
+            else{
+*/
+
+
+
+
 
 int ManagerVenta::cantidadRegistros(){
 

@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include "Fecha.h"
-
+#include <vector>
+#include "DetalleVenta.h"
 
 
 
@@ -16,4 +17,5 @@ public:
     void listarVenta();
     int cantidadRegistros();
     void listarVentaFecha();
+    void descontarStock(std::vector<DetalleVenta> &vecDetalleVenta,int tam);
 };
