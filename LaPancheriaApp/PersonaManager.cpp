@@ -53,6 +53,7 @@ void PersonaManager::cargarEmpleado(){
         limpiarPantalla();
         cout << "Ingrese permiso: 1- Admin o 2- User: \n";
         cin >> permiso;
+        cout<<permiso<<endl;
     }
     limpiarPantalla();
 
@@ -124,6 +125,7 @@ void PersonaManager::listarEmpleados(){
                 cout << left << setw(15) << e.getIdEmpleado();
                 cout << setw(30) << e.getNombre();
                 cout << setw(30) << e.getApellido();
+                cout << setw(30) << e.getPermiso();
                 cout << setw(10) << e.getDni() << endl;
                 hayActivos=true;
             }
@@ -289,6 +291,7 @@ void PersonaManager::modificarEmpleados(){
                                 cout << "Ingrese permiso: 1- Admin o 2- User: \n";
                                 cin >> permiso;
                             }
+                            empleado.setPermiso(permiso);
                             limpiarPantalla();
                             break;
                         case 6:

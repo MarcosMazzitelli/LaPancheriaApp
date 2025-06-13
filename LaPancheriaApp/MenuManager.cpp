@@ -276,6 +276,7 @@ void MenuManager::menuEmpleados(std::string dni){
             case 4:
                 system("cls");
                 persona.listarEmpleados();
+                persona.listarEmpleadosDeBaja();
                 system("pause");
                 break;
             case 0:
@@ -571,8 +572,8 @@ void MenuManager::menuReportes(){
         cout << "        MENU DE GESTION DE REPORTES" << endl;
         cout << "========================================================" << endl;
         cout << "1. Listar ventas por fecha" << endl;
-        /*cout << "2. Modificar datos de un emleado " << endl;
-        cout << "3. Eliminar empleado" << endl;
+        cout << "2. Listar empleado/s con el mayor monto de ventas " << endl;
+         /*++cout << "3. Eliminar empleado" << endl;
         cout << "4. Mostrar empleados" << endl;*/
 
         cout << "0. Salir" << endl;
@@ -596,7 +597,7 @@ switch(opcion) {
                 break;
             case 2:
                 system("cls");
-                //manager modificar empleado
+                vManager.listarVendedorMayorRecaudacion();
                 system("pause");
                 break;
             case 3:

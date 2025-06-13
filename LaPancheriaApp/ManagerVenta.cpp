@@ -198,3 +198,57 @@ if(cont==0){
     cout<<"No hay ventas registradas en esta fecha. "<<endl;
 }
 }
+
+void ManagerVenta::listarVendedorMayorRecaudacion(){
+
+    VentaArchivo archi;
+    Venta venta;
+    ArchivoEmpleado archiE;
+    Empleado e;
+    int cantidadEmpleados=archiE.getCantidadRegistros();
+    float mayorVenta=0.0;
+    int id;
+    int cantidadRegistros=archi.getCantidadRegistros();
+
+    bool* vendio = nullptr;
+    float* sumatoriaVentas =nullptr;
+    vendio = new bool[cantidadEmpleados];
+    sumatoriaVentas = new float[cantidadEmpleados];
+
+    if(vendio==nullptr || sumatoriaVentas==nullptr){
+        cout << "Ocurrio un error en el sistema. "<< endl;
+        return;
+    }
+    for(int i=0; i<cantidadEmpleados;i++){
+        vendio[i]=false;
+        sumatoriaVentas[i]=0.0;
+    }
+    for(int i=0;i<cantidadRegistros;i++){
+        venta=archi.leer(i);
+        id=venta.getIdEmpleado();
+        vendio[id]=true;
+        sumatoriaVentas[id]+=venta.getImporteTotal();
+        if(i==0){
+            mayorVenta=sumatoriaVentas[id];
+        }else if(sumatoriaVentas[id]>mayorVenta){
+            mayorVenta=sumatoriaVentas[id];
+        }
+    }
+
+    if(mayorVenta!=0){
+        cout << "Empleado/s con el mayor monto de ventas acumuladas de $ " << mayorVenta<< endl;
+         cout <<"---------------------------------------------------------------------------------------"<<endl;
+        for(int i=0; i<cantidadEmpleados; i++){
+            e=archiE.leer(i);
+            if(sumatoriaVentas[i]== mayorVenta && vendio[i] && e.getEstado()){
+
+                cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
+                cout <<"---------------------------------------------------------------------------------------"<<endl;
+            }
+        }
+    }else{
+        cout<< "Aun no se han registrado ventas"<< endl;
+    }
+    delete[]vendio;
+    delete[]sumatoriaVentas;
+}

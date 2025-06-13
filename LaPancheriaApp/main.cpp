@@ -12,33 +12,7 @@ using namespace std;
 
 int main()
 {
-    //cargarYMostrarProducto();
-    //cargarYMostrarPersona();
-    //cargarYMostrarCliente();
-    //cargarYMostrarEmpleado();
-    //cargarYMostrarFormaDePago();
-    //cargarYMostrarCostoFijo();
-    //CargarYMostrarVenta();
-    //CargarYMostrarDetalleVenta();
 
-
-   // cargarYMostrarProducto();
-   // cargarYMostrarPersona();
-   //cargarPancho();
-   // cargarYMostrarProducto();
-   // cargarYMostrarPersona();
-  // cargarPancho();
-  //cargarIngrediente();
-  //cargarEmpleado();
-  //mostrarEmpleado();
-  //cargarPancho();
-  /*for(int i=0; i<5; i++){
-    cargarIngrediente();
-  } */
-  //cargarProducto();
-  //mostrarProductosConIngredientes();
-  //menuAdmin();
-  //listarIngredientes();
   MenuManager menu;
   menu.login();
 

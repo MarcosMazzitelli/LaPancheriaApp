@@ -16,4 +16,5 @@ public:
     void listarVenta();
     int cantidadRegistros();
     void listarVentaFecha();
+    void listarVendedorMayorRecaudacion();
 };
