@@ -7,6 +7,7 @@
 #include "ProductosManager.h"
 #include "ManagerVenta.h"
 #include "FormaDePago.h"
+#include "CostosManager.h"
 
 #include <iostream>
 using namespace std;
@@ -483,6 +484,7 @@ void MenuManager::menuIngredientes(){
 }
 
 void MenuManager::menuCostos(){
+    CostosManager costoManager;
     int opcion, opcionSalida;
     while(true){
         cout << "========================================================" << endl;
@@ -510,7 +512,7 @@ void MenuManager::menuCostos(){
         switch(opcion) {
             case 1:
                 system("cls");
-                //manager cargar costo fijo
+                costoManager.cargarCostosFijos();
                 system("pause");
                 break;
             case 2:
@@ -525,7 +527,7 @@ void MenuManager::menuCostos(){
                 break;
             case 4:
                 system("cls");
-                //manager Listar costos fijos por mes
+                costoManager.listarCostosFijosPorFecha();
                 system("pause");
                 break;
             case 5:

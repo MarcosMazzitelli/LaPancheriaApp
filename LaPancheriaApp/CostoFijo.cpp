@@ -98,7 +98,7 @@ void CostoFijo::mostrarEnLista(){
 cout << left << setw(20) << getIdCosto();
 cout << left << setw(20) << getNombreCosto();
 cout << "$ " << left << setw(18) <<getPrecio();
-cout << left << setw(20) ; getFechaCosto(); //corregir
+cout << left << setw(20) << getFechaCosto().mostrarFecha();
 }
 
 
