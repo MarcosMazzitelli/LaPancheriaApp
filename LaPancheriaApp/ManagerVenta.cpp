@@ -172,16 +172,18 @@ void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta, in
     ArchivoIngrediente archivoIngrediente;
     Ingrediente ing;
     DetalleIngrediente detalleIng;
+    DetalleVentaArchivo archivoDetalleVenta;
     int posicion;
     float cantidadProductoPorReceta, stockADescontar;
     int cantidadProducto;
-    DetalleVentaArchivo archivoDetalleVenta;
 
-    for (int i=0; i < tam; i++){
-        vecDetalleVenta[i].mostrar();
+
+    for (int i=0; i < tam; i++){//for de productos distintos de mi venta
         if(archivoDetalleVenta.guardar(vecDetalleVenta[i])){
-            cout << "Producto guardado correctamente." << endl << endl;
+                cout << "Producto guardado correctamente." << endl << endl;
         }
+        vecDetalleVenta[i].mostrar();
+        //leo una instancia de detalle venta
         for(int j=0; j < archivoDetalleIng.getCantidadRegistros(); j++){
             detalleIng = archivoDetalleIng.leer(j);
             if(vecDetalleVenta[i].getIdProducto() == detalleIng.getIdProducto()){ // si el producto vendido me coincide con el detalle recorrido en el for:
