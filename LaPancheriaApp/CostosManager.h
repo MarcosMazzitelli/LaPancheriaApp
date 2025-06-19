@@ -12,7 +12,8 @@ public:
       void buscarCostoFijoPorNombre();
       void listarCostosFijos();
       void listarCostosFijosPorFecha();
-       /*void modificarCostoFijo();
+      void modificarCostoFijo();
+       /*
         void listarCostosStock();
         void listarCostosEmpleados();
         void listarCostosProductosVendidos();

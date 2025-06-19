@@ -29,6 +29,20 @@ bool CostoFijoArchivo::guardar(CostoFijo registro){
     return result;
 }
 
+bool CostoFijoArchivo::guardarModificado(CostoFijo registro, int posicion){
+    FILE* pFile;
+    pFile = fopen(_nombreArchivo.c_str(),"rb+");
+
+    if(pFile==nullptr){
+        return false;
+    }
+
+    fseek(pFile,posicion*sizeof(registro),0);
+    bool modifico = fwrite(&registro,sizeof(registro),1,pFile);
+    fclose(pFile);
+    return modifico;
+}
+
 
 int CostoFijoArchivo::getCantidadRegistros(){
     FILE* pfile;
