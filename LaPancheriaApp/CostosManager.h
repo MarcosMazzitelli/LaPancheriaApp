@@ -13,6 +13,7 @@ public:
       void listarCostosFijos();
       void listarCostosFijosPorFecha();
       void modificarCostoFijo();
+      void eliminarCostoFijo();
        /*
         void listarCostosStock();
         void listarCostosEmpleados();

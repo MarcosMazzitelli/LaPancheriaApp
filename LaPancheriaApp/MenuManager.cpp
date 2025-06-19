@@ -492,7 +492,7 @@ void MenuManager::menuCostos(){
         cout << "========================================================" << endl;
         cout << "1. Cargar costo fijo" << endl;
         cout << "2. Modificar costo fijo " << endl;
-        cout << "3. Eliminar costo" << endl;
+        cout << "3. Eliminar costo fijo" << endl;
         cout << "4. Listar costos fijos por mes" << endl;
         cout << "5. Listar costos totales por mes" << endl;
 
@@ -517,12 +517,12 @@ void MenuManager::menuCostos(){
                 break;
             case 2:
                 system("cls");
-                //manager modificar costo fijo
+                costoManager.modificarCostoFijo();
                 system("pause");
                 break;
             case 3:
                 system("cls");
-                //manager eliminar costo
+                costoManager.eliminarCostoFijo();
                 system("pause");
                 break;
             case 4:

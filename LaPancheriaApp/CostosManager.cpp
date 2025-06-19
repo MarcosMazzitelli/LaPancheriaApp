@@ -115,7 +115,8 @@ void CostosManager::listarCostosFijos(){
 
     cout<<"COSTOS FIJOS"<<endl;
     cf.mostrarTabla();
-    cout<<"--------------------------------------------------------------------------"<<endl;
+    cout<<endl;
+    cout<<"--------------------------------------------------------------------------------"<<endl;
     cout<<endl;
     for(int i=0; i<cantRegistros;i++){
         if(cantRegistros == 0){
@@ -123,9 +124,10 @@ void CostosManager::listarCostosFijos(){
         }
         else{
             cf=archi.leer(i);
+            if(cf.getEstado()==true){
             cf.mostrarEnLista();
-            cout<<"--------------------------------------------------------------------------"<<endl;
             cout<<endl <<endl;
+            }
         }
     }
 }
@@ -169,7 +171,7 @@ void CostosManager::listarCostosFijosPorFecha(){
 
         cf=archi.leer(i);
 
-        if(mes == cf.getFechaCosto().getMes() && anio == cf.getFechaCosto().getAnio()){
+        if(mes == cf.getFechaCosto().getMes() && anio == cf.getFechaCosto().getAnio() && cf.getEstado()==true){
             cont++;
             cf.mostrarEnLista();
             cout<<"-------------------------------------------------------------------------------------------"<<endl;
@@ -186,10 +188,12 @@ void CostosManager::modificarCostoFijo(){
     CostoFijoArchivo archivo;
     Fecha fechaCosto;
 
-    int opcion, idCostoFijo, cantidadRegistros, pos;
+    int opcion, opcionValFinal, idCostoFijo, cantidadRegistros, pos, opc;
     float precio;
     string nombreCosto;
-    bool modifico, permanecer=true, seEncontro=false;
+    bool modifico, principal=false, permanecer=true, seEncontro=false;
+
+    while(!principal){
 
         listarCostosFijos();
         cout << "\n\n\n--------------MODIFICAR COSTO FIJO------------------" <<endl;
@@ -204,6 +208,7 @@ void CostosManager::modificarCostoFijo(){
             cout << "\n\n\n--------------MODIFICAR COSTO FIJO------------------" <<endl;
             cout << "Ingrese el ID del Costo Fijo a modificar " << endl;
             cin >> idCostoFijo;
+
         }
 
         cantidadRegistros = archivo.getCantidadRegistros();
@@ -212,14 +217,14 @@ void CostosManager::modificarCostoFijo(){
 
             costoF=archivo.leer(i);
 
-            if(costoF.getIdCosto()==idCostoFijo){
+            if(costoF.getIdCosto()==idCostoFijo && costoF.getEstado()==true){
 
                 pos=i;
                 seEncontro=true;
 
                 while(permanecer){
 
-                    cout<< "Opcion a modificar: \n 1-Nombre \n 2-Precio \n 3-Fecha \n 4-Salir " <<endl;
+                    cout<< "Opcion a modificar: \n 1-Nombre \n 2-Precio \n 3-Fecha " <<endl;
                     cout << " Ingrese una opcion"<<endl;
                     cin>>opcion;
 
@@ -240,6 +245,7 @@ void CostosManager::modificarCostoFijo(){
                             cin.ignore();
                             getline(cin,nombreCosto);
                             costoF.setNombreCosto(nombreCosto);
+                            permanecer=false;
                             limpiarPantalla();
                             break;
                         case 2:
@@ -254,6 +260,7 @@ void CostosManager::modificarCostoFijo(){
                                 cin >> precio;
                             }
                             costoF.setPrecio(precio);
+                            permanecer=false;
                             limpiarPantalla();
                             break;
                         case 3:
@@ -262,35 +269,10 @@ void CostosManager::modificarCostoFijo(){
                                 fechaCosto.cargar();
                             }
                             costoF.setFechaCosto(fechaCosto);
+                            permanecer=false;
                             limpiarPantalla();
                             break;
 
-                        case 4:
-                            cout << "Desea salir. Ingrese 1- Si o 2- No" << endl;
-                            cin>>opcion;
-                             while(cin.fail() || opcion!=1 && opcion!=2){
-                                cin.clear();
-                                cin.ignore(1000,'\n');
-                                cout << "Ingrese una opcion valida! \n";
-                                limpiarPantalla();
-                                cout << "Desea salir. Ingrese 1- Si o 2- No" << endl;
-                                cin>>opcion;
-                            }
-                            if(opcion==1){
-                                modifico=archivo.guardarModificado(costoF,pos);
-                                if(modifico){
-                                    cout<<"Registro modificado correctamente"<<endl;
-
-                                }else{
-                                    cout << "No se pudo modificar el registro."<< endl;
-
-                                }
-                                permanecer=false;
-                                break;
-                                limpiarPantalla();
-                            }else{
-                                break;
-                            }
                         default:
                             cout << "Opcion invalida" <<endl;
                             limpiarPantalla();
@@ -298,10 +280,63 @@ void CostosManager::modificarCostoFijo(){
 
                 }
 
+                opc= pedirYValidarConfirmacion("Desea guardar este cambio?? \n1) si \n0) no \n\n");
+                if(opc==1){
+                    modifico=archivo.guardarModificado(costoF,pos);
+                    if(modifico){
+                        cout<<"Costo Fijo modificado con exito"<< endl << endl;
+                        limpiarPantalla();
+                    }
+                    else{
+                    cout<<"Hubo un problema al modificar el Costo Fijo"<< endl << endl;
+                    }
+                }
+
             }
         }
         if(!seEncontro){
             cout<<"No se encontro un costo fijo con ID "<< idCostoFijo << endl;
         }
+
+        opcionValFinal=pedirYValidarConfirmacion("Desea modificar otro costo fijo? \n1) si \n0) no \n\n");
+        if(opcionValFinal==1){
+            principal=false;
+            permanecer=true;
+            limpiarPantalla();
+        }
+        else{
+            principal=true;
+            limpiarPantalla();
+        }
+
+    } //fin while principal
 }
 
+void CostosManager::eliminarCostoFijo(){
+    CostoFijoArchivo archivo;
+    CostoFijo costoF;
+    bool modifico;
+
+    int id, cantidadRegistros,pos;
+
+    listarCostosFijos();
+    cout << "\n\n\n----------------ELIMINAR COSTO FIJO------------------" <<endl;
+    cout << "Ingrese el ID del costo fijo a eliminar " << endl << endl;
+    cin >> id;
+    cantidadRegistros = archivo.getCantidadRegistros();
+
+    for(int i=0; i<cantidadRegistros;i++){
+        costoF=archivo.leer(i);
+        if(costoF.getIdCosto()==id){
+
+            costoF.setEstado(false);
+            pos=i;
+            modifico=archivo.guardarModificado(costoF,pos);
+        }
+    }
+    if(modifico){
+        cout<< "El costo fijo con ID: " << id <<" fue dado de baja."<<endl;
+    }else{
+        cout << "El costo fijo no pudo ser dado de baja. No existente." <<endl;
+    }
+}
