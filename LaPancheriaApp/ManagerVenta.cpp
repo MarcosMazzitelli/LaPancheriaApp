@@ -198,3 +198,86 @@ if(cont==0){
     cout<<"No hay ventas registradas en esta fecha. "<<endl;
 }
 }
+void ManagerVenta::mostrarFechaMayorRecaudacionVenta(){
+
+    VentaArchivo archi;
+    Venta vent;
+    Fecha aux;
+
+    int cantRegistro=archi.getCantidadRegistros();
+
+    float mayorVenta=0.0;
+    for(int i=0; i<cantRegistro;i++){
+        vent=archi.leer(i);
+
+
+        if(i==0){
+            mayorVenta=vent.getImporteTotal();
+            aux=vent.getFechaVenta();
+
+        }else if(vent.getImporteTotal()>mayorVenta){
+
+            mayorVenta=vent.getImporteTotal();
+            aux=vent.getFechaVenta();
+        }
+
+
+
+
+    }
+
+    cout<<"El monto de la mayor venta es: "<<"$"<<mayorVenta<<endl;
+    cout<<endl<<"se registro el dia "<< aux.mostrarFecha()<<endl<<endl;
+
+}
+/*void ManagerVenta::mostrarFechaMayorCantidadVentas(){
+
+
+
+    Fecha fecha;
+    VentaArchivo archi;
+    Venta vent;
+
+    std::vector<Fecha> vecFecha;
+    std::vector<int> vecContador;
+   int cantRegistro=archi.getCantidadRegistros();
+   bool coincidencia=false;
+   int mayor=0;
+
+    int cont=0;
+
+    for(int i=0;i<cantRegistro;i++){
+        vent=archi.leer(i);
+        coincidencia=false;
+        if(i==0){
+           vecFecha[i]=vent.getFechaVenta();
+           vecContador[i]++;
+        }
+        else{
+            for(int j=0; j<vecFecha.size();j++){
+
+               if(vent.getFechaVenta() == vecFecha[j]){
+                vecContador[j]++;
+                coincidencia=true;
+               }
+            }
+            if(!coincidio){
+                vecFecha[i]=vent.getFechaVenta();
+                vecContador[i]++;
+            }
+        }
+    }
+    for(i=0;i<vecContador.size();i++){
+
+        if(i==0){
+            mayor=vecContador[i];
+            fecha=vecFecha[i];
+        }
+        else if(vecContador[i]>mayor){
+                mayor=vecContador[i];
+                fecha=vecFecha[i];
+        }
+    }
+    cout<<"el dia que se registraron la mayor cantidad de ventas fue el "<<fecha.mostrarFecha()<<endl;
+    cout<<"y la cantidad de ventas que se realizaron ese dia fueron "<<mayor<<" ventas"<<endl;
+*/
