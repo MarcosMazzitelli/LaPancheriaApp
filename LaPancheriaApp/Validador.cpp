@@ -16,3 +16,9 @@ bool Validador::esEmail (std::string &cadena){
     return regex_match(cadena, expReg);
 
 }
+
+bool Validador::contiene(std::string texto, std::string atributo){
+    regex patron(texto, regex::icase);
+    return regex_search(atributo, patron);
+
+}

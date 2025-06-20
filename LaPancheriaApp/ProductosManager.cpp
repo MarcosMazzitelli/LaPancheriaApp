@@ -9,6 +9,7 @@
 //#include <vector>
 #include <iomanip>
 #include <iostream>
+#include "Validador.h"
 using namespace std;
 
 int ProductosManager::cantidadRegistrosProducto(){
@@ -612,4 +613,56 @@ void ProductosManager::listarProductosPorCategoria(int idCategoria){
     }
     cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;//180 caracteres
 
+}
+
+void ProductosManager::listarProductosPorIngredientes(){
+    Ingrediente ing;
+    ArchivoDetalleIngrediente archivoDetalleIng;
+    DetalleIngrediente detalleIng;
+    ArchivoIngrediente archivoIngrediente;
+    Ingrediente ingrediente;
+    ArchivoProducto archivoProducto;
+    Producto producto;
+    int cantRegistrosDetalleIng = cantidadRegistrosDetalleIngredientes();
+    int cantRegistrosIng = archivoIngrediente.getCantidadRegistros();
+    int posicion;
+    Validador validador;
+    string nombreIngrediente;
+    cout << "Escriba el nombre del ingrediente y a continuacion se listaran los productos que lo contengan: ";
+    cin.ignore();
+    getline(cin,nombreIngrediente);
+
+    for (int i=0; i< cantRegistrosDetalleIng; i++){ //recorro todo el archivo de detalle de ingredientes (recetas) donde hay un registro por cada ingrediente que contenga cada producto
+        detalleIng = archivoDetalleIng.leer(i);
+
+        posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
+        ing = archivoIngrediente.leer(posicion); //busca ese ID de ingrediente dentro del archivo de ingredientes y lo instancia para obtener el nombre
+        if(validador.contiene(nombreIngrediente, ing.getNombreIngrediente() ) ){  //Si coincide el patron ingresado con el nombre del ingrediente devuelve true
+            posicion = archivoProducto.buscar(detalleIng.getIdProducto());
+            producto = archivoProducto.leer(posicion); //una vez que esta asegurada la coincidencia, se instancia el producto para obtener todos los datos para la venta
+
+            cout << "==============================================" << endl;
+            cout << "ID Producto: " << producto.getIdProducto() << endl;
+            cout << "Nombre: " <<  producto.getNombreProducto() << endl;
+            cout << "Precio de venta: $" << producto.getPrecioUnitario() << endl;
+            cout << "Ingredientes: " << endl;
+            cout << "----------------------------------------------" << endl;
+            cout << left << setw(25) << "Nombre Ingrediente";
+            cout << setw(10) << "Cantidad";
+            cout << setw(10) << "Unidad" << endl;
+            for (int j=0; j< cantRegistrosDetalleIng; j++){ //Bucle solo para mostrar todos los ingredientes que tiene ese producto
+                detalleIng = archivoDetalleIng.leer(j); //se instancian nuevamente las recetas
+                if(detalleIng.getIdProducto() == producto.getIdProducto()){ //Si las instancias son iguales al producto hallado anteriormente que coincide con el patron buscado:
+
+                    posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
+                    ing = archivoIngrediente.leer(posicion); //instancio cada ingrediente que contiene ese producto y lo muestro
+                    cout << left << setw(25) << ing.getNombreIngrediente();
+                    cout << setw(10) << detalleIng.getCantidadPorProducto();
+                    cout << setw(10) << ing.getTipoDeUnidad() << endl;
+                }
+            }
+            cout << "==============================================" << endl << endl;
+            cout << endl << endl;
+        }
+    }
 }

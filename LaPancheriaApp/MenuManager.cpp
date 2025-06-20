@@ -322,6 +322,7 @@ void MenuManager::menuProductos(){
         cout << "3. Eliminar producto" << endl;
         cout << "4. Listar productos" << endl;
         cout << "5. Listar recetas" << endl;
+        cout << "6. Listar productos por ingrediente" << endl;
 
 
         cout << "0. Salir" << endl;
@@ -365,6 +366,11 @@ void MenuManager::menuProductos(){
             case 5:
                 system("cls");
                 prodManager.listarProductosConIngredientes();
+                system("pause");
+                break;
+            case 6:
+                system("cls");
+                prodManager.listarProductosPorIngredientes();
                 system("pause");
                 break;
 
