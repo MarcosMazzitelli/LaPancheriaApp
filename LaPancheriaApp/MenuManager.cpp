@@ -200,7 +200,12 @@ void MenuManager::menuVentas(std::string dni){
                 fdp.opcionesFormasDePago();
                 system("pause");
                 break;
-
+            case 505:
+                system("cls");
+                for (int i=0; i<10; i++){
+                    ventaManager.cargaMasivaVentas(dni);
+                }
+                system("pause");
 
             case 0:
                 cout << "Confirma que desea salir? 1- si  0- no\n";
@@ -276,6 +281,7 @@ void MenuManager::menuEmpleados(std::string dni){
             case 4:
                 system("cls");
                 persona.listarEmpleados();
+                persona.listarEmpleadosDeBaja();
                 system("pause");
                 break;
             case 0:
@@ -322,6 +328,7 @@ void MenuManager::menuProductos(){
         cout << "3. Eliminar producto" << endl;
         cout << "4. Listar productos" << endl;
         cout << "5. Listar recetas" << endl;
+        cout << "6. Listar productos por ingrediente" << endl;
 
 
         cout << "0. Salir" << endl;
@@ -365,6 +372,11 @@ void MenuManager::menuProductos(){
             case 5:
                 system("cls");
                 prodManager.listarProductosConIngredientes();
+                system("pause");
+                break;
+            case 6:
+                system("cls");
+                prodManager.listarProductosPorIngredientes();
                 system("pause");
                 break;
 
@@ -565,14 +577,15 @@ void MenuManager::menuCostos(){
 
 void MenuManager::menuReportes(){
     ManagerVenta vManager;
+    PersonaManager personaManager;
     int opcion, opcionSalida;
     while(true){
         cout << "========================================================" << endl;
         cout << "        MENU DE GESTION DE REPORTES" << endl;
         cout << "========================================================" << endl;
         cout << "1. Listar ventas por fecha" << endl;
-        /*cout << "2. Modificar datos de un emleado " << endl;
-        cout << "3. Eliminar empleado" << endl;
+        cout << "2. Listar todos los clientes " << endl;
+        /*cout << "3. Eliminar empleado" << endl;
         cout << "4. Mostrar empleados" << endl;*/
         cout << "5. Mostrar fecha de la venta que mas recaudo" << endl;
 
@@ -597,7 +610,8 @@ switch(opcion) {
                 break;
             case 2:
                 system("cls");
-                //manager modificar empleado
+               // vManager.listarVendedorMayorRecaudacion();
+                personaManager.listarClientes();
                 system("pause");
                 break;
             case 3:
