@@ -4,6 +4,7 @@
 #include "ArchivoCliente.h"
 #include "ArchivoEmpleado.h"
 #include "Utilidades.h"
+#include "Validador.h"
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -16,6 +17,7 @@ int PersonaManager::cantidadRegistrosEmpleado(){
 ///metodos para Empleado
 void PersonaManager::cargarEmpleado(){
     ArchivoEmpleado a;
+    Validador validador;
 
     int idEmpleado, permiso;
     string nombre, apellido, dni, contrasenia, puesto, email, nCelular;
@@ -38,7 +40,13 @@ void PersonaManager::cargarEmpleado(){
 
     cout << "Ingrese dni del empleado: \n";
     getline(cin,dni);
-    limpiarPantalla();
+    while (!validador.esDni(dni)){
+        cout << "DNI Invalido." << endl;
+        system("pause");
+        system("cls");
+        cout << "Ingrese dni del empleado: \n";
+        getline(cin,dni);
+    }
 
     cout << "Ingrese contraseña del empleado: \n";
     getline(cin,contrasenia);
@@ -93,7 +101,14 @@ void PersonaManager::cargarEmpleado(){
     cout << "Ingrese email: \n";
     cin.ignore();
     getline(cin,email);
-    limpiarPantalla();
+    while (!validador.esEmail(email)){
+        cout << "Email Invalido." << endl;
+        system("pause");
+        system("cls");
+        cout << "Ingrese el email del empleado: \n";
+        getline(cin,email);
+    }
+
 
 
     cout << "Ingrese celular: \n";
@@ -393,7 +408,7 @@ void PersonaManager::cargarCliente(std::string &dniCliente){
        pos = archivo.buscar(dniCliente);
 
 
-        if(pos < 0){
+        if(cin.fail() || pos < 0){
             cout << "Ingrese el nombre del cliente registrar: \n";
             getline(cin,nombre);
             limpiarPantalla();

@@ -15,5 +15,6 @@ public:
     bool guardar(DetalleIngrediente registro);
     int getCantidadRegistros();
     DetalleIngrediente leer(int pos);
+    int buscar(int idProducto);
 
 };

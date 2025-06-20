@@ -254,3 +254,19 @@ void mostrarEmpleado(){
 
 }
 
+void cargaMasivaVentas(){
+    int nFactura;
+    string dniCliente;
+    int dniEmpleado;
+    float importeTotal;
+    int formaDePago;
+    Fecha fechaVenta;
+
+    int idProducto;
+    float costoUnitario;
+    int cantidadProducto;
+    float precioUnitario;
+    float importeBruto;
+
+}
+
