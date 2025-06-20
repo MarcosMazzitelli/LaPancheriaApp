@@ -210,23 +210,23 @@ void ManagerVenta::listarVendedorMayorRecaudacion(){
     int id;
     int cantidadRegistros=archi.getCantidadRegistros();
 
-    bool* vendio = nullptr;
+   // bool* vendio = nullptr;
     float* sumatoriaVentas =nullptr;
-    vendio = new bool[cantidadEmpleados];
+    //vendio = new bool[cantidadEmpleados];
     sumatoriaVentas = new float[cantidadEmpleados];
 
-    if(vendio==nullptr || sumatoriaVentas==nullptr){
+    if(sumatoriaVentas==nullptr){
         cout << "Ocurrio un error en el sistema. "<< endl;
         return;
     }
     for(int i=0; i<cantidadEmpleados;i++){
-        vendio[i]=false;
+        //vendio[i]=false;
         sumatoriaVentas[i]=0.0;
     }
     for(int i=0;i<cantidadRegistros;i++){
         venta=archi.leer(i);
         id=venta.getIdEmpleado();
-        vendio[id]=true;
+        //vendio[id]=true;
         sumatoriaVentas[id]+=venta.getImporteTotal();
         if(i==0){
             mayorVenta=sumatoriaVentas[id];
@@ -240,7 +240,7 @@ void ManagerVenta::listarVendedorMayorRecaudacion(){
          cout <<"---------------------------------------------------------------------------------------"<<endl;
         for(int i=0; i<cantidadEmpleados; i++){
             e=archiE.leer(i);
-            if(sumatoriaVentas[i]== mayorVenta && vendio[i] && e.getEstado()){
+            if(sumatoriaVentas[i]== mayorVenta && e.getEstado()){
 
                 cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
                 cout <<"---------------------------------------------------------------------------------------"<<endl;
@@ -249,6 +249,6 @@ void ManagerVenta::listarVendedorMayorRecaudacion(){
     }else{
         cout<< "Aun no se han registrado ventas"<< endl;
     }
-    delete[]vendio;
+    //delete[]vendio;
     delete[]sumatoriaVentas;
 }
