@@ -45,7 +45,7 @@ void ProductosManager::incorporarIngredientes(int idProducto, float &costoProduc
         ingManager.listarIngredientes(); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
         cout << "Seleccione el ID del ingrediente que desee agregar: " << endl << endl;
         cin >> idIngrediente;
-        while(cin.fail() || idIngrediente <= 0 || idIngrediente > ingManager.cantidadRegistros()+1){
+        while(cin.fail() || idIngrediente < 1 || idIngrediente > ingManager.cantidadRegistros()){
             cin.clear();
             cin.ignore(1000,'\n');
             cout << "Ingrese un valor valido" << endl << endl;

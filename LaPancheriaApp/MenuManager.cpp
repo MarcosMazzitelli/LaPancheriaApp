@@ -200,7 +200,12 @@ void MenuManager::menuVentas(std::string dni){
                 fdp.opcionesFormasDePago();
                 system("pause");
                 break;
-
+            case 505:
+                system("cls");
+                for (int i=0; i<10; i++){
+                    ventaManager.cargaMasivaVentas(dni);
+                }
+                system("pause");
 
             case 0:
                 cout << "Confirma que desea salir? 1- si  0- no\n";

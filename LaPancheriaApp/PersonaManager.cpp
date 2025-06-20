@@ -405,7 +405,7 @@ void PersonaManager::cargarCliente(std::string &dniCliente){
        pos = archivo.buscar(dniCliente);
 
 
-        if(pos < 0){
+        if(cin.fail() || pos < 0){
             cout << "Ingrese el nombre del cliente registrar: \n";
             getline(cin,nombre);
             limpiarPantalla();

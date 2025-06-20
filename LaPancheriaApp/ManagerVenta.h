@@ -14,8 +14,10 @@ private:
 
 public:
     void registrarVenta(std::string dniEmpleado);
+    void cargaMasivaVentas(std::string dniEmpleado);
+
     void listarVenta();
     int cantidadRegistros();
     void listarVentaFecha();
-    void descontarStock(std::vector<DetalleVenta> &vecDetalleVenta,int tam);
+    void descontarStock(std::vector<DetalleVenta> &vecDetalleVenta);
 };
