@@ -576,14 +576,15 @@ void MenuManager::menuCostos(){
 
 void MenuManager::menuReportes(){
     ManagerVenta vManager;
+    PersonaManager personaManager;
     int opcion, opcionSalida;
     while(true){
         cout << "========================================================" << endl;
         cout << "        MENU DE GESTION DE REPORTES" << endl;
         cout << "========================================================" << endl;
         cout << "1. Listar ventas por fecha" << endl;
-        /*cout << "2. Modificar datos de un emleado " << endl;
-        cout << "3. Eliminar empleado" << endl;
+        cout << "2. Listar todos los clientes " << endl;
+        /*cout << "3. Eliminar empleado" << endl;
         cout << "4. Mostrar empleados" << endl;*/
 
         cout << "0. Salir" << endl;
@@ -607,7 +608,7 @@ switch(opcion) {
                 break;
             case 2:
                 system("cls");
-                //manager modificar empleado
+                personaManager.listarClientes();
                 system("pause");
                 break;
             case 3:
