@@ -587,6 +587,7 @@ void MenuManager::menuReportes(){
         cout << "2. Listar todos los clientes " << endl;
         /*cout << "3. Eliminar empleado" << endl;
         cout << "4. Mostrar empleados" << endl;*/
+        cout << "5. Mostrar fecha de la venta que mas recaudo" << endl;
 
         cout << "0. Salir" << endl;
         cout << "===============================" << endl;
@@ -621,6 +622,11 @@ switch(opcion) {
             case 4:
                 system("cls");
                 //persona.listarEmpleados();
+                system("pause");
+                break;
+            case 5:
+                system("cls");
+                vManager.mostrarFechaMayorRecaudacionVenta();
                 system("pause");
                 break;
             case 0:
