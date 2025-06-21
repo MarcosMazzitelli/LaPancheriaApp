@@ -14,9 +14,8 @@ public:
       void listarCostosFijosPorFecha();
       void modificarCostoFijo();
       void eliminarCostoFijo();
-       /*
-        void listarCostosStock();
-        void listarCostosEmpleados();
-        void listarCostosProductosVendidos();
-        void costoPorEmpleadoAnual();*/
+      void balanceGananciaPorMes();
+
+
+
 };

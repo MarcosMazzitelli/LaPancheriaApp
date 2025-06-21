@@ -580,6 +580,7 @@ void MenuManager::menuCostos(){
 void MenuManager::menuReportes(){
     ManagerVenta vManager;
     PersonaManager personaManager;
+    CostosManager costoManager;
     int opcion, opcionSalida;
     while(true){
         cout << "========================================================" << endl;
@@ -590,6 +591,8 @@ void MenuManager::menuReportes(){
         /*cout << "3. Eliminar empleado" << endl;
         cout << "4. Mostrar empleados" << endl;*/
         cout << "5. Mostrar fecha de la venta que mas recaudo" << endl;
+        cout << "7. Balance de ganacias por mes" << endl;
+
 
         cout << "0. Salir" << endl;
         cout << "===============================" << endl;
@@ -629,6 +632,11 @@ switch(opcion) {
             case 5:
                 system("cls");
                 vManager.mostrarFechaMayorRecaudacionVenta();
+                system("pause");
+                break;
+            case 7:
+                system("cls");
+                costoManager.balanceGananciaPorMes();
                 system("pause");
                 break;
             case 0:

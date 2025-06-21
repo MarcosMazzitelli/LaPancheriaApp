@@ -14,6 +14,7 @@ public:
     //Metodo
     bool guardar(DetalleVenta registro);
     int getCantidadRegistros();
+    DetalleVenta leer(int pos);
 
 
 };
