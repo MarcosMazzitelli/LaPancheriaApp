@@ -5,12 +5,14 @@ DetalleIngrediente::DetalleIngrediente(){
     _idProducto=0;
     _idIngrediente=0;
     _cantidadPorProducto=0.0f;
+    _estado = true;
 }
 
-DetalleIngrediente::DetalleIngrediente(int idProducto, int idIngrediente, float cantidadPorProducto){
+DetalleIngrediente::DetalleIngrediente(int idProducto, int idIngrediente, float cantidadPorProducto, bool estado){
     setIdProducto(idProducto);
     setIdIngrediente(idIngrediente);
     setCantidadPorProducto(cantidadPorProducto);
+    setEstado(estado);
 }
 
 ///Setters
@@ -26,6 +28,11 @@ void DetalleIngrediente::setCantidadPorProducto (float cantidadPorProducto){
     _cantidadPorProducto=cantidadPorProducto;
 }
 
+void DetalleIngrediente::setEstado (bool estado){
+    _estado = estado;
+}
+
+
 ///Getters
 int DetalleIngrediente::getIdProducto(){
     return _idProducto;
@@ -38,3 +45,8 @@ int DetalleIngrediente::getIdIngrediente(){
 float DetalleIngrediente::getCantidadPorProducto(){
     return _cantidadPorProducto;
 }
+
+bool DetalleIngrediente::getEstado(){
+    return _estado;
+}
+

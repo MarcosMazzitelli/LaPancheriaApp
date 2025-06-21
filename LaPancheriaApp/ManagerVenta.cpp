@@ -52,6 +52,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     int posicionEmpleado, posicionProducto;
     int cantidad, opcion;
     int idProducto;
+    int cantRegistrosProducto = archiProd.getCantidadRegistros();
     vector<DetalleVenta> vecDetalleVenta;
 
     nroFactura = ventaArchi.getCantidadRegistros()+1; //autonumerico
@@ -69,7 +70,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
 
         cout << "Seleccione el producto que desee agregar: ";
         cin >> idProducto;
-        while (cin.fail() || idProducto < 1 || idProducto > prodManager.cantidadRegistrosProducto()){
+        while (cin.fail() || idProducto < 1 || idProducto > cantRegistrosProducto ){
             cout << "Ingrese un Id de producto valido" << endl << endl;
             system("pause");
             system("cls");

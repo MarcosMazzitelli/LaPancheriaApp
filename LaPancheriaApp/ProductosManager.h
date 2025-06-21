@@ -14,8 +14,8 @@ public:
     void crearBebida(int idCategoria);
     void modificarProducto();
     void menuModificacion(Producto &prod, int pos);
-    int cantidadRegistrosProducto();
-    int cantidadRegistrosDetalleIngredientes();
+    void eliminarProducto();
+    void mostrarProductoYReceta(Producto &producto);
 
     ///Listados
     void mostrarProductosCompletos();

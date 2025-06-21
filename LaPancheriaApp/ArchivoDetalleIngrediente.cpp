@@ -86,3 +86,21 @@ int ArchivoDetalleIngrediente::buscar(int idProducto){
    return -1; // si llega hasta aca es porque no encontro un valor valido y retorno -1
 }
 
+bool ArchivoDetalleIngrediente::modificar(DetalleIngrediente &registro, int posicion){
+    FILE* pFile;
+    bool result;
+
+    pFile = fopen(_nombreArchivo.c_str(), "rb+");
+
+    if(pFile == nullptr){
+        return false;
+    }
+
+    fseek(pFile, posicion * sizeof(DetalleIngrediente), 0);
+    result = fwrite(&registro, sizeof(DetalleIngrediente), 1, pFile);
+
+    fclose(pFile);
+    return result;
+
+}
+

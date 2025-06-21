@@ -88,7 +88,7 @@ getline(cin,nombreCosto);
 for(int i=0;i<cantRegistros;i++){
     costoF=archi.leer(i);
 
-    if(costoF.getNombreCosto()== nombreCosto){
+    if(costoF.getNombreCosto()== nombreCosto){//alternativa marcos: aca se puede usar la funcion de clase validador "Contiene"
         cont++;
         cout<<"Costo Fijo Encontrado"<<endl;
         cout<<endl;
@@ -212,7 +212,8 @@ void CostosManager::modificarCostoFijo(){
         }
 
         cantidadRegistros = archivo.getCantidadRegistros();
-
+         /*alternativa marcos: Aca ya tenemos el id del costo, no hace falta hacer un bucle para recorrer el archivo y comparar, podemos traer el costo directamente
+        buscandolo en el archivo con el metodo buscar*/
         for(int i=0; i<cantidadRegistros;i++){
 
             costoF=archivo.leer(i);
@@ -324,7 +325,7 @@ void CostosManager::eliminarCostoFijo(){
     cout << "Ingrese el ID del costo fijo a eliminar " << endl << endl;
     cin >> id;
     cantidadRegistros = archivo.getCantidadRegistros();
-
+     /* alternativa marcos: al tener el ID no hace falta recorrer todo el archivo, podemos traer el registro directamente con el metodo buscar de costoFijoArchivo*/
     for(int i=0; i<cantidadRegistros;i++){
         costoF=archivo.leer(i);
         if(costoF.getIdCosto()==id){
