@@ -6,6 +6,12 @@
 #include "CostoFijo.h"
 #include "Fecha.h"
 #include "Utilidades.h"
+#include "Empleado.h"
+#include "ArchivoEmpleado.h"
+#include "Venta.h"
+#include "VentaArchivo.h"
+#include "DetalleVenta.h"
+#include "DetalleVentaArchivo.h"
 using namespace std;
 
 
@@ -340,4 +346,97 @@ void CostosManager::eliminarCostoFijo(){
     }else{
         cout << "El costo fijo no pudo ser dado de baja. No existente." <<endl;
     }
+}
+
+void CostosManager::balanceGananciaPorMes(){
+    CostoFijo costoF;
+    CostoFijoArchivo archiCostoF;
+    Empleado empleado;
+    ArchivoEmpleado archiEmpleado;
+    Venta venta;
+    VentaArchivo archiVenta;
+    DetalleVenta detalleV;
+    DetalleVentaArchivo archiDetalleV;
+    Fecha fecha;
+
+    int mes, anio, nroF;
+    float sueldo, acuCostoF=0, acuCostoEmpleado=0,acuCostoIngrediente=0,acuCantidad=0,acuVentaTotal=0, costosDelMes, ganancia;
+
+    //while()
+
+    //ingresa el mes (y el anio) del balance
+    cout << "--------------BALANCE DE GANACIA POR MES------------------" <<endl;
+    cout <<"Ingrese el mes "<< endl;
+    cin>>mes;
+    while(cin.fail()){
+    cin.clear();
+    cin.ignore(1000,'\n');
+    cout << "Ingrese un valor valido" << endl << endl;
+    cin >> mes;
+    }
+
+    cout <<"Ingrese el anio "<< endl;
+    cin>>anio;
+    while(cin.fail()){
+    cin.clear();
+    cin.ignore(1000,'\n');
+    cout << "Ingrese un valor valido" << endl << endl;
+    cin >> anio;
+    }
+    cout << endl << endl;
+
+    //costos fijos
+    int cantRegistroCostoF=archiCostoF.getCantidadRegistros();
+    for(int i=0; i<cantRegistroCostoF; i++){
+        costoF=archiCostoF.leer(i);
+        if(mes == costoF.getFechaCosto().getMes() && anio == costoF.getFechaCosto().getAnio() && costoF.getEstado()){
+            acuCostoF+=costoF.getPrecio();
+        }
+    }
+    cout<<"- El total de COSTOS FIJOS del mes "<<mes<<" del anio "<<anio<< " es de: "<<acuCostoF<<endl<<endl;
+
+    //costo empleados
+    int cantRegistroEmpleado=archiEmpleado.getCantidadRegistros();
+    for(int i=0; i<cantRegistroEmpleado; i++){
+        empleado=archiEmpleado.leer(i);
+        if(empleado.getEstado()){
+            //sueldo=empleado.getSueldo();
+            acuCostoEmpleado+=empleado.getSueldo();
+        }
+    }
+    cout<<"- El total del COSTO DE EMPLEADOS del mes "<<mes<<" del anio "<<anio<< " es de: "<<acuCostoEmpleado<<endl<<endl;
+
+    //costo ingredientes
+    int cantRegistroVenta=archiVenta.getCantidadRegistros();
+    int cantRegistroDetalleV=archiDetalleV.getCantidadRegistros();
+
+    for(int i=0; i<cantRegistroVenta; i++){
+        venta=archiVenta.leer(i);
+        if(mes == venta.getFechaVenta().getMes() && anio == venta.getFechaVenta().getAnio()){
+            nroF=venta.getNroFactura();
+            for(int j=0; j<cantRegistroDetalleV; j++){
+                detalleV=archiDetalleV.leer(j);
+                if(detalleV.getNroFactura()== nroF){
+                    acuCantidad=detalleV.getCostoUnitario()*detalleV.getCantProducto();
+                    acuCostoIngrediente+=acuCantidad;
+                }
+            }
+        }
+    }
+    cout<<"- El total del COSTO DE PRODUCTOS vendidos del mes "<<mes<<" del anio "<<anio<< " es de: "<<acuCostoIngrediente<<endl<<endl;
+
+    //balance ganancias del mes
+    costosDelMes=acuCostoF+acuCostoEmpleado+acuCostoIngrediente;
+
+    for(int i=0; i<cantRegistroVenta;i++){
+        venta=archiVenta.leer(i);
+        if(mes == venta.getFechaVenta().getMes() && anio == venta.getFechaVenta().getAnio()){
+            acuVentaTotal+=venta.getImporteTotal();
+        }
+    }
+
+    ganancia=acuVentaTotal-costosDelMes;
+
+    cout<<"LAS GANANCIAS DEL MES "<<mes<<" DEL ANIO "<<anio<< " ES DE: "<<ganancia<<endl<<endl;
+
 }

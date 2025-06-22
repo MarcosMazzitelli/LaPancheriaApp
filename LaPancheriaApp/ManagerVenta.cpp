@@ -379,7 +379,7 @@ void ManagerVenta::mostrarFechaMayorRecaudacionVenta(){
     cout<<endl<<"se registro el dia "<< aux.mostrarFecha()<<endl<<endl;
 
 }
-/*void ManagerVenta::mostrarFechaMayorCantidadVentas(){
+void ManagerVenta::mostrarFechaMayorCantidadVentas(){
 
 
 
@@ -387,46 +387,113 @@ void ManagerVenta::mostrarFechaMayorRecaudacionVenta(){
     VentaArchivo archi;
     Venta vent;
 
-    std::vector<Fecha> vecFecha;
-    std::vector<int> vecContador;
-   int cantRegistro=archi.getCantidadRegistros();
-   bool coincidencia=false;
-   int mayor=0;
-
+    std::vector<Fecha> vecFecha{};
+    std::vector<int> vecContador{};
+    int cantRegistro=archi.getCantidadRegistros();
+    bool coincidencia=false;
+    int mayor=0;
     int cont=0;
 
-    for(int i=0;i<cantRegistro;i++){
+    for(int i=0;i<cantRegistro;i++){ //carga vec de fecha y vec contador, con las ventas registradas en el archivo
         vent=archi.leer(i);
         coincidencia=false;
         if(i==0){
-           vecFecha[i]=vent.getFechaVenta();
-           vecContador[i]++;
+           vecFecha.push_back(vent.getFechaVenta());
+           vecContador.push_back(1);
         }
         else{
-            for(int j=0; j<vecFecha.size();j++){
+            for(int j=0; j<vecFecha.size();j++){//comparar que no exista esa fecha en el vecFecha, y si existe solo que tiene q aumentar el vecCont
 
                if(vent.getFechaVenta() == vecFecha[j]){
                 vecContador[j]++;
                 coincidencia=true;
                }
             }
-            if(!coincidio){
-                vecFecha[i]=vent.getFechaVenta();
-                vecContador[i]++;
+            if(!coincidencia){
+                vecFecha.push_back(vent.getFechaVenta());
+                vecContador.push_back(1);
             }
         }
     }
-    for(i=0;i<vecContador.size();i++){
+    for(int i=0;i<vecContador.size();i++){//determina cual es la fecha donde se realizaron mas ventas
 
         if(i==0){
             mayor=vecContador[i];
-            fecha=vecFecha[i];
+
         }
         else if(vecContador[i]>mayor){
                 mayor=vecContador[i];
+
+        }
+
+    }
+
+    if(mayor!=0){ //para mostrar la fecha y la cant de ventas
+
+        cout<<"La mayor cantidad de ventas que se registraron en un dia fueron: "<<mayor<<" ventas"<<endl<<endl;
+        cout<<"El/Los dia/s que se registro esa cantidad de ventas fue: "<<endl<<endl;
+
+        for(int i=0; i<vecContador.size(); i++){
+            if(vecContador[i] == mayor){
                 fecha=vecFecha[i];
+                cout<<fecha.mostrarFecha()<<endl;
+            }
         }
     }
-    cout<<"el dia que se registraron la mayor cantidad de ventas fue el "<<fecha.mostrarFecha()<<endl;
-    cout<<"y la cantidad de ventas que se realizaron ese dia fueron "<<mayor<<" ventas"<<endl;
-*/
+    else{
+        cout<<"No hay ventas registradas"<<endl;
+        }
+}
+void ManagerVenta::listarVendedorMayorRecaudacion(){
+
+    VentaArchivo archi;
+    Venta venta;
+    ArchivoEmpleado archiE;
+    Empleado e;
+    int cantidadEmpleados=archiE.getCantidadRegistros();
+    float mayorVenta=0.0;
+    int id;
+    int cantidadRegistros=archi.getCantidadRegistros();
+
+    bool* vendio = nullptr;
+    float* sumatoriaVentas =nullptr;
+    vendio = new bool[cantidadEmpleados];
+    sumatoriaVentas = new float[cantidadEmpleados];
+
+    if(vendio==nullptr || sumatoriaVentas==nullptr){
+        cout << "Ocurrio un error en el sistema. "<< endl;
+        return;
+    }
+    for(int i=0; i<cantidadEmpleados;i++){
+        vendio[i]=false;
+        sumatoriaVentas[i]=0.0;
+    }
+    for(int i=0;i<cantidadRegistros;i++){
+        venta=archi.leer(i);
+        id=venta.getIdEmpleado();
+        vendio[id]=true;
+        sumatoriaVentas[id]+=venta.getImporteTotal();
+        if(i==0){
+            mayorVenta=sumatoriaVentas[id];
+        }else if(sumatoriaVentas[id]>mayorVenta){
+            mayorVenta=sumatoriaVentas[id];
+        }
+    }
+
+    if(mayorVenta!=0){
+        cout << "Empleado/s con el mayor monto de ventas acumuladas de $ " << mayorVenta<< endl;
+         cout <<"---------------------------------------------------------------------------------------"<<endl;
+        for(int i=0; i<cantidadEmpleados; i++){
+            e=archiE.leer(i);
+            if(sumatoriaVentas[i]== mayorVenta && vendio[i] && e.getEstado()){
+
+                cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
+                cout <<"---------------------------------------------------------------------------------------"<<endl;
+            }
+        }
+    }else{
+        cout<< "Aun no se han registrado ventas"<< endl;
+    }
+    delete[]vendio;
+    delete[]sumatoriaVentas;
+}

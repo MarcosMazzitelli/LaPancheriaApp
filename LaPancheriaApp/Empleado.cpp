@@ -118,6 +118,8 @@ void Empleado::mostrarEnTabla(){
     cout << " -----------------------------------------------------------------------------"<< endl;
     cout << left << setw(15)<<"Id Empleado";
     Persona::mostrarEnTabla();
+    cout << left << setw(30)<<"Puesto";
+    cout << left << setw(30)<<"Sueldo" << endl;
 
 
 }
