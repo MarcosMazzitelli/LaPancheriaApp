@@ -16,6 +16,7 @@ public:
     void menuModificacion(Producto &prod, int pos);
     void eliminarProducto();
     void mostrarProductoYReceta(Producto &producto);
+    void darAltaProducto();
 
     ///Listados
     void mostrarProductosCompletos();

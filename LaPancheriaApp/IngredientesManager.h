@@ -12,5 +12,5 @@ public:
     void comprarIngrediente();
     void modificarStock();
     void eliminarIngrediente();
-
+    void darAltaIngrediente();
 };

@@ -297,6 +297,7 @@ void IngredientesManager::eliminarIngrediente(){
     ArchivoDetalleIngrediente archivoDetalleIngrediente;
 
     DetalleIngrediente detalleIngrediente;
+    DetalleIngrediente auxDetalleIngrediente;
     Ingrediente ingrediente;
     Producto producto;
     int posicionIng, posicionDetalleIng, idIngrediente, opcion;
@@ -323,9 +324,8 @@ void IngredientesManager::eliminarIngrediente(){
             cout << "Aun tienes " << ingrediente.getCantidadStock() << " " << ingrediente.getTipoDeUnidad() << " en stock" << endl;
             cout << "Si elimina este ingrediente tambien perdera su stock" << endl << endl;
         }
-
+        ///Muestra los productos vinculados a ese ingrediente
         cout << "Los siguientes productos contienen este ingrediente:" << endl << endl;
-        //traerme todas los productos que tengan este ID
         for (int i=0; i < cantRegistrosDetalleIngrediente; i++){
             detalleIngrediente = archivoDetalleIngrediente.leer(i);
             if (detalleIngrediente.getIdIngrediente() == idIngrediente){
@@ -336,6 +336,7 @@ void IngredientesManager::eliminarIngrediente(){
         }
         opcion = pedirYValidarConfirmacion("\nAdemas del ingrediente y su stock, tambien se eliminaran los productos y su receta. \nDesea confirmar? \n1)Si \n0)No \n\n");
         if (opcion == 1){
+            ///elimina producto, ingrediente y detalle de ingredientes(receta)
             ingrediente.setCantidadStock(0);
             ingrediente.setEstado(false);
             if (archivoIngrediente.modificar(ingrediente, posicionIng)){
@@ -347,16 +348,20 @@ void IngredientesManager::eliminarIngrediente(){
             for (int i=0; i < cantRegistrosDetalleIngrediente; i++){
                 detalleIngrediente = archivoDetalleIngrediente.leer(i);
                 if (detalleIngrediente.getIdIngrediente() == idIngrediente){
-                    detalleIngrediente.setEstado(false);
-                    if (archivoDetalleIngrediente.modificar(detalleIngrediente, i)){
-                        cout << "Receta eliminada con exito" << endl;
-                    }
-                    else{
-                        cout << "Hubo un error al dar de baja la receta" << endl;
-                    }
+                        for (int j=0; j < cantRegistrosDetalleIngrediente; j++){
+                            auxDetalleIngrediente = archivoDetalleIngrediente.leer(j);
+                            if(detalleIngrediente.getIdProducto() == auxDetalleIngrediente.getIdProducto()){
+                                auxDetalleIngrediente.setEstado(false);
+                                if (archivoDetalleIngrediente.modificar(auxDetalleIngrediente, j)){
+                                    cout << "Receta eliminada con exito" << endl;
+                                }
+                                else{
+                                    cout << "Hubo un error al dar de baja la receta" << endl;
+                                }
+                            }
+                        }
                     posicionDetalleIng = archivoProducto.buscar(detalleIngrediente.getIdProducto());
                     producto = archivoProducto.leer(i);
-
                     if(producto.getEstado()){
                         producto.setEstado(false);
                         if(archivoProducto.modificar(producto, i)){
@@ -381,6 +386,10 @@ void IngredientesManager::eliminarIngrediente(){
 }
 
 
+void IngredientesManager::darAltaIngrediente(){
+
+
+}
 
 
 

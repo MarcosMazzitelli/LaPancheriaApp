@@ -86,7 +86,7 @@ void MenuManager::menuAdmin(std::string dni){
         cout << "Ingrese una opcion: ";
 
         cin >> opcion;
-        if (cin.fail()) {
+        if (cin.fail() || opcion < 0 && opcion > 6) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la l�nea
             cout << "Entrada invalida. Por favor, ingrese un numero valido" << endl;
@@ -327,10 +327,11 @@ void MenuManager::menuProductos(){
         cout << "1. Crear nuevo producto" << endl;
         cout << "2. Modificar producto " << endl;
         cout << "3. Eliminar producto" << endl;
-        cout << "4. Listar productos" << endl;
-        cout << "5. Listar recetas" << endl;
-        cout << "6. Listar productos por ingrediente" << endl;
-        cout << "7. Listar productos por categoria" << endl;
+        cout << "4. Alta de productos" << endl;
+        cout << "5. Listar productos" << endl;
+        cout << "6. Listar recetas" << endl;
+        cout << "7. Listar productos por ingrediente" << endl;
+        cout << "8. Listar productos por categoria" << endl;
 
 
         cout << "0. Salir" << endl;
@@ -365,20 +366,26 @@ void MenuManager::menuProductos(){
                 break;
             case 4:
                 system("cls");
-                prodManager.listarProductos(true);
+                prodManager.darAltaProducto();
                 system("pause");
                 break;
+
             case 5:
                 system("cls");
-                prodManager.listarProductosConIngredientes(true);
+                prodManager.listarProductos(true);
                 system("pause");
                 break;
             case 6:
                 system("cls");
-                prodManager.listarProductosPorIngredientes();
+                prodManager.listarProductosConIngredientes(true);
                 system("pause");
                 break;
             case 7:
+                system("cls");
+                prodManager.listarProductosPorIngredientes();
+                system("pause");
+                break;
+            case 8:
                 system("cls");
                 cout << "Ingrese categoria 1 2 o 3" << endl;
                 int idCategoria;

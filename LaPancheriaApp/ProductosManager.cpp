@@ -159,16 +159,69 @@ void ProductosManager::crearBebida(int idCategoria){
     Ingrediente ing;
     ArchivoProducto prodArchi;
     vector<DetalleIngrediente> vecDetalleIngredientes;
-    int idProducto, idIngrediente, opcion;
+    int idProducto, idIngrediente, opcion, opcionContNeto;
     string nombreProducto, nombreIngrediente, tipoDeUnidad;
     float precioUnitario, precioSugerido, cantidadStock, costoTotal, costoUnitario;
     bool estado = true;
+    bool validacion = false;
     int cantidadPorProducto;
 
     cout << "Ingrese el nombre de la bebida: ";
     cin.ignore();
     getline(cin,nombreProducto);
+
+    while(!validacion) {
+        cout << "\n--- Ingrese el contenido neto de la bebida --- \n";
+        cout << endl;
+        cout << "1. 500 ml \n";
+        cout << "2. 1.25 lts \n";
+        cout << "3. 2.25 lts \n";
+        cout << "4. 3 lts \n";
+
+        cout << "Seleccione una opcion: ";
+        cin >> opcionContNeto;
+        while(cin.fail() || opcionContNeto < 1 || opcionContNeto > 4 ){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            system("pause");
+            system("cls");
+            prod.mostrar();
+            cout << endl << endl;
+            cout << "\n--- Ingrese el contenido neto de la bebida --- \n";
+            cout << endl << endl;
+            cout << "1. 500 ml \n";
+            cout << "2. 1.25 lts \n";
+            cout << "3. 2.25 lts \n";
+            cout << "4. 3 lts \n";
+
+            cout << "Seleccione una opcion: ";
+            cin >> opcionContNeto;
+        }
+        switch (opcionContNeto) {
+            case 1:
+                nombreProducto+= " (500 ml)";
+                validacion = true;
+                break;
+            case 2:
+                nombreProducto+= " (1.25 lts)";
+                validacion = true;
+                break;
+            case 3:
+                nombreProducto+= " (2.25 lts)";
+                validacion = true;
+                break;
+            case 4:
+                nombreProducto+= " (3 lts)";
+                validacion = true;
+                break;
+        }
+    }
+
+    cout << endl << "Ha elegido " << nombreProducto << endl << endl;
+
     nombreIngrediente = nombreProducto;
+
 
     idProducto = prodArchi.getCantidadRegistros()+1;  //autonumerico
     idIngrediente = ingArchi.getCantidadRegistros()+1; //autonumerico
@@ -428,7 +481,7 @@ void ProductosManager::modificarProducto(){
     }
     pos = prodArchi.buscar(idProducto);
 
-    if (pos > 0){
+    if (pos >= 0){ //si se encuentra el producto en el archivo
         prod = prodArchi.leer(pos);
 
         if(prod.getEstado() == true){
@@ -451,12 +504,12 @@ void ProductosManager::modificarProducto(){
                 for (int i=0; i<cantRegistrosDetalleIngrediente; i++){
                     detalleIngrediente = archivoDetalleIngrediente.leer(i);
                     if(detalleIngrediente.getIdProducto() == idProducto){
-                        detalleIngrediente.setEstado(false);
+                        detalleIngrediente.setEstado(true);
                         if(archivoDetalleIngrediente.modificar(detalleIngrediente,i)){
-                            cout << "Ingrediente eliminado de la receta con exito" << endl;
+                            cout << "Ingrediente dado de alta en la receta con exito" << endl;
                         }
                         else{
-                            cout << "Hubo un error al eliminar el ingrediente de la receta" << endl;
+                            cout << "Hubo un error al dar de alta el ingrediente a la receta" << endl;
                         }
                     }
                 }
@@ -498,7 +551,7 @@ void ProductosManager::eliminarProducto(){
     }
     pos = archivoProducto.buscar(idProducto);
 
-    if (pos > 0){
+    if (pos >= 0){ //si se encuentra el producto en el archivo
         producto = archivoProducto.leer(pos);
 
         if(producto.getEstado() == true){
@@ -508,25 +561,139 @@ void ProductosManager::eliminarProducto(){
             opcion = pedirYValidarConfirmacion();
             if (opcion ==1){
                 producto.setEstado(false);
+                if (archivoProducto.modificar(producto,pos)){
+                    cout << "Producto dado de baja con exito" << endl;
+                }
+                else{
+                    cout << "Hubo un error al dar de baja el producto en el archivo" << endl << endl;
+                }
 
                 for (int i=0; i<cantRegistrosDetalleIngrediente; i++){
                     detalleIngrediente = archivoDetalleIngrediente.leer(i);
                     if(idProducto == detalleIngrediente.getIdProducto()){
                         detalleIngrediente.setEstado(false);
                         if(archivoDetalleIngrediente.modificar(detalleIngrediente, i)){
-                            cout << "Receta modificada con exito" << endl;
+                            cout << "Receta dada de baja con exito" << endl;
                         }
                         else{
-                            cout << "Hubo un error al guardar en el archivo de recetas"  << endl;
+                            cout << "Hubo un error al dar de baja la receta en el archivo"  << endl;
                         }
                     }
                 }
-                if (archivoProducto.modificar(producto,pos)){
-                    cout << "Producto modificado con exito" << endl;
+            }
+
+        }
+        else{
+            cout << "El producto ya se encuentra dado de baja." << endl;
+        }
+    }
+    else{
+        cout << "No se ha encontrado el ID" << endl << endl;
+    }
+
+}
+
+void ProductosManager::darAltaProducto(){
+    ArchivoProducto archivoProducto;
+    ArchivoDetalleIngrediente archivoDetalleIngrediente;
+    ArchivoIngrediente archivoIngrediente;
+    Producto producto;
+    Ingrediente ingrediente;
+    DetalleIngrediente detalleIngrediente;
+    vector<DetalleIngrediente> vecDetalleIngredientesOk;
+    vector<int> vecPosDetalleIngredientesOk;
+    vector<Ingrediente> vecIngredientesOk;
+    vector<int> vecPosIngredientesOk;
+
+
+    int posProducto, posIngrediente, idProducto, opcion;
+    bool validacion = true; //arranca en true, si el producto tiene un ingrediente dado de baja y el usuario no quiere darlo de alta, se pone en false y no se realizan cambios.
+    int cantRegistrosProducto = archivoProducto.getCantidadRegistros();
+    int cantRegistrosDetalleIngrediente = archivoDetalleIngrediente.getCantidadRegistros();
+
+        cout << "\r\r ALTA DE PRODUCTOS" << endl << endl;
+    listarProductos(false);
+    cout << "Ingrese el ID del producto a dar de alta: ";
+    cin >> idProducto;
+    while(cin.fail() || idProducto <= 0 || idProducto > cantRegistrosProducto){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << "Ingrese un valor valido" << endl << endl;
+        system("pause");
+        system("cls");
+        cout << "\r\r ALTA DE PRODUCTOS" << endl << endl;
+        listarProductos(false);
+        cout << "Ingrese el ID del producto a dar de alta: ";
+        cin >> idProducto;
+    }
+    posProducto = archivoProducto.buscar(idProducto);
+
+    if (posProducto >= 0){ //si se encuentra el producto en el archivo
+        producto = archivoProducto.leer(posProducto);
+
+        if(!producto.getEstado()){
+            system("cls");
+            mostrarProductoYReceta(producto);
+            cout << "\n\nSe dara de alta el producto y la receta \n\n";
+            opcion = pedirYValidarConfirmacion();
+            if (opcion ==1){
+                for (int i=0; i<cantRegistrosDetalleIngrediente; i++){
+                    detalleIngrediente = archivoDetalleIngrediente.leer(i);
+                    if(idProducto == detalleIngrediente.getIdProducto()){
+                        detalleIngrediente.setEstado(true);
+                        vecDetalleIngredientesOk.push_back(detalleIngrediente); //Seteo el detalle en true y lo guardo en el vector para modificar luego si todo esta ok
+                        vecPosDetalleIngredientesOk.push_back(i); //guardo la posicion para saber EN QUE POSICION tengo que modificar en el archivo
+
+                        posIngrediente = archivoIngrediente.buscar(detalleIngrediente.getIdIngrediente());
+                        ingrediente = archivoIngrediente.leer(posIngrediente); //Traigo el ingrediente a memoria para chequear que este OK
+                        if(!ingrediente.getEstado()){
+                            cout << "El ingrediente " << ingrediente.getNombreIngrediente() << " se encuentra dado de baja!" << endl;
+                            opcion = pedirYValidarConfirmacion("\nDesea darlo de alta? \n1)Si \n0)No \n\n"); //si el ingrediente esta dado de alta, pregunto si quiere activarlo.
+                            if(opcion ==1){
+                                ingrediente.setEstado(true);
+                                vecIngredientesOk.push_back(ingrediente); //seteo el ingrediente en true y lo guardo en otro vector para modificar luego si todo esta ok
+                                vecPosIngredientesOk.push_back(posIngrediente); //guardo la posicion para saber EN QUE POSICION tengo que modificar en el archivo
+                                ///pasar
+                            }
+                            else{
+                                validacion = false; //si no quiere dar de alta alguno de los ingredientes, la bandera se pone en false y hace que no se modifique nada luego.
+                            }
+                        }
+                    }
+                }
+                if(validacion){ ///si la bandera esta en true, modifica todo, sino no modifica nada.
+                    producto.setEstado(true);
+                    if (archivoProducto.modificar(producto,posProducto)){
+                        cout << "Producto dado de alta con exito" << endl;
+                    }
+                    else{
+                        cout << "Hubo un error al dar de alta el producto en el archivo" << endl << endl;
+                    }
+                    for(int i=0; i < vecIngredientesOk.size(); i++){
+                        if(archivoIngrediente.modificar(vecIngredientesOk[i], vecPosIngredientesOk[i])){
+                            cout << "Ingrediente dado de alta exitosamente" << endl;
+                        }
+                        else{
+                            cout << "Hubo un problema al dar de alta el ingrediente en el archivo" << endl;
+                        }
+
+                    }
+                    for (int j=0; j< vecDetalleIngredientesOk.size(); j++){
+                        if(archivoDetalleIngrediente.modificar(vecDetalleIngredientesOk[j], vecPosDetalleIngredientesOk[j] )){
+                            cout << "Receta dada de alta con exito" << endl;
+                        }
+                        else{
+                            cout << "Hubo un error al dar de alta la receta en el archivo"  << endl;
+                        }
+                    }
                 }
                 else{
-                    cout << "Hubo un error al guardar en el archivo de productos" << endl << endl;
+                    cout << "No se puede dar de alta un producto con ingredientes inactivos" << endl;
+                    cout << "No se han realizado cambios" << endl << endl;
                 }
+            }
+            else{  //cierra con la condicion de si desea modificar o no.
+                cout << "No se han realizado cambios" << endl << endl;
             }
 
         }
@@ -775,3 +942,5 @@ void ProductosManager::mostrarProductoYReceta(Producto &producto){
     cout << "==============================================" << endl << endl;
     cout << endl << endl;
 }
+
+

@@ -157,7 +157,7 @@ void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta){
                 stockADescontar = cantidadProducto * cantidadProductoPorReceta; //obtengo la cantidad total de ingrediente. luego la descuento.
                 posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
                 cout << posicion << endl;
-                if (posicion >= 0){ //hacer >= cuando se actualicen los .dat
+                if (posicion >= 0){
                     ing = archivoIngrediente.leer(posicion);
                     ing.descontarStock(stockADescontar);
                     cout << "Stock descontado correctamente." << endl << endl;
@@ -270,8 +270,8 @@ void ManagerVenta::cargaMasivaVentas(std::string dniEmpleado){
     int nroFactura,idEmpleado,formaDePago;
     float descuento;
     int posArchiFdp;
-    float importeTotal=0;
-    float importeBruto, ImporteProdxCantidad;
+    float importeBruto= 0;
+    float ImporteProdxCantidad, importeTotal;
     int posicionEmpleado, posicionProducto, posicionCliente;
     int cantidad, opcion;
     int idProducto;
@@ -287,7 +287,7 @@ void ManagerVenta::cargaMasivaVentas(std::string dniEmpleado){
     getline(cin,dniCliente);
     posicionCliente = archivoCliente.buscar(dniCliente);
 
-    if(posicionCliente < 0){
+    if(posicionCliente < 0){ //si no existe, pido los datos y los registro
 
         getline(cin,nombreCliente);
         getline(cin,apellidoCliente);
@@ -298,7 +298,7 @@ void ManagerVenta::cargaMasivaVentas(std::string dniEmpleado){
             cout << "No se pudo guardar el registro" << endl;
         }
     }
-    else{
+    else{ //si existe, no se registra un nuevo cliente
         cout << "El cliente se encuentra registado. " << endl;
     }
 
@@ -328,10 +328,10 @@ void ManagerVenta::cargaMasivaVentas(std::string dniEmpleado){
         }
     }
     cin >> formaDePago;
-    if (formaDePago==1){
+    if (formaDePago == 1){
         descuento = 0.1;
     }
-    else if(formaDePago = 2){
+    else if(formaDePago == 2){
         descuento = 0;
     }
 
