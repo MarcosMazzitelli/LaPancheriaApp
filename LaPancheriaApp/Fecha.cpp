@@ -119,3 +119,15 @@ int Fecha::getMes(){
 int Fecha::getAnio(){
     return _anio;
 }
+bool Fecha::operator==(Fecha aux){
+    if(_dia!=aux._dia){
+        return false;
+    }
+    if(_mes!=aux._mes){
+        return false;
+    }
+    if(_anio!=aux._anio){
+        return false;
+    }
+    return true;
+}

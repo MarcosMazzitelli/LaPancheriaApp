@@ -13,6 +13,7 @@ class PersonaManager{
         void modificarEmpleados();
         void eliminarEmpleado();
         void listarEmpleadosDeBaja();
+        void altaEmpleado();
 
         int cantidadRegistrosCliente();
         void cargarCliente(std::string &dniCliente);
