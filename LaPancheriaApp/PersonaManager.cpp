@@ -9,12 +9,13 @@
 #include <iomanip>
 using namespace std;
 
+///metodos para Empleado
 int PersonaManager::cantidadRegistrosEmpleado(){
     ArchivoEmpleado a;
 
     return a.getCantidadRegistros();
 }
-///metodos para Empleado
+
 void PersonaManager::cargarEmpleado(){
     ArchivoEmpleado a;
     Validador validador;
@@ -30,18 +31,27 @@ void PersonaManager::cargarEmpleado(){
     cout << "Ingrese el nombre del empleado a registrar: \n";
     cin.ignore();
     getline(cin,nombre);
-    limpiarPantalla();
+    while(!validador.esTexto(nombre)){
+        cout << "Nombre Invalido." << endl;
+        limpiarPantalla();
+        cout << "Ingrese el nombre del empleado: \n";
+        getline(cin,nombre);
+    }
 
     cout << "Ingrese apellido del empleado: \n";
     getline(cin,apellido);
-    limpiarPantalla();
+    while(!validador.esTexto(apellido)){
+        cout << "Apellido Invalido." << endl;
+        limpiarPantalla();
+        cout << "Ingrese el apellido del empleado: \n";
+        getline(cin,apellido);
+    }
 
     cout << "Ingrese dni del empleado: \n";
     getline(cin,dni);
     while (!validador.esDni(dni)){
         cout << "DNI Invalido." << endl;
-        system("pause");
-        system("cls");
+        limpiarPantalla();
         cout << "Ingrese dni del empleado: \n";
         getline(cin,dni);
     }
@@ -78,37 +88,37 @@ void PersonaManager::cargarEmpleado(){
         cout << "Ingrese sueldo del empleado: \n";
         cin >> sueldo;
     }
-    limpiarPantalla();
-
 
     cout << "FECHA DE INGRESO:  \n";
     while(!fechaIngreso.cargar()){
         cout << "Fecha invalida!" << endl;
         limpiarPantalla();
     }
-    limpiarPantalla();
 
     cout << "FECHA DE NACIMIENTO:  \n";
     while(!fechaNacimiento.cargar()){
         cout << "Fecha invalida!" << endl;
         limpiarPantalla();
     }
-    limpiarPantalla();
 
     cout << "Ingrese email: \n";
     cin.ignore();
     getline(cin,email);
     while (!validador.esEmail(email)){
         cout << "Email Invalido." << endl;
-        system("pause");
-        system("cls");
+        limpiarPantalla();
         cout << "Ingrese el email del empleado: \n";
         getline(cin,email);
     }
 
     cout << "Ingrese celular: \n";
     getline(cin,nCelular);
-    limpiarPantalla();
+    while (!validador.esNumero(nCelular)){
+        cout << "Celular Invalido." << endl;
+        limpiarPantalla();
+        cout << "Ingrese el celular del empleado: \n";
+        getline(cin,nCelular);
+    }
 
     e= Empleado(nombre, apellido, dni,idEmpleado,contrasenia,permiso,puesto,sueldo,fechaIngreso,fechaNacimiento,estado,email,nCelular);
 
@@ -124,9 +134,8 @@ void PersonaManager::listarEmpleados(){
     ArchivoEmpleado a;
     Empleado e;
     bool hayActivos=false;
-
-    e.mostrarEnTabla();
     int cantRegistros = cantidadRegistrosEmpleado();
+    e.mostrarEnTabla();
 
     if(cantRegistros>0){
         for (int i=0; i<cantRegistros; i++){
@@ -135,8 +144,8 @@ void PersonaManager::listarEmpleados(){
                 cout << left << setw(15) << e.getIdEmpleado();
                 cout << setw(30) << e.getNombre();
                 cout << setw(30) << e.getApellido();
-                cout << setw(30) << e.getPermiso();
-                cout << setw(10) << e.getDni() << endl;
+                cout << setw(30) << e.getPuesto();
+                cout << setw(30) << e.getSueldo() << endl;
                 hayActivos=true;
             }
         }
@@ -152,28 +161,56 @@ void PersonaManager::listarEmpleadosDeBaja(){
     ArchivoEmpleado a;
     Empleado e;
     bool hayBajas=false;
+    int cantRegistros = cantidadRegistrosEmpleado();
 
     e.mostrarEnTabla();
-
-    int cantRegistros = cantidadRegistrosEmpleado();
     if(cantRegistros>0){
-
         for (int i=0; i<cantRegistros; i++){
             e = a.leer(i);
             if(!e.getEstado()){
                 cout << left << setw(15) << e.getIdEmpleado();
                 cout << setw(30) << e.getNombre();
                 cout << setw(30) << e.getApellido();
-                cout << setw(10) << e.getDni() << endl;
+                cout << setw(30) << e.getPuesto();
+                cout << setw(30) << e.getSueldo() << endl;
                 hayBajas = true;
             }
-
         }
         if(!hayBajas){
             cout << "No se encuentran empleados dados de baja"<<endl;
         }
     }else{
         cout << "No se encuentran empleados registrados" << endl;
+    }
+}
+
+void PersonaManager::altaEmpleado(){
+    ArchivoEmpleado archivo;
+    Empleado empleado;
+    bool modifico;
+
+    int id, cantidadRegistros,pos;
+
+    listarEmpleadosDeBaja();
+    cout << "\n\n\n----------------ACTIVAR EMPLEADO------------------" <<endl;
+    cout << "Ingrese el ID del empleado activar" << endl << endl;
+    cin >> id;
+
+    cantidadRegistros = cantidadRegistrosEmpleado();
+
+    for(int i=0; i<cantidadRegistros;i++){
+        empleado=archivo.leer(i);
+        if(empleado.getIdEmpleado()==id && !empleado.getEstado()){
+
+            empleado.setEstado(true);
+            pos=i;
+            modifico=archivo.modificarEmpleado(empleado,pos);
+        }
+    }
+    if(modifico){
+        cout<< "El empleado  de ID: " << id <<" se reactivo."<<endl;
+    }else{
+        cout << "El empleado no pudo ser dado de alta." <<endl;
     }
 }
 
@@ -192,7 +229,7 @@ void PersonaManager::eliminarEmpleado(){
 
     for(int i=0; i<cantidadRegistros;i++){
         empleado=archivo.leer(i);
-        if(empleado.getIdEmpleado()==id){
+        if(empleado.getIdEmpleado()==id && empleado.getEstado()){
 
             empleado.setEstado(false);
             pos=i;
@@ -202,7 +239,7 @@ void PersonaManager::eliminarEmpleado(){
     if(modifico){
         cout<< "El empleado  de ID: " << id <<" fue dado de baja."<<endl;
     }else{
-        cout << "El empleado no pudo ser dado de baja. No existente." <<endl;
+        cout << "El empleado no pudo ser dado de baja." <<endl;
     }
 }
 
@@ -216,12 +253,13 @@ void PersonaManager::modificarEmpleados(){
     float sueldo;
     string nombre, apellido,dni,contrasenia,email,celular;
     bool modifico=false, permanecer=true, seEncontro=false;
+    cantidadRegistros = cantidadRegistrosEmpleado();
 
         listarEmpleados();
         cout << "\n\n\n--------------MODIFICAR EMPLEADO------------------" <<endl;
         cout << "Ingrese el ID del empleado a modificar " << endl;
         cin >> idEmpleado;
-        while(cin.fail()){
+        while(cin.fail() || idEmpleado < 0 || idEmpleado > cantidadRegistros){
             cin.clear();
             cin.ignore(1000,'\n');
             cout << "Ingrese una opcion valida! \n";
@@ -231,8 +269,6 @@ void PersonaManager::modificarEmpleados(){
             cout << "Ingrese el ID del empleado a modificar " << endl;
             cin >> idEmpleado;
         }
-
-        cantidadRegistros = cantidadRegistrosEmpleado();
 
         for(int i=0; i<cantidadRegistros;i++){
 
@@ -370,10 +406,6 @@ void PersonaManager::modificarEmpleados(){
             cout<<"No se encontro empleado con ID "<< idEmpleado << endl;
         }
     }
-
-
-
-
 
 ///Metodos para clientes
 

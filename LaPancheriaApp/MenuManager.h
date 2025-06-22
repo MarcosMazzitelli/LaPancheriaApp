@@ -15,5 +15,6 @@ public:
     void menuCostos();
     void menuReportes();
     void menuVentas(std::string dni);
+    void menuVentasRestringido(std::string dni);
 
 };

@@ -52,8 +52,7 @@ void MenuManager::login(){
                 menuAdmin(dni);
             }
             else{
-                //menuEmpleado();
-                cout <<"Menu empleado sin crear" << endl;
+                menuVentasRestringido(dni);
             }
         }
     }
@@ -236,6 +235,79 @@ void MenuManager::menuVentas(std::string dni){
             }
     }
 }
+void MenuManager::menuVentasRestringido(std::string dni){
+    FormaDePago fdp;
+    ManagerVenta ventaManager;
+    int opcion, opcionSalida;
+    while(true){
+        system("cls");
+        cout << "========================================================" << endl;
+        cout << "        MENU DE GESTION DE VENTAS" << endl;
+        cout << "========================================================" << endl;
+        cout << "1. Cargar venta" << endl;
+        cout << "2. Listar ventas" << endl;
+
+        cout << "0. Salir" << endl;
+        cout << "===============================" << endl;
+        cout << "Ingrese una opcion: ";
+
+        cin >> opcion;
+        if (cin.fail()) {
+            cin.clear(); // limpia el estado de error
+            cin.ignore(1000, '\n'); // descarta el resto de la l�nea
+            cout << "Entrada invalida. Por favor, ingrese un numero valido" << endl;
+            system("pause");
+            system("cls");
+            continue; //saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
+        }
+
+        switch(opcion) {
+            case 1:
+                system("cls");
+                ventaManager.registrarVenta(dni);
+                //manager cargar venta
+                system("pause");
+                break;
+            case 2:
+                system("cls");
+                ventaManager.listarVenta();
+                system("pause");
+                break;
+            case 505:
+                system("cls");
+                for (int i=0; i<10; i++){
+                    ventaManager.cargaMasivaVentas(dni);
+                }
+                system("pause");
+
+            case 0:
+                cout << "Confirma que desea salir? 1- si  0- no\n";
+                cin >> opcionSalida;
+                while (opcionSalida != 1 && opcionSalida != 0){
+                    cout << "Confirma que desea salir? 1- si  0- no\n";
+                    cin >> opcionSalida;
+                }
+                if (opcionSalida == 1){
+                    cout << "Saliendo del menu...\n";
+                    return; //el while nunca llega a ejecutarse porque el case 0 hace return.
+                }
+                break;
+            default:
+                if (cin.fail()) {
+                    cin.clear(); // limpia el estado de error
+                    cin.ignore(1000, '\n'); // descarta el resto de la l�nea
+                    cout << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
+                    system("pause");
+                    system("cls");
+                    //saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
+                }
+                else{
+                    cout << "Opcion invalida. Por favor, ingrese un numero valido." << endl;
+                    system("pause");
+                }
+            }
+    }
+}
 
 
 void MenuManager::menuEmpleados(std::string dni){
@@ -247,8 +319,10 @@ void MenuManager::menuEmpleados(std::string dni){
         cout << "========================================================" << endl;
         cout << "1. Crear nuevo empleado" << endl;
         cout << "2. Modificar datos de un empleado " << endl;
-        cout << "3. Eliminar empleado" << endl;
-        cout << "4. Mostrar empleados" << endl;
+        cout << "3. Baja de empleado" << endl;
+        cout << "4. Mostrar empleados activos" << endl;
+        cout << "5. Mostrar empleados inactivos" << endl;
+        cout << "6. Alta a empleado existente" << endl;
 
         cout << "0. Salir" << endl;
         cout << "===============================" << endl;
@@ -282,7 +356,16 @@ void MenuManager::menuEmpleados(std::string dni){
             case 4:
                 system("cls");
                 persona.listarEmpleados();
+                system("pause");
+                break;
+            case 5:
+                system("cls");
                 persona.listarEmpleadosDeBaja();
+                system("pause");
+                break;
+            case 6:
+                system("cls");
+                persona.altaEmpleado();
                 system("pause");
                 break;
             case 0:
@@ -586,14 +669,21 @@ void MenuManager::menuReportes(){
         cout << "========================================================" << endl;
         cout << "        MENU DE GESTION DE REPORTES" << endl;
         cout << "========================================================" << endl;
-        cout << "1. Listar ventas por fecha" << endl;
-        cout << "2. Listar todos los clientes " << endl;
-        cout << "3. Listar cantidad de productos vendidos por fecha" << endl;
-        cout << "4. Mostrar empleados" << endl;
-        cout << "5. Mostrar fecha de la venta que mas recaudo" << endl;
-        cout << "6. Mostrar fecha que hubo mayor cantidad de ventas" << endl;
-
-        cout << "0. Salir" << endl;
+        cout << " VENTAS:" << endl << endl;
+        cout << " 1. Listar ventas por fecha" << endl;
+        cout << " 2. Mostrar fecha de la venta que mas recaudo" << endl;
+        cout << " 3. Mostrar fecha que hubo mayor cantidad de ventas" << endl;
+        cout << endl;
+        cout << " CLIENTES:" << endl << endl;
+        cout << " 4. Listar todos los clientes " << endl;
+        cout << endl;
+        cout << " EMPLEADO:" << endl << endl;
+        cout << " 5. Empleado que mas recaudo por fecha" << endl;
+        cout << endl;
+        cout << " PRODUCTOS:" << endl << endl;
+        cout << " 6. Listar cantidad de productos vendidos por fecha" << endl <<endl;
+        cout << endl;
+        cout << " 0. Salir" << endl;
         cout << "===============================" << endl;
         cout << "Ingrese una opcion: ";
 
@@ -614,28 +704,27 @@ switch(opcion) {
                 break;
             case 2:
                 system("cls");
-               // vManager.listarVendedorMayorRecaudacion();
-                personaManager.listarClientes();
+                vManager.mostrarFechaMayorRecaudacionVenta();
                 system("pause");
                 break;
             case 3:
                 system("cls");
-                prodManager.cantidadProductosVendidosPorFecha();
+                vManager.mostrarFechaMayorCantidadVentas();
                 system("pause");
                 break;
             case 4:
                 system("cls");
-                //persona.listarEmpleados();
+                personaManager.listarClientes();
                 system("pause");
                 break;
             case 5:
                 system("cls");
-                vManager.mostrarFechaMayorRecaudacionVenta();
+                vManager.listarVendedorMayorRecaudacion();
                 system("pause");
                 break;
             case 6:
                 system("cls");
-                vManager.mostrarFechaMayorCantidadVentas();
+                prodManager.cantidadProductosVendidosPorFecha();
                 system("pause");
                 break;
             case 0:

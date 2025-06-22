@@ -55,7 +55,6 @@ void Persona::mostrarEnTabla(){
 
     cout << left <<setw(30) << "Nombre";
     cout << left << setw(30) << "Apellido";
-    cout << left << setw(10) << "Dni" << endl;
 }
 
 std::string Persona::mostrarToCsv(){
