@@ -45,4 +45,22 @@ int DetalleVentaArchivo::getCantidadRegistros(){
 
 }
 
+DetalleVenta DetalleVentaArchivo::leer(int pos){
+    FILE* pFile;
+    DetalleVenta registro;
+
+    pFile = fopen(_nombreArchivo.c_str(), "rb");
+
+    if (pFile==nullptr){
+        return registro;
+    }
+
+    fseek(pFile, sizeof(DetalleVenta) * pos , SEEK_SET);
+    fread(&registro, sizeof(DetalleVenta), 1, pFile);
+
+    fclose(pFile);
+
+    return registro;
+}
+
 

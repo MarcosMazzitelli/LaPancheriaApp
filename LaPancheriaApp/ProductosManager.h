@@ -23,6 +23,7 @@ public:
     void listarProductosConIngredientes();
     void listarProductosPorCategoria(int idCategoria);
     void listarProductosPorIngredientes();
+    void cantidadProductosVendidosPorFecha();
 
 
 };

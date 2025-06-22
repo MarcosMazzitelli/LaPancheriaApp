@@ -10,6 +10,10 @@
 #include <iomanip>
 #include <iostream>
 #include "Validador.h"
+#include "Venta.h"
+#include "DetalleVenta.h"
+#include "VentaArchivo.h"
+#include "DetalleVentaArchivo.h"
 using namespace std;
 
 int ProductosManager::cantidadRegistrosProducto(){
@@ -664,5 +668,72 @@ void ProductosManager::listarProductosPorIngredientes(){
             cout << "==============================================" << endl << endl;
             cout << endl << endl;
         }
+    }
+}
+void ProductosManager::cantidadProductosVendidosPorFecha(){
+    Fecha fechaDesde,fechaHasta;
+    Venta venta;
+    DetalleVenta detVenta;
+    VentaArchivo archiVenta;
+    DetalleVentaArchivo archiDetalleV;
+    Producto producto;
+    ArchivoProducto archiProd;
+
+    int cantidadProductos = archiProd.getCantidadRegistros();
+    int vectorProductosVendidos[cantidadProductos]={};
+    int cantidadDetallesVenta = archiDetalleV.getCantidadRegistros();
+    int cantidadVentas = archiVenta.getCantidadRegistros();
+    bool rangoFechaIncorrecto=true;
+
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    cout << "FECHA INGRESO BALANCE" << endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    fechaDesde.cargar();
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    cout << "FECHA FIN BALANCE" << endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    fechaHasta.cargar();
+
+    if(fechaDesde.getAnio() < fechaHasta.getAnio() || (fechaDesde.getAnio() == fechaHasta.getAnio() && fechaDesde.getMes() < fechaHasta.getMes()) || (fechaDesde.getAnio() == fechaHasta.getAnio() && fechaDesde.getMes() == fechaHasta.getMes() && fechaDesde.getDia()<= fechaHasta.getDia())){
+            rangoFechaIncorrecto=false;
+    }
+
+    while(rangoFechaIncorrecto){
+        system("cls");
+        cout << "Las fechas ingresadas son ivalidas. " << endl;
+        cout <<  "--------------------------------------------------------------------------------"<< endl;
+        cout << "FECHA INGRESO BALANCE" << endl;
+        cout <<  "--------------------------------------------------------------------------------"<< endl;
+        fechaDesde.cargar();
+        cout <<  "--------------------------------------------------------------------------------"<< endl;
+        cout << "FECHA FIN BALANCE" << endl;
+        cout <<  "--------------------------------------------------------------------------------"<< endl;
+        fechaHasta.cargar();
+        if(fechaDesde.getAnio() < fechaHasta.getAnio() || (fechaDesde.getAnio() == fechaHasta.getAnio() && fechaDesde.getMes() < fechaHasta.getMes()) || (fechaDesde.getAnio() == fechaHasta.getAnio() && fechaDesde.getMes() == fechaHasta.getMes() && fechaDesde.getDia()<= fechaHasta.getDia())){
+            rangoFechaIncorrecto=false;
+        }
+
+    }
+
+    for(int i=0; i<cantidadVentas; i++){
+        venta = archiVenta.leer(i);
+        for (int x=0; x<cantidadDetallesVenta;x++){
+            detVenta = archiDetalleV.leer(x);
+            if(venta.obtenerFechaVenta().getAnio() < fechaHasta.getAnio() || (venta.obtenerFechaVenta().getAnio() == fechaHasta.getAnio() && venta.obtenerFechaVenta().getMes() < fechaHasta.getMes()) || (venta.obtenerFechaVenta().getAnio() == fechaHasta.getAnio() && venta.obtenerFechaVenta().getMes() == fechaHasta.getMes() && venta.obtenerFechaVenta().getDia() <= fechaHasta.getDia())){
+                if(venta.obtenerFechaVenta().getAnio() > fechaDesde.getAnio() || (venta.obtenerFechaVenta().getAnio() == fechaDesde.getAnio() && venta.obtenerFechaVenta().getMes() > fechaDesde.getMes()) || (venta.obtenerFechaVenta().getAnio() == fechaDesde.getAnio() && venta.obtenerFechaVenta().getMes() == fechaDesde.getMes() && venta.obtenerFechaVenta().getDia() >= fechaDesde.getDia())){
+                    if(venta.getNroFactura() == detVenta.getNroFactura()){
+                        vectorProductosVendidos[detVenta.getIdProducto()-1] +=  detVenta.getCantProducto();
+                    }
+                }
+            }
+
+        }
+    }
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    cout << "CANTIDAD DE PRODUCTOS VENDIDOS DESDE: " <<  fechaDesde.getDia() << "/" << fechaDesde.getMes() << "/" << fechaDesde.getAnio() << ", HASTA: " <<   fechaHasta.getDia() << "/" << fechaHasta.getMes() << "/" << fechaHasta.getAnio() << endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
+    for(int i=0; i<cantidadProductos; i++){
+            producto = archiProd.leer(i);
+            cout<< "PRODUCTO ID: " << i+1 << " | " <<  producto.getNombreProducto() << ". Cantidad: "<< vectorProductosVendidos[i] << endl;
     }
 }

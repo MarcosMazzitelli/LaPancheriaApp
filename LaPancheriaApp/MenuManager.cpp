@@ -580,6 +580,7 @@ void MenuManager::menuCostos(){
 void MenuManager::menuReportes(){
     ManagerVenta vManager;
     PersonaManager personaManager;
+    ProductosManager prodManager;
     int opcion, opcionSalida;
     while(true){
         cout << "========================================================" << endl;
@@ -587,8 +588,8 @@ void MenuManager::menuReportes(){
         cout << "========================================================" << endl;
         cout << "1. Listar ventas por fecha" << endl;
         cout << "2. Listar todos los clientes " << endl;
-        /*cout << "3. Eliminar empleado" << endl;
-        cout << "4. Mostrar empleados" << endl;*/
+        cout << "3. Listar cantidad de productos vendidos por fecha" << endl;
+        cout << "4. Mostrar empleados" << endl;
         cout << "5. Mostrar fecha de la venta que mas recaudo" << endl;
 
         cout << "0. Salir" << endl;
@@ -618,7 +619,7 @@ switch(opcion) {
                 break;
             case 3:
                 system("cls");
-                //manager eliminar empleado
+                prodManager.cantidadProductosVendidosPorFecha();
                 system("pause");
                 break;
             case 4:

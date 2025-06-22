@@ -18,16 +18,14 @@ int PersonaManager::cantidadRegistrosEmpleado(){
 void PersonaManager::cargarEmpleado(){
     ArchivoEmpleado a;
     Validador validador;
+    Empleado e;
 
     int idEmpleado, permiso;
     string nombre, apellido, dni, contrasenia, puesto, email, nCelular;
     float sueldo;
     Fecha fechaIngreso, fechaNacimiento;
-    bool estado;
+    bool estado=true;
     idEmpleado = a.getCantidadRegistros()+1;
-    estado=true;
-
-    Empleado e;
 
     cout << "Ingrese el nombre del empleado a registrar: \n";
     cin.ignore();
@@ -64,7 +62,6 @@ void PersonaManager::cargarEmpleado(){
         cout<<permiso<<endl;
     }
     limpiarPantalla();
-
 
     cout << "Ingrese puesto del empleado: \n";
     cin.ignore();
@@ -108,8 +105,6 @@ void PersonaManager::cargarEmpleado(){
         cout << "Ingrese el email del empleado: \n";
         getline(cin,email);
     }
-
-
 
     cout << "Ingrese celular: \n";
     getline(cin,nCelular);
@@ -217,11 +212,10 @@ void PersonaManager::modificarEmpleados(){
     Empleado empleado;
     ArchivoEmpleado archivo;
 
-
     int opcion, idEmpleado, permiso, cantidadRegistros, pos;
     float sueldo;
     string nombre, apellido,dni,contrasenia,email,celular;
-    bool modifico, permanecer=true, seEncontro=false;
+    bool modifico=false, permanecer=true, seEncontro=false;
 
         listarEmpleados();
         cout << "\n\n\n--------------MODIFICAR EMPLEADO------------------" <<endl;
@@ -265,7 +259,6 @@ void PersonaManager::modificarEmpleados(){
                         cin>>opcion;
                     }
 
-
                     switch(opcion){
                         case 1:
                             cout << "Ingrese nuevo nombre: " << endl;
@@ -273,6 +266,7 @@ void PersonaManager::modificarEmpleados(){
                             getline(cin,nombre);
                             empleado.setNombre(nombre);
                             limpiarPantalla();
+                            modifico=true;
                             break;
                         case 2:
                             cout << "Ingrese nuevo apellido: " << endl;
@@ -280,6 +274,7 @@ void PersonaManager::modificarEmpleados(){
                             getline(cin,apellido);
                             empleado.setApellido(apellido);
                             limpiarPantalla();
+                            modifico=true;
                             break;
                         case 3:
                             cout << "Ingrese nuevo dni: " << endl;
@@ -287,6 +282,7 @@ void PersonaManager::modificarEmpleados(){
                             getline(cin,dni);
                             empleado.setDni(dni);
                             limpiarPantalla();
+                            modifico=true;
                             break;
                         case 4:
                             cout << "Ingrese nueva contrasenia: " << endl;
@@ -294,6 +290,7 @@ void PersonaManager::modificarEmpleados(){
                             getline(cin,contrasenia);
                             empleado.setContrasenia(contrasenia);
                             limpiarPantalla();
+                            modifico=true;
                             break;
                         case 5:
                             cout << "Ingrese permiso: 1-Admin o 2- User: \n";
@@ -306,6 +303,7 @@ void PersonaManager::modificarEmpleados(){
                                 cout << "Ingrese permiso: 1- Admin o 2- User: \n";
                                 cin >> permiso;
                             }
+                            modifico=true;
                             empleado.setPermiso(permiso);
                             limpiarPantalla();
                             break;
@@ -315,6 +313,7 @@ void PersonaManager::modificarEmpleados(){
                             getline(cin,email);
                             empleado.setEmail(email);
                             limpiarPantalla();
+                            modifico=true;
                             break;
                         case 7:
                             cin.ignore();
@@ -322,6 +321,7 @@ void PersonaManager::modificarEmpleados(){
                             getline(cin,celular);
                             empleado.setNCelular(celular);
                             limpiarPantalla();
+                            modifico=true;
                             break;
                         case 8:
                             cout << "Ingrese sueldo del empleado: \n";
@@ -333,34 +333,27 @@ void PersonaManager::modificarEmpleados(){
                                 limpiarPantalla();
                                 cout << "Ingrese sueldo del empleado: \n";
                                 cin >> sueldo;
+                                modifico=true;
                             }
                             break;
                             limpiarPantalla();
 
                         case 9:
-                            cout << "Desea salir. Ingrese 1- si o 2- No" << endl;
-                            cin>>opcion;
-                             while(cin.fail() || opcion!=1 && opcion!=2){
-                                cin.clear();
-                                cin.ignore(1000,'\n');
-                                cout << "Ingrese una opcion valida! \n";
-                                limpiarPantalla();
-                                cout << "Desea salir. Ingrese 1- si o 2- No" << endl;
-                                cin>>opcion;
-                            }
+                            opcion = pedirYValidarConfirmacion("\nDesea guardar antes de salir? \n1)Si  0)No \n");
                             if(opcion==1){
-                                modifico=archivo.modificarEmpleado(empleado,pos);
                                 if(modifico){
                                     cout<<"Registro modificado correctamente"<<endl;
-
+                                    archivo.modificarEmpleado(empleado,pos);
                                 }else{
                                     cout << "No se pudo modificar el registro."<< endl;
-
                                 }
                                 permanecer=false;
+                                cout << "Saliendo del programa...\n";
                                 break;
                                 limpiarPantalla();
                             }else{
+                                cout << "Saliendo del programa...\n";
+                                permanecer=false;
                                 break;
                             }
                         default:
