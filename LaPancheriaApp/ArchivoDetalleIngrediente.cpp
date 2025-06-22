@@ -75,7 +75,7 @@ int ArchivoDetalleIngrediente::buscar(int idProducto){
       return -2;
    }
    while(fread(&registro, sizeof(DetalleIngrediente), 1, pFile) == 1){
-      if (registro.getIdIngrediente() == idProducto){
+      if (registro.getIdProducto() == idProducto){
          fclose(pFile);
          return posicion;
       }
@@ -85,6 +85,29 @@ int ArchivoDetalleIngrediente::buscar(int idProducto){
    fclose(pFile);
    return -1; // si llega hasta aca es porque no encontro un valor valido y retorno -1
 }
+
+int ArchivoDetalleIngrediente::buscarPorIngrediente(int idIngrediente){
+   FILE* pFile;
+   DetalleIngrediente registro;
+   int posicion = 0;
+
+   pFile = fopen(_nombreArchivo.c_str(), "rb");
+
+   if (pFile == nullptr){
+      return -2;
+   }
+   while(fread(&registro, sizeof(DetalleIngrediente), 1, pFile) == 1){
+      if (registro.getIdIngrediente() == idIngrediente){
+         fclose(pFile);
+         return posicion;
+      }
+      posicion++;
+   }
+
+   fclose(pFile);
+   return -1; // si llega hasta aca es porque no encontro un valor valido y retorno -1
+}
+
 
 bool ArchivoDetalleIngrediente::modificar(DetalleIngrediente &registro, int posicion){
     FILE* pFile;

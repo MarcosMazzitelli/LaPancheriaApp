@@ -28,7 +28,7 @@ void ProductosManager::incorporarIngredientes(int idProducto, float &costoProduc
         cout << "A continuacion se listaran los ingredientes disponibles para agregar a su producto." << endl;
         system("pause");
         system("cls");
-        ingManager.listarIngredientes(); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
+        ingManager.listarIngredientes(true); //solo los activos
         cout << "Seleccione el ID del ingrediente que desee agregar: " << endl << endl;
         cin >> idIngrediente;
         while(cin.fail() || idIngrediente < 1 || idIngrediente > ingManager.cantidadRegistros()){
@@ -37,37 +37,42 @@ void ProductosManager::incorporarIngredientes(int idProducto, float &costoProduc
             cout << "Ingrese un valor valido" << endl << endl;
             system("pause");
             system("cls");
-            ingManager.listarIngredientes();
+            ingManager.listarIngredientes(true); //solo los activos
             cout << "Seleccione el ID del ingrediente que desee agregar: ";
             cin >> idIngrediente;
         }
         posicion = ingArchi.buscar(idIngrediente);
         ing = ingArchi.leer(posicion);
-        cout << "Ingrese la cantidad de " << ing.getNombreIngrediente() << " a colocar en el producto (en " << ing.getTipoDeUnidad() << "): ";
-        cin >> cantidadPorProducto;
-        while(cin.fail() || cantidadPorProducto <= 0){
-            cin.clear();
-            cin.ignore(1000,'\n');
-            cout << "Ingrese un valor valido" << endl << endl;
-            system("pause");
-            system("cls");
+        if (ing.getEstado()){
             cout << "Ingrese la cantidad de " << ing.getNombreIngrediente() << " a colocar en el producto (en " << ing.getTipoDeUnidad() << "): ";
             cin >> cantidadPorProducto;
+            while(cin.fail() || cantidadPorProducto <= 0){
+                cin.clear();
+                cin.ignore(1000,'\n');
+                cout << "Ingrese un valor valido" << endl << endl;
+                system("pause");
+                system("cls");
+                cout << "Ingrese la cantidad de " << ing.getNombreIngrediente() << " a colocar en el producto (en " << ing.getTipoDeUnidad() << "): ";
+                cin >> cantidadPorProducto;
+            }
+            costoProducto+= ing.getCostoUnitario() * cantidadPorProducto;
+
+            // a partir de aca esta OK el ingreso de ID ingrediente y cantidad por productos
+
+            detalleIng = DetalleIngrediente(idProducto, idIngrediente, cantidadPorProducto, true); //
+            vecDetalleIngredientes.push_back(detalleIng);
+
+            //aca se guarda UN ingrediente en el detalle
+            opcion = pedirYValidarConfirmacion("\nDesea agregar mas ingredientes? \n1)Si \n0)No \n\n");
+            if(opcion==0){
+                cargaIngredientes=true; //fin del while general de carga de ingredientes
+            }
         }
-        costoProducto+= ing.getCostoUnitario() * cantidadPorProducto;
-
-        // a partir de aca esta OK el ingreso de ID ingrediente y cantidad por productos
-
-        detalleIng = DetalleIngrediente(idProducto, idIngrediente, cantidadPorProducto, true); //
-        vecDetalleIngredientes.push_back(detalleIng);
-
-        //aca se guarda UN ingrediente en el detalle
-        opcion = pedirYValidarConfirmacion("\nDesea agregar mas ingredientes? \n1)Si \n0)No \n\n");
-        if(opcion==0){
-            cargaIngredientes=true; //fin del while general de carga de ingredientes
+        else{
+            cout << "El ingrediente seleccionado se encuentra dado de baja!" << endl;
+            cout << "Por favor seleccione un ID que se encuentre en la lista." << endl << endl;
         }
     }
-
 }
 
 void ProductosManager::crearPanchoOGuarnicion(int idCategoria){
@@ -127,17 +132,17 @@ void ProductosManager::crearPanchoOGuarnicion(int idCategoria){
     if(opcion==1){ //si confirma, se guardan los detalles de ingredientes (receta) y el producto
         for (int i=0; i < vecDetalleIngredientes.size(); i++){
             if(detalleArchi.guardar(vecDetalleIngredientes[i])){
-                cout << "Ingrediente aniadido a la receta correctamente." << endl;
+                cout << "Ingrediente aniadido a la receta con exito." << endl;
             }
             else{
-                cout << "Hubo un problema al guardar el registro." << endl << endl;
+                cout << "Hubo un problema al vincular el ingrediente con la receta." << endl << endl;
             }
         }
         if (prodArchi.guardar(prod)){
-            cout << "Producto guardado correctamente." << endl << endl;
+            cout << "Producto guardado con exito." << endl << endl;
         }
         else{
-            cout << "Hubo un problema al guardar el registro." << endl << endl;
+            cout << "Hubo un problema al guardar el producto." << endl << endl;
         }
     }
     else{ //si no desea guardar la receta:
@@ -227,7 +232,7 @@ void ProductosManager::crearBebida(int idCategoria){
         }
     }
 
-    cantidadPorProducto = 1;
+    cantidadPorProducto = 1; //porque las bebidas se guardan en unidades
 
     ///FIN DE CARGA DEL PRODUCTO Y SU RECETA:
     prod = Producto(idProducto, idCategoria, nombreProducto, precioUnitario, costoUnitario, estado);
@@ -237,22 +242,22 @@ void ProductosManager::crearBebida(int idCategoria){
     opcion = pedirYValidarConfirmacion();
     if(opcion==1){ //si confirma, se guardan los detalles de ingredientes (receta) y el producto
         if (prodArchi.guardar(prod)){
-            cout << "Producto guardado correctamente." << endl << endl;
+            cout << "Producto guardado con exito." << endl << endl;
         }
         else{
-            cout << "Hubo un problema al guardar el registro." << endl << endl;
+            cout << "Hubo un problema al guardar el producto." << endl << endl;
         }
         if(ingArchi.guardar(ing)){
-            cout << "Stock a�adido correctamente." << endl;
+            cout << "Ingrediente con stock aniadido con exito." << endl;
         }
         else{
-            cout << "Hubo un problema al guardar el registro." << endl;
+            cout << "Hubo un problema al guardar el ingrediente." << endl;
             }
         if (detalleArchi.guardar(detalleIng)){
-            cout << "Ingrediente vinculado correctamente." << endl;
+            cout << "Vinculacion de ingrediente exitosa." << endl;
         }
         else{
-            cout << "Hubo un problema al guardar el registro." << endl;
+            cout << "Hubo un problema al vincular el ingrediente." << endl;
         }
     }
     else{ //si no desea guardar la receta:
@@ -377,10 +382,10 @@ void ProductosManager::menuModificacion(Producto &prod, int pos){
                 opcion = pedirYValidarConfirmacion("\nDesea guardar antes de salir? \n1)Si  0)No \n");
                 if (opcion == 1){
                     if (prodArchi.modificar(prod, pos)){
-                        cout << endl << "Registro guardado correctamente." << endl << endl;
+                        cout << endl << "Registro guardado con exito." << endl << endl;
                     }
                     else{
-                        cout << endl <<"Hubo un error al guardar el registro." << endl << endl;
+                        cout << endl <<"Hubo un error al guardar el producto." << endl << endl;
                     }
                 }
                 else{
@@ -399,15 +404,17 @@ void ProductosManager::menuModificacion(Producto &prod, int pos){
 void ProductosManager::modificarProducto(){
     int pos, idProducto, opcion;
     Producto prod;
-    ArchivoProducto prodArchi;
-    int cantRegistrosProducto = prodArchi.getCantidadRegistros();
+    DetalleIngrediente detalleIngrediente;
 
+    ArchivoProducto prodArchi;
+    ArchivoDetalleIngrediente archivoDetalleIngrediente;
+    int cantRegistrosProducto = prodArchi.getCantidadRegistros();
+    int cantRegistrosDetalleIngrediente = archivoDetalleIngrediente.getCantidadRegistros();
 
     cout << "\r\r MENU MODIFICACION" << endl << endl;
-    listarProductos();
+    listarProductos(true);
     cout << "Ingrese el ID del producto a modificar: ";
     cin >> idProducto;
-    listarProductos();
     while(cin.fail() || idProducto <= 0 || idProducto > cantRegistrosProducto){
         cin.clear();
         cin.ignore(1000,'\n');
@@ -415,7 +422,7 @@ void ProductosManager::modificarProducto(){
         system("pause");
         system("cls");
         cout << "\r\r MENU MODIFICACION" << endl << endl;
-        listarProductos();
+        listarProductos(true);
         cout << "Ingrese el ID del producto a modificar: ";
         cin >> idProducto;
     }
@@ -441,6 +448,18 @@ void ProductosManager::modificarProducto(){
                 else{
                     cout << "Hubo un error al guardar el registro." << endl << endl;
                 }
+                for (int i=0; i<cantRegistrosDetalleIngrediente; i++){
+                    detalleIngrediente = archivoDetalleIngrediente.leer(i);
+                    if(detalleIngrediente.getIdProducto() == idProducto){
+                        detalleIngrediente.setEstado(false);
+                        if(archivoDetalleIngrediente.modificar(detalleIngrediente,i)){
+                            cout << "Ingrediente eliminado de la receta con exito" << endl;
+                        }
+                        else{
+                            cout << "Hubo un error al eliminar el ingrediente de la receta" << endl;
+                        }
+                    }
+                }
             }
             else{
                 cout << "Saliendo sin guardar..." << endl << endl;
@@ -463,10 +482,9 @@ void ProductosManager::eliminarProducto(){
     int cantRegistrosDetalleIngrediente = archivoDetalleIngrediente.getCantidadRegistros();
 
         cout << "\r\r ELIMINAR PRODUCTOS" << endl << endl;
-    listarProductos();
+    listarProductos(true);
     cout << "Ingrese el ID del producto a eliminar: ";
     cin >> idProducto;
-    listarProductos();
     while(cin.fail() || idProducto <= 0 || idProducto > cantRegistrosProducto){
         cin.clear();
         cin.ignore(1000,'\n');
@@ -474,7 +492,7 @@ void ProductosManager::eliminarProducto(){
         system("pause");
         system("cls");
         cout << "\r\r ELIMINAR PRODUCTOS" << endl << endl;
-        listarProductos();
+        listarProductos(true);
         cout << "Ingrese el ID del producto a eliminar: ";
         cin >> idProducto;
     }
@@ -531,13 +549,15 @@ void ProductosManager::mostrarProductosCompletos(){
 
     for (int i=0; i<cantRegistros; i++){
         prod = prodArchi.leer(i);
-        prod.mostrar();
-        cout << endl << endl;
+        if(prod.getEstado()){
+            prod.mostrar();
+            cout << endl << endl;
+        }
     }
 
 }
 
-void ProductosManager::listarProductos(){
+void ProductosManager::listarProductos(bool estado){
     ArchivoProducto prodArchi;
     Producto prod;
     int cantRegistros;
@@ -551,10 +571,24 @@ void ProductosManager::listarProductos(){
     cout << setw(20) << "Costo de preparacion" << endl;
 
     cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
-    for (int i=0; i<cantRegistros; i++){
-        prod = prodArchi.leer(i);
-        prod.mostrarEnLista();
-        cout << endl;
+    if (estado){ //si se envia true por parametro, se muestran los activos
+        for (int i=0; i<cantRegistros; i++){
+            prod = prodArchi.leer(i);
+            if (prod.getEstado()){
+                prod.mostrarEnLista();
+                cout << endl;
+            }
+        }
+    }
+    else{ //si se envia false por parametro, se muestran los inactivos
+        for (int i=0; i<cantRegistros; i++){
+            prod = prodArchi.leer(i);
+            if (!prod.getEstado()){
+                prod.mostrarEnLista();
+                cout << endl;
+            }
+        }
+
     }
     cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
 
@@ -564,7 +598,7 @@ void ProductosManager::listarProductos(){
 
 
 
-void ProductosManager::listarProductosConIngredientes(){
+void ProductosManager::listarProductosConIngredientes(bool estado){
     ArchivoProducto prodArchi;
     ArchivoDetalleIngrediente detalleArchi;
     ArchivoIngrediente ingArchi;
@@ -577,7 +611,7 @@ void ProductosManager::listarProductosConIngredientes(){
 
     for (int i=0; i<cantRegistrosProducto; i++){ //recorre el archivo de productos
         prod = prodArchi.leer(i);
-        if(prod.getIdCategoria() != 3){ //las bebidas no se listan
+        if(prod.getEstado() && prod.getIdCategoria() != 3){ //las bebidas no se listan // si se envia true por parametro, muestra los activos
             cout << "==============================================" << endl;
             cout << "ID Producto: " << prod.getIdProducto() << endl;
             cout << "Nombre: " <<  prod.getNombreProducto() << endl;
@@ -589,7 +623,7 @@ void ProductosManager::listarProductosConIngredientes(){
 
             for (int j=0; j<cantRegistrosDetalleIngrediente; j++){ //recorre el archivo detalle de ingredientes
                 detalleIng = detalleArchi.leer(j);
-                if(detalleIng.getIdProducto() == prod.getIdProducto()){ //Si encuentra el ID del producto en el archivo detalle de ingredientes
+                if(detalleIng.getEstado() && detalleIng.getIdProducto() == prod.getIdProducto()){ //Si encuentra el ID del producto en el archivo detalle de ingredientes
                     pos = ingArchi.buscar(detalleIng.getIdIngrediente());//lo busca en el archivo de ingredientes
                     ing = ingArchi.leer(pos); //trae el ingrediente a memoria y lo informa
                     cout << left << setw(25) << ing.getNombreIngrediente();
@@ -599,6 +633,29 @@ void ProductosManager::listarProductosConIngredientes(){
             }
             cout << "==============================================" << endl << endl;
         }
+        else if(!prod.getEstado() && prod.getIdCategoria() != 3){ //las bebidas no se listan // si se envia false por parametro, muestra los inactivos
+            cout << "==============================================" << endl;
+            cout << "ID Producto: " << prod.getIdProducto() << endl;
+            cout << "Nombre: " <<  prod.getNombreProducto() << endl;
+            cout << "Ingredientes: " << endl;
+            cout << "----------------------------------------------" << endl;
+            cout << left << setw(25) << "Nombre Ingrediente";
+            cout << setw(10) << "Cantidad";
+            cout << setw(10) << "Unidad" << endl;
+
+            for (int j=0; j<cantRegistrosDetalleIngrediente; j++){ //recorre el archivo detalle de ingredientes
+                detalleIng = detalleArchi.leer(j);
+                if(!detalleIng.getEstado() && detalleIng.getIdProducto() == prod.getIdProducto()){ //Si encuentra el ID del producto en el archivo detalle de ingredientes
+                    pos = ingArchi.buscar(detalleIng.getIdIngrediente());//lo busca en el archivo de ingredientes
+                    ing = ingArchi.leer(pos); //trae el ingrediente a memoria y lo informa
+                    cout << left << setw(25) << ing.getNombreIngrediente();
+                    cout << setw(10) << detalleIng.getCantidadPorProducto();
+                    cout << setw(10) << ing.getTipoDeUnidad() << endl;
+                }
+            }
+            cout << "==============================================" << endl << endl;
+        }
+
     }
 }
 
@@ -628,7 +685,7 @@ void ProductosManager::listarProductosPorCategoria(int idCategoria){
             prod.mostrarEnLista();
             for (int j=0; j<cantRegistrosDetalleIngrediente; j++){ //recorre el archivo detalle de ingredientes
                 detalleIng = detalleArchi.leer(j);
-                if(detalleIng.getIdProducto() == prod.getIdProducto()){ //Si encuentra el ID del producto en el archivo detalle de ingredientes
+                if(detalleIng.getEstado() && detalleIng.getIdProducto() == prod.getIdProducto()){ //Si encuentra el ID del producto en el archivo detalle de ingredientes
                     pos = ingArchi.buscar(detalleIng.getIdIngrediente());//lo busca en el archivo de ingredientes
                     ing = ingArchi.leer(pos); //trae el ingrediente a memoria y lo informa
                     productosDisponibles = ing.getCantidadStock() / detalleIng.getCantidadPorProducto(); //NO APLICA PARA BEBIDAS
@@ -659,6 +716,7 @@ void ProductosManager::listarProductosPorIngredientes(){
     int cantRegistrosDetalleIng = archivoDetalleIng.getCantidadRegistros();
     int cantRegistrosIng = archivoIngrediente.getCantidadRegistros();
     int posicion;
+    bool encontrado = false;
     Validador validador;
     string nombreIngrediente;
     cout << "Escriba el nombre del ingrediente y a continuacion se listaran los productos que lo contengan: ";
@@ -667,37 +725,21 @@ void ProductosManager::listarProductosPorIngredientes(){
 
     for (int i=0; i< cantRegistrosDetalleIng; i++){ //recorro todo el archivo de detalle de ingredientes (recetas) donde hay un registro por cada ingrediente que contenga cada producto
         detalleIng = archivoDetalleIng.leer(i);
-
-        posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
-        ing = archivoIngrediente.leer(posicion); //busca ese ID de ingrediente dentro del archivo de ingredientes y lo instancia para obtener el nombre
-        if(validador.contiene(nombreIngrediente, ing.getNombreIngrediente() ) ){  //Si coincide el patron ingresado con el nombre del ingrediente devuelve true
-            posicion = archivoProducto.buscar(detalleIng.getIdProducto());
-            producto = archivoProducto.leer(posicion); //una vez que esta asegurada la coincidencia, se instancia el producto para obtener todos los datos para la venta
-
-            mostrarProductoYReceta(producto);
-            /*cout << "==============================================" << endl;
-            cout << "ID Producto: " << producto.getIdProducto() << endl;
-            cout << "Nombre: " <<  producto.getNombreProducto() << endl;
-            cout << "Precio de venta: $" << producto.getPrecioUnitario() << endl;
-            cout << "Ingredientes: " << endl;
-            cout << "----------------------------------------------" << endl;
-            cout << left << setw(25) << "Nombre Ingrediente";
-            cout << setw(10) << "Cantidad";
-            cout << setw(10) << "Unidad" << endl;
-            for (int j=0; j< cantRegistrosDetalleIng; j++){ //Bucle solo para mostrar todos los ingredientes que tiene ese producto
-                detalleIng = archivoDetalleIng.leer(j); //se instancian nuevamente las recetas
-                if(detalleIng.getIdProducto() == producto.getIdProducto()){ //Si las instancias son iguales al producto hallado anteriormente que coincide con el patron buscado:
-
-                    posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
-                    ing = archivoIngrediente.leer(posicion); //instancio cada ingrediente que contiene ese producto y lo muestro
-                    cout << left << setw(25) << ing.getNombreIngrediente();
-                    cout << setw(10) << detalleIng.getCantidadPorProducto();
-                    cout << setw(10) << ing.getTipoDeUnidad() << endl;
+        if (detalleIng.getEstado()){
+            posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
+            ing = archivoIngrediente.leer(posicion); //busca ese ID de ingrediente dentro del archivo de ingredientes y lo instancia para obtener el nombre
+            if(ing.getEstado() && validador.contiene(nombreIngrediente, ing.getNombreIngrediente() ) ){  //Si coincide el patron ingresado con el nombre del ingrediente devuelve true
+                posicion = archivoProducto.buscar(detalleIng.getIdProducto());
+                producto = archivoProducto.leer(posicion); //una vez que esta asegurada la coincidencia, se instancia el producto para obtener todos los datos para la venta
+                if(producto.getEstado()){
+                    mostrarProductoYReceta(producto);
+                    encontrado=true;
                 }
             }
-            cout << "==============================================" << endl << endl;
-            cout << endl << endl; */
         }
+    }
+    if(!encontrado){
+        cout << "Ningun producto activo contiene el ingrediente mencionado..." << endl << endl;
     }
 }
 

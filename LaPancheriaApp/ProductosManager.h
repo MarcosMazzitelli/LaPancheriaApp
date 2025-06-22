@@ -19,8 +19,8 @@ public:
 
     ///Listados
     void mostrarProductosCompletos();
-    void listarProductos();
-    void listarProductosConIngredientes();
+    void listarProductos(bool estado);
+    void listarProductosConIngredientes(bool estado);
     void listarProductosPorCategoria(int idCategoria);
     void listarProductosPorIngredientes();
 

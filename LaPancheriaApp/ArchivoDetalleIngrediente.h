@@ -16,6 +16,7 @@ public:
     int getCantidadRegistros();
     DetalleIngrediente leer(int pos);
     int buscar(int idProducto);
+    buscarPorIngrediente(int idIngrediente);
     bool modificar(DetalleIngrediente &registro, int posicion);
 
 };

@@ -6,11 +6,11 @@ private:
 public:
     void cargarIngrediente();
     void modificarIngrediente();
-    void mostrarIngredientesCompletos();
+    void mostrarIngredientesCompletos(bool estado);
     int cantidadRegistros();
-    void listarIngredientes();
+    void listarIngredientes(bool estado);
     void comprarIngrediente();
     void modificarStock();
-
+    void eliminarIngrediente();
 
 };

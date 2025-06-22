@@ -66,7 +66,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
 
     bool cargaProductos=false;
     while (!cargaProductos){ ///ciclo para ingresar productos a una venta
-        prodManager.listarProductos(); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
+        prodManager.listarProductos(true); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
 
         cout << "Seleccione el producto que desee agregar: ";
         cin >> idProducto;
@@ -74,7 +74,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
             cout << "Ingrese un Id de producto valido" << endl << endl;
             system("pause");
             system("cls");
-            prodManager.listarProductos(); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
+            prodManager.listarProductos(true); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
             cout << "Seleccione el producto que desee agregar: ";
             cin >> idProducto;
         }

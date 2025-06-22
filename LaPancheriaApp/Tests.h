@@ -78,7 +78,6 @@ void cargarYMostrarPersona(){
 
 }
 
-///<<<<<<< Updated upstream
 /* cargarYMostrarCliente(){
     string nombre;
     string apellido;
@@ -177,8 +176,6 @@ void cargarYMostrarEmpleado(){
 
 
 
-///=======
-///>>>>>>> Stashed changes
 void cargarPancho(){
     int idCategoria;
     string nombreProducto;
@@ -237,10 +234,10 @@ void crearProducto(){
     prodManager.crearProducto();
 }
 
-void mostrarProductosConIngredientes(){
+void mostrarProductosConIngredientes(bool estado){
     ProductosManager prodManager;
     cout << endl << endl << "Listado " << endl << endl;
-    prodManager.listarProductosConIngredientes();
+    prodManager.listarProductosConIngredientes(estado);
 
 }
 void cargarEmpleado(){

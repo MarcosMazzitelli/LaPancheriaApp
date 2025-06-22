@@ -330,6 +330,7 @@ void MenuManager::menuProductos(){
         cout << "4. Listar productos" << endl;
         cout << "5. Listar recetas" << endl;
         cout << "6. Listar productos por ingrediente" << endl;
+        cout << "7. Listar productos por categoria" << endl;
 
 
         cout << "0. Salir" << endl;
@@ -359,20 +360,17 @@ void MenuManager::menuProductos(){
                 break;
             case 3:
                 system("cls");
-                cout << "Ingrese categoria 1 2 o 3" << endl;
-                int idCategoria;
-                cin >> idCategoria;
-                prodManager.listarProductosPorCategoria(idCategoria);
+                prodManager.eliminarProducto();
                 system("pause");
                 break;
             case 4:
                 system("cls");
-                prodManager.listarProductos();
+                prodManager.listarProductos(true);
                 system("pause");
                 break;
             case 5:
                 system("cls");
-                prodManager.listarProductosConIngredientes();
+                prodManager.listarProductosConIngredientes(true);
                 system("pause");
                 break;
             case 6:
@@ -380,6 +378,14 @@ void MenuManager::menuProductos(){
                 prodManager.listarProductosPorIngredientes();
                 system("pause");
                 break;
+            case 7:
+                system("cls");
+                cout << "Ingrese categoria 1 2 o 3" << endl;
+                int idCategoria;
+                cin >> idCategoria;
+                prodManager.listarProductosPorCategoria(idCategoria);
+                system("pause");
+
 
             case 0:
                 cout << "Confirma que desea salir? 1- si  0- no\n";
@@ -449,12 +455,12 @@ void MenuManager::menuIngredientes(){
                 break;
             case 3:
                 system("cls");
-                //manager eliminar ingrediente
+                ingManager.eliminarIngrediente();
                 system("pause");
                 break;
             case 4:
                 system("cls");
-                ingManager.listarIngredientes();
+                ingManager.listarIngredientes(true);
                 system("pause");
                 break;
             case 5:
