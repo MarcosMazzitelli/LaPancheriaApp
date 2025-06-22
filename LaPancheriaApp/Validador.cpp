@@ -22,3 +22,37 @@ bool Validador::contiene(std::string texto, std::string atributo){
     return regex_search(atributo, patron);
 
 }
+void Validador::validadorFiltroFecha(Fecha &fechaDesde, Fecha &fechaHasta){
+    bool rangoFechaIncorrecto=true;
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    cout << "FECHA INGRESO BALANCE" << endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    fechaDesde.cargar();
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    cout << "FECHA FIN BALANCE" << endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    fechaHasta.cargar();
+
+    if(fechaDesde.getAnio() < fechaHasta.getAnio() ||
+        (fechaDesde.getAnio() == fechaHasta.getAnio() && fechaDesde.getMes() < fechaHasta.getMes()) ||
+        (fechaDesde.getAnio() == fechaHasta.getAnio() && fechaDesde.getMes() == fechaHasta.getMes() && fechaDesde.getDia()<= fechaHasta.getDia())){
+            rangoFechaIncorrecto=false;
+    }
+
+    while(rangoFechaIncorrecto){
+        system("cls");
+        cout << "Las fechas ingresadas son ivalidas. " << endl;
+        cout <<  "--------------------------------------------------------------------------------"<< endl;
+        cout << "FECHA INGRESO BALANCE" << endl;
+        cout <<  "--------------------------------------------------------------------------------"<< endl;
+        fechaDesde.cargar();
+        cout <<  "--------------------------------------------------------------------------------"<< endl;
+        cout << "FECHA FIN BALANCE" << endl;
+        cout <<  "--------------------------------------------------------------------------------"<< endl;
+        fechaHasta.cargar();
+        if(fechaDesde.getAnio() < fechaHasta.getAnio() || (fechaDesde.getAnio() == fechaHasta.getAnio() && fechaDesde.getMes() < fechaHasta.getMes()) || (fechaDesde.getAnio() == fechaHasta.getAnio() && fechaDesde.getMes() == fechaHasta.getMes() && fechaDesde.getDia()<= fechaHasta.getDia())){
+            rangoFechaIncorrecto=false;
+        }
+
+    }
+}
