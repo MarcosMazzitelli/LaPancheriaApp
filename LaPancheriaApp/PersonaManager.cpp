@@ -335,6 +335,7 @@ void PersonaManager::modificarEmpleados(){
                                 cin >> sueldo;
                                 modifico=true;
                             }
+                            empleado.setSueldo(sueldo);
                             break;
                             limpiarPantalla();
 
