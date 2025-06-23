@@ -67,7 +67,11 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     bool cargaProductos=false;
     while (!cargaProductos){ ///ciclo para ingresar productos a una venta
         prodManager.listarProductos(true); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
-
+        cout << "Desea filtrar productos que tengan un ingrediente en particular?" << endl;
+        opcion = pedirYValidarConfirmacion("\n1)Si \n0)No \n") ;
+        if(opcion == 1){
+            prodManager.listarProductosPorIngredientes();
+        }
         cout << "Seleccione el producto que desee agregar: ";
         cin >> idProducto;
         while (cin.fail() || idProducto < 1 || idProducto > cantRegistrosProducto ){
@@ -75,6 +79,11 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
             system("pause");
             system("cls");
             prodManager.listarProductos(true); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
+            cout << "Desea filtrar productos que tengan un ingrediente en particular?" << endl;
+            opcion = pedirYValidarConfirmacion("\n1)Si \n0)No \n");
+            if(opcion == 1){
+                prodManager.listarProductosPorIngredientes();
+            }
             cout << "Seleccione el producto que desee agregar: ";
             cin >> idProducto;
         }

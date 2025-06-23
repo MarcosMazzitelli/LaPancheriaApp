@@ -927,6 +927,93 @@ void ProductosManager::mostrarProductoYReceta(Producto &producto){
     cout << endl << endl;
 }
 
+void ProductosManager::rankingProductosMasVendidos(){
+    Fecha fechaDesde,fechaHasta;
+    Venta venta;
+    DetalleVenta detalleVenta;
+    VentaArchivo archivoVenta;
+    DetalleVentaArchivo archivoDetalleVenta;
+    Producto producto;
+    ArchivoProducto archivoProducto;
+    Validador validador;
+    int cantRegistrosProducto = archivoProducto.getCantidadRegistros();
+    int cantRegistrosDetalleVenta = archivoDetalleVenta.getCantidadRegistros();
+    int cantRegistrosVenta = archivoVenta.getCantidadRegistros();
+    int posicion;
+
+
+    int* vectorProductosVendidos = nullptr;
+    int* vectorIdProductosVendidos = nullptr;
+    vectorProductosVendidos = new int [cantRegistrosProducto] ;
+    vectorIdProductosVendidos = new int [cantRegistrosProducto];
+    if(vectorProductosVendidos == nullptr || vectorIdProductosVendidos == nullptr){
+        cout << "Ocurrio un error en el sistema" << endl;
+        return;
+    }
+
+    for (int i=0; i < cantRegistrosProducto; i++){
+        vectorProductosVendidos[i] = 0;
+        vectorIdProductosVendidos[i] = 0;
+    }
+
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+    for (int i=0; i < cantRegistrosVenta; i++){
+        venta = archivoVenta.leer(i);
+
+        for (int j=0; j < cantRegistrosDetalleVenta; j++){
+            detalleVenta = archivoDetalleVenta.leer(j);
+            if(venta.getFechaVenta() <= fechaHasta && venta.getFechaVenta() >= fechaDesde
+            && venta.getNroFactura() == detalleVenta.getNroFactura() ){
+                vectorProductosVendidos[detalleVenta.getIdProducto() -1] += detalleVenta.getCantProducto();
+                vectorIdProductosVendidos[detalleVenta.getIdProducto() -1] = detalleVenta.getIdProducto();
+
+            }
+        }
+    }
+
+    int auxId, auxCantProductos;
+    ///Metodo burbujeo, en cada vuelta de I coloca el valor maximo en la posicion de I.
+    for(int i=0; i<cantRegistrosProducto; i++){
+        for(int j = i+1; j<cantRegistrosProducto; j++){
+            if(vectorProductosVendidos[j] > vectorProductosVendidos[i]){
+                //intercambio de cantidades
+                auxCantProductos = vectorProductosVendidos[j];
+                vectorProductosVendidos[j] = vectorProductosVendidos[i];
+                vectorProductosVendidos[i] = auxCantProductos;
+                //intercambio de Ids
+                auxId = vectorIdProductosVendidos[j];
+                vectorIdProductosVendidos[j] = vectorIdProductosVendidos[i];
+                vectorIdProductosVendidos[i] = auxId;
+            }
+        }
+    }
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    cout << "RANKING DE PRODUCTOS VENDIDOS DESDE: " <<  fechaDesde.getDia() << "/" << fechaDesde.getMes() << "/" << fechaDesde.getAnio() << ", HASTA: " <<   fechaHasta.getDia() << "/" << fechaHasta.getMes() << "/" << fechaHasta.getAnio() << endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
+    cout << left << setw(10) << "Posicion" << setw(19) << "Cantidad vendida" << setw(10) << "Nombre del producto" << endl;
+    cout << "--------------------------------------------------------------------------------" << endl;
+    for (int i=0; i < 10 ; i++){
+        if(vectorProductosVendidos[i] > 0){
+            posicion = archivoProducto.buscar(vectorIdProductosVendidos[i]);
+            producto = archivoProducto.leer(posicion);
+            cout << left << setw(1) << "#" << setw (9) << i+1 << setw(19) << vectorProductosVendidos[i] << setw(10) << producto.getNombreProducto() << endl;
+        }
+    }
+    cout <<  "--------------------------------------------------------------------------------" << endl << endl;
+   /*    cout << left << setw(7) << getIdProducto();// right lo alinea a la izquierda y setw setea el ancho del campo, lo que sobra lo rellena son espacios hasta completar esa cantidad de caracteres
+    cout << setw(15) << getIdCategoria();
+    cout << setw(30) <<getNombreProducto();
+
+    cout << setw(15) << "ID Categoria";
+    cout << setw(30) << "Nombre del producto";
+    cout << setw(20) << "Precio de venta";
+    cout << setw(20) << "Costo de preparacion" << endl;*/
+
+
+
+   ///marcosssssssssss
+}
+
 
 void ProductosManager::cantidadProductosVendidosPorFecha(){
     Fecha fechaDesde,fechaHasta;
@@ -937,6 +1024,7 @@ void ProductosManager::cantidadProductosVendidosPorFecha(){
     Producto producto;
     ArchivoProducto archiProd;
     Validador validador;
+
 
     int cantidadProductos = archiProd.getCantidadRegistros();
 
@@ -951,6 +1039,7 @@ void ProductosManager::cantidadProductosVendidosPorFecha(){
             vectorProductosVendidos[i]=0;
         }
     }
+
 
 
     int cantidadDetallesVenta = archiDetalleV.getCantidadRegistros();

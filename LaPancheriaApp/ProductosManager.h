@@ -28,6 +28,6 @@ public:
     void listarProductosPorCategoria(int idCategoria);
     void listarProductosPorIngredientes();
     void cantidadProductosVendidosPorFecha();
-
+    void rankingProductosMasVendidos();
 
 };

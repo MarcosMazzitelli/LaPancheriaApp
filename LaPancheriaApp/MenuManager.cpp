@@ -684,15 +684,16 @@ void MenuManager::menuReportes(){
         cout << " 5. Empleado que mas recaudo por fecha" << endl;
         cout << endl;
         cout << " PRODUCTOS:" << endl << endl;
-        cout << " 6. Listar cantidad de productos vendidos por fecha" << endl <<endl;
+        cout << " 6. Listar cantidad de productos vendidos por fecha" << endl;
         cout << " 7. Balance de ganacias por mes" << endl;
+        cout << " 8. Mostrar ranking de los 10 productos mas vendidos por fecha" << endl;
         cout << endl;
         cout << " 0. Salir" << endl;
         cout << "===============================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 7) {
+        while (cin.fail() || opcion < 0 || opcion > 8) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
@@ -713,8 +714,9 @@ void MenuManager::menuReportes(){
             cout << " 5. Empleado que mas recaudo por fecha" << endl;
             cout << endl;
             cout << " PRODUCTOS:" << endl << endl;
-            cout << " 6. Listar cantidad de productos vendidos por fecha" << endl <<endl;
+            cout << " 6. Listar cantidad de productos vendidos por fecha" << endl;
             cout << " 7. Balance de ganacias por mes" << endl;
+            cout << " 8. Mostrar ranking de los 10 productos mas vendidos por fecha" << endl;
             cout << endl;
             cout << " 0. Salir" << endl;
             cout << "===============================" << endl;
@@ -757,6 +759,11 @@ void MenuManager::menuReportes(){
                 system("cls");
                 costoManager.balanceGananciaPorMes();
                 system("pause");
+            case 8:
+                system("cls");
+                prodManager.rankingProductosMasVendidos();
+                system("pause");
+
                 break;
             case 0:
                 cout << "Confirma que desea salir? 1- si  0- no\n";
