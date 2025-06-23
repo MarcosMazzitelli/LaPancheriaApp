@@ -1000,15 +1000,6 @@ void ProductosManager::rankingProductosMasVendidos(){
         }
     }
     cout <<  "--------------------------------------------------------------------------------" << endl << endl;
-   /*    cout << left << setw(7) << getIdProducto();// right lo alinea a la izquierda y setw setea el ancho del campo, lo que sobra lo rellena son espacios hasta completar esa cantidad de caracteres
-    cout << setw(15) << getIdCategoria();
-    cout << setw(30) <<getNombreProducto();
-
-    cout << setw(15) << "ID Categoria";
-    cout << setw(30) << "Nombre del producto";
-    cout << setw(20) << "Precio de venta";
-    cout << setw(20) << "Costo de preparacion" << endl;*/
-
 
 
    ///marcosssssssssss
