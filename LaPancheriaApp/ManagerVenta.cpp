@@ -21,6 +21,7 @@
 #include "Ingrediente.h"
 #include "ArchivoDetalleIngrediente.h"
 #include <vector>
+#include "Validador.h"
 
 using namespace std;
 
@@ -352,9 +353,12 @@ void ManagerVenta::mostrarFechaMayorRecaudacionVenta(){
     Venta vent;
     Fecha aux;
 
-    int cantRegistro=archi.getCantidadRegistros();
 
+
+    int cantRegistro=archi.getCantidadRegistros();
     float mayorVenta=0.0;
+
+
     for(int i=0; i<cantRegistro;i++){
         vent=archi.leer(i);
 
@@ -495,4 +499,50 @@ void ManagerVenta::listarVendedorMayorRecaudacion(){
     }
     delete[]vendio;
     delete[]sumatoriaVentas;
+}
+void ManagerVenta::MayorRecaudacionPorPeriodo(){
+
+    VentaArchivo archi;
+    Venta vent;
+    Fecha aux,fechaDesde,fechaHasta;
+    Validador validador;
+
+    float mayorVenta=0.0;
+
+
+   int cantRegistro=archi.getCantidadRegistros();
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+
+    for(int i=0;i< cantRegistro;i++){
+        vent=archi.leer(i);
+        if (vent.getFechaVenta() <= fechaHasta ){
+
+            if (vent.getFechaVenta() >= fechaDesde ){
+                   if(i==0){
+                        mayorVenta=vent.getImporteTotal();
+                        aux=vent.getFechaVenta();
+
+                    }else if(vent.getImporteTotal()>mayorVenta){
+
+                            mayorVenta=vent.getImporteTotal();
+                            aux=vent.getFechaVenta();
+                        }
+
+
+            }
+
+        }
+    }
+    if(mayorVenta<=0){
+        cout<<"NO HAY VENTAS REGISTRADAS EN ESE PERIODO DE TIEMPO"<<endl;
+    }else{
+        cout <<  "--------------------------------------------------------------------------------"<< endl;
+        cout << "EL DIA QUE MAS RECAUDO EN EL PERIODO DESDE: " << fechaDesde.mostrarFecha()<<" HASTA "<<fechaHasta.mostrarFecha()<<endl;
+        cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
+        cout<< aux.mostrarFecha()<< " Y EL MONTO RECAUDADO FUE DE:  $" <<  mayorVenta << endl;
+
+    }
+
+
+
 }
