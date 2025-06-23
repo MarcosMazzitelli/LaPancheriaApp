@@ -20,6 +20,8 @@ class Fecha{
         int getAnio();
         std::string mostrarFecha();
         bool operator == (Fecha aux);
+        bool operator <= (Fecha aux);
+        bool operator >= (Fecha aux);
 
 
 };

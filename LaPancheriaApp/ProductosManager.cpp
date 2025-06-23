@@ -939,7 +939,20 @@ void ProductosManager::cantidadProductosVendidosPorFecha(){
     Validador validador;
 
     int cantidadProductos = archiProd.getCantidadRegistros();
-    int vectorProductosVendidos[cantidadProductos]={};
+
+    int* vectorProductosVendidos = nullptr;
+    vectorProductosVendidos = new int[cantidadProductos];
+
+    if(vectorProductosVendidos==nullptr){
+        cout << "Ocurrio un error en el sistema. "<< endl;
+        return;
+    }else{
+        for (int i=0; i<cantidadProductos; i++){
+            vectorProductosVendidos[i]=0;
+        }
+    }
+
+
     int cantidadDetallesVenta = archiDetalleV.getCantidadRegistros();
     int cantidadVentas = archiVenta.getCantidadRegistros();
     validador.validadorFiltroFecha(fechaDesde,fechaHasta);
@@ -948,12 +961,18 @@ void ProductosManager::cantidadProductosVendidosPorFecha(){
         venta = archiVenta.leer(i);
         for (int x=0; x<cantidadDetallesVenta;x++){
             detVenta = archiDetalleV.leer(x);
+
+            if (venta.getFechaVenta() <= fechaHasta ){ ///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+            /*
             if(venta.obtenerFechaVenta().getAnio() < fechaHasta.getAnio() ||
                (venta.obtenerFechaVenta().getAnio() == fechaHasta.getAnio() && venta.obtenerFechaVenta().getMes() < fechaHasta.getMes()) ||
                (venta.obtenerFechaVenta().getAnio() == fechaHasta.getAnio() && venta.obtenerFechaVenta().getMes() == fechaHasta.getMes() && venta.obtenerFechaVenta().getDia() <= fechaHasta.getDia())){
-                if(venta.obtenerFechaVenta().getAnio() > fechaDesde.getAnio() ||
+                */
+                if (venta.getFechaVenta() >= fechaDesde ){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+                /*if(venta.obtenerFechaVenta().getAnio() > fechaDesde.getAnio() ||
                    (venta.obtenerFechaVenta().getAnio() == fechaDesde.getAnio() && venta.obtenerFechaVenta().getMes() > fechaDesde.getMes()) ||
                    (venta.obtenerFechaVenta().getAnio() == fechaDesde.getAnio() && venta.obtenerFechaVenta().getMes() == fechaDesde.getMes() && venta.obtenerFechaVenta().getDia() >= fechaDesde.getDia())){
+                    */
                     if(venta.getNroFactura() == detVenta.getNroFactura()){
                         vectorProductosVendidos[detVenta.getIdProducto()-1] +=  detVenta.getCantProducto();
                     }

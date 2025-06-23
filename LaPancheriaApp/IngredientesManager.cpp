@@ -485,7 +485,7 @@ void IngredientesManager::eliminarIngrediente(){
     DetalleIngrediente auxDetalleIngrediente;
     Ingrediente ingrediente;
     Producto producto;
-    int posicionIng, posicionDetalleIng, idIngrediente, opcion;
+    int posicionIng, posicionDetalleIng, posicionProducto, idIngrediente, opcion;
     int cantRegistrosDetalleIngrediente = archivoDetalleIngrediente.getCantidadRegistros();
     int cantRegistrosIngrediente = archivoIngrediente.getCantidadRegistros();
 
@@ -515,8 +515,8 @@ void IngredientesManager::eliminarIngrediente(){
         for (int i=0; i < cantRegistrosDetalleIngrediente; i++){
             detalleIngrediente = archivoDetalleIngrediente.leer(i);
             if (detalleIngrediente.getIdIngrediente() == idIngrediente){
-                posicionDetalleIng = archivoProducto.buscar(detalleIngrediente.getIdProducto());
-                producto = archivoProducto.leer(i);
+                posicionProducto = archivoProducto.buscar(detalleIngrediente.getIdProducto());
+                producto = archivoProducto.leer(posicionProducto);
                 cout << producto.getNombreProducto() << endl;
             }
         }
@@ -546,11 +546,11 @@ void IngredientesManager::eliminarIngrediente(){
                                 }
                             }
                         }
-                    posicionDetalleIng = archivoProducto.buscar(detalleIngrediente.getIdProducto());
-                    producto = archivoProducto.leer(i);
+                    posicionProducto = archivoProducto.buscar(detalleIngrediente.getIdProducto());
+                    producto = archivoProducto.leer(posicionProducto);
                     if(producto.getEstado()){
                         producto.setEstado(false);
-                        if(archivoProducto.modificar(producto, i)){
+                        if(archivoProducto.modificar(producto, posicionProducto)){
                             cout << "Producto eliminado con exito" << endl;
                         }
                         else{

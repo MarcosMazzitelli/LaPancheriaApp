@@ -147,7 +147,6 @@ void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta){
         if(archivoDetalleVenta.guardar(vecDetalleVenta[i])){
                 cout << "Producto guardado correctamente." << endl << endl;
         }
-        vecDetalleVenta[i].mostrar();
         //leo una instancia de detalle venta
         for(int j=0; j < archivoDetalleIng.getCantidadRegistros(); j++){
             detalleIng = archivoDetalleIng.leer(j);
@@ -319,7 +318,7 @@ void ManagerVenta::cargaMasivaVentas(std::string dniEmpleado){
         ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
         importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
         detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
-        vecDetalleVenta.push_back(detVenta); //se aumenta el tama�o del vector y se coloca al final el nuevo detalle de venta
+        vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
 
         cin >> opcion; // para ingresar mas productos (1 si, 0 no)
         if(opcion == 0){
@@ -404,7 +403,7 @@ void ManagerVenta::mostrarFechaMayorCantidadVentas(){
         else{
             for(int j=0; j<vecFecha.size();j++){//comparar que no exista esa fecha en el vecFecha, y si existe solo que tiene q aumentar el vecCont
 
-               if(vent.getFechaVenta() == vecFecha[j]){
+               if(vent.getFechaVenta() == vecFecha[j]){ //sobrecarga de operadores
                 vecContador[j]++;
                 coincidencia=true;
                }

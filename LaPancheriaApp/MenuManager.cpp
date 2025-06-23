@@ -170,7 +170,7 @@ void MenuManager::menuVentas(std::string dni){
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 3) {
+        while (cin.fail() || opcion < 0 || opcion > 505) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero valido" << endl;
@@ -207,7 +207,7 @@ void MenuManager::menuVentas(std::string dni){
                 break;
             case 505:
                 system("cls");
-                for (int i=0; i<10; i++){
+                for (int i=0; i<12; i++){
                     ventaManager.cargaMasivaVentas(dni);
                 }
                 system("pause");
@@ -265,12 +265,6 @@ void MenuManager::menuVentasRestringido(std::string dni){
                 ventaManager.listarVenta();
                 system("pause");
                 break;
-            case 505:
-                system("cls");
-                for (int i=0; i<10; i++){
-                    ventaManager.cargaMasivaVentas(dni);
-                }
-                system("pause");
 
             case 0:
                 cout << "Confirma que desea salir? 1- si  0- no\n";
@@ -682,8 +676,6 @@ void MenuManager::menuReportes(){
         cout << " 1. Listar ventas por fecha" << endl;
         cout << " 2. Mostrar fecha de la venta que mas recaudo" << endl;
         cout << " 3. Mostrar fecha que hubo mayor cantidad de ventas" << endl;
-        //  cout << "7. Balance de ganacias por mes" << endl;
-
         cout << endl;
         cout << " CLIENTES:" << endl << endl;
         cout << " 4. Listar todos los clientes " << endl;
@@ -693,13 +685,14 @@ void MenuManager::menuReportes(){
         cout << endl;
         cout << " PRODUCTOS:" << endl << endl;
         cout << " 6. Listar cantidad de productos vendidos por fecha" << endl <<endl;
+        cout << " 7. Balance de ganacias por mes" << endl;
         cout << endl;
         cout << " 0. Salir" << endl;
         cout << "===============================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 5) {
+        while (cin.fail() || opcion < 0 || opcion > 7) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
@@ -708,12 +701,22 @@ void MenuManager::menuReportes(){
             cout << "========================================================" << endl;
             cout << "        MENU DE GESTION DE REPORTES" << endl;
             cout << "========================================================" << endl;
-            cout << "1. Listar ventas por fecha" << endl;
-            cout << "2. Listar todos los clientes " << endl;
-            /*cout << "3. Eliminar empleado" << endl;
-            cout << "4. Mostrar empleados" << endl;*/
-            cout << "5. Mostrar fecha de la venta que mas recaudo" << endl;
-            cout << "0. Salir" << endl;
+            cout << " VENTAS:" << endl << endl;
+            cout << " 1. Listar ventas por fecha" << endl;
+            cout << " 2. Mostrar fecha de la venta que mas recaudo" << endl;
+            cout << " 3. Mostrar fecha que hubo mayor cantidad de ventas" << endl;
+            cout << endl;
+            cout << " CLIENTES:" << endl << endl;
+            cout << " 4. Listar todos los clientes " << endl;
+            cout << endl;
+            cout << " EMPLEADO:" << endl << endl;
+            cout << " 5. Empleado que mas recaudo por fecha" << endl;
+            cout << endl;
+            cout << " PRODUCTOS:" << endl << endl;
+            cout << " 6. Listar cantidad de productos vendidos por fecha" << endl <<endl;
+            cout << " 7. Balance de ganacias por mes" << endl;
+            cout << endl;
+            cout << " 0. Salir" << endl;
             cout << "===============================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;

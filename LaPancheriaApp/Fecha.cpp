@@ -119,6 +119,7 @@ int Fecha::getMes(){
 int Fecha::getAnio(){
     return _anio;
 }
+
 bool Fecha::operator==(Fecha aux){
     if(_dia!=aux._dia){
         return false;
@@ -130,4 +131,34 @@ bool Fecha::operator==(Fecha aux){
         return false;
     }
     return true;
+}
+
+bool Fecha::operator <= (Fecha aux){
+    if(_anio < aux.getAnio() ||
+       _anio == aux.getAnio() && _mes < aux.getMes() ||
+       _anio == aux.getAnio() && _mes == aux.getMes() && _dia <= aux.getDia() ){
+        return true;
+    }
+    else{
+        return false;
+    }
+
+}
+
+bool Fecha::operator >= (Fecha aux){
+    if(_anio > aux.getAnio() ||
+       _anio == aux.getAnio() && _mes > aux.getMes() ||
+       _anio == aux.getAnio() && _mes == aux.getMes() && _dia >= aux.getDia() ){
+        return true;
+    }
+    else{
+        return false;
+    }
+    /*
+    if(venta.obtenerFechaVenta().getAnio() > fechaDesde.getAnio() ||
+    (venta.obtenerFechaVenta().getAnio() == fechaDesde.getAnio() && venta.obtenerFechaVenta().getMes() > fechaDesde.getMes()) ||
+    (venta.obtenerFechaVenta().getAnio() == fechaDesde.getAnio() && venta.obtenerFechaVenta().getMes() == fechaDesde.getMes() && venta.obtenerFechaVenta().getDia() >= fechaDesde.getDia())){
+    */
+
+
 }
