@@ -685,14 +685,17 @@ void MenuManager::menuReportes(){
         cout << endl;
         cout << " PRODUCTOS:" << endl << endl;
         cout << " 6. Listar cantidad de productos vendidos por fecha" << endl <<endl;
-        cout << " 7. Balance de ganacias por mes" << endl;
+        cout << endl;
+        cout << " COSTOS:" << endl << endl;
+        cout << " 7. Balance por mes" << endl;
+        cout << " 8. Balance por fecha" << endl;
         cout << endl;
         cout << " 0. Salir" << endl;
         cout << "===============================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 7) {
+        while (cin.fail() || opcion < 0 || opcion > 8) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
@@ -714,7 +717,8 @@ void MenuManager::menuReportes(){
             cout << endl;
             cout << " PRODUCTOS:" << endl << endl;
             cout << " 6. Listar cantidad de productos vendidos por fecha" << endl <<endl;
-            cout << " 7. Balance de ganacias por mes" << endl;
+            cout << " 7. Balance por mes" << endl;
+            cout << " 8. Balance por fecha" << endl;
             cout << endl;
             cout << " 0. Salir" << endl;
             cout << "===============================" << endl;
@@ -756,6 +760,11 @@ void MenuManager::menuReportes(){
             case 7:
                 system("cls");
                 costoManager.balanceGananciaPorMes();
+                system("pause");
+                break;
+            case 8:
+                system("cls");
+                costoManager.balancePorFecha();
                 system("pause");
                 break;
             case 0:
