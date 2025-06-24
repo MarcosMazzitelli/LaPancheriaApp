@@ -679,6 +679,8 @@ void MenuManager::menuReportes(){
         cout << " 1. Listar ventas por fecha" << endl;
         cout << " 2. Mostrar fecha de la venta que mas recaudo" << endl;
         cout << " 3. Mostrar fecha que hubo mayor cantidad de ventas" << endl;
+        cout << " 9. La mayor recaudacion por periodo" << endl;
+        cout << " 10.La mayor cantidad de ventas por periodo" << endl;
         cout << endl;
         cout << " CLIENTES:" << endl << endl;
         cout << " 4. Listar todos los clientes " << endl;
@@ -688,14 +690,17 @@ void MenuManager::menuReportes(){
         cout << endl;
         cout << " PRODUCTOS:" << endl << endl;
         cout << " 6. Listar cantidad de productos vendidos por fecha" << endl <<endl;
-        cout << " 7. Balance de ganacias por mes" << endl;
+        cout << endl;
+        cout << " COSTOS:" << endl << endl;
+        cout << " 7. Balance por mes" << endl;
+        cout << " 8. Balance por fecha" << endl;
         cout << endl;
         cout << " 0. Salir" << endl;
         cout << "===============================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 7) {
+        while (cin.fail() || opcion < 0 || opcion > 10) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
@@ -706,8 +711,10 @@ void MenuManager::menuReportes(){
             cout << "========================================================" << endl;
             cout << " VENTAS:" << endl << endl;
             cout << " 1. Listar ventas por fecha" << endl;
-            cout << " 2. Mostrar fecha de la venta que mas recaudo" << endl;
+            cout << " 2. Mostrar fecha de la venta que mas recaudo (historica)" << endl;
             cout << " 3. Mostrar fecha que hubo mayor cantidad de ventas" << endl;
+            cout << " 9. La mayor recaudacion por periodo" << endl;
+            cout << " 10.La mayor cantidad de ventas por periodo" << endl;
             cout << endl;
             cout << " CLIENTES:" << endl << endl;
             cout << " 4. Listar todos los clientes " << endl;
@@ -717,7 +724,8 @@ void MenuManager::menuReportes(){
             cout << endl;
             cout << " PRODUCTOS:" << endl << endl;
             cout << " 6. Listar cantidad de productos vendidos por fecha" << endl <<endl;
-            cout << " 7. Balance de ganacias por mes" << endl;
+            cout << " 7. Balance por mes" << endl;
+            cout << " 8. Balance por fecha" << endl;
             cout << endl;
             cout << " 0. Salir" << endl;
             cout << "===============================" << endl;
@@ -759,6 +767,19 @@ void MenuManager::menuReportes(){
             case 7:
                 system("cls");
                 costoManager.balanceGananciaPorMes();
+                system("pause");
+                break;
+            case 9:
+                system("cls");
+                vManager.MayorRecaudacionPorPeriodo();
+                system("pause");
+                break;
+            case 10:
+                system("cls");
+                vManager.MayorRecaudacionPorPeriodo();
+            case 8:
+                system("cls");
+                costoManager.balancePorFecha();
                 system("pause");
                 break;
             case 0:

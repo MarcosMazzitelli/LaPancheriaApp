@@ -27,4 +27,6 @@ public:
     void listarVendedorMayorCantidadVentas();
     void listarVendedorMenorCantidadVentas();
 
+    void MayorRecaudacionPorPeriodo();
+    void mostrarFechaMayorCantidadVentasPorPeriodo();
 };
