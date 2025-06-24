@@ -166,10 +166,11 @@ void PersonaManager::cargarEmpleado(){
 
     e= Empleado(nombre, apellido, dni,idEmpleado,contrasenia,permiso,puesto,sueldo,fechaIngreso,fechaNacimiento,estado,email,nCelular);
 
-    if(a.buscar(e.getDni())==-1){
+    if(a.buscar(e.getDni()) < 0){
        a.guardar(e);
        cout << "Registro guardado correctamente." << endl;
     }else{
+        cout << a.buscar(e.getDni()) << endl << endl;
         cout << "Error al guardar el registro, el dni ya se encuentra registrado." << endl;
     }
 }

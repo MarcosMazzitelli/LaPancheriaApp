@@ -173,7 +173,7 @@ void MenuManager::menuVentas(std::string dni){
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 505) {
+        while (cin.fail() || opcion < 0 || opcion > 3 && opcion != 505) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero valido" << endl;
@@ -241,19 +241,26 @@ void MenuManager::menuVentasRestringido(std::string dni){
         cout << "========================================================" << endl;
         cout << "1. Cargar venta" << endl;
         cout << "2. Listar ventas" << endl;
-
         cout << "0. Salir" << endl;
         cout << "===============================" << endl;
         cout << "Ingrese una opcion: ";
-
         cin >> opcion;
-        if (cin.fail()) {
+
+        while (cin.fail() || opcion < 0 || opcion > 2 ) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la l�nea
             cout << "Entrada invalida. Por favor, ingrese un numero valido" << endl;
             system("pause");
             system("cls");
-            continue; //saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
+            cout << "========================================================" << endl;
+            cout << "        MENU DE GESTION DE VENTAS" << endl;
+            cout << "========================================================" << endl;
+            cout << "1. Cargar venta" << endl;
+            cout << "2. Listar ventas" << endl;
+            cout << "0. Salir" << endl;
+            cout << "===============================" << endl;
+            cout << "Ingrese una opcion: ";
+            cin >> opcion;
         }
 
         switch(opcion) {
@@ -281,20 +288,7 @@ void MenuManager::menuVentasRestringido(std::string dni){
                     return; //el while nunca llega a ejecutarse porque el case 0 hace return.
                 }
                 break;
-            default:
-                if (cin.fail()) {
-                    cin.clear(); // limpia el estado de error
-                    cin.ignore(1000, '\n'); // descarta el resto de la l�nea
-                    cout << "Entrada invalida. Por favor, ingrese un numero valido." << endl;
-                    system("pause");
-                    system("cls");
-                    //saltea el switch y hace que vuelva a mostrar el menu y pedir opcion
-                }
-                else{
-                    cout << "Opcion invalida. Por favor, ingrese un numero valido." << endl;
-                    system("pause");
-                }
-            }
+        }
     }
 }
 
