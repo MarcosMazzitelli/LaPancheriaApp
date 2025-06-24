@@ -76,7 +76,7 @@ void PersonaManager::cargarEmpleado(){
     system("cls");
 
     cout << "Puesto del empleado: \n";
-    cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Bachero \n 4-Despachante \n 5-Cajero \n 6-Encargado \n 7-Delivery \n 8-Mantenimiento" <<endl;
+    cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Bachero \n 4-Vendedor \n 5-Cajero \n 6-Encargado \n 7-Delivery \n 8-Mantenimiento" <<endl;
     cout << "Ingrese una opcion"<<endl;
     cin>>opcion;
     cin.ignore();
@@ -86,7 +86,7 @@ void PersonaManager::cargarEmpleado(){
         cout << "Ingrese una opcion valida! \n";
         limpiarPantalla();
         cout << "Puesto del empleado: \n";
-        cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Despanchante-Preparacion pedidos \n 4-Cajero \n 5-Encargado \n 6-Delivery/Repartidor \n 7-Personal de limpieza-Mantenimiento" <<endl;
+        cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Bachero \n 4-Vendedor \n 5-Cajero \n 6-Encargado \n 7-Delivery \n 8-Mantenimiento" <<endl;
         cout << "Ingrese una opcion"<<endl;
         cin >> opcion;
     }
@@ -101,7 +101,7 @@ void PersonaManager::cargarEmpleado(){
                 puesto= "Bachero";
                 break;
             case 4:
-                puesto= "Despanchante";
+                puesto= "Vendedor";
                 break;
             case 5:
                 puesto= "Cajero";
@@ -165,13 +165,18 @@ void PersonaManager::cargarEmpleado(){
     system("cls");
 
     e= Empleado(nombre, apellido, dni,idEmpleado,contrasenia,permiso,puesto,sueldo,fechaIngreso,fechaNacimiento,estado,email,nCelular);
-
-    if(a.buscar(e.getDni()) < 0){
-       a.guardar(e);
-       cout << "Registro guardado correctamente." << endl;
-    }else{
-        cout << a.buscar(e.getDni()) << endl << endl;
-        cout << "Error al guardar el registro, el dni ya se encuentra registrado." << endl;
+    opcion = pedirYValidarConfirmacion();
+    if (opcion == 1){
+        if(a.buscar(e.getDni()) < 0){
+           a.guardar(e);
+           cout << "Registro guardado correctamente." << endl;
+        }else{
+            cout << a.buscar(e.getDni()) << endl << endl;
+            cout << "Error al guardar el registro, el dni ya se encuentra registrado." << endl;
+        }
+    }
+    else{
+        cout << "Saliendo sin guardar..." << endl << endl;
     }
 }
 
@@ -427,7 +432,7 @@ void PersonaManager::modificarEmpleados(){
                             break;
                          case 6:
                             cout << "Nuevo puesto del empleado: \n";
-                            cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Bachero \n 4-Despachante \n 5-Cajero \n 6-Encargado \n 7-Delivery \n 8-Mantenimiento" <<endl;
+                            cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Bachero \n 4-Vendedor \n 5-Cajero \n 6-Encargado \n 7-Delivery \n 8-Mantenimiento" <<endl;
                             cout << "Ingrese una opcion"<<endl;
                             cin>>opcionP;
                             while(cin.fail() || opcionP < 1 || opcionP > 8){
@@ -436,7 +441,7 @@ void PersonaManager::modificarEmpleados(){
                                 cout << "Ingrese una opcion valida! \n";
                                 limpiarPantalla();
                                 cout << "Nuevo puesto del empleado: \n";
-                                cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Despanchante-Preparacion pedidos \n 4-Cajero \n 5-Encargado \n 6-Delivery/Repartidor \n 7-Personal de limpieza-Mantenimiento" <<endl;
+                                cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Bachero \n 4-Vendedor \n 5-Cajero \n 6-Encargado \n 7-Delivery \n 8-Mantenimiento" <<endl;
                                 cout << "Ingrese una opcion"<<endl;
                                 cin >> opcionP;
                             }
@@ -451,7 +456,7 @@ void PersonaManager::modificarEmpleados(){
                                         puesto= "Bachero";
                                         break;
                                     case 4:
-                                        puesto= "Despanchante";
+                                        puesto= "Vendedor";
                                         break;
                                     case 5:
                                         puesto= "Cajero";
@@ -466,6 +471,8 @@ void PersonaManager::modificarEmpleados(){
                                         puesto= "Mantenimiento";
                                         break;
                                     }
+                            modifico=true;
+                            empleado.setPuesto(puesto);
                             system("cls");
                             break;
                         case 7:
@@ -515,10 +522,14 @@ void PersonaManager::modificarEmpleados(){
                             opcion = pedirYValidarConfirmacion("\nDesea guardar antes de salir? \n1)Si  0)No \n");
                             if(opcion==1){
                                 if(modifico){
-                                    cout<<"Registro modificado correctamente"<<endl;
-                                    archivo.modificarEmpleado(empleado,pos);
+                                    if(archivo.modificarEmpleado(empleado,pos)){
+                                        cout<<"Registro modificado correctamente"<<endl;
+                                    }
+                                    else{
+                                        cout << "No se pudo modificar el registro."<< endl;
+                                    }
                                 }else{
-                                    cout << "No se pudo modificar el registro."<< endl;
+                                    cout << "No se han guardado cambios." << endl;
                                 }
                                 permanecer=false;
                                 cout << "Saliendo del programa...\n";
