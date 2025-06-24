@@ -24,15 +24,14 @@ void CostosManager::cargarCostosFijos(){
     bool estado=true;
     CostoFijo costo;
     CostoFijoArchivo archi;
-    bool bandera= false, validacion=false;
+    bool validacion=false;
     int opc, opcion, opcionNombre;
 
-    while(!bandera){
 
     idCosto=archi.getCantidadRegistros()+1;
 
     while(!validacion) {
-        cout << "\n--- Ingrese el nombre del costo fijo --- \n";
+        cout << "\n--- Seleccione un costo fijo --- \n";
         cout << endl;
         cout << "1. Alquiler \n";
         cout << "2. Agua \n";
@@ -43,7 +42,7 @@ void CostosManager::cargarCostosFijos(){
 
         cout << "Seleccione una opcion: ";
         cin >> opcionNombre;
-        while(cin.fail() || opcionNombre < 1 || opcionNombre > 5 ){
+        while(cin.fail() || opcionNombre < 1 || opcionNombre > 6 ){
             cin.clear();
             cin.ignore(1000,'\n');
             cout << "Ingrese un valor valido" << endl << endl;
@@ -51,7 +50,7 @@ void CostosManager::cargarCostosFijos(){
             system("cls");
 
             cout << endl << endl;
-            cout << "\n--- Ingrese el nombre del costo fijo --- \n";
+            cout << "\n--- Seleccione un costo fijo --- \n";
             cout << endl;
             cout << "1. Alquiler \n";
             cout << "2. Agua \n";
@@ -114,24 +113,13 @@ void CostosManager::cargarCostosFijos(){
         if(opc==1){
             if(archi.guardar(costo)){
                 cout<<"Costo Fijo guardado con exito"<< endl << endl;
-                limpiarPantalla();
+                //limpiarPantalla();
             }
             else{
                 cout<<"Hubo un problema al guardar el Costo Fijo"<< endl << endl;
             }
         }
 
-        opcion=pedirYValidarConfirmacion("Desea agregar otro costo fijo? \n1) si \n0) no \n\n");
-        if(opcion==1){
-            bandera=false;
-            limpiarPantalla();
-        }
-        else{
-            bandera=true;
-            limpiarPantalla();
-        }
-
-    }
 }
 
 void CostosManager::buscarCostoFijoPorNombre(){

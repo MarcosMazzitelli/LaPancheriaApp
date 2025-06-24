@@ -599,13 +599,13 @@ void MenuManager::menuCostos(){
         cout << "2. Modificar costo fijo " << endl;
         cout << "3. Eliminar costo fijo" << endl;
         cout << "4. Listar costos fijos por mes" << endl;
-        cout << "5. Listar costos totales por mes" << endl;
+        cout << "5. Listar todos los costos fijos" << endl;
         cout << "0. Salir" << endl;
         cout << "===============================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 5) {
+        while (cin.fail() || opcion < 0 || opcion > 5 && opcion != 505) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
@@ -618,7 +618,7 @@ void MenuManager::menuCostos(){
             cout << "2. Modificar costo fijo " << endl;
             cout << "3. Eliminar costo fijo" << endl;
             cout << "4. Listar costos fijos por mes" << endl;
-            cout << "5. Listar costos totales por mes" << endl;
+            cout << "5. Listar todos los costos fijos" << endl;
             cout << "0. Salir" << endl;
             cout << "===============================" << endl;
             cout << "Ingrese una opcion: ";
@@ -647,9 +647,17 @@ void MenuManager::menuCostos(){
                 break;
             case 5:
                 system("cls");
-                //manager Listar costos totales por mes
+                costoManager.listarCostosFijos();
                 system("pause");
                 break;
+            case 505:
+                system("cls");
+                for(int i=0; i<108; i++){
+                    costoManager.cargarCostosFijos();
+                }
+                system("pause");
+                break;
+
 
             case 0:
                 cout << "Confirma que desea salir? 1- si  0- no\n";
