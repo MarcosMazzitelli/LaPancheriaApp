@@ -856,7 +856,7 @@ void ProductosManager::listarProductosPorCategoria(int idCategoria){
 
 }
 
-void ProductosManager::listarProductosPorIngredientes(){
+bool ProductosManager::listarProductosPorIngredientes(){
     Ingrediente ing;
     ArchivoDetalleIngrediente archivoDetalleIng;
     DetalleIngrediente detalleIng;
@@ -885,12 +885,14 @@ void ProductosManager::listarProductosPorIngredientes(){
                 if(producto.getEstado()){ //por ultimo, si tambien el producto esta activo, se muestra el producto y sus ingredientes.
                     mostrarProductoYReceta(producto);
                     encontrado=true;
+                    return true;
                 }
             }
         }
     }
     if(!encontrado){
         cout << "Ningun producto activo contiene el ingrediente mencionado..." << endl << endl;
+        return false;
     }
 }
 

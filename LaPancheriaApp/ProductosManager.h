@@ -26,7 +26,7 @@ public:
     void listarProductos(bool estado);
     void listarProductosConIngredientes(bool estado);
     void listarProductosPorCategoria(int idCategoria);
-    void listarProductosPorIngredientes();
+    bool listarProductosPorIngredientes();
     void cantidadProductosVendidosPorFecha();
     void rankingProductosMasVendidos();
 

@@ -37,11 +37,11 @@ bool Validador::contiene(std::string texto, std::string atributo){
 void Validador::validadorFiltroFecha(Fecha &fechaDesde, Fecha &fechaHasta){
     bool rangoFechaIncorrecto=true;
     cout <<  "--------------------------------------------------------------------------------"<< endl;
-    cout << "FECHA INICIO BALANCE" << endl;
+    cout << "FECHA INICIO" << endl;
     cout <<  "--------------------------------------------------------------------------------"<< endl;
     fechaDesde.cargar();
     cout <<  "--------------------------------------------------------------------------------"<< endl;
-    cout << "FECHA FIN BALANCE" << endl;
+    cout << "FECHA FIN" << endl;
     cout <<  "--------------------------------------------------------------------------------"<< endl;
     fechaHasta.cargar();
 
@@ -53,11 +53,11 @@ void Validador::validadorFiltroFecha(Fecha &fechaDesde, Fecha &fechaHasta){
         system("cls");
         cout << "Las fechas ingresadas son invalidas. " << endl;
         cout <<  "--------------------------------------------------------------------------------"<< endl;
-        cout << "FECHA INICIO BALANCE" << endl;
+        cout << "FECHA INICIO" << endl;
         cout <<  "--------------------------------------------------------------------------------"<< endl;
         fechaDesde.cargar();
         cout <<  "--------------------------------------------------------------------------------"<< endl;
-        cout << "FECHA FIN BALANCE" << endl;
+        cout << "FECHA FIN" << endl;
         cout <<  "--------------------------------------------------------------------------------"<< endl;
         fechaHasta.cargar();
         if (fechaDesde <= fechaHasta){

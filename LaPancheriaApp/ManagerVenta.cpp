@@ -56,6 +56,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     int idProducto;
     int cantRegistrosProducto = archiProd.getCantidadRegistros();
     vector<DetalleVenta> vecDetalleVenta;
+    bool validacion;
 
     nroFactura = ventaArchi.getCantidadRegistros()+1; //autonumerico
 
@@ -68,15 +69,35 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
 
     bool cargaProductos=false;
     while (!cargaProductos){ ///ciclo para ingresar productos a una venta
-        prodManager.listarProductos(true); //reemplazar esto por una funcion o metodo de mostrar ingredientes para venta que sea mas legible para el vendedor(con menos atributos)
-        cout << "Desea filtrar productos que tengan un ingrediente en particular?" << endl;
-        opcion = pedirYValidarConfirmacion("\n1)Si \n0)No \n") ;
+        system("cls");
+        //prodManager.listarProductos(true);
+        opcion = pedirYValidarConfirmacion("\nDesea filtrar productos que tengan un ingrediente en particular? \n1)Si \n0)No \n") ;
         if(opcion == 1){
-            prodManager.listarProductosPorIngredientes();
+            while(opcion == 1){
+                if(prodManager.listarProductosPorIngredientes()){
+                    //si devuelve un producto con un ingrediente mencionado, fin del while
+                    opcion = 0;
+                }
+                else{
+                    //si no devuelve ningun ingrediente, se vuelve a pedir confirmacion para filtrar por ingrediente
+                    opcion = pedirYValidarConfirmacion("\nDesea filtrar productos que tengan un ingrediente en particular? \n1)Si \n0)No \n");
+                    if (opcion == 0){
+                        // si la opcion es 0, se muestra el listado normal de productos y fin del while
+                        prodManager.listarProductos(true);
+                    }
+                }
+            }
         }
+        else{
+            //si la priemr opcion es 0, se listan los productos normalmente
+            prodManager.listarProductos(true);
+        }
+
         cout << "Seleccione el producto que desee agregar: ";
         cin >> idProducto;
         while (cin.fail() || idProducto < 1 || idProducto > cantRegistrosProducto ){
+            cin.clear(); // limpia el estado de error
+            cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Ingrese un Id de producto valido" << endl << endl;
             system("pause");
             system("cls");
@@ -134,10 +155,10 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     opcion = pedirYValidarConfirmacion("Desea registrar la venta? \n1) si \n0) no \n\n");
     if(opcion == 1){
         if (ventaArchi.guardar(v)){
-            cout << "Registro guardado correctamente." << endl << endl;
+            cout << "Venta guardada correctamente." << endl;
         }
         else{
-            cout << "Hubo un problema al guardar el registro." << endl << endl;
+            cout << "Hubo un problema al guardar la venta." << endl;
         }
         descontarStock(vecDetalleVenta);
     }
@@ -156,7 +177,10 @@ void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta){
 
     for (int i=0; i < vecDetalleVenta.size(); i++){//for de productos distintos de mi venta
         if(archivoDetalleVenta.guardar(vecDetalleVenta[i])){
-                cout << "Producto guardado correctamente." << endl << endl;
+                cout << "Producto guardado correctamente." << endl;
+        }
+        else{
+            cout << "Hubo un problema al guardar el producto." << endl;
         }
         //leo una instancia de detalle venta
         for(int j=0; j < archivoDetalleIng.getCantidadRegistros(); j++){
@@ -166,13 +190,11 @@ void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta){
                 cantidadProducto = vecDetalleVenta[i].getCantProducto(); //traigo la cantidad de ese producto vendido
                 stockADescontar = cantidadProducto * cantidadProductoPorReceta; //obtengo la cantidad total de ingrediente. luego la descuento.
                 posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
-                cout << posicion << endl;
                 if (posicion >= 0){
                     ing = archivoIngrediente.leer(posicion);
                     ing.descontarStock(stockADescontar);
-                    cout << "Stock descontado correctamente." << endl << endl;
                     if (archivoIngrediente.modificar(ing,posicion)){
-                        cout << "Registro guardado" << endl;
+                        cout << "Stock descontado correctamente" << endl;
                     }
                     else{
                         cout << "Error al guardar stock "<< endl;
@@ -247,6 +269,7 @@ for(int i=0;i<cantRegistro;i++){
         cout<<endl;
         cout<<"=============================================================================================================="<<endl;
         vent.mostrarEnLista();
+        cout << endl << endl;
     }
 }
 if(cont==0){
@@ -444,8 +467,8 @@ void ManagerVenta::mostrarFechaMayorCantidadVentas(){
 
     if(mayor!=0){ //para mostrar la fecha y la cant de ventas
 
-        cout<<"La mayor cantidad de ventas que se registraron en un dia fueron: "<<mayor<<" ventas"<<endl<<endl;
-        cout<<"El/Los dia/s que se registro esa cantidad de ventas fue: "<<endl<<endl;
+        cout<<"La mayor cantidad de ventas que se registraron en un dia fueron: "<<mayor<<" venta/s"<<endl<<endl;
+        cout<<"El/Los dia/s que se registro esa cantidad de ventas fueron: " << endl << endl << "Fechas: " << endl;
 
         for(int i=0; i<vecContador.size(); i++){
             if(vecContador[i] == mayor){
@@ -510,7 +533,7 @@ void ManagerVenta::listarVendedorMayorRecaudacion(){
             e=archiE.leer(i);
             if(sumatoriaVentas[i]== mayorVenta && vendio[i] && e.getEstado()){
 
-                cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
+                cout << "ID: " << e.getIdEmpleado()<<"\nNOMBRE: "<<e.getNombre()<<"\nAPELLIDO: "<<e.getApellido()<<endl;
                 cout <<"---------------------------------------------------------------------------------------"<<endl;
             }
         }
@@ -555,14 +578,18 @@ void ManagerVenta::listarVendedorMenorRecaudacion(){
         if(venta.getFechaVenta()<= fechaHasta && venta.getFechaVenta() >= fechaDesde){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
             vendio[id]=true;
             sumatoriaVentas[id]+=venta.getImporteTotal();
-            if(cont==0){
-                menorVenta=sumatoriaVentas[id];
-            }
-            if(sumatoriaVentas[id] < menorVenta){
-                menorVenta=sumatoriaVentas[id];
-            }
+        }
+    }
+
+    for (int i=0; i< cantidadRegistros; i++){
+        if (vendio[i] ==true && cont == 0){
+            menorVenta= sumatoriaVentas[i];
             cont++;
         }
+        else if(vendio[i] && sumatoriaVentas[i] < menorVenta){
+            menorVenta = sumatoriaVentas[i];
+        }
+
     }
 
     if(menorVenta!=0){
@@ -572,7 +599,7 @@ void ManagerVenta::listarVendedorMenorRecaudacion(){
             e=archiE.leer(i);
             if(sumatoriaVentas[i]== menorVenta && vendio[i] && e.getEstado()){
 
-                cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
+                cout << "ID: " << e.getIdEmpleado()<<"\nNOMBRE: "<<e.getNombre()<<"\nAPELLIDO: "<<e.getApellido()<<endl;
                 cout <<"---------------------------------------------------------------------------------------"<<endl;
             }
         }
@@ -659,6 +686,7 @@ void ManagerVenta::listarVendedorMenorCantidadVentas(){
     float* sumatoriaVentas =nullptr;
     vendio = new bool[cantidadEmpleados];
     sumatoriaVentas = new float[cantidadEmpleados];
+    int cont=0;
 
     if(vendio==nullptr || sumatoriaVentas==nullptr){
         cout << "Ocurrio un error en el sistema. "<< endl;
@@ -682,9 +710,10 @@ void ManagerVenta::listarVendedorMenorCantidadVentas(){
     }
 
     for(int i=0; i<cantidadEmpleados;i++){
-        if(i==0){
+        if(cont == 0 && vendio[i]){
             menorCantidadVentas=sumatoriaVentas[i];
-        }else if(sumatoriaVentas[i] < menorCantidadVentas){
+            cont++;
+        }else if(sumatoriaVentas[i] < menorCantidadVentas && vendio[i]){
             menorCantidadVentas=sumatoriaVentas[i];
         }
     }
@@ -696,7 +725,7 @@ void ManagerVenta::listarVendedorMenorCantidadVentas(){
             e=archiE.leer(i);
             if(sumatoriaVentas[i]== menorCantidadVentas && vendio[i] && e.getEstado()){
 
-                cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
+                cout << "ID: " << e.getIdEmpleado()<<"\nNOMBRE: "<<e.getNombre()<<"\nAPELLIDO: "<<e.getApellido()<<endl;
                 cout <<"---------------------------------------------------------------------------------------"<<endl;
             }
         }
@@ -760,7 +789,7 @@ void ManagerVenta::listarVendedorMayorCantidadVentas(){
             e=archiE.leer(i);
             if(sumatoriaVentas[i]== mayorCantidadVentas && vendio[i] && e.getEstado()){
 
-                cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
+                cout << "ID: " << e.getIdEmpleado()<<"\nNOMBRE: "<<e.getNombre()<<"\nAPELLIDO: "<<e.getApellido()<<endl;
                 cout <<"---------------------------------------------------------------------------------------"<<endl;
             }
         }
@@ -871,8 +900,8 @@ void ManagerVenta::mostrarFechaMayorCantidadVentasPorPeriodo(){
     if(mayor!=0){ //para mostrar la fecha y la cant de ventas
 
         cout<<"La mayor cantidad de ventas que se registraron en el periodo de tiempo desde "<<fechaDesde.mostrarFecha()<<" hasta "<<fechaHasta.mostrarFecha()<<endl<<endl;
-        cout<<"la fecha es: "<<fecha.mostrarFecha();
-        cout<<"La mayor cantidad de ventas registrada fue de : "<<mayor<<endl;
+        cout<<"la fecha es: "<<fecha.mostrarFecha() << endl;
+        cout<<"La mayor cantidad de ventas registrada fue de: "<<mayor<<endl;
 
 
     }

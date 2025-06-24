@@ -791,12 +791,12 @@ void MenuManager::menuReportes(){
                 break;
             case 9:
                 system("cls");
-                vManager.listarVendedorMayorCantidadVentas();
+                vManager.listarVendedorMenorCantidadVentas();
                 system("pause");
                 break;
             case 10:
                 system("cls");
-                vManager.listarVendedorMenorCantidadVentas();
+                vManager.listarVendedorMayorCantidadVentas();
                 system("pause");
                 break;
             case 11:
@@ -813,6 +813,7 @@ void MenuManager::menuReportes(){
                 system("cls");
                 costoManager.balanceGananciaPorMes();
                 system("pause");
+                break;
             case 14:
                 system("cls");
                 costoManager.balancePorFecha();
