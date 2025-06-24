@@ -769,6 +769,7 @@ void ManagerVenta::listarVendedorMayorCantidadVentas(){
     }
     delete[]vendio;
     delete[]sumatoriaVentas;
+}
 void ManagerVenta::MayorRecaudacionPorPeriodo(){
 
     VentaArchivo archi;
