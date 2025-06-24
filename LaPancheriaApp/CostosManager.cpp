@@ -12,6 +12,7 @@
 #include "VentaArchivo.h"
 #include "DetalleVenta.h"
 #include "DetalleVentaArchivo.h"
+#include "Validador.h"
 using namespace std;
 
 
@@ -23,18 +24,72 @@ void CostosManager::cargarCostosFijos(){
     bool estado=true;
     CostoFijo costo;
     CostoFijoArchivo archi;
-    bool bandera= false;
-    int opc, opcion;
+    bool bandera= false, validacion=false;
+    int opc, opcion, opcionNombre;
 
     while(!bandera){
 
     idCosto=archi.getCantidadRegistros()+1;
 
-    cout << "Ingrese nombre del costo fijo"<<endl;
-    cin.ignore();
-    getline(cin,nombreCosto);
+    while(!validacion) {
+        cout << "\n--- Ingrese el nombre del costo fijo --- \n";
+        cout << endl;
+        cout << "1. Alquiler \n";
+        cout << "2. Agua \n";
+        cout << "3. Luz \n";
+        cout << "4. Gas \n";
+        cout << "5. Internet \n";
+        cout << "6. Otro \n";
 
-    bool confirmar = false;
+        cout << "Seleccione una opcion: ";
+        cin >> opcionNombre;
+        while(cin.fail() || opcionNombre < 1 || opcionNombre > 5 ){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            system("pause");
+            system("cls");
+
+            cout << endl << endl;
+            cout << "\n--- Ingrese el nombre del costo fijo --- \n";
+            cout << endl;
+            cout << "1. Alquiler \n";
+            cout << "2. Agua \n";
+            cout << "3. Luz \n";
+            cout << "4. Gas \n";
+            cout << "5. Internet \n";
+            cout << "6. Otro \n";
+
+            cout << "Seleccione una opcion: ";
+            cin >> opcionNombre;
+        }
+        switch (opcionNombre) {
+            case 1:
+                nombreCosto= "Alquier";
+                validacion = true;
+                break;
+            case 2:
+                nombreCosto= "Agua";
+                validacion = true;
+                break;
+            case 3:
+                nombreCosto= "Luz";
+                validacion = true;
+                break;
+            case 4:
+                nombreCosto= "Gas";
+                validacion = true;
+                break;
+            case 5:
+                nombreCosto= "Internet";
+                validacion = true;
+                break;
+            case 6:
+                nombreCosto= "Otro";
+                validacion = true;
+                break;
+        }
+    }
 
     cout <<endl<< "Ingrese el precio del costo fijo $ "<<endl;
     cin >> precio;
@@ -80,36 +135,41 @@ void CostosManager::cargarCostosFijos(){
 }
 
 void CostosManager::buscarCostoFijoPorNombre(){
-CostoFijo costoF;
-string nombreCosto;
-CostoFijoArchivo archi;
-int cont=0;
+    CostoFijo costoF;
+    string nombreCosto;
+    CostoFijoArchivo archi;
+    Validador validador;
+    int cont=0;
 
-int cantRegistros=archi.getCantidadRegistros();
+    int cantRegistros=archi.getCantidadRegistros();
 
-cout<<"Ingrese el nombre del Costo Fijo que quiere buscar"<<endl;
-cin.ignore();
-getline(cin,nombreCosto);
-
-for(int i=0;i<cantRegistros;i++){
-    costoF=archi.leer(i);
-
-    if(costoF.getNombreCosto()== nombreCosto){//alternativa marcos: aca se puede usar la funcion de clase validador "Contiene"
-        cont++;
-        cout<<"Costo Fijo Encontrado"<<endl;
-        cout<<endl;
-        costoF.mostrarTabla();
-        cout<<"--------------------------------------------------------------------------"<<endl;
-        cout<<endl;
-        costoF.mostrarEnLista();
-        cout<<"--------------------------------------------------------------------------"<<endl;
+    cout<<"Ingrese el nombre del Costo Fijo que quiere buscar"<<endl;
+    cin.ignore();
+    getline(cin,nombreCosto);
+    while(!validador.esTexto(nombreCosto)){
+        cout<<"Caracter incorrecto"<<endl;
+        cout<<"Ingrese el nombre del Costo Fijo que quiere buscar"<<endl;
+        cin.ignore();
+        getline(cin,nombreCosto);
     }
-    if(cont==0){
 
-        cout<<"No hay costos Fijos con ese nombre"<<endl;
+    for(int i=0;i<cantRegistros;i++){
+        costoF=archi.leer(i);
 
+        if(validador.contiene(nombreCosto, costoF.getNombreCosto()) && costoF.getEstado()){
+            cont++;
+            cout<<"Costo Fijo Encontrado"<<endl;
+            cout<<endl;
+            costoF.mostrarTabla();
+            cout<<"--------------------------------------------------------------------------"<<endl;
+            cout<<endl;
+            costoF.mostrarEnLista();
+            cout<<"--------------------------------------------------------------------------"<<endl;
+        }
+        if(cont==0){
+            cout<<"No hay costos Fijos con ese nombre"<<endl;
+        }
     }
-  }
 }
 
 void CostosManager::listarCostosFijos(){
@@ -130,7 +190,7 @@ void CostosManager::listarCostosFijos(){
         }
         else{
             cf=archi.leer(i);
-            if(cf.getEstado()==true){
+            if(cf.getEstado()){
             cf.mostrarEnLista();
             cout<<endl <<endl;
             }
@@ -199,13 +259,15 @@ void CostosManager::modificarCostoFijo(){
     string nombreCosto;
     bool modifico, principal=false, permanecer=true, seEncontro=false;
 
+    cantidadRegistros = archivo.getCantidadRegistros();
+
     while(!principal){
 
         listarCostosFijos();
         cout << "\n\n\n--------------MODIFICAR COSTO FIJO------------------" <<endl;
         cout << "Ingrese el ID del Costo Fijo a modificar " << endl;
         cin >> idCostoFijo;
-        while(cin.fail()){
+        while(cin.fail() || idCostoFijo <1 || idCostoFijo > cantidadRegistros){
             cin.clear();
             cin.ignore(1000,'\n');
             cout << "Ingrese una opcion valida! \n";
@@ -214,24 +276,17 @@ void CostosManager::modificarCostoFijo(){
             cout << "\n\n\n--------------MODIFICAR COSTO FIJO------------------" <<endl;
             cout << "Ingrese el ID del Costo Fijo a modificar " << endl;
             cin >> idCostoFijo;
-
         }
 
-        cantidadRegistros = archivo.getCantidadRegistros();
-         /*alternativa marcos: Aca ya tenemos el id del costo, no hace falta hacer un bucle para recorrer el archivo y comparar, podemos traer el costo directamente
-        buscandolo en el archivo con el metodo buscar*/
-        for(int i=0; i<cantidadRegistros;i++){
+            pos=archivo.buscar(idCostoFijo);
 
-            costoF=archivo.leer(i);
+            costoF=archivo.leer(pos);
 
-            if(costoF.getIdCosto()==idCostoFijo && costoF.getEstado()==true){
-
-                pos=i;
-                seEncontro=true;
+            if(costoF.getEstado()){
 
                 while(permanecer){
 
-                    cout<< "Opcion a modificar: \n 1-Nombre \n 2-Precio \n 3-Fecha " <<endl;
+                    cout<< "Opcion a modificar: \n 1-Precio \n 2-Fecha " <<endl;
                     cout << " Ingrese una opcion"<<endl;
                     cin>>opcion;
 
@@ -240,7 +295,7 @@ void CostosManager::modificarCostoFijo(){
                         cin.ignore(1000,'\n');
                         cout << "Ingrese una opcion valida! \n";
                         limpiarPantalla();
-                        cout<< "Opcion a modificar:  \n 1-Nombre \n 2-Precio \n 3-Fecha \n 4-Salir " <<endl;
+                        cout<< "Opcion a modificar:  \n 1-Precio \n 2-Fecha " <<endl;
                         cout << " Ingrese una opcion"<<endl;
                         cin>>opcion;
                     }
@@ -248,14 +303,6 @@ void CostosManager::modificarCostoFijo(){
 
                     switch(opcion){
                         case 1:
-                            cout << "Ingrese nuevo nombre: " << endl;
-                            cin.ignore();
-                            getline(cin,nombreCosto);
-                            costoF.setNombreCosto(nombreCosto);
-                            permanecer=false;
-                            limpiarPantalla();
-                            break;
-                        case 2:
                             cout << "Ingrese precio del costo: \n";
                             cin >> precio;
                             while(cin.fail() || precio<=0){
@@ -270,7 +317,7 @@ void CostosManager::modificarCostoFijo(){
                             permanecer=false;
                             limpiarPantalla();
                             break;
-                        case 3:
+                        case 2:
                             cout << "Ingrese nueva fecha: " << endl;
                             while(!fechaCosto.cargar()){
                                 fechaCosto.cargar();
@@ -300,10 +347,7 @@ void CostosManager::modificarCostoFijo(){
                 }
 
             }
-        }
-        if(!seEncontro){
-            cout<<"No se encontro un costo fijo con ID "<< idCostoFijo << endl;
-        }
+
 
         opcionValFinal=pedirYValidarConfirmacion("Desea modificar otro costo fijo? \n1) si \n0) no \n\n");
         if(opcionValFinal==1){
@@ -324,25 +368,34 @@ void CostosManager::eliminarCostoFijo(){
     CostoFijo costoF;
     bool modifico;
 
-    int id, cantidadRegistros,pos;
+    int idCosto, cantidadRegistros,pos;
+    cantidadRegistros = archivo.getCantidadRegistros();
 
     listarCostosFijos();
     cout << "\n\n\n----------------ELIMINAR COSTO FIJO------------------" <<endl;
     cout << "Ingrese el ID del costo fijo a eliminar " << endl << endl;
-    cin >> id;
-    cantidadRegistros = archivo.getCantidadRegistros();
-     /* alternativa marcos: al tener el ID no hace falta recorrer todo el archivo, podemos traer el registro directamente con el metodo buscar de costoFijoArchivo*/
-    for(int i=0; i<cantidadRegistros;i++){
-        costoF=archivo.leer(i);
-        if(costoF.getIdCosto()==id){
+    cin >> idCosto;
+            while(cin.fail() || idCosto <1 || idCosto > cantidadRegistros){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese una opcion valida! \n";
+            limpiarPantalla();
+            listarCostosFijos();
+            cout << "\n\n\n--------------MODIFICAR COSTO FIJO------------------" <<endl;
+            cout << "Ingrese el ID del Costo Fijo a modificar " << endl;
+            cin >> idCosto;
+        }
 
+    pos=archivo.buscar(idCosto);
+    costoF=archivo.leer(pos);
+
+        if(costoF.getEstado()){
             costoF.setEstado(false);
-            pos=i;
             modifico=archivo.guardarModificado(costoF,pos);
         }
-    }
+
     if(modifico){
-        cout<< "El costo fijo con ID: " << id <<" fue dado de baja."<<endl;
+        cout<< "El costo fijo con ID: " << idCosto <<" fue dado de baja."<<endl;
     }else{
         cout << "El costo fijo no pudo ser dado de baja. No existente." <<endl;
     }
@@ -440,3 +493,124 @@ void CostosManager::balanceGananciaPorMes(){
     cout<<"LAS GANANCIAS DEL MES "<<mes<<" DEL ANIO "<<anio<< " ES DE: "<<ganancia<<endl<<endl;
 
 }
+void CostosManager::balancePorFecha(){
+    CostoFijo costoF;
+    CostoFijoArchivo archiCostoF;
+    Empleado empleado;
+    ArchivoEmpleado archiEmpleado;
+    Venta venta;
+    VentaArchivo archiVenta;
+    DetalleVenta detalleV;
+    DetalleVentaArchivo archiDetalleV;
+    Fecha fechaDesde, fechaHasta;
+    Validador validador;
+
+    int mes, anio, nroF, cantSueldos;
+    float sueldo, acuCostoF=0, acuCostoEmpleado=0,acuCostoIngrediente=0,acuCantidad=0,acuVentaTotal=0, costosDelPeriodo, ganancia;
+
+    cout << "--------------BALANCE POR FECHA------------------" <<endl;
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+
+    //costos fijos
+    int cantRegistroCostoF=archiCostoF.getCantidadRegistros();
+
+    for(int i=0; i<cantRegistroCostoF; i++){
+        costoF=archiCostoF.leer(i);
+
+        if (costoF.getFechaCosto() <= fechaHasta ){ ///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+
+            if (costoF.getFechaCosto() >= fechaDesde ){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+
+                if(costoF.getEstado()){
+                    acuCostoF+=costoF.getPrecio();
+                }
+            }
+        }
+    }
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    cout << "TOTAL DE COSTOS FIJOS DESDE: " <<  fechaDesde.mostrarFecha() << ", HASTA: " <<   fechaHasta.mostrarFecha() << " $"<<acuCostoF<< endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
+
+
+
+    //costo empleados
+    int cantRegistroEmpleado=archiEmpleado.getCantidadRegistros();
+
+    for(int i=0; i<cantRegistroEmpleado; i++){
+        empleado=archiEmpleado.leer(i);
+
+        if(empleado.getEstado()){
+            if(fechaDesde.getAnio() == fechaHasta.getAnio()){
+                if(fechaHasta.getMes()<fechaDesde.getMes()){
+                cantSueldos=fechaHasta.getMes()-fechaDesde.getMes();
+                sueldo=empleado.getSueldo()*cantSueldos;
+                acuCostoEmpleado+=sueldo;
+                }
+                else{
+                sueldo=empleado.getSueldo();
+                acuCostoEmpleado+=sueldo;
+                }
+            }
+            else{
+                anio=(fechaHasta.getAnio() - fechaDesde.getAnio())*12;
+                mes=fechaHasta.getMes() - fechaDesde.getMes();
+                cantSueldos=anio-mes;
+                sueldo=empleado.getSueldo()*cantSueldos;
+                acuCostoEmpleado+=sueldo;
+            }
+
+        }
+    }
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    cout << "TOTAL DE COSTOS EMPLEADOS DESDE: " <<  fechaDesde.mostrarFecha() << ", HASTA: " <<   fechaHasta.mostrarFecha() <<" $"<<acuCostoEmpleado << endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
+
+
+    //costo ingredientes
+    int cantRegistroVenta=archiVenta.getCantidadRegistros();
+    int cantRegistroDetalleV=archiDetalleV.getCantidadRegistros();
+
+    for(int i=0; i<cantRegistroVenta; i++){
+        venta=archiVenta.leer(i);
+        for(int j=0; j<cantRegistroDetalleV; j++){
+            detalleV=archiDetalleV.leer(j);
+            if (venta.getFechaVenta() <= fechaHasta ){ ///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+
+                if (venta.getFechaVenta() >= fechaDesde ){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+
+                    if(venta.getNroFactura() == detalleV.getNroFactura()){
+                        acuCantidad=detalleV.getCostoUnitario()*detalleV.getCantProducto();
+                        acuCostoIngrediente+=acuCantidad;
+                    }
+                }
+            }
+        }
+    }
+
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    cout << "TOTAL DE COSTOS DE PRODUCTOS VENDIDOS DESDE: " <<  fechaDesde.mostrarFecha() << ", HASTA: " <<   fechaHasta.mostrarFecha()<<" $"<<acuCostoIngrediente << endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
+
+
+    //costos del periodo
+    costosDelPeriodo=acuCostoF+acuCostoEmpleado+acuCostoIngrediente;
+
+    for(int i=0; i<cantRegistroVenta;i++){
+        venta=archiVenta.leer(i);
+        if (venta.getFechaVenta() <= fechaHasta ){ ///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+            if (venta.getFechaVenta() >= fechaDesde ){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+                acuVentaTotal+=venta.getImporteTotal();
+            }
+        }
+    }
+
+    ganancia=acuVentaTotal-costosDelPeriodo;
+
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    cout << "BALANCE DEL PERIODO: " <<  fechaDesde.mostrarFecha() << ", HASTA: " <<   fechaHasta.mostrarFecha() <<" $"<<ganancia<< endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
+
+}
+
+
+

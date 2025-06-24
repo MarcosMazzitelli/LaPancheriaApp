@@ -9,12 +9,13 @@ public:
 
 //METODOS
       void cargarCostosFijos();
-      void buscarCostoFijoPorNombre();
+      void buscarCostoFijoPorNombre(); //en el archivo deberia ir
       void listarCostosFijos();
       void listarCostosFijosPorFecha();
       void modificarCostoFijo();
       void eliminarCostoFijo();
       void balanceGananciaPorMes();
+      void balancePorFecha();
 
 
 

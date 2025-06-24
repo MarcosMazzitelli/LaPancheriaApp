@@ -687,7 +687,10 @@ void MenuManager::menuReportes(){
         cout << endl;
         cout << " PRODUCTOS:" << endl << endl;
         cout << " 6. Listar cantidad de productos vendidos por fecha" << endl <<endl;
-        cout << " 7. Balance de ganacias por mes" << endl;
+        cout << endl;
+        cout << " COSTOS:" << endl << endl;
+        cout << " 7. Balance por mes" << endl;
+        cout << " 8. Balance por fecha" << endl;
         cout << endl;
         cout << " 0. Salir" << endl;
         cout << "===============================" << endl;
@@ -718,7 +721,8 @@ void MenuManager::menuReportes(){
             cout << endl;
             cout << " PRODUCTOS:" << endl << endl;
             cout << " 6. Listar cantidad de productos vendidos por fecha" << endl <<endl;
-            cout << " 7. Balance de ganacias por mes" << endl;
+            cout << " 7. Balance por mes" << endl;
+            cout << " 8. Balance por fecha" << endl;
             cout << endl;
             cout << " 0. Salir" << endl;
             cout << "===============================" << endl;
@@ -770,6 +774,9 @@ void MenuManager::menuReportes(){
             case 10:
                 system("cls");
                 vManager.MayorRecaudacionPorPeriodo();
+            case 8:
+                system("cls");
+                costoManager.balancePorFecha();
                 system("pause");
                 break;
             case 0:
