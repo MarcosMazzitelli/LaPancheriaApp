@@ -32,7 +32,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     FormaDePagoArchivo fdpArchi;
     ArchivoProducto archiProd;
     VentaArchivo ventaArchi;
-    DetalleVentaArchivo archiDetVenta;
+    DetalleVentaArchivo archiDetVenta;/// NO se guardo los detalles de ventas en archivo
     ArchivoEmpleado empArchi;
 
     Fecha fechaVenta;
@@ -119,7 +119,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     }
 
 
-    v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
+    v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);///Mandar fdp no forma de pago
 
     opcion = pedirYValidarConfirmacion("Desea registrar la venta? \n1) si \n0) no \n\n");
     if(opcion == 1){
@@ -390,6 +390,7 @@ void ManagerVenta::mostrarFechaMayorCantidadVentas(){
     VentaArchivo archi;
     Venta vent;
 
+
     std::vector<Fecha> vecFecha{};
     std::vector<int> vecContador{};
     int cantRegistro=archi.getCantidadRegistros();
@@ -527,13 +528,11 @@ void ManagerVenta::MayorRecaudacionPorPeriodo(){
                             mayorVenta=vent.getImporteTotal();
                             aux=vent.getFechaVenta();
                         }
-
-
             }
-
         }
     }
     if(mayorVenta<=0){
+        cout<<endl;
         cout<<"NO HAY VENTAS REGISTRADAS EN ESE PERIODO DE TIEMPO"<<endl;
     }else{
         cout <<  "--------------------------------------------------------------------------------"<< endl;
@@ -541,6 +540,75 @@ void ManagerVenta::MayorRecaudacionPorPeriodo(){
         cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
         cout<< aux.mostrarFecha()<< " Y EL MONTO RECAUDADO FUE DE:  $" <<  mayorVenta << endl;
 
+    }
+}
+
+void ManagerVenta::mostrarFechaMayorCantidadVentasPorPeriodo(){
+
+
+
+    Fecha fecha,fechaDesde,fechaHasta;
+    VentaArchivo archi;
+    Venta vent;
+    Validador validador;
+
+
+    std::vector<Fecha> vecFecha{};
+    std::vector<int> vecContador{};
+    int cantRegistro=archi.getCantidadRegistros();
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+    bool coincidencia=false;
+
+    int mayor=0;
+    int cont=0;
+
+    for(int i=0;i<cantRegistro;i++){ //carga vec de fecha y vec contador, con las ventas registradas en el archivo
+        vent=archi.leer(i);
+        coincidencia=false;
+        if (vent.getFechaVenta() <= fechaHasta ){
+            if (vent.getFechaVenta() >= fechaDesde ){
+                    if(i==0){
+                    vecFecha.push_back(vent.getFechaVenta());
+                    vecContador.push_back(1);
+                    }
+                    else{
+                        for(int j=0; j<vecFecha.size();j++){//comparar que no exista esa fecha en el vecFecha, y si existe solo que tiene q aumentar el vecCont
+
+                            if(vent.getFechaVenta() == vecFecha[j]){ //sobrecarga de operadores
+                            vecContador[j]++;
+                            coincidencia=true;
+                            }
+                        }
+                        if(!coincidencia){
+                        vecFecha.push_back(vent.getFechaVenta());
+                        vecContador.push_back(1);
+                        }
+                    }
+            }
+        }
+    }
+    for(int i=0;i<vecContador.size();i++){//determina cual es la fecha donde se realizaron mas ventas
+
+        if(i==0){
+            mayor=vecContador[i];
+            fecha=vecFecha[i];
+        }
+        else if(vecContador[i]>mayor){
+                mayor=vecContador[i];
+                fecha=vecFecha[i];
+        }
+
+    }
+    if(mayor!=0){ //para mostrar la fecha y la cant de ventas
+
+        cout<<"La mayor cantidad de ventas que se registraron en el periodo de tiempo desde "<<fechaDesde.mostrarFecha()<<" hasta "<<fechaHasta.mostrarFecha()<<endl<<endl;
+        cout<<"la fecha es: "<<fecha.mostrarFecha();
+        cout<<"La mayor cantidad de ventas registrada fue de : "<<mayor<<endl;
+
+
+    }
+    else{
+        cout<<"No hay ventas registradas"<<endl;
     }
 
 
