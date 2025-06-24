@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "Empleado.h"
 
 class MenuManager{
 private:

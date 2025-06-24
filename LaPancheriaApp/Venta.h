@@ -1,5 +1,4 @@
-#ifndef VENTA_H_INCLUDED
-#define VENTA_H_INCLUDED
+#pragma once
 #include <string>
 #include "Fecha.h"
 
@@ -41,4 +40,3 @@ public:
 
 
 
-#endif // VENTA_H_INCLUDED

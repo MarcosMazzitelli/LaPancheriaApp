@@ -1,9 +1,6 @@
-#ifndef DETALLEVENTA_H_INCLUDED
-#define DETALLEVENTA_H_INCLUDED
+#pragma once
 #include <string>
 
-#include <cstring>
-#include <iostream>
 
 class DetalleVenta{
 private:
@@ -48,4 +45,3 @@ public:
 
 
 
-#endif // DETALLEVENTA_H_INCLUDED

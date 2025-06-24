@@ -1,5 +1,4 @@
-#ifndef FORMADEPAGO_H_INCLUDED
-#define FORMADEPAGO_H_INCLUDED
+#pragma once
 #include <string>
 
 
@@ -41,4 +40,3 @@ public:
 
 };
 
-#endif // FORMADEPAGO_H_INCLUDED

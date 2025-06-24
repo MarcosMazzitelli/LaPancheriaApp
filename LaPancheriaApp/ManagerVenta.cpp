@@ -21,8 +21,6 @@
 #include "Ingrediente.h"
 #include "ArchivoDetalleIngrediente.h"
 #include "Validador.h"
-#include <vector>
-#include "Validador.h"
 
 using namespace std;
 
@@ -609,67 +607,7 @@ void ManagerVenta::listarVendedorMenorRecaudacion(){
     delete[]vendio;
     delete[]sumatoriaVentas;
  }
-  /*  void ManagerVenta::listarVendedorMenorRecaudacion(){
-    Fecha fechaDesde,fechaHasta;
-    VentaArchivo archi;
-    Venta venta;
-    ArchivoEmpleado archiE;
-    Empleado e;
-    Validador validador;
 
-    int cantidadEmpleados=archiE.getCantidadRegistros();
-    float menorVenta=0.0;
-    int id, cont = 0 ,cantidadRegistros=archi.getCantidadRegistros();
-
-    bool* vendio = nullptr;
-    float* sumatoriaVentas =nullptr;
-    vendio = new bool[cantidadEmpleados];
-    sumatoriaVentas = new float[cantidadEmpleados];
-
-    if(vendio==nullptr || sumatoriaVentas==nullptr){
-        cout << "Ocurrio un error en el sistema. "<< endl;
-        return;
-    }
-    for(int i=0; i<cantidadEmpleados;i++){
-        vendio[i]=false;
-        sumatoriaVentas[i]=0.0;
-    }
-
-    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
-
-    for(int i=0;i<cantidadRegistros;i++){
-        venta=archi.leer(i);
-        id=venta.getIdEmpleado()-1;
-        if(venta.getFechaVenta()<= fechaHasta && venta.getFechaVenta() >= fechaDesde){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
-            vendio[id]=true;
-            sumatoriaVentas[id]+=venta.getImporteTotal();
-            if(cont==0){
-                menorVenta=sumatoriaVentas[id];
-            }
-            if(sumatoriaVentas[id] < menorVenta){
-                menorVenta=sumatoriaVentas[id];
-            }
-            cont++;
-        }
-    }
-
-    if(mayorVenta!=0){
-        cout << "Empleado/s con el menor monto de ventas acumuladas de $ " << mayorVenta<< endl;
-         cout <<"---------------------------------------------------------------------------------------"<<endl;
-        for(int i=0; i<cantidadEmpleados; i++){
-            e=archiE.leer(i);
-            if(sumatoriaVentas[i]== menorVenta && vendio[i] && e.getEstado()){
-
-                cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
-                cout <<"---------------------------------------------------------------------------------------"<<endl;
-            }
-        }
-    }else{
-        cout<< "No hay ventas registradas en el periodo ingresado"<< endl;
-    }
-    delete[]vendio;
-    delete[]sumatoriaVentas;
-}*/
 void ManagerVenta::listarVendedorMenorCantidadVentas(){
     Fecha fechaDesde,fechaHasta;
     VentaArchivo archi;

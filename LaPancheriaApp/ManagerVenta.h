@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "Fecha.h"
 #include <vector>
 #include "DetalleVenta.h"
 

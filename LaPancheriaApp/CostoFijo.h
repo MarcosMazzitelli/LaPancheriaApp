@@ -1,5 +1,4 @@
-#ifndef COSTOFIJO_H_INCLUDED
-#define COSTOFIJO_H_INCLUDED
+#pragma once
 #include <string>
 #include "Fecha.h"
 
@@ -37,4 +36,3 @@ public:
 
 
 
-#endif // COSTOFIJO_H_INCLUDED

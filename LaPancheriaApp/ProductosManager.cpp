@@ -6,7 +6,6 @@
 #include "IngredientesManager.h"
 #include "Ingrediente.h"
 #include "Utilidades.h"
-//#include <vector>
 #include <iomanip>
 #include <iostream>
 #include "Validador.h"
@@ -1045,16 +1044,7 @@ void ProductosManager::cantidadProductosVendidosPorFecha(){
             detVenta = archiDetalleV.leer(x);
 
             if (venta.getFechaVenta() <= fechaHasta ){ ///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
-            /*
-            if(venta.obtenerFechaVenta().getAnio() < fechaHasta.getAnio() ||
-               (venta.obtenerFechaVenta().getAnio() == fechaHasta.getAnio() && venta.obtenerFechaVenta().getMes() < fechaHasta.getMes()) ||
-               (venta.obtenerFechaVenta().getAnio() == fechaHasta.getAnio() && venta.obtenerFechaVenta().getMes() == fechaHasta.getMes() && venta.obtenerFechaVenta().getDia() <= fechaHasta.getDia())){
-                */
                 if (venta.getFechaVenta() >= fechaDesde ){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
-                /*if(venta.obtenerFechaVenta().getAnio() > fechaDesde.getAnio() ||
-                   (venta.obtenerFechaVenta().getAnio() == fechaDesde.getAnio() && venta.obtenerFechaVenta().getMes() > fechaDesde.getMes()) ||
-                   (venta.obtenerFechaVenta().getAnio() == fechaDesde.getAnio() && venta.obtenerFechaVenta().getMes() == fechaDesde.getMes() && venta.obtenerFechaVenta().getDia() >= fechaDesde.getDia())){
-                    */
                     if(venta.getNroFactura() == detVenta.getNroFactura()){
                         vectorProductosVendidos[detVenta.getIdProducto()-1] +=  detVenta.getCantProducto();
                     }
