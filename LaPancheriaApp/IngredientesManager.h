@@ -20,5 +20,4 @@ public:
 
     ///listados
     void listarIngredientes(bool estado);
-    void mostrarIngredientesCompletos(bool estado);
 };
