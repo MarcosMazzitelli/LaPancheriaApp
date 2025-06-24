@@ -31,8 +31,8 @@ public:
     void setEstado (bool estado);
 
     //metodos
-    void cargarFormaDePago();
-    void elegirFormaDePago(int &opc);
+    void cargarFormaDePago(); //agregar una forma de pago nueva
+    void elegirFormaDePago(int &opc); //la usamos cuando cargamos una venta
     void mostrarTabla();
     void mostrarEnLista();
     void mostrar();

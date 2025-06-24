@@ -20,7 +20,9 @@
 #include "ArchivoIngrediente.h"
 #include "Ingrediente.h"
 #include "ArchivoDetalleIngrediente.h"
+#include "Validador.h"
 #include <vector>
+#include "Validador.h"
 
 using namespace std;
 
@@ -31,7 +33,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     FormaDePagoArchivo fdpArchi;
     ArchivoProducto archiProd;
     VentaArchivo ventaArchi;
-    DetalleVentaArchivo archiDetVenta;
+    DetalleVentaArchivo archiDetVenta;/// NO se guardo los detalles de ventas en archivo
     ArchivoEmpleado empArchi;
 
     Fecha fechaVenta;
@@ -127,7 +129,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     }
 
 
-    v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
+    v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);///Mandar fdp no forma de pago
 
     opcion = pedirYValidarConfirmacion("Desea registrar la venta? \n1) si \n0) no \n\n");
     if(opcion == 1){
@@ -361,9 +363,12 @@ void ManagerVenta::mostrarFechaMayorRecaudacionVenta(){
     Venta vent;
     Fecha aux;
 
-    int cantRegistro=archi.getCantidadRegistros();
 
+
+    int cantRegistro=archi.getCantidadRegistros();
     float mayorVenta=0.0;
+
+
     for(int i=0; i<cantRegistro;i++){
         vent=archi.leer(i);
 
@@ -394,6 +399,7 @@ void ManagerVenta::mostrarFechaMayorCantidadVentas(){
     Fecha fecha;
     VentaArchivo archi;
     Venta vent;
+
 
     std::vector<Fecha> vecFecha{};
     std::vector<int> vecContador{};
@@ -452,16 +458,18 @@ void ManagerVenta::mostrarFechaMayorCantidadVentas(){
         cout<<"No hay ventas registradas"<<endl;
         }
 }
-void ManagerVenta::listarVendedorMayorRecaudacion(){
 
+void ManagerVenta::listarVendedorMayorRecaudacion(){
+    Fecha fechaDesde,fechaHasta;
     VentaArchivo archi;
     Venta venta;
     ArchivoEmpleado archiE;
     Empleado e;
+    Validador validador;
+
     int cantidadEmpleados=archiE.getCantidadRegistros();
     float mayorVenta=0.0;
-    int id;
-    int cantidadRegistros=archi.getCantidadRegistros();
+    int id, cont = 0 ,cantidadRegistros=archi.getCantidadRegistros();
 
     bool* vendio = nullptr;
     float* sumatoriaVentas =nullptr;
@@ -476,15 +484,22 @@ void ManagerVenta::listarVendedorMayorRecaudacion(){
         vendio[i]=false;
         sumatoriaVentas[i]=0.0;
     }
+
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+
     for(int i=0;i<cantidadRegistros;i++){
         venta=archi.leer(i);
-        id=venta.getIdEmpleado();
-        vendio[id]=true;
-        sumatoriaVentas[id]+=venta.getImporteTotal();
-        if(i==0){
-            mayorVenta=sumatoriaVentas[id];
-        }else if(sumatoriaVentas[id]>mayorVenta){
-            mayorVenta=sumatoriaVentas[id];
+        id=venta.getIdEmpleado()-1;
+        if(venta.getFechaVenta()<= fechaHasta && venta.getFechaVenta() >= fechaDesde){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+            vendio[id]=true;
+            sumatoriaVentas[id]+=venta.getImporteTotal();
+            if(cont==0){
+                mayorVenta=sumatoriaVentas[id];
+            }
+            if(sumatoriaVentas[id]>mayorVenta){
+                mayorVenta=sumatoriaVentas[id];
+            }
+            cont++;
         }
     }
 
@@ -504,4 +519,366 @@ void ManagerVenta::listarVendedorMayorRecaudacion(){
     }
     delete[]vendio;
     delete[]sumatoriaVentas;
+}
+
+void ManagerVenta::listarVendedorMenorRecaudacion(){
+    Fecha fechaDesde,fechaHasta;
+    VentaArchivo archi;
+    Venta venta;
+    ArchivoEmpleado archiE;
+    Empleado e;
+    Validador validador;
+
+    int cantidadEmpleados=archiE.getCantidadRegistros();
+    float menorVenta=0.0;
+    int id, cont = 0 ,cantidadRegistros=archi.getCantidadRegistros();
+
+    bool* vendio = nullptr;
+    float* sumatoriaVentas =nullptr;
+    vendio = new bool[cantidadEmpleados];
+    sumatoriaVentas = new float[cantidadEmpleados];
+
+    if(vendio==nullptr || sumatoriaVentas==nullptr){
+        cout << "Ocurrio un error en el sistema. "<< endl;
+        return;
+    }
+    for(int i=0; i<cantidadEmpleados;i++){
+        vendio[i]=false;
+        sumatoriaVentas[i]=0.0;
+    }
+
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+
+    for(int i=0;i<cantidadRegistros;i++){
+        venta=archi.leer(i);
+        id=venta.getIdEmpleado()-1;
+        if(venta.getFechaVenta()<= fechaHasta && venta.getFechaVenta() >= fechaDesde){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+            vendio[id]=true;
+            sumatoriaVentas[id]+=venta.getImporteTotal();
+            if(cont==0){
+                menorVenta=sumatoriaVentas[id];
+            }
+            if(sumatoriaVentas[id] < menorVenta){
+                menorVenta=sumatoriaVentas[id];
+            }
+            cont++;
+        }
+    }
+
+    if(menorVenta!=0){
+        cout << "Empleado/s con el menor monto de ventas acumuladas de $ " << menorVenta<< endl;
+        cout <<"---------------------------------------------------------------------------------------"<<endl;
+        for(int i=0; i<cantidadEmpleados; i++){
+            e=archiE.leer(i);
+            if(sumatoriaVentas[i]== menorVenta && vendio[i] && e.getEstado()){
+
+                cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
+                cout <<"---------------------------------------------------------------------------------------"<<endl;
+            }
+        }
+    }else{
+        cout<< "Aun no se han registrado ventas"<< endl;
+    }
+    delete[]vendio;
+    delete[]sumatoriaVentas;
+ }
+  /*  void ManagerVenta::listarVendedorMenorRecaudacion(){
+    Fecha fechaDesde,fechaHasta;
+    VentaArchivo archi;
+    Venta venta;
+    ArchivoEmpleado archiE;
+    Empleado e;
+    Validador validador;
+
+    int cantidadEmpleados=archiE.getCantidadRegistros();
+    float menorVenta=0.0;
+    int id, cont = 0 ,cantidadRegistros=archi.getCantidadRegistros();
+
+    bool* vendio = nullptr;
+    float* sumatoriaVentas =nullptr;
+    vendio = new bool[cantidadEmpleados];
+    sumatoriaVentas = new float[cantidadEmpleados];
+
+    if(vendio==nullptr || sumatoriaVentas==nullptr){
+        cout << "Ocurrio un error en el sistema. "<< endl;
+        return;
+    }
+    for(int i=0; i<cantidadEmpleados;i++){
+        vendio[i]=false;
+        sumatoriaVentas[i]=0.0;
+    }
+
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+
+    for(int i=0;i<cantidadRegistros;i++){
+        venta=archi.leer(i);
+        id=venta.getIdEmpleado()-1;
+        if(venta.getFechaVenta()<= fechaHasta && venta.getFechaVenta() >= fechaDesde){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+            vendio[id]=true;
+            sumatoriaVentas[id]+=venta.getImporteTotal();
+            if(cont==0){
+                menorVenta=sumatoriaVentas[id];
+            }
+            if(sumatoriaVentas[id] < menorVenta){
+                menorVenta=sumatoriaVentas[id];
+            }
+            cont++;
+        }
+    }
+
+    if(mayorVenta!=0){
+        cout << "Empleado/s con el menor monto de ventas acumuladas de $ " << mayorVenta<< endl;
+         cout <<"---------------------------------------------------------------------------------------"<<endl;
+        for(int i=0; i<cantidadEmpleados; i++){
+            e=archiE.leer(i);
+            if(sumatoriaVentas[i]== menorVenta && vendio[i] && e.getEstado()){
+
+                cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
+                cout <<"---------------------------------------------------------------------------------------"<<endl;
+            }
+        }
+    }else{
+        cout<< "No hay ventas registradas en el periodo ingresado"<< endl;
+    }
+    delete[]vendio;
+    delete[]sumatoriaVentas;
+}*/
+void ManagerVenta::listarVendedorMenorCantidadVentas(){
+    Fecha fechaDesde,fechaHasta;
+    VentaArchivo archi;
+    Venta venta;
+    ArchivoEmpleado archiE;
+    Empleado e;
+    Validador validador;
+
+    int cantidadEmpleados=archiE.getCantidadRegistros();
+    int cantVentas=0,menorCantidadVentas=0;
+    int id,cantidadRegistros=archi.getCantidadRegistros();
+    bool ventasRegistradas=false;
+    bool* vendio = nullptr;
+    float* sumatoriaVentas =nullptr;
+    vendio = new bool[cantidadEmpleados];
+    sumatoriaVentas = new float[cantidadEmpleados];
+
+    if(vendio==nullptr || sumatoriaVentas==nullptr){
+        cout << "Ocurrio un error en el sistema. "<< endl;
+        return;
+    }
+    for(int i=0; i<cantidadEmpleados;i++){
+        vendio[i]=false;
+        sumatoriaVentas[i]=0.0;
+    }
+
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+
+    for(int i=0;i<cantidadRegistros;i++){
+        venta=archi.leer(i);
+        id=venta.getIdEmpleado()-1;
+        if(venta.getFechaVenta()<= fechaHasta && venta.getFechaVenta() >= fechaDesde){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+            vendio[id]=true;
+            sumatoriaVentas[id]+=1;
+            ventasRegistradas=true;
+        }
+    }
+
+    for(int i=0; i<cantidadEmpleados;i++){
+        if(i==0){
+            menorCantidadVentas=sumatoriaVentas[i];
+        }else if(sumatoriaVentas[i] < menorCantidadVentas){
+            menorCantidadVentas=sumatoriaVentas[i];
+        }
+    }
+
+    if(ventasRegistradas){
+        cout << "Empleado/s con menor cantidas de ventas es: " << menorCantidadVentas<< endl;
+         cout <<"---------------------------------------------------------------------------------------"<<endl;
+        for(int i=0; i<cantidadEmpleados; i++){
+            e=archiE.leer(i);
+            if(sumatoriaVentas[i]== menorCantidadVentas && vendio[i] && e.getEstado()){
+
+                cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
+                cout <<"---------------------------------------------------------------------------------------"<<endl;
+            }
+        }
+    }else{
+        cout<< "Aun no se han registrado ventas"<< endl;
+    }
+    delete[]vendio;
+    delete[]sumatoriaVentas;
+
+}
+void ManagerVenta::listarVendedorMayorCantidadVentas(){
+    Fecha fechaDesde,fechaHasta;
+    VentaArchivo archi;
+    Venta venta;
+    ArchivoEmpleado archiE;
+    Empleado e;
+    Validador validador;
+
+    int cantidadEmpleados=archiE.getCantidadRegistros();
+    int cantVentas=0,mayorCantidadVentas=0;
+    int id,cantidadRegistros=archi.getCantidadRegistros();
+    bool ventasRegistradas=false;
+    bool* vendio = nullptr;
+    float* sumatoriaVentas =nullptr;
+    vendio = new bool[cantidadEmpleados];
+    sumatoriaVentas = new float[cantidadEmpleados];
+
+    if(vendio==nullptr || sumatoriaVentas==nullptr){
+        cout << "Ocurrio un error en el sistema. "<< endl;
+        return;
+    }
+    for(int i=0; i<cantidadEmpleados;i++){
+        vendio[i]=false;
+        sumatoriaVentas[i]=0.0;
+    }
+
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+
+    for(int i=0;i<cantidadRegistros;i++){
+        venta=archi.leer(i);
+        id=venta.getIdEmpleado()-1;
+        if(venta.getFechaVenta()<= fechaHasta && venta.getFechaVenta() >= fechaDesde){///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
+            vendio[id]=true;
+            sumatoriaVentas[id]+=1;
+            ventasRegistradas=true;
+        }
+    }
+
+    for(int i=0; i<cantidadEmpleados;i++){
+        if(i==0){
+            mayorCantidadVentas=sumatoriaVentas[i];
+        }else if(sumatoriaVentas[i] > mayorCantidadVentas){
+            mayorCantidadVentas=sumatoriaVentas[i];
+        }
+    }
+
+    if(ventasRegistradas){
+        cout << "Empleado/s con mmayor cantidad de ventas es: " << mayorCantidadVentas<< endl;
+         cout <<"---------------------------------------------------------------------------------------"<<endl;
+        for(int i=0; i<cantidadEmpleados; i++){
+            e=archiE.leer(i);
+            if(sumatoriaVentas[i]== mayorCantidadVentas && vendio[i] && e.getEstado()){
+
+                cout << "ID: " << e.getIdEmpleado()<< ","<<"\nNOMBRE: "<<e.getNombre()<< ","<<"\nAPELLIDO: "<<e.getApellido()<<endl;
+                cout <<"---------------------------------------------------------------------------------------"<<endl;
+            }
+        }
+    }else{
+        cout<< "No hay ventas registradas en el periodo ingresado"<< endl;
+    }
+    delete[]vendio;
+    delete[]sumatoriaVentas;
+void ManagerVenta::MayorRecaudacionPorPeriodo(){
+
+    VentaArchivo archi;
+    Venta vent;
+    Fecha aux,fechaDesde,fechaHasta;
+    Validador validador;
+
+    float mayorVenta=0.0;
+
+
+   int cantRegistro=archi.getCantidadRegistros();
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+
+    for(int i=0;i< cantRegistro;i++){
+        vent=archi.leer(i);
+        if (vent.getFechaVenta() <= fechaHasta ){
+
+            if (vent.getFechaVenta() >= fechaDesde ){
+                   if(i==0){
+                        mayorVenta=vent.getImporteTotal();
+                        aux=vent.getFechaVenta();
+
+                    }else if(vent.getImporteTotal()>mayorVenta){
+
+                            mayorVenta=vent.getImporteTotal();
+                            aux=vent.getFechaVenta();
+                        }
+            }
+        }
+    }
+    if(mayorVenta<=0){
+        cout<<endl;
+        cout<<"NO HAY VENTAS REGISTRADAS EN ESE PERIODO DE TIEMPO"<<endl;
+    }else{
+        cout <<  "--------------------------------------------------------------------------------"<< endl;
+        cout << "EL DIA QUE MAS RECAUDO EN EL PERIODO DESDE: " << fechaDesde.mostrarFecha()<<" HASTA "<<fechaHasta.mostrarFecha()<<endl;
+        cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
+        cout<< aux.mostrarFecha()<< " Y EL MONTO RECAUDADO FUE DE:  $" <<  mayorVenta << endl;
+
+    }
+}
+
+void ManagerVenta::mostrarFechaMayorCantidadVentasPorPeriodo(){
+
+
+
+    Fecha fecha,fechaDesde,fechaHasta;
+    VentaArchivo archi;
+    Venta vent;
+    Validador validador;
+
+
+    std::vector<Fecha> vecFecha{};
+    std::vector<int> vecContador{};
+    int cantRegistro=archi.getCantidadRegistros();
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+    bool coincidencia=false;
+
+    int mayor=0;
+    int cont=0;
+
+    for(int i=0;i<cantRegistro;i++){ //carga vec de fecha y vec contador, con las ventas registradas en el archivo
+        vent=archi.leer(i);
+        coincidencia=false;
+        if (vent.getFechaVenta() <= fechaHasta ){
+            if (vent.getFechaVenta() >= fechaDesde ){
+                    if(i==0){
+                    vecFecha.push_back(vent.getFechaVenta());
+                    vecContador.push_back(1);
+                    }
+                    else{
+                        for(int j=0; j<vecFecha.size();j++){//comparar que no exista esa fecha en el vecFecha, y si existe solo que tiene q aumentar el vecCont
+
+                            if(vent.getFechaVenta() == vecFecha[j]){ //sobrecarga de operadores
+                            vecContador[j]++;
+                            coincidencia=true;
+                            }
+                        }
+                        if(!coincidencia){
+                        vecFecha.push_back(vent.getFechaVenta());
+                        vecContador.push_back(1);
+                        }
+                    }
+            }
+        }
+    }
+    for(int i=0;i<vecContador.size();i++){//determina cual es la fecha donde se realizaron mas ventas
+
+        if(i==0){
+            mayor=vecContador[i];
+            fecha=vecFecha[i];
+        }
+        else if(vecContador[i]>mayor){
+                mayor=vecContador[i];
+                fecha=vecFecha[i];
+        }
+
+    }
+    if(mayor!=0){ //para mostrar la fecha y la cant de ventas
+
+        cout<<"La mayor cantidad de ventas que se registraron en el periodo de tiempo desde "<<fechaDesde.mostrarFecha()<<" hasta "<<fechaHasta.mostrarFecha()<<endl<<endl;
+        cout<<"la fecha es: "<<fecha.mostrarFecha();
+        cout<<"La mayor cantidad de ventas registrada fue de : "<<mayor<<endl;
+
+
+    }
+    else{
+        cout<<"No hay ventas registradas"<<endl;
+    }
+
+
+
 }

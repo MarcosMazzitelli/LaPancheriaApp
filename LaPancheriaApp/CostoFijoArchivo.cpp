@@ -79,5 +79,27 @@ return costoF;
 
 }
 
+int CostoFijoArchivo::buscar(int idCosto){
+   FILE *pFile;
+   CostoFijo costoF;
+   int posicion = 0;
+
+   pFile = fopen(_nombreArchivo.c_str(), "rb");
+
+   if (pFile == nullptr){
+      return -2;
+   }
+   while(fread(&costoF, sizeof(CostoFijo), 1, pFile) == 1){
+      if (costoF.getIdCosto() == idCosto){
+         fclose(pFile);
+         return posicion;
+      }
+      posicion++;
+   }
+
+   fclose(pFile);
+   return -1;
+}
+
 
 

@@ -21,7 +21,7 @@ void PersonaManager::cargarEmpleado(){
     Validador validador;
     Empleado e;
 
-    int idEmpleado, permiso;
+    int idEmpleado, permiso, opcion;
     string nombre, apellido, dni, contrasenia, puesto, email, nCelular;
     float sueldo;
     Fecha fechaIngreso, fechaNacimiento;
@@ -37,6 +37,7 @@ void PersonaManager::cargarEmpleado(){
         cout << "Ingrese el nombre del empleado: \n";
         getline(cin,nombre);
     }
+    system("cls");
 
     cout << "Ingrese apellido del empleado: \n";
     getline(cin,apellido);
@@ -46,6 +47,7 @@ void PersonaManager::cargarEmpleado(){
         cout << "Ingrese el apellido del empleado: \n";
         getline(cin,apellido);
     }
+    system("cls");
 
     cout << "Ingrese dni del empleado: \n";
     getline(cin,dni);
@@ -55,10 +57,11 @@ void PersonaManager::cargarEmpleado(){
         cout << "Ingrese dni del empleado: \n";
         getline(cin,dni);
     }
+    system("cls");
 
     cout << "Ingrese contraseña del empleado: \n";
     getline(cin,contrasenia);
-    limpiarPantalla();
+    system("cls");
 
     cout << "Ingrese permiso: 1-Admin o 2- User: \n";
     cin >> permiso;
@@ -69,14 +72,52 @@ void PersonaManager::cargarEmpleado(){
         limpiarPantalla();
         cout << "Ingrese permiso: 1- Admin o 2- User: \n";
         cin >> permiso;
-        cout<<permiso<<endl;
     }
-    limpiarPantalla();
+    system("cls");
 
-    cout << "Ingrese puesto del empleado: \n";
+    cout << "Puesto del empleado: \n";
+    cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Bachero \n 4-Despachante \n 5-Cajero \n 6-Encargado \n 7-Delivery \n 8-Mantenimiento" <<endl;
+    cout << "Ingrese una opcion"<<endl;
+    cin>>opcion;
     cin.ignore();
-    getline(cin,puesto);
-    limpiarPantalla();
+    while(cin.fail() || opcion < 1 || opcion > 8){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << "Ingrese una opcion valida! \n";
+        limpiarPantalla();
+        cout << "Puesto del empleado: \n";
+        cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Despanchante-Preparacion pedidos \n 4-Cajero \n 5-Encargado \n 6-Delivery/Repartidor \n 7-Personal de limpieza-Mantenimiento" <<endl;
+        cout << "Ingrese una opcion"<<endl;
+        cin >> opcion;
+    }
+    switch(opcion){
+            case 1:
+                puesto= "Cocinero";
+                break;
+            case 2:
+                puesto= "Ayudante cocina";
+                break;
+            case 3:
+                puesto= "Bachero";
+                break;
+            case 4:
+                puesto= "Despanchante";
+                break;
+            case 5:
+                puesto= "Cajero";
+                break;
+            case 6:
+                puesto= "Encargado";
+                break;
+            case 7:
+                puesto= "Delivery";
+                break;
+            case 8:
+                puesto= "Mantenimiento";
+                break;
+    }
+    system("cls");
+
 
     cout << "Ingrese sueldo del empleado: \n";
     cin >> sueldo;
@@ -88,6 +129,7 @@ void PersonaManager::cargarEmpleado(){
         cout << "Ingrese sueldo del empleado: \n";
         cin >> sueldo;
     }
+    system("cls");
 
     cout << "FECHA DE INGRESO:  \n";
     while(!fechaIngreso.cargar()){
@@ -110,6 +152,7 @@ void PersonaManager::cargarEmpleado(){
         cout << "Ingrese el email del empleado: \n";
         getline(cin,email);
     }
+    system("cls");
 
     cout << "Ingrese celular: \n";
     getline(cin,nCelular);
@@ -119,6 +162,7 @@ void PersonaManager::cargarEmpleado(){
         cout << "Ingrese el celular del empleado: \n";
         getline(cin,nCelular);
     }
+    system("cls");
 
     e= Empleado(nombre, apellido, dni,idEmpleado,contrasenia,permiso,puesto,sueldo,fechaIngreso,fechaNacimiento,estado,email,nCelular);
 
@@ -145,6 +189,7 @@ void PersonaManager::listarEmpleados(){
                 cout << setw(30) << e.getNombre();
                 cout << setw(30) << e.getApellido();
                 cout << setw(30) << e.getPuesto();
+                cout << fixed << setprecision(2);
                 cout << setw(30) << e.getSueldo() << endl;
                 hayActivos=true;
             }
@@ -156,6 +201,7 @@ void PersonaManager::listarEmpleados(){
         cout << "No se encuentran empleados registrados" << endl;
     }
 }
+
 
 void PersonaManager::listarEmpleadosDeBaja(){
     ArchivoEmpleado a;
@@ -172,6 +218,7 @@ void PersonaManager::listarEmpleadosDeBaja(){
                 cout << setw(30) << e.getNombre();
                 cout << setw(30) << e.getApellido();
                 cout << setw(30) << e.getPuesto();
+                cout << fixed << setprecision(2);
                 cout << setw(30) << e.getSueldo() << endl;
                 hayBajas = true;
             }
@@ -190,14 +237,21 @@ void PersonaManager::altaEmpleado(){
     bool modifico;
 
     int id, cantidadRegistros,pos;
-
+    cantidadRegistros = cantidadRegistrosEmpleado();
     listarEmpleadosDeBaja();
     cout << "\n\n\n----------------ACTIVAR EMPLEADO------------------" <<endl;
     cout << "Ingrese el ID del empleado activar" << endl << endl;
     cin >> id;
-
-    cantidadRegistros = cantidadRegistrosEmpleado();
-
+        while(cin.fail() || id < 0 || id > cantidadRegistros){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese una opcion valida! \n";
+            limpiarPantalla();
+            listarEmpleados();
+            cout << "\n\n\n---------------MODIFICAR EMPLEADO------------------" <<endl;
+            cout << "Ingrese el ID del empleado a modificar " << endl;
+            cin >> id;
+        }
     for(int i=0; i<cantidadRegistros;i++){
         empleado=archivo.leer(i);
         if(empleado.getIdEmpleado()==id && !empleado.getEstado()){
@@ -220,13 +274,21 @@ void PersonaManager::eliminarEmpleado(){
     bool modifico;
 
     int id, cantidadRegistros,pos;
-
+    cantidadRegistros = cantidadRegistrosEmpleado();
     listarEmpleados();
     cout << "\n\n\n----------------ELIMINAR EMPLEADO------------------" <<endl;
-    cout << "Ingrese el ID del empleado a eliminar " << endl << endl;
+    cout << "Ingrese el ID del empleado activar" << endl << endl;
     cin >> id;
-    cantidadRegistros = cantidadRegistrosEmpleado();
-
+    while(cin.fail() || id < 0 || id > cantidadRegistros){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << "Ingrese una opcion valida! \n";
+        limpiarPantalla();
+        listarEmpleados();
+        cout << "\n\n\n---------------MODIFICAR EMPLEADO------------------" <<endl;
+        cout << "Ingrese el ID del empleado a modificar " << endl;
+        cin >> id;
+    }
     for(int i=0; i<cantidadRegistros;i++){
         empleado=archivo.leer(i);
         if(empleado.getIdEmpleado()==id && empleado.getEstado()){
@@ -248,15 +310,16 @@ void PersonaManager::modificarEmpleados(){
 
     Empleado empleado;
     ArchivoEmpleado archivo;
+    Validador validador;
 
-    int opcion, idEmpleado, permiso, cantidadRegistros, pos;
+    int opcion, opcionP, idEmpleado, permiso, cantidadRegistros, pos;
     float sueldo;
-    string nombre, apellido,dni,contrasenia,email,celular;
+    string nombre, apellido,dni,contrasenia,email,nCelular, puesto;
     bool modifico=false, permanecer=true, seEncontro=false;
     cantidadRegistros = cantidadRegistrosEmpleado();
 
         listarEmpleados();
-        cout << "\n\n\n--------------MODIFICAR EMPLEADO------------------" <<endl;
+        cout << "\n\n\n---------------MODIFICAR EMPLEADO------------------" <<endl;
         cout << "Ingrese el ID del empleado a modificar " << endl;
         cin >> idEmpleado;
         while(cin.fail() || idEmpleado < 0 || idEmpleado > cantidadRegistros){
@@ -265,13 +328,13 @@ void PersonaManager::modificarEmpleados(){
             cout << "Ingrese una opcion valida! \n";
             limpiarPantalla();
             listarEmpleados();
-            cout << "\n\n\n--------------MODIFICAR EMPLEADO------------------" <<endl;
+            cout << "\n\n\n---------------MODIFICAR EMPLEADO------------------" <<endl;
             cout << "Ingrese el ID del empleado a modificar " << endl;
             cin >> idEmpleado;
         }
+        system("cls");
 
         for(int i=0; i<cantidadRegistros;i++){
-
             empleado=archivo.leer(i);
 
             if(empleado.getIdEmpleado()==idEmpleado){
@@ -281,7 +344,7 @@ void PersonaManager::modificarEmpleados(){
 
                 while(permanecer){
 
-                    cout<< "Opcion a modificar: \n 1-Nombre \n 2-Apellido \n 3-DNI \n 4-Contrasenia \n 5-permiso \n 6-E-mail \n 7-Celular \n 8- Sueldo \n 9-Salir " <<endl;
+                    cout<< "Opcion a modificar: \n 1- Nombre \n 2- Apellido \n 3- DNI \n 4- Contrasenia \n 5- Permiso \n 6- Puesto \n 7- E-mail \n 8- Celular \n 9- Sueldo \n 0- Salir " <<endl;
                     cout << " Ingrese una opcion"<<endl;
                     cin>>opcion;
 
@@ -290,32 +353,51 @@ void PersonaManager::modificarEmpleados(){
                         cin.ignore(1000,'\n');
                         cout << "Ingrese una opcion valida! \n";
                         limpiarPantalla();
-                        cout<< "Opcion a modificar: \n 1-Nombre \n 2-Apellido \n 3-DNI \n 4-Contrasenia \n 5-permiso \n 6-E-mail \n 7-Celular \n 8- Sueldo \n 9-Salir " <<endl;
+                        cout<< "Opcion a modificar: \n 1- Nombre \n 2- Apellido \n 3- DNI \n 4- Contrasenia \n 5- Permiso \n 6- Puesto \n 7- E-mail \n 8- Celular \n 9- Sueldo \n 0- Salir " <<endl;
                         cout << " Ingrese una opcion"<<endl;
                         cin>>opcion;
                     }
+                    system("cls");
 
                     switch(opcion){
                         case 1:
-                            cout << "Ingrese nuevo nombre: " << endl;
+                            cout << "Ingrese nuevo nombre del empleado a registrar: \n";
                             cin.ignore();
                             getline(cin,nombre);
+                            while(!validador.esTexto(nombre)){
+                                cout << "Nombre Invalido." << endl;
+                                limpiarPantalla();
+                                cout << "Ingrese el nombre del empleado: \n";
+                                getline(cin,nombre);
+                            }
                             empleado.setNombre(nombre);
                             limpiarPantalla();
                             modifico=true;
                             break;
                         case 2:
-                            cout << "Ingrese nuevo apellido: " << endl;
+                            cout << "Ingrese nuevo apellido del empleado: \n";
                             cin.ignore();
                             getline(cin,apellido);
+                            while(!validador.esTexto(apellido)){
+                                cout << "Apellido Invalido." << endl;
+                                limpiarPantalla();
+                                cout << "Ingrese el apellido del empleado: \n";
+                                getline(cin,apellido);
+                            }
                             empleado.setApellido(apellido);
                             limpiarPantalla();
                             modifico=true;
                             break;
                         case 3:
-                            cout << "Ingrese nuevo dni: " << endl;
+                            cout << "Ingrese dni del empleado: \n";
                             cin.ignore();
                             getline(cin,dni);
+                            while (!validador.esDni(dni)){
+                                cout << "DNI Invalido." << endl;
+                                limpiarPantalla();
+                                cout << "Ingrese dni del empleado: \n";
+                                getline(cin,dni);
+                            }
                             empleado.setDni(dni);
                             limpiarPantalla();
                             modifico=true;
@@ -333,7 +415,6 @@ void PersonaManager::modificarEmpleados(){
                             cin >> permiso;
                             while(cin.fail() || permiso!=1 && permiso!=2){
                                 cin.clear();
-                                cin.ignore(1000,'\n');
                                 cout << "Ingrese una opcion valida! \n";
                                 limpiarPantalla();
                                 cout << "Ingrese permiso: 1- Admin o 2- User: \n";
@@ -343,39 +424,93 @@ void PersonaManager::modificarEmpleados(){
                             empleado.setPermiso(permiso);
                             limpiarPantalla();
                             break;
-                        case 6:
-                            cout << "Ingrese nuevo email: " << endl;
-                            cin.ignore();
-                            getline(cin,email);
-                            empleado.setEmail(email);
-                            limpiarPantalla();
-                            modifico=true;
-                            break;
-                        case 7:
-                            cin.ignore();
-                            cout << "Ingrese nuevo celular: " << endl;
-                            getline(cin,celular);
-                            empleado.setNCelular(celular);
-                            limpiarPantalla();
-                            modifico=true;
-                            break;
-                        case 8:
-                            cout << "Ingrese sueldo del empleado: \n";
-                            cin >> sueldo;
-                            while(cin.fail() || sueldo<=0){
+                         case 6:
+                            cout << "Nuevo puesto del empleado: \n";
+                            cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Bachero \n 4-Despachante \n 5-Cajero \n 6-Encargado \n 7-Delivery \n 8-Mantenimiento" <<endl;
+                            cout << "Ingrese una opcion"<<endl;
+                            cin>>opcionP;
+                            while(cin.fail() || opcionP < 1 || opcionP > 8){
                                 cin.clear();
                                 cin.ignore(1000,'\n');
                                 cout << "Ingrese una opcion valida! \n";
                                 limpiarPantalla();
-                                cout << "Ingrese sueldo del empleado: \n";
+                                cout << "Nuevo puesto del empleado: \n";
+                                cout<< "Opcion: \n 1-Cocinero \n 2-Ayudante cocina \n 3-Despanchante-Preparacion pedidos \n 4-Cajero \n 5-Encargado \n 6-Delivery/Repartidor \n 7-Personal de limpieza-Mantenimiento" <<endl;
+                                cout << "Ingrese una opcion"<<endl;
+                                cin >> opcionP;
+                            }
+                            switch(opcionP){
+                                    case 1:
+                                        puesto= "Cocinero";
+                                        break;
+                                    case 2:
+                                        puesto= "Ayudante cocina";
+                                        break;
+                                    case 3:
+                                        puesto= "Bachero";
+                                        break;
+                                    case 4:
+                                        puesto= "Despanchante";
+                                        break;
+                                    case 5:
+                                        puesto= "Cajero";
+                                        break;
+                                    case 6:
+                                        puesto= "Encargado";
+                                        break;
+                                    case 7:
+                                        puesto= "Delivery";
+                                        break;
+                                    case 8:
+                                        puesto= "Mantenimiento";
+                                        break;
+                                    }
+                            system("cls");
+                            break;
+                        case 7:
+                            cout << "Ingrese nuevo email: \n";
+                            cin.ignore();
+                            getline(cin,email);
+                            while (!validador.esEmail(email)){
+                                cout << "Email Invalido." << endl;
+                                limpiarPantalla();
+                                cout << "Ingrese el email del empleado: \n";
+                                getline(cin,email);
+                            }
+                            empleado.setEmail(email);
+                            limpiarPantalla();
+                            modifico=true;
+                            break;
+                        case 8:
+                            cout << "Ingrese nuevo celular: \n";
+                            cin.ignore();
+                            getline(cin,nCelular);
+                            while (!validador.esNumero(nCelular)){
+                                cout << "Celular Invalido." << endl;
+                                limpiarPantalla();
+                                cout << "Ingrese nuevo celular del empleado: \n";
+                                getline(cin,nCelular);
+                            }
+                            empleado.setNCelular(nCelular);
+                            modifico=true;
+                            system("cls");
+                            break;
+                        case 9:
+                            cout << "Ingrese nuevo sueldo del empleado: \n";
+                            cin >> sueldo;
+                            while(cin.fail() || sueldo<=0){
+                                cin.clear();
+                                cin.ignore();
+                                cout << "Ingrese una opcion valida! \n";
+                                limpiarPantalla();
+                                cout << "Ingrese nuevo sueldo del empleado: \n";
                                 cin >> sueldo;
-                                modifico=true;
                             }
                             empleado.setSueldo(sueldo);
+                            modifico=true;
+                            system("cls");
                             break;
-                            limpiarPantalla();
-
-                        case 9:
+                        case 0:
                             opcion = pedirYValidarConfirmacion("\nDesea guardar antes de salir? \n1)Si  0)No \n");
                             if(opcion==1){
                                 if(modifico){
@@ -402,9 +537,7 @@ void PersonaManager::modificarEmpleados(){
 
             }
         }
-        if(!seEncontro){
-            cout<<"No se encontro empleado con ID "<< idEmpleado << endl;
-        }
+
     }
 
 ///Metodos para clientes
@@ -478,7 +611,7 @@ void PersonaManager::listarClientes(){
     }
 }
 
-/*void PersonaManager::modificarCliente(std::string dniUsuario){
+/*void PersonaManager::modificarCliente(){
     Empleado usuario;
     Cliente cliente;
     ArchivoEmpleado archiEmpleado;
@@ -490,8 +623,6 @@ void PersonaManager::listarClientes(){
     bool modifico, permanecer=true, seEncontro=false;
     pos=archiEmpleado.buscar(dniUsuario);
     usuario=archiEmpleado.leer(pos);
-
-    if(usuario.getPermiso()==1){
 
         listarClientes();
         cout << "\n\n\n--------------MODIFICAR CLIENTE------------------" <<endl;
@@ -574,12 +705,7 @@ void PersonaManager::listarClientes(){
 
     }
 
-}
+}*/
 
-
-void PersonaManager::modificarCliente(){
-}
-
-*/
 
 

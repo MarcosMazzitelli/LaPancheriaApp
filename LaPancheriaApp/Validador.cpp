@@ -51,7 +51,7 @@ void Validador::validadorFiltroFecha(Fecha &fechaDesde, Fecha &fechaHasta){
 
     while(rangoFechaIncorrecto){
         system("cls");
-        cout << "Las fechas ingresadas son ivalidas. " << endl;
+        cout << "Las fechas ingresadas son invalidas. " << endl;
         cout <<  "--------------------------------------------------------------------------------"<< endl;
         cout << "FECHA INICIO BALANCE" << endl;
         cout <<  "--------------------------------------------------------------------------------"<< endl;

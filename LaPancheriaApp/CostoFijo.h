@@ -29,8 +29,8 @@ public:
     void setFechaCosto(Fecha fechaCosto);
     void setEstado(bool estado);
 
-    void mostrar();
-    std::string mostrarToCsv();
+    //void mostrar();
+    //std::string mostrarToCsv();
     void mostrarEnLista();
     void mostrarTabla();
 };

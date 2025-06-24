@@ -1070,4 +1070,5 @@ void ProductosManager::cantidadProductosVendidosPorFecha(){
                 cout<< "PRODUCTO ID: " << i+1 << " | " <<  producto.getNombreProducto() << ". Cantidad: "<< vectorProductosVendidos[i] << endl;
             }
     }
+    delete[]vectorProductosVendidos;
 }
