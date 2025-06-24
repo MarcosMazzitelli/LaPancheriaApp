@@ -862,11 +862,11 @@ void ManagerVenta::cierreCaja(){
         venta = archiVent.leer(i);
         if(diaActual==venta.getFechaVenta() && venta.getFormaDePago() == 1 ){
             acumuladorVentasEfectivo+= venta.getImporteTotal();
+
         }
-
-
     }
-
+    system("cls");
+    cout<< "CIERRE DE CAJA: " << endl << endl;
     cout << endl << "El cierre de caja en la fecha " << diaActual.mostrarFecha() << " debe ser: " << acumuladorVentasEfectivo << endl << endl;
 
 }

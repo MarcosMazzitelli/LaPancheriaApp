@@ -4,6 +4,7 @@
 ArchivoCliente::ArchivoCliente(){
     _nombreArchivo="Clientes.dat";
 }
+
 ArchivoCliente::ArchivoCliente(std::string nombreArchivo){
     _nombreArchivo=nombreArchivo;
 }
@@ -81,6 +82,7 @@ int ArchivoCliente::buscar(std::string dniCliente){
    fclose(pFile);
    return -1;
 }
+
 bool ArchivoCliente::modificarCliente(Cliente c, int pos){
     FILE* pFile;
     pFile = fopen(_nombreArchivo.c_str(),"rb+");

@@ -180,13 +180,13 @@ void PersonaManager::cargarEmpleado(){
     }
 }
 
-void PersonaManager::listarEmpleados(){
+void PersonaManager::listarEmpleados(){ //Empleados activos
     ArchivoEmpleado a;
     Empleado e;
     bool hayActivos=false;
     int cantRegistros = cantidadRegistrosEmpleado();
-    e.mostrarEnTabla();
 
+    e.mostrarEnTabla();
     if(cantRegistros>0){
         for (int i=0; i<cantRegistros; i++){
             e = a.leer(i);
@@ -244,9 +244,10 @@ void PersonaManager::altaEmpleado(){
 
     int id, cantidadRegistros,pos;
     cantidadRegistros = cantidadRegistrosEmpleado();
+
     listarEmpleadosDeBaja();
     cout << "\n\n\n----------------ACTIVAR EMPLEADO------------------" <<endl;
-    cout << "Ingrese el ID del empleado activar" << endl << endl;
+    cout << "Ingrese el ID del empleado activar: " << endl << endl;
     cin >> id;
         while(cin.fail() || id < 0 || id > cantidadRegistros){
             cin.clear();
@@ -254,14 +255,13 @@ void PersonaManager::altaEmpleado(){
             cout << "Ingrese una opcion valida! \n";
             limpiarPantalla();
             listarEmpleados();
-            cout << "\n\n\n---------------MODIFICAR EMPLEADO------------------" <<endl;
-            cout << "Ingrese el ID del empleado a modificar " << endl;
+            cout << "\n\n\n---------------ACTIVAR EMPLEADO------------------" <<endl;
+            cout << "Ingrese el ID del empleado a activar: " << endl;
             cin >> id;
         }
     for(int i=0; i<cantidadRegistros;i++){
         empleado=archivo.leer(i);
         if(empleado.getIdEmpleado()==id && !empleado.getEstado()){
-
             empleado.setEstado(true);
             pos=i;
             modifico=archivo.modificarEmpleado(empleado,pos);
@@ -283,7 +283,7 @@ void PersonaManager::eliminarEmpleado(){
     cantidadRegistros = cantidadRegistrosEmpleado();
     listarEmpleados();
     cout << "\n\n\n----------------ELIMINAR EMPLEADO------------------" <<endl;
-    cout << "Ingrese el ID del empleado activar" << endl << endl;
+    cout << "Ingrese el ID del empleado a desactivar: " << endl << endl;
     cin >> id;
     while(cin.fail() || id < 0 || id > cantidadRegistros){
         cin.clear();
@@ -291,8 +291,8 @@ void PersonaManager::eliminarEmpleado(){
         cout << "Ingrese una opcion valida! \n";
         limpiarPantalla();
         listarEmpleados();
-        cout << "\n\n\n---------------MODIFICAR EMPLEADO------------------" <<endl;
-        cout << "Ingrese el ID del empleado a modificar " << endl;
+        cout << "\n\n\n---------------ELIMINAR EMPLEADO------------------" <<endl;
+        cout << "Ingrese el ID del empleado a desactivar: " << endl;
         cin >> id;
     }
     for(int i=0; i<cantidadRegistros;i++){
@@ -553,7 +553,6 @@ void PersonaManager::modificarEmpleados(){
     }
 
 ///Metodos para clientes
-
 int PersonaManager::cantidadRegistrosCliente(){
     ArchivoCliente a;
 
@@ -566,6 +565,7 @@ void PersonaManager::cargarCliente(std::string &dniCliente){
 
     ArchivoCliente archivo;
     Cliente cliente;
+    Validador validador;
 
     cout << "----REGISTRO CLIENTE ----"<<endl;
     opcion = pedirYValidarConfirmacion("Ingrese 1 o 0. \n 1- Ticket personalizado\n 0- Ticket consumidor final \n");
@@ -580,13 +580,26 @@ void PersonaManager::cargarCliente(std::string &dniCliente){
 
 
         if(cin.fail() || pos < 0){
+
             cout << "Ingrese el nombre del cliente registrar: \n";
+            cin.ignore();
             getline(cin,nombre);
+            while(!validador.esTexto(nombre)){
+                cout << "Nombre Invalido." << endl;
+                limpiarPantalla();
+                cout << "Ingrese el nombre del empleado: \n";
+                getline(cin,nombre);
+            }
             limpiarPantalla();
 
             cout << "Ingrese apellido del cliente: \n";
             getline(cin,apellido);
-
+            while(!validador.esTexto(apellido)){
+                cout << "Apellido Invalido." << endl;
+                limpiarPantalla();
+                cout << "Ingrese el apellido del empleado: \n";
+                getline(cin,apellido);
+            }
             limpiarPantalla();
 
             cliente = Cliente(nombre, apellido, dniCliente);
@@ -619,6 +632,108 @@ void PersonaManager::listarClientes(){
             cout << setw(10) << cliente.getDni() << endl;
         }
     }else{
-        cout << "No se encontrron registros de clientes."<<endl<<endl;
+        cout << "No se encontraron registros de clientes."<<endl<<endl;
+    }
+}
+
+void PersonaManager::modificarCliente(){
+    int opcion, pos, opcionSalir;
+    string nombre, apellido,dniCliente;
+    bool modifico=false, permanecer=true;
+
+    ArchivoCliente archivo;
+    Cliente cliente;
+    Validador validador;
+
+    listarClientes();
+    cout << "---------------MODIFICAR CLIENTE----------------"<<endl<<endl;
+    cout << "Ingrese dni del cliente a modificar: \n";
+    cin.ignore();
+    getline(cin,dniCliente);
+
+    while(!validador.esDni(dniCliente)){
+        cout << "Ingrese una opcion valida! \n";
+        limpiarPantalla();
+        listarClientes();
+        cout << "\n\n\n---------------MODIFICAR CLIENTE------------------" <<endl;
+        cout << "Ingrese dni del cliente a modificar: " << endl;
+        getline(cin,dniCliente);
+    }
+    system("cls");
+
+    pos = archivo.buscar(dniCliente);
+    if(pos >= 0){
+        cliente = archivo.leer(pos);
+        while(permanecer){
+
+            cout << "\n\n\n---------------MODIFICAR CLIENTE------------------" <<endl<<endl;
+            cout<< "Opcion a modificar: \n 1- Nombre \n 2- Apellido \n 0- Salir " <<endl;
+            cout << " Ingrese una opcion"<<endl;
+            cin>>opcion;
+
+            while(cin.fail() || opcion < 0 || opcion > 2){
+                cin.clear();
+                cin.ignore(1000,'\n');
+                cout << "Ingrese una opcion valida! \n";
+                limpiarPantalla();
+                cout << "\n\n\n---------------MODIFICAR CLIENTE------------------" <<endl<<endl;
+                cout<< "Opcion a modificar: \n 1- Nombre \n 2- Apellido \n 0- Salir " <<endl;
+                cout << " Ingrese una opcion"<<endl;
+                cin>>opcion;
+            }
+            switch(opcion){
+                case 1:
+                    cout << "Ingrese nuevo nombre del empleado a registrar: \n";
+                    cin.ignore();
+                    getline(cin,nombre);
+                    while(!validador.esTexto(nombre)){
+                        cout << "Nombre Invalido." << endl;
+                        limpiarPantalla();
+                        cout << "Ingrese el nombre del empleado: \n";
+                        getline(cin,nombre);
+                    }
+                    cliente.setNombre(nombre);
+                    limpiarPantalla();
+                    modifico=true;
+                    system("cls");
+                    break;
+                case 2:
+                    cout << "Ingrese nuevo apellido del empleado: \n";
+                    cin.ignore();
+                    getline(cin,apellido);
+                    while(!validador.esTexto(apellido)){
+                        cout << "Apellido Invalido." << endl;
+                        limpiarPantalla();
+                        cout << "Ingrese el apellido del empleado: \n";
+                        getline(cin,apellido);
+                    }
+                    cliente.setApellido(apellido);
+                    limpiarPantalla();
+                    modifico=true;
+                    system("cls");
+                    break;
+                case 0:
+                    opcionSalir = pedirYValidarConfirmacion("\nDesea salir? \n1)Si \n0)No \n\n");
+                    if(opcionSalir==1){
+                        permanecer=false;
+                    }else{
+                        system("cls");
+                        break;
+                    }
+                }
+        }
+        system("cls");
+        if(modifico){
+            if(archivo.modificarCliente(cliente,pos)){
+                cout << "Registro modificado con exito" << endl;
+            }else{
+                cout << "No se pudo modificar el archivo" <<endl;
+            }
+        } else{
+            cout << "Saliendo sin cambios..." << endl;
+        }
+
+    }else{
+        cout << "No se encontro ninguna coincidencia." << endl;
     }
 }

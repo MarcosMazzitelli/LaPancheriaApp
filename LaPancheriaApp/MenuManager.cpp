@@ -159,6 +159,7 @@ void MenuManager::menuVentas(std::string dni){
 
     FormaDePago fdp;
     ManagerVenta ventaManager;
+    PersonaManager pManager;
     int opcion, opcionSalida;
     while(true){
         system("cls");
@@ -168,13 +169,14 @@ void MenuManager::menuVentas(std::string dni){
         cout << "1. Cargar venta" << endl;
         cout << "2. Listar ventas" << endl;
         cout << "3. Formas de pago" << endl;
-        cout << "4. Mostrar cierre de caja por fecha" << endl;
+        cout << "4. Modificar cliente" << endl;
+        cout << "5. Mostrar cierre de caja por fecha" << endl;
         cout << "0. Salir" << endl;
         cout << "===============================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 4 && opcion != 505) {
+        while (cin.fail() || opcion < 0 || opcion > 5 && opcion != 505) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero valido" << endl;
@@ -186,7 +188,8 @@ void MenuManager::menuVentas(std::string dni){
             cout << "1. Cargar venta" << endl;
             cout << "2. Listar ventas" << endl;
             cout << "3. Formas de pago" << endl;
-            cout << "4. Mostrar cierre de caja por fecha" << endl;
+            cout << "4. Modificar cliente" << endl;
+            cout << "5. Mostrar cierre de caja por fecha" << endl;
             cout << "0. Salir" << endl;
             cout << "===============================" << endl;
             cout << "Ingrese una opcion: ";
@@ -211,6 +214,11 @@ void MenuManager::menuVentas(std::string dni){
                 system("pause");
                 break;
             case 4:
+                system("cls");
+                pManager.modificarCliente();
+                system("pause");
+                break;
+            case 5:
                 system("cls");
                 ventaManager.cierreCaja();
                 system("pause");
@@ -345,7 +353,8 @@ void MenuManager::menuEmpleados(std::string dni){
         switch(opcion) {
             case 1:
                 system("cls");
-                persona.cargarEmpleado();
+                //persona.cargarEmpleado();
+                persona.cargarCliente(dni);
                 system("pause");
                 break;
             case 2:

@@ -4,19 +4,19 @@
 
 class ArchivoCliente{
 
-    private:
-        std::string _nombreArchivo;
-    public:
-        /*Constructores*/
-        ArchivoCliente();
-        ArchivoCliente(std::string _nombreArchivo);
+private:
+    std::string _nombreArchivo;
+public:
+    /*Constructores*/
+    ArchivoCliente();
+    ArchivoCliente(std::string _nombreArchivo);
 
-        /*Metodos*/
-        bool guardar(Cliente registro);
-        int getCantidadRegistros();
-        Cliente leer(int pos);
-        int buscar(std::string dni);
-        bool modificarCliente(Cliente c, int pos);
+    /*Metodos*/
+    bool guardar(Cliente registro);
+    int getCantidadRegistros();
+    Cliente leer(int pos);
+    int buscar(std::string dni);
+    bool modificarCliente(Cliente c, int pos);
 };
 
 

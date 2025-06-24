@@ -17,9 +17,5 @@ class PersonaManager{
         int cantidadRegistrosCliente();
         void cargarCliente(std::string &dniCliente);
         void listarClientes();
-        void modificarCliente(std::string dniUsuario);
-        void eliminarCliente();
-
-
-
+        void modificarCliente();
 };

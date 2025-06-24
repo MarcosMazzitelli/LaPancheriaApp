@@ -4,6 +4,7 @@
 ArchivoEmpleado::ArchivoEmpleado(){
     _nombreArchivo="Empleados.dat";
 }
+
 ArchivoEmpleado::ArchivoEmpleado(std::string nombreArchivo){
     _nombreArchivo=nombreArchivo;
 }
