@@ -28,4 +28,5 @@ public:
 
     void MayorRecaudacionPorPeriodo();
     void mostrarFechaMayorCantidadVentasPorPeriodo();
+    void cierreCaja();
 };

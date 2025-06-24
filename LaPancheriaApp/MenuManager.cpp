@@ -168,12 +168,13 @@ void MenuManager::menuVentas(std::string dni){
         cout << "1. Cargar venta" << endl;
         cout << "2. Listar ventas" << endl;
         cout << "3. Formas de pago" << endl;
+        cout << "4. Mostrar cierre de caja por fecha" << endl;
         cout << "0. Salir" << endl;
         cout << "===============================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 3 && opcion != 505) {
+        while (cin.fail() || opcion < 0 || opcion > 4 && opcion != 505) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero valido" << endl;
@@ -185,12 +186,13 @@ void MenuManager::menuVentas(std::string dni){
             cout << "1. Cargar venta" << endl;
             cout << "2. Listar ventas" << endl;
             cout << "3. Formas de pago" << endl;
+            cout << "4. Mostrar cierre de caja por fecha" << endl;
             cout << "0. Salir" << endl;
             cout << "===============================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
-
+        //cierreCaja
         switch(opcion) {
             case 1:
                 system("cls");
@@ -208,6 +210,12 @@ void MenuManager::menuVentas(std::string dni){
                 fdp.opcionesFormasDePago();
                 system("pause");
                 break;
+            case 4:
+                system("cls");
+                ventaManager.cierreCaja();
+                system("pause");
+                break;
+
             case 505:
                 system("cls");
                 for (int i=0; i<12; i++){

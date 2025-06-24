@@ -846,7 +846,28 @@ void ManagerVenta::mostrarFechaMayorCantidadVentasPorPeriodo(){
     else{
         cout<<"No hay ventas registradas"<<endl;
     }
+}
+
+void ManagerVenta::cierreCaja(){
+    Fecha diaActual;
+    Venta venta;
+    VentaArchivo archiVent;
+    int cantidadRegistros = archiVent.getCantidadRegistros();
+    float acumuladorVentasEfectivo=0;
+
+    cout<< "FECHA DE CIERRE DE CAJA: " << endl << endl;
+    diaActual.cargar();
+
+    for(int i = 0; i< cantidadRegistros; i++){
+        venta = archiVent.leer(i);
+        if(diaActual==venta.getFechaVenta() && venta.getFormaDePago() == 1 ){
+            acumuladorVentasEfectivo+= venta.getImporteTotal();
+        }
 
 
+    }
+
+    cout << endl << "El cierre de caja en la fecha " << diaActual.mostrarFecha() << " debe ser: " << acumuladorVentasEfectivo << endl << endl;
 
 }
+
