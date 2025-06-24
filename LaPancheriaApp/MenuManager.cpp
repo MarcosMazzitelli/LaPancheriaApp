@@ -37,11 +37,14 @@ void MenuManager::login(){
             cantidadIntentos++;
             cout << "Credenciales invalidas." << endl <<"Intento "<<cantidadIntentos<<" de 3" << endl << endl;
             if(cantidadIntentos<3){
-                cout << "Ingrese su nombre de DNI: ";
+                cout << "Ingrese su usuario: ";
                 cin >> dni;
 
                 cout << "Ingrese su contrasenia: ";
                 cin >> contrasenia;
+            }
+            else{
+                return;
             }
         }
         else{

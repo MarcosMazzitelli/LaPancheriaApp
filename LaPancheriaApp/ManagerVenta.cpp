@@ -103,7 +103,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
         ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
         importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
         detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
-        vecDetalleVenta.push_back(detVenta); //se aumenta el tama�o del vector y se coloca al final el nuevo detalle de venta
+        vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
 
         opcion = pedirYValidarConfirmacion("Desea ingresar mas productos? \n1) si \n0) no \n\n");
         if(opcion == 0){
