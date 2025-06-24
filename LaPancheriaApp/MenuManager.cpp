@@ -218,9 +218,7 @@ void MenuManager::menuVentas(std::string dni){
 
             case 505:
                 system("cls");
-                for (int i=0; i<12; i++){
-                    ventaManager.cargaMasivaVentas(dni);
-                }
+                ventaManager.cargaMasivaVentas(dni);
                 system("pause");
                 break;
             case 0:

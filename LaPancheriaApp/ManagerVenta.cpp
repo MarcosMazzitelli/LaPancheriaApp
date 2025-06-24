@@ -313,70 +313,73 @@ void ManagerVenta::cargaMasivaVentas(std::string dniEmpleado){
 
     nroFactura = ventaArchi.getCantidadRegistros()+1; //autonumerico
 
+    for (int i=0; i < 1000; i++){
+        cin.ignore();
+        getline(cin,dniCliente);
+        posicionCliente = archivoCliente.buscar(dniCliente);
 
-    cin.ignore();
-    getline(cin,dniCliente);
-    posicionCliente = archivoCliente.buscar(dniCliente);
+        if(posicionCliente < 0){ //si no existe, pido los datos y los registro
 
-    if(posicionCliente < 0){ //si no existe, pido los datos y los registro
-
-        getline(cin,nombreCliente);
-        getline(cin,apellidoCliente);
-        cliente = Cliente(nombreCliente, apellidoCliente, dniCliente);
-        if(archivoCliente.guardar(cliente)){
-            cout <<"El cliente se registro correctamente"<<endl;
-        }else{
-            cout << "No se pudo guardar el registro" << endl;
+            getline(cin,nombreCliente);
+            getline(cin,apellidoCliente);
+            cliente = Cliente(nombreCliente, apellidoCliente, dniCliente);
+            if(archivoCliente.guardar(cliente)){
+                cout <<"El cliente se registro correctamente"<<endl;
+            }else{
+                cout << "No se pudo guardar el registro" << endl;
+            }
         }
-    }
-    else{ //si existe, no se registra un nuevo cliente
-        cout << "El cliente se encuentra registado. " << endl;
-    }
-
-
-    posicionEmpleado = empArchi.buscar(dniEmpleado);
-    emp= empArchi.leer(posicionEmpleado);
-    idEmpleado = emp.getIdEmpleado();
-
-
-    bool cargaProductos=false;
-    while (!cargaProductos){ ///ciclo para ingresar productos a una venta
-        cin >> idProducto;
-        posicionProducto = archiProd.buscar(idProducto);
-        prod = archiProd.leer(posicionProducto);
-        cin >> cantidad;
-        /// a partir de aca esta OK el ingreso de productos
-
-        ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
-        importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
-        detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
-        vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
-
-        cin >> opcion; // para ingresar mas productos (1 si, 0 no)
-        if(opcion == 0){
-            cargaProductos=true;
-            ///fin carga de productos
+        else{ //si existe, no se registra un nuevo cliente
+            cout << "El cliente se encuentra registado. " << endl;
+            cout << "Error no se puede efectuar carga masiva " << endl;
+            return;
         }
-    }
-    cin >> formaDePago;
-    if (formaDePago == 1){
-        descuento = 0.1;
-    }
-    else if(formaDePago == 2){
-        descuento = 0;
-    }
 
-    fechaVenta.cargar(); //dia, mes anio
-    importeTotal = importeBruto - (importeBruto * descuento );
-    v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
 
-    if (ventaArchi.guardar(v)){
-        cout << "Registro guardado correctamente." << endl << endl;
+        posicionEmpleado = empArchi.buscar(dniEmpleado);
+        emp= empArchi.leer(posicionEmpleado);
+        idEmpleado = emp.getIdEmpleado();
+
+
+        bool cargaProductos=false;
+        while (!cargaProductos){ ///ciclo para ingresar productos a una venta
+            cin >> idProducto;
+            posicionProducto = archiProd.buscar(idProducto);
+            prod = archiProd.leer(posicionProducto);
+            cin >> cantidad;
+            /// a partir de aca esta OK el ingreso de productos
+
+            ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
+            importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
+            detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
+            vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
+
+            cin >> opcion; // para ingresar mas productos (1 si, 0 no)
+            if(opcion == 0){
+                cargaProductos=true;
+                ///fin carga de productos
+            }
+        }
+        cin >> formaDePago;
+        if (formaDePago == 1){
+            descuento = 0.1;
+        }
+        else if(formaDePago == 2){
+            descuento = 0;
+        }
+
+        fechaVenta.cargar(); //dia, mes anio
+        importeTotal = importeBruto - (importeBruto * descuento );
+        v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
+
+        if (ventaArchi.guardar(v)){
+            cout << "Registro guardado correctamente." << endl << endl;
+        }
+        else{
+            cout << "Hubo un problema al guardar el registro." << endl << endl;
+        }
+        descontarStock(vecDetalleVenta);
     }
-    else{
-        cout << "Hubo un problema al guardar el registro." << endl << endl;
-    }
-    descontarStock(vecDetalleVenta);
 }
 void ManagerVenta::mostrarFechaMayorRecaudacionVenta(){
 
@@ -870,4 +873,29 @@ void ManagerVenta::cierreCaja(){
     cout << endl << "El cierre de caja en la fecha " << diaActual.mostrarFecha() << " debe ser: " << acumuladorVentasEfectivo << endl << endl;
 
 }
+
+void ManagerVenta::listarVentasToCsv(){
+    VentaArchivo archivoVenta;
+    DetalleVentaArchivo archivoDetalleVenta;
+    Venta venta;
+    DetalleVenta detalleVenta;
+
+    int cantRegistrosVenta = archivoVenta.getCantidadRegistros();
+    int cantRegistrosDetalleVenta = archivoDetalleVenta.getCantidadRegistros();
+
+    for (int i=0;i<cantRegistrosVenta;i++){
+        venta = archivoVenta.leer(i);
+        venta.mostrarToCsv();
+        for (int j=0; j < cantRegistrosDetalleVenta; j++ ){
+            detalleVenta = archivoDetalleVenta.leer(j);
+            if(venta.getNroFactura() == detalleVenta.getNroFactura()){
+                detalleVenta.mostrarToCsv();
+            }
+        }
+        cout << endl;
+     }
+}
+
+
+
 

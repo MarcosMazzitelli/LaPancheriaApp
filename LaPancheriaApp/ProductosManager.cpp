@@ -98,7 +98,7 @@ void ProductosManager::crearPanchoOGuarnicion(int idCategoria){
     incorporarIngredientes(idProducto, costoProducto, vecDetalleIngredientes);
     cout << "El costo para hacer el producto es: $" << costoProducto << endl << endl;
 
-    precioSugerido = costoProducto * 1.5; //un 50% mas
+    precioSugerido = costoProducto * 2; //El doble del costo del producto
     cout << "El precio de venta sugerido es: $" << precioSugerido << endl;
     cout << "Desea modificarlo?" << endl << "1) si" << endl << "0) no" << endl << endl;
     cin >> opcion;
@@ -257,7 +257,7 @@ void ProductosManager::crearBebida(int idCategoria){
     costoUnitario = costoTotal / cantidadStock;
     cout << endl << "Costo unitario: $ " << costoUnitario << endl;
 
-    precioSugerido = costoUnitario * 1.5; //un 50% mas
+    precioSugerido = costoUnitario * 2; //El doble del costo mas
     cout << "El precio de venta sugerido es: $" << precioSugerido << endl;
     cout << "Desea modificarlo?" << endl << "1) si" << endl << "0) no" << endl << endl;
     cin >> opcion;
