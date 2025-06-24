@@ -316,7 +316,7 @@ void MenuManager::menuEmpleados(std::string dni){
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 4) {
+        while (cin.fail() || opcion < 0 || opcion > 6) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
@@ -327,8 +327,11 @@ void MenuManager::menuEmpleados(std::string dni){
             cout << "========================================================" << endl;
             cout << "1. Crear nuevo empleado" << endl;
             cout << "2. Modificar datos de un empleado " << endl;
-            cout << "3. Eliminar empleado" << endl;
-            cout << "4. Mostrar empleados" << endl;
+            cout << "3. Baja de empleado" << endl;
+            cout << "4. Mostrar empleados activos" << endl;
+            cout << "5. Mostrar empleados inactivos" << endl;
+            cout << "6. Alta a empleado existente" << endl;
+
             cout << "0. Salir" << endl;
             cout << "===============================" << endl;
             cout << "Ingrese una opcion: ";

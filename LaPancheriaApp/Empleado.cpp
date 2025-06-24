@@ -104,19 +104,20 @@ void Empleado::mostrar(){
     cout << "Contraseña: " << getContrasenia() << endl;
     cout << "Permiso: " << getPermiso() << endl;
     cout << "Puesto: " << getPuesto() << endl;
+    cout << fixed << setprecision(2);
     cout << "Sueldo: " << getSueldo() << endl;
-    cout << "Fecha de ingreso: " << getFechaIngreso().mostrarFecha();
-    cout << "Fecha de nacimiento: " << getFechaNacimiento().mostrarFecha();
+    cout << "Fecha de ingreso: " << getFechaIngreso().mostrarFecha()<< endl;
+    cout << "Fecha de nacimiento: " << getFechaNacimiento().mostrarFecha()<< endl;
     cout << "Estado: " << getEstado() << endl;
     cout << "Email: " << getEmail() << endl;
     cout << "Celular: " << getNCelular() << endl;
 }
 
 void Empleado::mostrarEnTabla(){
-    cout << " -----------------------------------------------------------------------------"<< endl;
-    cout << "                                  TABLA EMPLEADOS                             "<<endl;
-    cout << " -----------------------------------------------------------------------------"<< endl;
-    cout << left << setw(15)<<"Id Empleado";
+    cout << " --------------------------------------------------------------------------------------------"<< endl;
+    cout << "                                            TABLA EMPLEADOS                             "<<endl;
+    cout << " --------------------------------------------------------------------------------------------"<< endl;
+    cout << left << setw(15)<<"Id";
     Persona::mostrarEnTabla();
     cout << left << setw(30)<<"Puesto";
     cout << left << setw(30)<<"Sueldo" << endl;
