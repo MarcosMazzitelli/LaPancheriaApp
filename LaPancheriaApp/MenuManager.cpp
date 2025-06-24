@@ -214,7 +214,7 @@ void MenuManager::menuVentas(std::string dni){
                     ventaManager.cargaMasivaVentas(dni);
                 }
                 system("pause");
-
+                break;
             case 0:
                 cout << "Confirma que desea salir? 1- si  0- no\n";
                 cin >> opcionSalida;
