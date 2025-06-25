@@ -904,7 +904,7 @@ void ManagerVenta::cierreCaja(){
 
     for(int i = 0; i< cantidadRegistros; i++){
         venta = archiVent.leer(i);
-        if(diaActual==venta.getFechaVenta() && venta.getFormaDePago() == 1 ){
+        if(diaActual==venta.getFechaVenta() && venta.getFormaDePago() == 3 ){
             acumuladorVentasEfectivo+= venta.getImporteTotal();
 
         }
