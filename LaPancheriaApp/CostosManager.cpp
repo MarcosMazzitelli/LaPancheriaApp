@@ -406,7 +406,7 @@ void CostosManager::balanceGananciaPorMes(){
     //while()
 
     //ingresa el mes (y el anio) del balance
-    cout << "--------------BALANCE POR MES---------------------" <<endl;
+
     cout <<"Ingrese el mes "<< endl;
     cin>>mes;
     while(cin.fail()){
@@ -500,9 +500,9 @@ void CostosManager::balancePorFecha(){
     int mes, anio, nroF, cantSueldos;
     float sueldo, acuCostoF=0, acuCostoEmpleado=0,acuCostoIngrediente=0,acuCantidad=0,acuVentaTotal=0, costosDelPeriodo, ganancia;
 
-    cout << "--------------BALANCE POR FECHA------------------" <<endl;
-    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
 
+    validador.validadorFiltroFecha(fechaDesde,fechaHasta);
+    cout<<endl;
     //costos fijos
     int cantRegistroCostoF=archiCostoF.getCantidadRegistros();
 
@@ -528,31 +528,24 @@ void CostosManager::balancePorFecha(){
     //costo empleados
     int cantRegistroEmpleado=archiEmpleado.getCantidadRegistros();
 
+    if (fechaDesde.getAnio() == fechaHasta.getAnio()) {
+        cantSueldos = fechaHasta.getMes() - fechaDesde.getMes() + 1;
+    }
+    else{
+        cantSueldos = ((fechaHasta.getAnio() - fechaDesde.getAnio()) * 12) + fechaHasta.getMes() - fechaDesde.getMes() + 1;
+    }
+
     for(int i=0; i<cantRegistroEmpleado; i++){
         empleado=archiEmpleado.leer(i);
 
         if(empleado.getEstado()){
-            if(fechaDesde.getAnio() == fechaHasta.getAnio()){
-                if(fechaHasta.getMes()<fechaDesde.getMes()){
-                cantSueldos=fechaHasta.getMes()-fechaDesde.getMes();
-                sueldo=empleado.getSueldo()*cantSueldos;
-                acuCostoEmpleado+=sueldo;
-                }
-                else{
-                sueldo=empleado.getSueldo();
-                acuCostoEmpleado+=sueldo;
-                }
-            }
-            else{
-                anio=(fechaHasta.getAnio() - fechaDesde.getAnio())*12;
-                mes=fechaHasta.getMes() - fechaDesde.getMes();
-                cantSueldos=anio-mes;
-                sueldo=empleado.getSueldo()*cantSueldos;
-                acuCostoEmpleado+=sueldo;
-            }
-
+            sueldo=empleado.getSueldo()*cantSueldos;
+            acuCostoEmpleado+=sueldo;
         }
     }
+
+
+
 
     cout << "TOTAL DE COSTOS EMPLEADOS DESDE: " <<  fechaDesde.mostrarFecha() << " HASTA: " <<   fechaHasta.mostrarFecha() <<" $"<<  fixed << setprecision(2) << acuCostoEmpleado << endl;
 
