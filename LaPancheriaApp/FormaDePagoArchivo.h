@@ -17,7 +17,6 @@ public:
     int getCantidadRegistros();
     int buscarFormaDePago(int formaDePago); //busca la forma de pago por el numero
     FormaDePago leer(int posicion);
-    bool modificarDescuentoFormaDePago();
 
 };
 

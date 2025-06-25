@@ -257,6 +257,7 @@ while(!aux.cargar()){
 cout<<endl<<"Listado de Ventas: "<<endl;
 cout<<endl;
 vent.mostrarTabla();
+
 for(int i=0;i<cantRegistro;i++){
 
     vent=archi.leer(i);
@@ -265,12 +266,12 @@ for(int i=0;i<cantRegistro;i++){
         cont++;
 
         cout<<endl;
-        cout<<"=============================================================================================================="<<endl;
         vent.mostrarEnLista();
-        cout << endl << endl;
+        cout << endl;
     }
 }
 if(cont==0){
+    cout << endl;
     cout<<"No hay ventas registradas en esta fecha. "<<endl;
 }
 }

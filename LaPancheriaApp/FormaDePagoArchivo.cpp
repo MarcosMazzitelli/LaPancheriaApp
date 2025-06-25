@@ -100,48 +100,4 @@ fclose(pFile);
 return fdp;
 }
 
-bool FormaDePagoArchivo::modificarDescuentoFormaDePago(){
-int nroFdp, posicion;
-float desc;
-bool modificado=false;
-FormaDePago fdp;
-FormaDePagoArchivo archi;
-int cantRegistros=archi.getCantidadRegistros();
 
-fdp.mostrarTabla();
-cout<<"-----------------------------------------------"<<endl;
-for(int i; i<cantRegistros; i++){
-    fdp=archi.leer(i);
-    fdp.mostrarEnLista();
-}
-cout<<"-----------------------------------------------"<<endl;
-
-while(!modificado){
-cout<<"Ingrese el NRO de la forma de pago que quiere modificar: "<<endl;
-
-cin>> nroFdp;
-
-posicion=archi.buscarFormaDePago(nroFdp);
-
-if(posicion>=0){
-    fdp = archi.leer(posicion);
-    cout<<"Ingresa el nuevo descuento"<< endl;
-    cin>> desc;
-    fdp.setDescuento(desc);
-
-    if(archi.guardar(fdp, posicion)){
-        cout<<"Descuento mofidicado correctamente"<< endl;
-        modificado=true;
-    }
-    else{
-        cout<<"No se pudo mofidicar el descuento"<< endl;
-        modificado=false;
-    }
-}
-    else{
-        cout<<"No existe la Forma de Pago elegida"<< endl;
-        modificado=false;
-    }
-}
-return modificado;
-}

@@ -85,9 +85,9 @@ void FormaDePago::setEstado(bool estado){
     bool validar=false;
 
         while(!validar){
-            cout << "Ingrese el descuento " << endl;
+            cout << "\nIngrese el descuento " << endl;
             cin >> descuento;
-                if(descuento<0 && descuento > 1){ //falta validar que sea numero
+                if(descuento<0 && descuento > 1){
                     cout<<"Valor incorrecto"<<endl;
                     validar=false;
                 }
@@ -99,20 +99,22 @@ void FormaDePago::setEstado(bool estado){
     f = FormaDePago(formaDePago, nombreFormaDePago, descuento, estado);
 
         if(archi.guardar(f)){
-            cout<<"Forma de pago guardada con exito"<< endl << endl;
+            cout<<"\nForma de pago guardada con exito"<< endl << endl;
         }
         else{
-            cout<<"Hubo un problema al guardar la Forma de pago"<< endl << endl;
+            cout<<"\nHubo un problema al guardar la Forma de pago"<< endl << endl;
         }
 
     int opcion;
 
-    opcion=pedirYValidarConfirmacion("Desea cargar otra forma de pago? 1)Si 0)no");
+    opcion=pedirYValidarConfirmacion("\nDesea cargar otra forma de pago? 1)Si 0)No");
     if(opcion==0){
         bandera=true;
+        limpiarPantalla();
     }
     else{
         bandera=false;
+        limpiarPantalla();
         }
     }
 }
@@ -129,9 +131,10 @@ void FormaDePago::opcionesFormasDePago(){
         cout << "Elija una opcion:" << endl;
         cout << "1) Cargar forma de pago" << endl;
         cout << "2) Listar forma de pago" << endl;
+        cout << "3) Modificar descuento de una forma de pago" << endl;
         cout << "0) Salir" << endl;
         cin >> opcion;
-        while(cin.fail() || opcion != 1 && opcion != 2 && opcion != 0){
+        while(cin.fail() || opcion != 1 && opcion != 2 && opcion != 3 && opcion != 0){
             cin.clear();
             cin.ignore(1000,'\n');
             cout << "Ingrese un valor valido" << endl << endl;
@@ -140,6 +143,7 @@ void FormaDePago::opcionesFormasDePago(){
             cout << "Elija una opcion:" << endl;
             cout << "1) Cargar forma de pago" << endl;
             cout << "2) Listar forma de pago" << endl;
+            cout << "3) Modificar descuento de una forma de pago" << endl;
             cout << "0) Salir" << endl;
             cin >> opcion;
         }
@@ -153,6 +157,11 @@ void FormaDePago::opcionesFormasDePago(){
         case 2:
             system("cls");
             mostrarEnLista();
+            system("pause");
+            break;
+        case 3:
+            system("cls");
+            modificarDescuentoFormaDePago();
             system("pause");
             break;
         case 0:
@@ -185,14 +194,14 @@ void FormaDePago::elegirFormaDePago(int &opc){
     int opcion;
 
     while(!confirmacion){
-        cout<<"Elija la forma de pago"<<endl;
+        cout<<"Elija el numero de forma de pago"<<endl;
         cin>> opc;
         while(cin.fail() || opc <1 && opcion > cantRegistros ){
             cin.clear();
             cin.ignore(1000,'\n');
             cout << "Ingrese un valor valido" << endl << endl;
             limpiarPantalla();
-            cout << "Elija la fomra de pago:" << endl;
+            cout << "Elija el numero de forma de pago:" << endl;
             cin >> opc;
         }
 
@@ -264,4 +273,62 @@ void FormaDePago::mostrarEnLista(){
     cout <<"-----------------------------------------------------------"<<endl;
 }
 
+bool FormaDePago::modificarDescuentoFormaDePago(){
+    int nroFdp, posicion;
+    float desc;
+    bool modificado=false,validar=false;
+    FormaDePago fdp;
+    FormaDePagoArchivo archi;
+    int cantRegistros=archi.getCantidadRegistros();
+
+    fdp.mostrarEnLista();
+
+    while(!modificado){
+        cout<<"Ingrese el NRO de la forma de pago que quiere modificar: "<<endl;
+        cin>> nroFdp;
+        while(cin.fail() || nroFdp <1 && nroFdp > cantRegistros ){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            limpiarPantalla();
+            cout << "Ingrese el NRO de la forma de pago que quiere modificar: " << endl;
+            cin >> nroFdp;
+        }
+
+        posicion=archi.buscarFormaDePago(nroFdp);
+        fdp=archi.leer(posicion);
+
+        if(posicion>=0){
+            while(!validar){
+                cout << "\nIngrese el nuevo descuento de "<<fdp.getNombreFormaDePago() << endl;
+                cin >> desc;
+                    if(desc<0 && desc> 1){
+                        cout<<"Valor incorrecto"<<endl;
+                        validar=false;
+                        limpiarPantalla();
+                    }
+                    else{
+                        fdp.setDescuento(desc);
+                        validar=true;
+                    }
+            }
+
+            if(archi.guardar(fdp, posicion)){
+            cout<<"Descuento mofidicado correctamente"<< endl;
+            modificado=true;
+            limpiarPantalla();
+            }
+            else{
+                cout<<"No se pudo mofidicar el descuento"<< endl;
+                modificado=false;
+                limpiarPantalla();
+            }
+        }
+        else{
+            cout<<"No existe la Forma de Pago elegida"<< endl;
+            modificado=false;
+        }
+    }
+    return modificado;
+}
 

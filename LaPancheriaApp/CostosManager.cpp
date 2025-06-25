@@ -406,7 +406,7 @@ void CostosManager::balanceGananciaPorMes(){
     //while()
 
     //ingresa el mes (y el anio) del balance
-    cout << "--------------BALANCE DE GANACIA POR MES------------------" <<endl;
+    cout << "--------------BALANCE POR MES---------------------" <<endl;
     cout <<"Ingrese el mes "<< endl;
     cin>>mes;
     while(cin.fail()){
@@ -434,7 +434,7 @@ void CostosManager::balanceGananciaPorMes(){
             acuCostoF+=costoF.getPrecio();
         }
     }
-    cout<<"- El total de COSTOS FIJOS del mes "<<mes<<" del anio "<<anio<< " es de: "<<acuCostoF<<endl<<endl;
+    cout<<" TOTAL COSTOS FIJOS DEL MES "<<mes<<" del anio "<<anio<< " ES DE: $"<<acuCostoF<<endl<<endl;
 
     //costo empleados
     int cantRegistroEmpleado=archiEmpleado.getCantidadRegistros();
@@ -445,7 +445,7 @@ void CostosManager::balanceGananciaPorMes(){
             acuCostoEmpleado+=empleado.getSueldo();
         }
     }
-    cout<<"- El total del COSTO DE EMPLEADOS del mes "<<mes<<" del anio "<<anio<< " es de: "<<  fixed << setprecision(2) << acuCostoEmpleado<<endl<<endl;
+    cout<<" TOTAL COSTO DE EMPLEADOS DEL MES "<<mes<<" del anio "<<anio<< " ES DE:  $"<<  fixed << setprecision(2) << acuCostoEmpleado<<endl<<endl;
 
     //costo ingredientes
     int cantRegistroVenta=archiVenta.getCantidadRegistros();
@@ -464,7 +464,7 @@ void CostosManager::balanceGananciaPorMes(){
             }
         }
     }
-    cout<<"- El total del COSTO DE PRODUCTOS vendidos del mes "<<mes<<" del anio "<<anio<< " es de: "<<acuCostoIngrediente<<endl<<endl;
+    cout<<" TOTAL COSTO DE PRODUCTOS VENDIDOS DEL MES "<<mes<<" DEL ANIO "<<anio<< " ES DE: $"<<acuCostoIngrediente<<endl<<endl;
 
     //balance ganancias del mes
     costosDelMes=acuCostoF+acuCostoEmpleado+acuCostoIngrediente;
@@ -478,10 +478,11 @@ void CostosManager::balanceGananciaPorMes(){
 
     ganancia=acuVentaTotal-costosDelMes;
 
-    cout<<"- El total recaudado por ventas del mes "<<mes<<" del anio "<<anio<< " es de: "<<acuVentaTotal<<endl<<endl;
+    cout<<" TOTAL RECAUDADO POR VENTAS DEL MES "<<mes<<" DEL ANIO "<<anio<< " ES DE: $"<<acuVentaTotal<<endl<<endl;
 
-
-    cout<<"BALANCE DEL MES "<<mes<<" DEL ANIO "<<anio<< " ES DE: "<<ganancia<<endl<<endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl;
+    cout<<"BALANCE DEL MES "<<mes<<" DEL ANIO "<<anio<< " ES DE: $"<<ganancia<<endl;
+    cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
 
 }
 void CostosManager::balancePorFecha(){
@@ -518,9 +519,9 @@ void CostosManager::balancePorFecha(){
             }
         }
     }
-    cout <<  "--------------------------------------------------------------------------------"<< endl;
-    cout << "TOTAL DE COSTOS FIJOS DESDE: " <<  fechaDesde.mostrarFecha() << ", HASTA: " <<   fechaHasta.mostrarFecha() << " $"<<acuCostoF<< endl;
-    cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
+
+    cout << "TOTAL DE COSTOS FIJOS DESDE: " <<  fechaDesde.mostrarFecha() << " HASTA: " <<   fechaHasta.mostrarFecha() << " $"<<acuCostoF<< endl;
+
 
 
 
@@ -552,9 +553,9 @@ void CostosManager::balancePorFecha(){
 
         }
     }
-    cout <<  "--------------------------------------------------------------------------------"<< endl;
-    cout << "TOTAL DE COSTOS EMPLEADOS DESDE: " <<  fechaDesde.mostrarFecha() << ", HASTA: " <<   fechaHasta.mostrarFecha() <<" $"<<  fixed << setprecision(2) << acuCostoEmpleado << endl;
-    cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
+
+    cout << "TOTAL DE COSTOS EMPLEADOS DESDE: " <<  fechaDesde.mostrarFecha() << " HASTA: " <<   fechaHasta.mostrarFecha() <<" $"<<  fixed << setprecision(2) << acuCostoEmpleado << endl;
+
 
 
     //costo ingredientes
@@ -578,9 +579,9 @@ void CostosManager::balancePorFecha(){
         }
     }
 
-    cout <<  "--------------------------------------------------------------------------------"<< endl;
-    cout << "TOTAL DE COSTOS DE PRODUCTOS VENDIDOS DESDE: " <<  fechaDesde.mostrarFecha() << ", HASTA: " <<   fechaHasta.mostrarFecha()<<" $"<<acuCostoIngrediente << endl;
-    cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
+
+    cout << "TOTAL DE COSTOS DE PRODUCTOS VENDIDOS DESDE: " <<  fechaDesde.mostrarFecha() << " HASTA: " <<   fechaHasta.mostrarFecha()<<" $"<<acuCostoIngrediente << endl;
+
 
 
     //costos del periodo
@@ -595,12 +596,12 @@ void CostosManager::balancePorFecha(){
         }
     }
 
-    cout<<"- El total recaudado por ventas desde "<<fechaDesde.mostrarFecha()<<" hasta "<<fechaHasta.mostrarFecha()<< " es de: "<<acuVentaTotal<<endl<<endl;
+    cout<<" TOTAL RECAUDADO POR VENTAS DESDE "<<fechaDesde.mostrarFecha()<<" HASTA "<<fechaHasta.mostrarFecha()<< " ES DE: $"<<acuVentaTotal<<endl<<endl;
 
     ganancia=acuVentaTotal-costosDelPeriodo;
 
     cout <<  "--------------------------------------------------------------------------------"<< endl;
-    cout << "BALANCE DEL PERIODO: " <<  fechaDesde.mostrarFecha() << ", HASTA: " <<   fechaHasta.mostrarFecha() <<" $"<<ganancia<< endl;
+    cout << "BALANCE DEL PERIODO: " <<  fechaDesde.mostrarFecha() << " HASTA: " <<   fechaHasta.mostrarFecha() <<" $"<<ganancia<< endl;
     cout <<  "--------------------------------------------------------------------------------"<< endl << endl;
 
 }
