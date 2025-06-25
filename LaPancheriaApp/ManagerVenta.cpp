@@ -33,6 +33,8 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     VentaArchivo ventaArchi;
     DetalleVentaArchivo archiDetVenta;/// NO se guardo los detalles de ventas en archivo
     ArchivoEmpleado empArchi;
+    ArchivoDetalleIngrediente archivoDetalleIng;
+    ArchivoIngrediente archivoIngrediente;
 
     Fecha fechaVenta;
     Empleado emp;
@@ -40,15 +42,18 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     Venta v;
     FormaDePago fdp;
     DetalleVenta detVenta;
+    DetalleIngrediente detalleIng;
+    Ingrediente ing;
 
     PersonaManager personaManager;
     ProductosManager prodManager;
 
-    int nroFactura,idEmpleado,formaDePago;
+    int productosDisponibles;
+    int nroFactura,idEmpleado,formaDePago, posicion;
     int posArchiFdp;
     string dniCliente; //Cliente client; /ClienteArchivo aCliente;
     float importeTotal=0;
-    float importeBruto, ImporteProdxCantidad;
+    float importeBruto, ImporteProdxCantidad, stockADescontar, cantidadProductoPorReceta;
     int posicionEmpleado, posicionProducto;
     int cantidad, opcion;
     int idProducto;
@@ -110,22 +115,50 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
         }
         posicionProducto = archiProd.buscar(idProducto);
         prod = archiProd.leer(posicionProducto);
-        cout << "Ingrese la cantidad del producto " << prod.getNombreProducto() << " a vender: ";
-        cin >> cantidad;
-        while (cin.fail() || cantidad <= 0){
-            cout << "Ingrese una cantidad valida." << endl << endl;
-            system("pause");
-            system("cls");
+        if (prod.getEstado()){
             cout << "Ingrese la cantidad del producto " << prod.getNombreProducto() << " a vender: ";
             cin >> cantidad;
+            while (cin.fail() || cantidad <= 0){
+                cout << "Ingrese una cantidad valida." << endl << endl;
+                system("pause");
+                system("cls");
+                cout << "Ingrese la cantidad del producto " << prod.getNombreProducto() << " a vender: ";
+                cin >> cantidad;
+            }
+            /// a partir de aca esta OK el ingreso de productos
+            for(int j=0; j < archivoDetalleIng.getCantidadRegistros(); j++){
+                detalleIng = archivoDetalleIng.leer(j);
+                if(detalleIng.getIdProducto() == idProducto){ // si el producto vendido me coincide con el detalle recorrido en el for:
+                    cantidadProductoPorReceta = detalleIng.getCantidadPorProducto(); //traigo la cantidad de ingrediente que lleva ese producto vendido
+                    stockADescontar = cantidad * cantidadProductoPorReceta; //obtengo la cantidad total de ingrediente. luego la descuento.
+                    posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
+                    if (posicion >= 0){
+                        ing = archivoIngrediente.leer(posicion);
+                        if (ing.getCantidadStock() < stockADescontar){
+                            if(ing.getCantidadStock() < cantidadProductoPorReceta){
+                                //si no hay stock para preparar ni UN producto
+                                prod.setEstado(false);
+                                if(archiProd.modificar(prod, posicionProducto)){
+                                    cout << "No hay suficiente stock para preparar NINGUN producto. El mismo ha sido dado de baja" << endl;
+                                    cout << "Primero debe generar stock y luego dar de alta el producto" << endl << endl;
+                                }
+                            }
+                            else{ //si hay stock disponible mayor a un producto, pero menor a lo que el cliente pidió:
+                                cout << "No hay suficiente stock para preparar el producto" << endl << endl;
+                                productosDisponibles = ing.getCantidadStock() / cantidadProductoPorReceta;
+                                cout << "El stock alcanza para preparar " << productosDisponibles;
+                            }
+                        }
+                        else{
+                            ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
+                            importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
+                            detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
+                            vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
+                        }
+                    }
+                }
+            }
         }
-        /// a partir de aca esta OK el ingreso de productos
-
-        ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
-        importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
-        detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
-        vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
-
         opcion = pedirYValidarConfirmacion("Desea ingresar mas productos? \n1) si \n0) no \n\n");
         if(opcion == 0){
             cargaProductos=true;
@@ -277,43 +310,42 @@ if(cont==0){
 
 
 
-///pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 void ManagerVenta::cargaMasivaVentas(std::string dniEmpleado){
 
-    FormaDePagoArchivo fdpArchi;
-    ArchivoProducto archiProd;
-    VentaArchivo ventaArchi;
-    ArchivoEmpleado empArchi;
-    ArchivoCliente archivoCliente;
+    for (int i=0; i < 300; i++){
+        FormaDePagoArchivo fdpArchi;
+        ArchivoProducto archiProd;
+        VentaArchivo ventaArchi;
+        ArchivoEmpleado empArchi;
+        ArchivoCliente archivoCliente;
 
-    Fecha fechaVenta;
-    Empleado emp;
-    Producto prod;
-    Venta v;
-    FormaDePago fdp;
-    DetalleVenta detVenta;
-    Cliente cliente;
+        Fecha fechaVenta;
+        Empleado emp;
+        Producto prod;
+        Venta v;
+        FormaDePago fdp;
+        DetalleVenta detVenta;
+        Cliente cliente;
 
-    PersonaManager personaManager;
-    ProductosManager prodManager;
+        PersonaManager personaManager;
+        ProductosManager prodManager;
 
-    int nroFactura,idEmpleado,formaDePago;
-    float descuento;
-    int posArchiFdp;
-    float importeBruto= 0;
-    float ImporteProdxCantidad, importeTotal;
-    int posicionEmpleado, posicionProducto, posicionCliente;
-    int cantidad, opcion;
-    int idProducto;
-    vector<DetalleVenta> vecDetalleVenta;
+        int nroFactura,idEmpleado,formaDePago;
+        float descuento;
+        int posArchiFdp;
+        float importeBruto= 0;
+        float ImporteProdxCantidad, importeTotal;
+        int posicionEmpleado, posicionProducto, posicionCliente;
+        int cantidad, opcion;
+        int idProducto;
+        vector<DetalleVenta> vecDetalleVenta;
 
-    string nombreCliente, apellidoCliente, dniCliente;
+        string nombreCliente, apellidoCliente, dniCliente;
 
 
-    nroFactura = ventaArchi.getCantidadRegistros()+1; //autonumerico
+        nroFactura = ventaArchi.getCantidadRegistros()+1; //autonumerico
 
-    for (int i=0; i < 1000; i++){
         cin.ignore();
         getline(cin,dniCliente);
         posicionCliente = archivoCliente.buscar(dniCliente);
