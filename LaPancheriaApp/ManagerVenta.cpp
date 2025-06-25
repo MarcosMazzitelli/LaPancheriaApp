@@ -622,7 +622,7 @@ void ManagerVenta::listarVendedorMenorRecaudacion(){
         }
     }
 
-    for (int i=0; i< cantidadRegistros; i++){
+    for (int i=0; i< cantidadEmpleados; i++){
         if (vendio[i] ==true && cont == 0){
             menorVenta= sumatoriaVentas[i];
             cont++;

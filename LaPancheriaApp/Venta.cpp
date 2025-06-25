@@ -128,7 +128,7 @@ str += ss.str() + ",";
 str += to_string(_formaDePago) + ",";
 str += to_string(_fechaVenta.getAnio()) + ",";
 str += to_string(_fechaVenta.getMes()) + ",";
-str += to_string(_fechaVenta.getDia());
+str += to_string(_fechaVenta.getDia()) + ",";
 
 return str;
 
