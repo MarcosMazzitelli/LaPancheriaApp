@@ -35,6 +35,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     ArchivoEmpleado empArchi;
     ArchivoDetalleIngrediente archivoDetalleIng;
     ArchivoIngrediente archivoIngrediente;
+    DetalleVentaArchivo archivoDetalleVenta;
 
     Fecha fechaVenta;
     Empleado emp;
@@ -54,7 +55,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     string dniCliente; //Cliente client; /ClienteArchivo aCliente;
     float importeTotal=0;
     float importeBruto, ImporteProdxCantidad, stockADescontar, cantidadIngredientePorReceta;
-    int posicionEmpleado, posicionProducto, cantidadADescontar;
+    int posicionEmpleado, posicionProducto, posicionProd, cantidadADescontar;
     int cantidad, opcion;
     int idProducto;
     int cantRegistrosProducto = archiProd.getCantidadRegistros();
@@ -167,6 +168,9 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
                 vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
             }
         }
+        else{
+            cout << "El producto se encuentra dado de baja!" << endl << endl;
+        }
         opcion = pedirYValidarConfirmacion("Desea ingresar mas productos? \n1) si \n0) no \n\n");
         if(opcion == 0){
             cargaProductos=true;
@@ -188,18 +192,36 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
         fechaVenta.cargar();
     }
 
-
+    cout << endl << endl;
     v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);///Mandar fdp no forma de pago
+    if(!vecDetalleVenta.empty()){
+        cout << "Detalle de venta: " << endl;
+        cout << "--------------------------------" << endl;
+        for (int i=0; i < vecDetalleVenta.size(); i++){
+            int idProducto = vecDetalleVenta[i].getIdProducto();
+            int cant = vecDetalleVenta[i].getCantProducto();
+            detVenta = archivoDetalleVenta.leer(i);
+            posicionProd = archiProd.buscar(idProducto);
+            prod = archiProd.leer(posicionProd);
+            cout << "(x" << cant << ") " << prod.getNombreProducto() << endl;
+        }
+        cout << "--------------------------------" << endl << endl;
 
-    opcion = pedirYValidarConfirmacion("Desea registrar la venta? \n1) si \n0) no \n\n");
-    if(opcion == 1){
-        if (ventaArchi.guardar(v)){
-            cout << "Venta guardada correctamente." << endl;
+
+
+        opcion = pedirYValidarConfirmacion("Desea registrar la venta? \n1) si \n0) no \n\n");
+        if(opcion == 1){
+            if (ventaArchi.guardar(v)){
+                cout << "Venta guardada correctamente." << endl;
+            }
+            else{
+                cout << "Hubo un problema al guardar la venta." << endl;
+            }
+            descontarStock(vecDetalleVenta);
         }
-        else{
-            cout << "Hubo un problema al guardar la venta." << endl;
-        }
-        descontarStock(vecDetalleVenta);
+    }
+    else{
+        cout << "No se ha registrado ninguna venta..." << endl << endl;
     }
 }
 

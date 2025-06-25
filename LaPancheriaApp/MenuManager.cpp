@@ -426,7 +426,7 @@ void MenuManager::menuProductos(){
         cout << "6. Listar recetas" << endl;
         cout << "7. Listar productos por ingrediente" << endl;
         cout << "8. Listar productos por categoria" << endl;
-        cout << "9. Listar productos to csv" << endl;
+        cout << "9. Listar productos toCsv" << endl;
         cout << "0. Salir" << endl;
         cout << "===============================" << endl;
         cout << "Ingrese una opcion: ";
@@ -449,7 +449,7 @@ void MenuManager::menuProductos(){
             cout << "6. Listar recetas" << endl;
             cout << "7. Listar productos por ingrediente" << endl;
             cout << "8. Listar productos por categoria" << endl;
-            cout << "9. Listar productos to csv" << endl;
+            cout << "9. Listar productos toCsv" << endl;
             cout << "0. Salir" << endl;
             cout << "===============================" << endl;
             cout << "Ingrese una opcion: ";
