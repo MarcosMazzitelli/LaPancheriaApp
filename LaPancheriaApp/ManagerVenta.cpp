@@ -914,7 +914,7 @@ void ManagerVenta::cierreCaja(){
     cout << endl << "El cierre de caja en la fecha " << diaActual.mostrarFecha() << " debe ser: " << acumuladorVentasEfectivo << endl << endl;
 
 }
-
+/*
 void ManagerVenta::listarVentasToCsv(){
     VentaArchivo archivoVenta;
     DetalleVentaArchivo archivoDetalleVenta;
@@ -935,7 +935,37 @@ void ManagerVenta::listarVentasToCsv(){
         }
         cout << endl;
      }
+} */
+
+void ManagerVenta::listarVentasToCsv(){
+    VentaArchivo archivoVenta;
+    Venta venta;
+
+    int cantRegistrosVenta = archivoVenta.getCantidadRegistros();
+
+    cout << "_nroFactura,_idEmpleado,_importeTotal,_formaDePago,Anio,Mes,Dia" << endl;
+
+    for (int i=0;i<cantRegistrosVenta;i++){
+        venta = archivoVenta.leer(i);
+        cout << venta.mostrarToCsv();
+        cout << endl;
+     }
 }
+
+void ManagerVenta::listarDetalleVentaToCsv(){
+    DetalleVentaArchivo archivoDetalleVenta;
+    DetalleVenta detalleVenta;
+
+    int cantRegistrosDetalleVenta = archivoDetalleVenta.getCantidadRegistros();
+    cout << "_nroFactura,_idProducto,_cantProducto,_precioUnitario,_costoUnitario,_importeBruto" << endl;
+    for (int j=0; j < cantRegistrosDetalleVenta; j++ ){
+        detalleVenta = archivoDetalleVenta.leer(j);
+        cout << detalleVenta.mostrarToCsv();
+        cout << endl;
+    }
+
+}
+
 
 
 

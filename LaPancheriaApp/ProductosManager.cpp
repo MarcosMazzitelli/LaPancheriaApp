@@ -1085,3 +1085,19 @@ void ProductosManager::cantidadProductosVendidosPorFecha(){
     }
     delete[]vectorProductosVendidos;
 }
+
+
+void ProductosManager::listarProductosToCsv(){
+    ArchivoProducto archivoProducto;
+    Producto producto;
+
+    int cantRegistrosProducto = archivoProducto.getCantidadRegistros();
+    cout << "_idProducto,_idCategoria,_nombreProducto,_precioUnitario,_costoProducto,_estado" << endl;
+    for (int i=0;i<cantRegistrosProducto;i++){
+        producto = archivoProducto.leer(i);
+        cout << producto.mostrarToCsv();
+        cout << endl;
+     }
+}
+
+

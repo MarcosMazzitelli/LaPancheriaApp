@@ -29,5 +29,5 @@ public:
     bool listarProductosPorIngredientes();
     void cantidadProductosVendidosPorFecha();
     void rankingProductosMasVendidos();
-
+    void listarProductosToCsv();
 };

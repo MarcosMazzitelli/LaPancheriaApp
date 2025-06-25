@@ -20,4 +20,5 @@ public:
 
     ///listados
     void listarIngredientes(bool estado);
+    void listarIngredientesToCsv();
 };

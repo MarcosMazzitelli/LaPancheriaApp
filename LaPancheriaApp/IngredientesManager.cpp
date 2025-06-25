@@ -548,7 +548,22 @@ void IngredientesManager::listarIngredientes(bool estado){
     }
 }
 
+void IngredientesManager::listarIngredientesToCsv(){
+    ArchivoIngrediente archivoIngrediente;
+    Ingrediente ingrediente;
 
+    int cantRegistrosIngrediente = archivoIngrediente.getCantidadRegistros();
+
+    cout << "_idIngrediente),_nombreIngrediente,_cantidadStock,(_costoUnitario,_tipoDeUnidad,_estado" << endl;
+    for (int i=0;i<cantRegistrosIngrediente;i++){
+        ingrediente = archivoIngrediente.leer(i);
+        cout << ingrediente.mostrarToCsv();
+        cout << endl;
+     }
+
+
+
+}
 
 
 

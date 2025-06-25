@@ -26,6 +26,7 @@ public:
     void listarVendedorMayorCantidadVentas();
     void listarVendedorMenorCantidadVentas();
     void listarVentasToCsv();
+    void listarDetalleVentaToCsv();
     void MayorRecaudacionPorPeriodo();
     void mostrarFechaMayorCantidadVentasPorPeriodo();
     void cierreCaja();
