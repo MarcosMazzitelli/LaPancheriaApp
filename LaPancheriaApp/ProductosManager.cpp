@@ -57,6 +57,8 @@ void ProductosManager::crearPanchoOGuarnicion(int idCategoria){
 
     idProducto = prodArchi.getCantidadRegistros()+1; //autonumerico
 
+
+    //Metodo que hace toda la carga de ingredientes que va a tener ese productos y los mete en un vector de detallesIngrediente
     incorporarIngredientes(idProducto, costoProducto, vecDetalleIngredientes);
     cout << "El costo para hacer el producto es: $" << costoProducto << endl << endl;
 
@@ -165,12 +167,12 @@ void ProductosManager::incorporarIngredientes(int idProducto, float &costoProduc
             }
             costoProducto+= ing.getCostoUnitario() * cantidadPorProducto;
 
-            // a partir de aca esta OK el ingreso de ID ingrediente y cantidad por productos
+            // a partir de aca esta validado el ingreso de ID ingrediente y cantidad por productos
 
             detalleIng = DetalleIngrediente(idProducto, idIngrediente, cantidadPorProducto, true); //
             vecDetalleIngredientes.push_back(detalleIng);
+            //mientras siga cargando ingredientes para ese producto, se guardarán instancias de detalleIng en el vector dinamico
 
-            //aca se guarda UN ingrediente en el detalle
             opcion = pedirYValidarConfirmacion("\nDesea agregar mas ingredientes? \n1)Si \n0)No \n\n");
             if(opcion==0){
                 cargaIngredientes=true; //fin del while general de carga de ingredientes
@@ -318,12 +320,12 @@ void ProductosManager::crearBebida(int idCategoria){
         }
     }
 
-    cantidadPorProducto = 1; //porque las bebidas se guardan en unidades
-
+    cantidadPorProducto = 1; //Es la cantidad de producto que se asocia a la receta (cantidad a descontar cuando haya una venta)
+    //Cada vez que se elija una bebida, se descontara (1 * cantidad a vender)
     ///FIN DE CARGA DEL PRODUCTO Y SU RECETA:
     prod = Producto(idProducto, idCategoria, nombreProducto, precioUnitario, costoUnitario, estado);
-    ing = Ingrediente(idIngrediente,nombreIngrediente,cantidadStock, costoUnitario, tipoDeUnidad,estado);
-    detalleIng = DetalleIngrediente(idProducto, idIngrediente, cantidadPorProducto, true); //
+    ing = Ingrediente(idIngrediente,nombreIngrediente,cantidadStock, costoUnitario, tipoDeUnidad,estado); //para asociar stock
+    detalleIng = DetalleIngrediente(idProducto, idIngrediente, cantidadPorProducto, true); //para descontar stock
 
     opcion = pedirYValidarConfirmacion();
     if(opcion==1){ //si confirma, se guardan los detalles de ingredientes (receta) y el producto
@@ -629,25 +631,33 @@ void ProductosManager::darAltaProducto(){
             opcion = pedirYValidarConfirmacion();
             if (opcion ==1){
                 for (int i=0; i<cantRegistrosDetalleIngrediente; i++){
+                    //recorro todas las recetas (detalleIng) para darlas de alta tambien
                     detalleIngrediente = archivoDetalleIngrediente.leer(i);
                     if(idProducto == detalleIngrediente.getIdProducto()){
                         detalleIngrediente.setEstado(true);
-                        vecDetalleIngredientesOk.push_back(detalleIngrediente); //Seteo el detalle en true y lo guardo en el vector para modificar luego si todo esta ok
-                        vecPosDetalleIngredientesOk.push_back(i); //guardo la posicion para saber EN QUE POSICION tengo que modificar en el archivo
+                        vecDetalleIngredientesOk.push_back(detalleIngrediente);
+                        //Seteo el detalle en true y lo guardo en el vector de RECETAS (detalleIng) para modificar luego si todo esta ok
+                        vecPosDetalleIngredientesOk.push_back(i);
+                        //guardo la posicion para saber EN QUE POSICION tengo que modificar en el archivo
 
                         posIngrediente = archivoIngrediente.buscar(detalleIngrediente.getIdIngrediente());
-                        ingrediente = archivoIngrediente.leer(posIngrediente); //Traigo el ingrediente a memoria para chequear que este OK
+                        ingrediente = archivoIngrediente.leer(posIngrediente);
+                        //Traigo el ingrediente a memoria para chequear su estado (alta o baja)
                         if(!ingrediente.getEstado()){
                             cout << "El ingrediente " << ingrediente.getNombreIngrediente() << " se encuentra dado de baja!" << endl;
-                            opcion = pedirYValidarConfirmacion("\nDesea darlo de alta? \n1)Si \n0)No \n\n"); //si el ingrediente esta dado de alta, pregunto si quiere activarlo.
+                            opcion = pedirYValidarConfirmacion("\nDesea darlo de alta? \n1)Si \n0)No \n\n");
+                            //si el ingrediente esta dado de alta, pregunto si quiere activarlo.
                             if(opcion ==1){
                                 ingrediente.setEstado(true);
-                                vecIngredientesOk.push_back(ingrediente); //seteo el ingrediente en true y lo guardo en otro vector para modificar luego si todo esta ok
-                                vecPosIngredientesOk.push_back(posIngrediente); //guardo la posicion para saber EN QUE POSICION tengo que modificar en el archivo
+                                vecIngredientesOk.push_back(ingrediente);
+                                //seteo el ingrediente en true y lo guardo en otro vector de INGREDIENTES para modificar luego si todo esta ok
+                                vecPosIngredientesOk.push_back(posIngrediente);
+                                //guardo la posicion para saber EN QUE POSICION tengo que modificar en el archivo de INGREDIENTES
                                 ///pasar
                             }
                             else{
-                                validacion = false; //si no quiere dar de alta alguno de los ingredientes, la bandera se pone en false y hace que no se modifique nada luego.
+                                validacion = false;
+                                //si no quiere dar de alta alguno de los ingredientes, la bandera se pone en false y hace que no se modifique nada luego.
                             }
                         }
                     }
@@ -930,7 +940,6 @@ bool ProductosManager::listarProductosPorIngredientes(){
                 if(producto.getEstado()){ //por ultimo, si tambien el producto esta activo, se muestra el producto y sus ingredientes.
                     mostrarProductoYReceta(producto);
                     encontrado=true;
-                    return true;
                 }
             }
         }
@@ -938,6 +947,9 @@ bool ProductosManager::listarProductosPorIngredientes(){
     if(!encontrado){
         cout << "Ningun producto activo contiene el ingrediente mencionado..." << endl << endl;
         return false;
+    }
+    else{
+        return true;
     }
 }
 

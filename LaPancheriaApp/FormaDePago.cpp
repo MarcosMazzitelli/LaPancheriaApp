@@ -200,7 +200,6 @@ void FormaDePago::elegirFormaDePago(int &opc){
             cin.clear();
             cin.ignore(1000,'\n');
             cout << "Ingrese un valor valido" << endl << endl;
-            limpiarPantalla();
             cout << "Elija el numero de forma de pago:" << endl;
             cin >> opc;
         }
