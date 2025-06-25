@@ -321,7 +321,7 @@ if(cont==0){
 
 void ManagerVenta::cargaMasivaVentas(std::string dniEmpleado){
 
-    for (int i=0; i < 300; i++){
+    for (int i=0; i < 400; i++){
         FormaDePagoArchivo fdpArchi;
         ArchivoProducto archiProd;
         VentaArchivo ventaArchi;
@@ -925,11 +925,11 @@ void ManagerVenta::listarVentasToCsv(){
 
     for (int i=0;i<cantRegistrosVenta;i++){
         venta = archivoVenta.leer(i);
-        venta.mostrarToCsv();
+        cout << venta.mostrarToCsv();
         for (int j=0; j < cantRegistrosDetalleVenta; j++ ){
             detalleVenta = archivoDetalleVenta.leer(j);
             if(venta.getNroFactura() == detalleVenta.getNroFactura()){
-                detalleVenta.mostrarToCsv();
+                cout << detalleVenta.mostrarToCsv();
             }
         }
         cout << endl;
