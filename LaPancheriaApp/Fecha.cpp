@@ -134,9 +134,9 @@ bool Fecha::operator==(Fecha aux){
 }
 
 bool Fecha::operator <= (Fecha aux){
-    if(_anio < aux.getAnio() ||
-       _anio == aux.getAnio() && _mes < aux.getMes() ||
-       _anio == aux.getAnio() && _mes == aux.getMes() && _dia <= aux.getDia() ){
+    if((_anio < aux.getAnio()) ||
+       (_anio == aux.getAnio() && _mes < aux.getMes()) ||
+       (_anio == aux.getAnio() && _mes == aux.getMes() && _dia <= aux.getDia()) ){
         return true;
     }
     else{
@@ -146,9 +146,9 @@ bool Fecha::operator <= (Fecha aux){
 }
 
 bool Fecha::operator >= (Fecha aux){
-    if(_anio > aux.getAnio() ||
-       _anio == aux.getAnio() && _mes > aux.getMes() ||
-       _anio == aux.getAnio() && _mes == aux.getMes() && _dia >= aux.getDia() ){
+    if((_anio > aux.getAnio()) ||
+       (_anio == aux.getAnio() && _mes > aux.getMes()) ||
+       (_anio == aux.getAnio() && _mes == aux.getMes() && _dia >= aux.getDia()) ){
         return true;
     }
     else{

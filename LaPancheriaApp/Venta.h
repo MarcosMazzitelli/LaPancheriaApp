@@ -35,7 +35,7 @@ public:
     void mostrarEnLista();
     Fecha obtenerFechaVenta();
     void mostrarTabla();
-
+    std::string mostrarToCsv();
 };
 
 

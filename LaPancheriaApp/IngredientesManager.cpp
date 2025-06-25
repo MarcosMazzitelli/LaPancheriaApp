@@ -8,7 +8,7 @@
 #include <iomanip>
 using namespace std;
 
-
+    ///Metodos principales
 void IngredientesManager::cargarIngrediente(){
     int idIngrediente;
     string nombreIngrediente, tipoDeUnidad;
@@ -62,261 +62,6 @@ void IngredientesManager::cargarIngrediente(){
     }
 
 }
-void IngredientesManager::menuModificacion(Ingrediente &ing, int &pos){
-    ArchivoIngrediente archivoIngrediente; //prodArchi;
-    int opcion;
-    string nombreIngrediente;
-    float costoUnitario;
-
-    while(true) {
-        system("cls");
-        cout << "\n--- Menu de Modificacion --- \n";
-        ing.mostrar();
-        cout << endl << endl;
-        cout << "1. Modificar Nombre \n";
-        cout << "2. Modificar costo unitario \n";
-        cout << "3. Mostrar Datos \n";
-        cout << "0. Salir \n";
-        cout << "Seleccione una opcion: ";
-        cin >> opcion;
-
-        while(cin.fail() || opcion < 0 || opcion > 3 ){
-            cin.clear();
-            cin.ignore(1000,'\n');
-            cout << "Ingrese un valor valido" << endl << endl;
-            system("pause");
-            system("cls");
-            ing.mostrar();
-            cout << endl << endl;
-            cout << "1. Modificar Nombre \n";
-            cout << "2. Modificar costo unitario \n";
-            cout << "3. Mostrar Datos \n";
-            cout << "0. Salir \n";
-            cout << "Seleccione una opcion: ";
-            cin >> opcion;
-        }
-        switch (opcion) {
-            case 1:
-                system("cls");
-                cout << "Ingrese el nuevo nombre: ";
-                cin.ignore();
-                getline(cin, nombreIngrediente);
-                ing.setNombreIngrediente(nombreIngrediente);
-                system("pause");
-                break;
-            case 2:
-                system("cls");
-                cout << "Ingrese el nuevo costo unitario: ";
-                cin >> costoUnitario;
-                while (cin.fail() || costoUnitario < 0){
-                    cin.clear();
-                    cin.ignore(1000,'\n');
-                    cout << "Ingrese un valor valido" << endl << endl;
-                    system("pause");
-                    system("cls");
-                    cout << "Ingrese el nuevo costo unitario: ";
-                    cin >> costoUnitario;
-                }
-                ing.setCostoUnitario(costoUnitario);
-                cout << "costo unitario modificado.\n";
-                system("pause");
-                break;
-            case 3:
-                system("cls");
-                cout << "\nDatos actuales del ingrediente:\n";
-                ing.mostrar();
-                system("pause");
-                break;
-            case 0:
-                system("cls");
-                opcion = pedirYValidarConfirmacion("\nDesea guardar antes de salir? \n1)Si  0)No \n");
-                if (opcion == 1){
-                    if(archivoIngrediente.modificar(ing, pos)){
-                        cout << endl << "Ingrediente guardado con exito." << endl << endl;
-                    }
-                    else{
-                        cout << endl <<"Hubo un error al guardar el ingrediente." << endl << endl;
-                    }
-                }
-                else{
-                    cout << "No se ha realizado la modificacion\n\n";
-                }
-                cout << "Saliendo del programa...\n";
-                return;
-                break;
-        }
-    }
-
-
-
-}
-void IngredientesManager::modificarIngrediente(){
-    ArchivoIngrediente archi;
-    Ingrediente ing;
-
-    int idIngrediente, pos, opcion;
-    int cantRegistrosIngredientes = archi.getCantidadRegistros();
-    float stockReal;
-
-    listarIngredientes(true); //solo los activos
-    cout << endl << "Ingrese el ID del ingrediente a modificar: ";
-    cin >> idIngrediente;
-    while(cin.fail() || idIngrediente <= 0 || idIngrediente > cantRegistrosIngredientes ){
-        cin.clear();
-        cin.ignore(1000,'\n');
-        cout << "Ingrese un valor valido" << endl;
-        system("pause");
-        system("cls");
-        listarIngredientes(true); //solo los activos
-        cout << endl << "Ingrese el ID del ingrediente a modificar: ";
-        cin >> idIngrediente;
-    }
-    pos = archi.buscar(idIngrediente);
-
-    if(pos >= 0){
-        ing = archi.leer(pos);
-        if(ing.getEstado()){
-            menuModificacion(ing, pos);
-        }
-        else{
-            ing.mostrar();
-            cout << endl << endl <<"El ingrediente se encuentra dado de baja" << endl;
-            cout << "Solo esta permitido modificar ingredientes activos." << endl << endl;
-        }
-    }
-    else{
-        cout << "No se ha encontrado el ID del ingrediente en el archivo" << endl << endl;
-    }
-}
-
-
-void IngredientesManager::darAltaIngrediente(){
-    ArchivoIngrediente archi;
-    Ingrediente ing;
-
-    int idIngrediente, pos, opcion;
-    int cantRegistrosIngredientes = archi.getCantidadRegistros();
-    float stock;
-
-    listarIngredientes(false); //solo los inactivos
-    cout << endl << "Ingrese el ID del ingrediente a dar de alta: ";
-    cin >> idIngrediente;
-    while(cin.fail() || idIngrediente <= 0 || idIngrediente > cantRegistrosIngredientes ){
-        cin.clear();
-        cin.ignore(1000,'\n');
-        cout << "Ingrese un valor valido" << endl;
-        system("pause");
-        system("cls");
-        listarIngredientes(false); //solo los inactivos
-        cout << endl << "Ingrese el ID del ingrediente a dar de alta: ";
-        cin >> idIngrediente;
-    }
-    pos = archi.buscar(idIngrediente);
-
-    if(pos >= 0){
-        ing = archi.leer(pos);
-        if(!ing.getEstado()){
-            system("cls");
-            ing.mostrar();
-            opcion = pedirYValidarConfirmacion("\n\nDesea asignar stock ahora? \n1)Si \n0)No \n");
-            if(opcion ==1){
-                cout << "Ingrese la cantidad de stock en " << ing.getTipoDeUnidad() <<" : ";
-                cin >> stock;
-                while (cin.fail() || stock <= 0){
-                    cin.clear();
-                    cin.ignore(1000,'\n');
-                    cout << "Ingrese un valor valido" << endl;
-                    system("pause");
-                    system("cls");
-                    cout << "Ingrese la cantidad de stock en " << ing.getTipoDeUnidad() <<" : ";
-                    cin >> stock;
-                }
-                ing.setCantidadStock(stock);
-            }
-            opcion = pedirYValidarConfirmacion("\n\nConfirma dar de alta el ingrediente? \n\n1)Si \n0)No \n");
-            if(opcion == 1){
-                ing.setEstado(true);
-                if(archi.modificar(ing,pos)){
-                    cout << "Ingrediente dado de alta con exito" << endl;
-                }
-                else{
-                    cout << "Hubo un error al dar de alta el ingrediente" << endl;
-                }
-            }
-        }
-        else{
-            ing.mostrar();
-            cout << endl << endl <<"El ingrediente ya se encuentra dado de alta" << endl << endl;
-        }
-    }
-    else{
-        cout << "No se ha encontrado el ID del ingrediente en el archivo" << endl << endl;
-    }
-}
-
-
-void IngredientesManager::mostrarIngredientesCompletos(bool estado){
-    ArchivoIngrediente archi;
-    Ingrediente ing;
-    int cantRegistros = archi.getCantidadRegistros();
-
-    if(estado){
-        for (int i=0; i<cantRegistros; i++){
-            ing = archi.leer(i);
-            if(ing.getEstado()){
-                ing.mostrar();
-                cout << endl << endl;
-            }
-        }
-    }
-    else{
-        for (int i=0; i<cantRegistros; i++){
-            ing = archi.leer(i);
-            if(!ing.getEstado()){
-                ing.mostrar();
-                cout << endl << endl;
-            }
-        }
-
-    }
-}
-
-void IngredientesManager::listarIngredientes(bool estado){
-    ArchivoIngrediente archi;
-    Ingrediente ing;
-
-    int cantRegistros = archi.getCantidadRegistros();
-    cout << left << setw(20) << "ID Ingrediente";
-    cout << setw(30) << "Nombre del ingrediente";
-    cout << setw(20) << "Costo unitario";
-    cout << "Cantidad en stock";
-    cout << endl;
-    cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
-
-    if(estado){//si mandamos el parametro en true, mostramos los activos
-        for (int i=0; i<cantRegistros; i++){
-            ing = archi.leer(i);
-            if (ing.getEstado()){
-                ing.mostrarEnLista();
-                cout << endl;
-            }
-        }
-        cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
-    }
-    else{  //si mandamos el parametro en false, mostramos los inactivos
-        for (int i=0; i<cantRegistros; i++){
-            ing = archi.leer(i);
-            if (!ing.getEstado()){
-                ing.mostrarEnLista();
-                cout << endl;
-            }
-        }
-        cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
-
-    }
-}
-
-
 
 void IngredientesManager::comprarIngrediente(){
     ArchivoIngrediente archi;
@@ -414,6 +159,137 @@ void IngredientesManager::comprarIngrediente(){
     }
 }
 
+///ABML
+
+void IngredientesManager::modificarIngrediente(){
+    ArchivoIngrediente archi;
+    Ingrediente ing;
+
+    int idIngrediente, pos, opcion;
+    int cantRegistrosIngredientes = archi.getCantidadRegistros();
+    float stockReal;
+
+    listarIngredientes(true); //solo los activos
+    cout << endl << "Ingrese el ID del ingrediente a modificar: ";
+    cin >> idIngrediente;
+    while(cin.fail() || idIngrediente <= 0 || idIngrediente > cantRegistrosIngredientes ){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << "Ingrese un valor valido" << endl;
+        system("pause");
+        system("cls");
+        listarIngredientes(true); //solo los activos
+        cout << endl << "Ingrese el ID del ingrediente a modificar: ";
+        cin >> idIngrediente;
+    }
+    pos = archi.buscar(idIngrediente);
+
+    if(pos >= 0){
+        ing = archi.leer(pos);
+        if(ing.getEstado()){
+            menuModificacion(ing, pos);
+        }
+        else{
+            ing.mostrar();
+            cout << endl << endl <<"El ingrediente se encuentra dado de baja" << endl;
+            cout << "Solo esta permitido modificar ingredientes activos." << endl << endl;
+        }
+    }
+    else{
+        cout << "No se ha encontrado el ID del ingrediente en el archivo" << endl << endl;
+    }
+}
+
+
+void IngredientesManager::menuModificacion(Ingrediente &ing, int &pos){
+    ArchivoIngrediente archivoIngrediente; //prodArchi;
+    int opcion;
+    string nombreIngrediente;
+    float costoUnitario;
+
+    while(true) {
+        system("cls");
+        cout << "\n--- Menu de Modificacion --- \n";
+        ing.mostrar();
+        cout << endl << endl;
+        cout << "1. Modificar Nombre \n";
+        cout << "2. Modificar costo unitario \n";
+        cout << "3. Mostrar Datos \n";
+        cout << "0. Salir \n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+
+        while(cin.fail() || opcion < 0 || opcion > 3 ){
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "Ingrese un valor valido" << endl << endl;
+            system("pause");
+            system("cls");
+            ing.mostrar();
+            cout << endl << endl;
+            cout << "1. Modificar Nombre \n";
+            cout << "2. Modificar costo unitario \n";
+            cout << "3. Mostrar Datos \n";
+            cout << "0. Salir \n";
+            cout << "Seleccione una opcion: ";
+            cin >> opcion;
+        }
+        switch (opcion) {
+            case 1:
+                system("cls");
+                cout << "Ingrese el nuevo nombre: ";
+                cin.ignore();
+                getline(cin, nombreIngrediente);
+                ing.setNombreIngrediente(nombreIngrediente);
+                system("pause");
+                break;
+            case 2:
+                system("cls");
+                cout << "Ingrese el nuevo costo unitario: ";
+                cin >> costoUnitario;
+                while (cin.fail() || costoUnitario < 0){
+                    cin.clear();
+                    cin.ignore(1000,'\n');
+                    cout << "Ingrese un valor valido" << endl << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "Ingrese el nuevo costo unitario: ";
+                    cin >> costoUnitario;
+                }
+                ing.setCostoUnitario(costoUnitario);
+                cout << "costo unitario modificado.\n";
+                system("pause");
+                break;
+            case 3:
+                system("cls");
+                cout << "\nDatos actuales del ingrediente:\n";
+                ing.mostrar();
+                system("pause");
+                break;
+            case 0:
+                system("cls");
+                opcion = pedirYValidarConfirmacion("\nDesea guardar antes de salir? \n1)Si  0)No \n");
+                if (opcion == 1){
+                    if(archivoIngrediente.modificar(ing, pos)){
+                        cout << endl << "Ingrediente guardado con exito." << endl << endl;
+                    }
+                    else{
+                        cout << endl <<"Hubo un error al guardar el ingrediente." << endl << endl;
+                    }
+                }
+                else{
+                    cout << "No se ha realizado la modificacion\n\n";
+                }
+                cout << "Saliendo del programa...\n";
+                return;
+                break;
+        }
+    }
+
+
+
+}
+
 void IngredientesManager::modificarStock(){
     ArchivoIngrediente archi;
     Ingrediente ing;
@@ -474,7 +350,6 @@ void IngredientesManager::modificarStock(){
     }
 
 }
-
 
 void IngredientesManager::eliminarIngrediente(){
     ArchivoIngrediente archivoIngrediente;
@@ -570,6 +445,114 @@ void IngredientesManager::eliminarIngrediente(){
         cout << "El ingrediente seleccionado ya se encuentra dado de baja!" << endl << endl;
     }
 }
+
+
+void IngredientesManager::darAltaIngrediente(){
+    ArchivoIngrediente archi;
+    Ingrediente ing;
+
+    int idIngrediente, pos, opcion;
+    int cantRegistrosIngredientes = archi.getCantidadRegistros();
+    float stock;
+
+    listarIngredientes(false); //solo los inactivos
+    cout << endl << "Ingrese el ID del ingrediente a dar de alta: ";
+    cin >> idIngrediente;
+    while(cin.fail() || idIngrediente <= 0 || idIngrediente > cantRegistrosIngredientes ){
+        cin.clear();
+        cin.ignore(1000,'\n');
+        cout << "Ingrese un valor valido" << endl;
+        system("pause");
+        system("cls");
+        listarIngredientes(false); //solo los inactivos
+        cout << endl << "Ingrese el ID del ingrediente a dar de alta: ";
+        cin >> idIngrediente;
+    }
+    pos = archi.buscar(idIngrediente);
+
+    if(pos >= 0){
+        ing = archi.leer(pos);
+        if(!ing.getEstado()){
+            system("cls");
+            ing.mostrar();
+            opcion = pedirYValidarConfirmacion("\n\nDesea asignar stock ahora? \n1)Si \n0)No \n");
+            if(opcion ==1){
+                cout << "Ingrese la cantidad de stock en " << ing.getTipoDeUnidad() <<" : ";
+                cin >> stock;
+                while (cin.fail() || stock <= 0){
+                    cin.clear();
+                    cin.ignore(1000,'\n');
+                    cout << "Ingrese un valor valido" << endl;
+                    system("pause");
+                    system("cls");
+                    cout << "Ingrese la cantidad de stock en " << ing.getTipoDeUnidad() <<" : ";
+                    cin >> stock;
+                }
+                ing.setCantidadStock(stock);
+            }
+            opcion = pedirYValidarConfirmacion("\n\nConfirma dar de alta el ingrediente? \n\n1)Si \n0)No \n");
+            if(opcion == 1){
+                ing.setEstado(true);
+                if(archi.modificar(ing,pos)){
+                    cout << "Ingrediente dado de alta con exito" << endl;
+                }
+                else{
+                    cout << "Hubo un error al dar de alta el ingrediente" << endl;
+                }
+            }
+        }
+        else{
+            ing.mostrar();
+            cout << endl << endl <<"El ingrediente ya se encuentra dado de alta" << endl << endl;
+        }
+    }
+    else{
+        cout << "No se ha encontrado el ID del ingrediente en el archivo" << endl << endl;
+    }
+}
+
+
+
+void IngredientesManager::listarIngredientes(bool estado){
+    ArchivoIngrediente archi;
+    Ingrediente ing;
+
+    int cantRegistros = archi.getCantidadRegistros();
+    cout << left << setw(20) << "ID Ingrediente";
+    cout << setw(30) << "Nombre del ingrediente";
+    cout << setw(20) << "Costo unitario";
+    cout << "Cantidad en stock";
+    cout << endl;
+    cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
+
+    if(estado){//si mandamos el parametro en true, mostramos los activos
+        for (int i=0; i<cantRegistros; i++){
+            ing = archi.leer(i);
+            if (ing.getEstado()){
+                ing.mostrarEnLista();
+                cout << endl;
+            }
+        }
+        cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
+    }
+    else{  //si mandamos el parametro en false, mostramos los inactivos
+        for (int i=0; i<cantRegistros; i++){
+            ing = archi.leer(i);
+            if (!ing.getEstado()){
+                ing.mostrarEnLista();
+                cout << endl;
+            }
+        }
+        cout << "----------------------------------------------------------------------------------------------------" << endl;//110 caracteres
+
+    }
+}
+
+
+
+
+
+
 
 
 

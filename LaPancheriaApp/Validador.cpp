@@ -39,11 +39,15 @@ void Validador::validadorFiltroFecha(Fecha &fechaDesde, Fecha &fechaHasta){
     cout <<  "--------------------------------------------------------------------------------"<< endl;
     cout << "FECHA INICIO" << endl;
     cout <<  "--------------------------------------------------------------------------------"<< endl;
-    fechaDesde.cargar();
+    while(!fechaDesde.cargar()){
+        cout << "Fecha invalida!" << endl;
+    }
     cout <<  "--------------------------------------------------------------------------------"<< endl;
     cout << "FECHA FIN" << endl;
     cout <<  "--------------------------------------------------------------------------------"<< endl;
-    fechaHasta.cargar();
+    while(!fechaHasta.cargar()){
+        cout << "Fecha invalida!" << endl;
+    }
 
     if (fechaDesde <= fechaHasta){
         rangoFechaIncorrecto=false;
@@ -60,7 +64,7 @@ void Validador::validadorFiltroFecha(Fecha &fechaDesde, Fecha &fechaHasta){
         cout << "FECHA FIN" << endl;
         cout <<  "--------------------------------------------------------------------------------"<< endl;
         fechaHasta.cargar();
-        if (fechaDesde <= fechaHasta){
+        if (fechaDesde <= fechaHasta){ ///Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
             rangoFechaIncorrecto=false;
         }
     }
