@@ -228,11 +228,11 @@ void CostosManager::listarCostosFijosPorFecha(){
         if(mes == cf.getFechaCosto().getMes() && anio == cf.getFechaCosto().getAnio() && cf.getEstado()==true){
             cont++;
             cf.mostrarEnLista();
-            cout<<"-------------------------------------------------------------------------------------------"<<endl;
+
         }
     }
     if(cont==0){
-        cout<<"No existen costos fijos en esa fecha"<<endl;
+        cout<<"No existen costos fijos en esa fecha"<<endl<<endl;
     }
 }
 
