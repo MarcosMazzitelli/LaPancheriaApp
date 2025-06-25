@@ -53,14 +53,12 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     int posArchiFdp;
     string dniCliente; //Cliente client; /ClienteArchivo aCliente;
     float importeTotal=0;
-    float importeBruto, ImporteProdxCantidad, stockADescontar, cantidadProductoPorReceta;
-    int posicionEmpleado, posicionProducto;
+    float importeBruto, ImporteProdxCantidad, stockADescontar, cantidadIngredientePorReceta;
+    int posicionEmpleado, posicionProducto, cantidadADescontar;
     int cantidad, opcion;
     int idProducto;
     int cantRegistrosProducto = archiProd.getCantidadRegistros();
     vector<DetalleVenta> vecDetalleVenta;
-    bool validacion;
-
     nroFactura = ventaArchi.getCantidadRegistros()+1; //autonumerico
 
     personaManager.cargarCliente(dniCliente);
@@ -72,6 +70,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
 
     bool cargaProductos=false;
     while (!cargaProductos){ ///ciclo para ingresar productos a una venta
+        bool hayStock=true;
         system("cls");
         //prodManager.listarProductos(true);
         opcion = pedirYValidarConfirmacion("\nDesea filtrar productos que tengan un ingrediente en particular? \n1)Si \n0)No \n") ;
@@ -125,38 +124,47 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
                 cout << "Ingrese la cantidad del producto " << prod.getNombreProducto() << " a vender: ";
                 cin >> cantidad;
             }
+            cantidadADescontar = cantidad;
             /// a partir de aca esta OK el ingreso de productos
+            for (int i= 0; i < vecDetalleVenta.size(); i++){
+                if(vecDetalleVenta[i].getIdProducto() == idProducto){
+                    cantidadADescontar += vecDetalleVenta[i].getCantProducto();
+
+                }
+            }
             for(int j=0; j < archivoDetalleIng.getCantidadRegistros(); j++){
                 detalleIng = archivoDetalleIng.leer(j);
                 if(detalleIng.getIdProducto() == idProducto){ // si el producto vendido me coincide con el detalle recorrido en el for:
-                    cantidadProductoPorReceta = detalleIng.getCantidadPorProducto(); //traigo la cantidad de ingrediente que lleva ese producto vendido
-                    stockADescontar = cantidad * cantidadProductoPorReceta; //obtengo la cantidad total de ingrediente. luego la descuento.
+                    cantidadIngredientePorReceta = detalleIng.getCantidadPorProducto(); //traigo la cantidad de ingrediente que lleva ese producto vendido
+                    stockADescontar = cantidadADescontar * cantidadIngredientePorReceta; //obtengo la cantidad total de ingrediente. luego la descuento.
                     posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
                     if (posicion >= 0){
                         ing = archivoIngrediente.leer(posicion);
                         if (ing.getCantidadStock() < stockADescontar){
-                            if(ing.getCantidadStock() < cantidadProductoPorReceta){
+                            hayStock=false;
+
+                            if(ing.getCantidadStock() < cantidadIngredientePorReceta){
                                 //si no hay stock para preparar ni UN producto
                                 prod.setEstado(false);
                                 if(archiProd.modificar(prod, posicionProducto)){
-                                    cout << "No hay suficiente stock para preparar NINGUN producto. El mismo ha sido dado de baja" << endl;
+                                    cout << endl << "No hay suficiente stock de "<< ing.getNombreIngrediente() << " para preparar NINGUN producto. El mismo ha sido dado de baja" << endl;
                                     cout << "Primero debe generar stock y luego dar de alta el producto" << endl << endl;
                                 }
                             }
                             else{ //si hay stock disponible mayor a un producto, pero menor a lo que el cliente pidió:
-                                cout << "No hay suficiente stock para preparar el producto" << endl << endl;
-                                productosDisponibles = ing.getCantidadStock() / cantidadProductoPorReceta;
-                                cout << "El stock alcanza para preparar " << productosDisponibles;
+                                cout << "No hay suficiente stock de " << ing.getNombreIngrediente() << " para preparar el producto" << endl;
+                                productosDisponibles = ing.getCantidadStock() / cantidadIngredientePorReceta;
+                                cout << "El stock alcanza para preparar " << productosDisponibles << " "  << prod.getNombreProducto() << endl;
                             }
-                        }
-                        else{
-                            ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
-                            importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
-                            detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
-                            vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
                         }
                     }
                 }
+            }
+            if(hayStock){
+                ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
+                importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
+                detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
+                vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
             }
         }
         opcion = pedirYValidarConfirmacion("Desea ingresar mas productos? \n1) si \n0) no \n\n");
@@ -202,7 +210,7 @@ void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta){
     DetalleIngrediente detalleIng;
     DetalleVentaArchivo archivoDetalleVenta;
     int posicion;
-    float cantidadProductoPorReceta, stockADescontar;
+    float cantidadIngredientePorReceta, stockADescontar;
     int cantidadProducto;
 
 
@@ -217,9 +225,9 @@ void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta){
         for(int j=0; j < archivoDetalleIng.getCantidadRegistros(); j++){
             detalleIng = archivoDetalleIng.leer(j);
             if(vecDetalleVenta[i].getIdProducto() == detalleIng.getIdProducto()){ // si el producto vendido me coincide con el detalle recorrido en el for:
-                cantidadProductoPorReceta = detalleIng.getCantidadPorProducto(); //traigo la cantidad de ingrediente que lleva ese producto vendido
+                cantidadIngredientePorReceta = detalleIng.getCantidadPorProducto(); //traigo la cantidad de ingrediente que lleva ese producto vendido
                 cantidadProducto = vecDetalleVenta[i].getCantProducto(); //traigo la cantidad de ese producto vendido
-                stockADescontar = cantidadProducto * cantidadProductoPorReceta; //obtengo la cantidad total de ingrediente. luego la descuento.
+                stockADescontar = cantidadProducto * cantidadIngredientePorReceta; //obtengo la cantidad total de ingrediente. luego la descuento.
                 posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
                 if (posicion >= 0){
                     ing = archivoIngrediente.leer(posicion);
