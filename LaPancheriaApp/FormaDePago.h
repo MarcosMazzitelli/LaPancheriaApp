@@ -37,6 +37,7 @@ public:
     void mostrar();
     std::string mostrarToCsv();
     void opcionesFormasDePago();
+    bool modificarDescuentoFormaDePago();
 
 };
 

@@ -33,6 +33,8 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     VentaArchivo ventaArchi;
     DetalleVentaArchivo archiDetVenta;/// NO se guardo los detalles de ventas en archivo
     ArchivoEmpleado empArchi;
+    ArchivoDetalleIngrediente archivoDetalleIng;
+    ArchivoIngrediente archivoIngrediente;
 
     Fecha fechaVenta;
     Empleado emp;
@@ -40,22 +42,23 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     Venta v;
     FormaDePago fdp;
     DetalleVenta detVenta;
+    DetalleIngrediente detalleIng;
+    Ingrediente ing;
 
     PersonaManager personaManager;
     ProductosManager prodManager;
 
-    int nroFactura,idEmpleado,formaDePago;
+    int productosDisponibles;
+    int nroFactura,idEmpleado,formaDePago, posicion;
     int posArchiFdp;
     string dniCliente; //Cliente client; /ClienteArchivo aCliente;
     float importeTotal=0;
-    float importeBruto, ImporteProdxCantidad;
-    int posicionEmpleado, posicionProducto;
+    float importeBruto, ImporteProdxCantidad, stockADescontar, cantidadIngredientePorReceta;
+    int posicionEmpleado, posicionProducto, cantidadADescontar;
     int cantidad, opcion;
     int idProducto;
     int cantRegistrosProducto = archiProd.getCantidadRegistros();
     vector<DetalleVenta> vecDetalleVenta;
-    bool validacion;
-
     nroFactura = ventaArchi.getCantidadRegistros()+1; //autonumerico
 
     personaManager.cargarCliente(dniCliente);
@@ -67,6 +70,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
 
     bool cargaProductos=false;
     while (!cargaProductos){ ///ciclo para ingresar productos a una venta
+        bool hayStock=true;
         system("cls");
         //prodManager.listarProductos(true);
         opcion = pedirYValidarConfirmacion("\nDesea filtrar productos que tengan un ingrediente en particular? \n1)Si \n0)No \n") ;
@@ -110,22 +114,59 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
         }
         posicionProducto = archiProd.buscar(idProducto);
         prod = archiProd.leer(posicionProducto);
-        cout << "Ingrese la cantidad del producto " << prod.getNombreProducto() << " a vender: ";
-        cin >> cantidad;
-        while (cin.fail() || cantidad <= 0){
-            cout << "Ingrese una cantidad valida." << endl << endl;
-            system("pause");
-            system("cls");
+        if (prod.getEstado()){
             cout << "Ingrese la cantidad del producto " << prod.getNombreProducto() << " a vender: ";
             cin >> cantidad;
+            while (cin.fail() || cantidad <= 0){
+                cout << "Ingrese una cantidad valida." << endl << endl;
+                system("pause");
+                system("cls");
+                cout << "Ingrese la cantidad del producto " << prod.getNombreProducto() << " a vender: ";
+                cin >> cantidad;
+            }
+            cantidadADescontar = cantidad;
+            /// a partir de aca esta OK el ingreso de productos
+            for (int i= 0; i < vecDetalleVenta.size(); i++){
+                if(vecDetalleVenta[i].getIdProducto() == idProducto){
+                    cantidadADescontar += vecDetalleVenta[i].getCantProducto();
+
+                }
+            }
+            for(int j=0; j < archivoDetalleIng.getCantidadRegistros(); j++){
+                detalleIng = archivoDetalleIng.leer(j);
+                if(detalleIng.getIdProducto() == idProducto){ // si el producto vendido me coincide con el detalle recorrido en el for:
+                    cantidadIngredientePorReceta = detalleIng.getCantidadPorProducto(); //traigo la cantidad de ingrediente que lleva ese producto vendido
+                    stockADescontar = cantidadADescontar * cantidadIngredientePorReceta; //obtengo la cantidad total de ingrediente. luego la descuento.
+                    posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
+                    if (posicion >= 0){
+                        ing = archivoIngrediente.leer(posicion);
+                        if (ing.getCantidadStock() < stockADescontar){
+                            hayStock=false;
+
+                            if(ing.getCantidadStock() < cantidadIngredientePorReceta){
+                                //si no hay stock para preparar ni UN producto
+                                prod.setEstado(false);
+                                if(archiProd.modificar(prod, posicionProducto)){
+                                    cout << endl << "No hay suficiente stock de "<< ing.getNombreIngrediente() << " para preparar NINGUN producto. El mismo ha sido dado de baja" << endl;
+                                    cout << "Primero debe generar stock y luego dar de alta el producto" << endl << endl;
+                                }
+                            }
+                            else{ //si hay stock disponible mayor a un producto, pero menor a lo que el cliente pidió:
+                                cout << "No hay suficiente stock de " << ing.getNombreIngrediente() << " para preparar el producto" << endl;
+                                productosDisponibles = ing.getCantidadStock() / cantidadIngredientePorReceta;
+                                cout << "El stock alcanza para preparar " << productosDisponibles << " "  << prod.getNombreProducto() << endl;
+                            }
+                        }
+                    }
+                }
+            }
+            if(hayStock){
+                ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
+                importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
+                detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
+                vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
+            }
         }
-        /// a partir de aca esta OK el ingreso de productos
-
-        ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
-        importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
-        detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
-        vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
-
         opcion = pedirYValidarConfirmacion("Desea ingresar mas productos? \n1) si \n0) no \n\n");
         if(opcion == 0){
             cargaProductos=true;
@@ -169,7 +210,7 @@ void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta){
     DetalleIngrediente detalleIng;
     DetalleVentaArchivo archivoDetalleVenta;
     int posicion;
-    float cantidadProductoPorReceta, stockADescontar;
+    float cantidadIngredientePorReceta, stockADescontar;
     int cantidadProducto;
 
 
@@ -184,9 +225,9 @@ void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta){
         for(int j=0; j < archivoDetalleIng.getCantidadRegistros(); j++){
             detalleIng = archivoDetalleIng.leer(j);
             if(vecDetalleVenta[i].getIdProducto() == detalleIng.getIdProducto()){ // si el producto vendido me coincide con el detalle recorrido en el for:
-                cantidadProductoPorReceta = detalleIng.getCantidadPorProducto(); //traigo la cantidad de ingrediente que lleva ese producto vendido
+                cantidadIngredientePorReceta = detalleIng.getCantidadPorProducto(); //traigo la cantidad de ingrediente que lleva ese producto vendido
                 cantidadProducto = vecDetalleVenta[i].getCantProducto(); //traigo la cantidad de ese producto vendido
-                stockADescontar = cantidadProducto * cantidadProductoPorReceta; //obtengo la cantidad total de ingrediente. luego la descuento.
+                stockADescontar = cantidadProducto * cantidadIngredientePorReceta; //obtengo la cantidad total de ingrediente. luego la descuento.
                 posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
                 if (posicion >= 0){
                     ing = archivoIngrediente.leer(posicion);
@@ -257,6 +298,7 @@ while(!aux.cargar()){
 cout<<endl<<"Listado de Ventas: "<<endl;
 cout<<endl;
 vent.mostrarTabla();
+
 for(int i=0;i<cantRegistro;i++){
 
     vent=archi.leer(i);
@@ -265,118 +307,120 @@ for(int i=0;i<cantRegistro;i++){
         cont++;
 
         cout<<endl;
-        cout<<"=============================================================================================================="<<endl;
         vent.mostrarEnLista();
-        cout << endl << endl;
+        cout << endl;
     }
 }
 if(cont==0){
+    cout << endl;
     cout<<"No hay ventas registradas en esta fecha. "<<endl;
 }
 }
 
 
 
-///pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 void ManagerVenta::cargaMasivaVentas(std::string dniEmpleado){
 
-    FormaDePagoArchivo fdpArchi;
-    ArchivoProducto archiProd;
-    VentaArchivo ventaArchi;
-    ArchivoEmpleado empArchi;
-    ArchivoCliente archivoCliente;
+    for (int i=0; i < 400; i++){
+        FormaDePagoArchivo fdpArchi;
+        ArchivoProducto archiProd;
+        VentaArchivo ventaArchi;
+        ArchivoEmpleado empArchi;
+        ArchivoCliente archivoCliente;
 
-    Fecha fechaVenta;
-    Empleado emp;
-    Producto prod;
-    Venta v;
-    FormaDePago fdp;
-    DetalleVenta detVenta;
-    Cliente cliente;
+        Fecha fechaVenta;
+        Empleado emp;
+        Producto prod;
+        Venta v;
+        FormaDePago fdp;
+        DetalleVenta detVenta;
+        Cliente cliente;
 
-    PersonaManager personaManager;
-    ProductosManager prodManager;
+        PersonaManager personaManager;
+        ProductosManager prodManager;
 
-    int nroFactura,idEmpleado,formaDePago;
-    float descuento;
-    int posArchiFdp;
-    float importeBruto= 0;
-    float ImporteProdxCantidad, importeTotal;
-    int posicionEmpleado, posicionProducto, posicionCliente;
-    int cantidad, opcion;
-    int idProducto;
-    vector<DetalleVenta> vecDetalleVenta;
+        int nroFactura,idEmpleado,formaDePago;
+        float descuento;
+        int posArchiFdp;
+        float importeBruto= 0;
+        float ImporteProdxCantidad, importeTotal;
+        int posicionEmpleado, posicionProducto, posicionCliente;
+        int cantidad, opcion;
+        int idProducto;
+        vector<DetalleVenta> vecDetalleVenta;
 
-    string nombreCliente, apellidoCliente, dniCliente;
-
-
-    nroFactura = ventaArchi.getCantidadRegistros()+1; //autonumerico
+        string nombreCliente, apellidoCliente, dniCliente;
 
 
-    cin.ignore();
-    getline(cin,dniCliente);
-    posicionCliente = archivoCliente.buscar(dniCliente);
+        nroFactura = ventaArchi.getCantidadRegistros()+1; //autonumerico
 
-    if(posicionCliente < 0){ //si no existe, pido los datos y los registro
+        cin.ignore();
+        getline(cin,dniCliente);
+        posicionCliente = archivoCliente.buscar(dniCliente);
 
-        getline(cin,nombreCliente);
-        getline(cin,apellidoCliente);
-        cliente = Cliente(nombreCliente, apellidoCliente, dniCliente);
-        if(archivoCliente.guardar(cliente)){
-            cout <<"El cliente se registro correctamente"<<endl;
-        }else{
-            cout << "No se pudo guardar el registro" << endl;
+        if(posicionCliente < 0){ //si no existe, pido los datos y los registro
+
+            getline(cin,nombreCliente);
+            getline(cin,apellidoCliente);
+            cliente = Cliente(nombreCliente, apellidoCliente, dniCliente);
+            if(archivoCliente.guardar(cliente)){
+                cout <<"El cliente se registro correctamente"<<endl;
+            }else{
+                cout << "No se pudo guardar el registro" << endl;
+            }
         }
-    }
-    else{ //si existe, no se registra un nuevo cliente
-        cout << "El cliente se encuentra registado. " << endl;
-    }
-
-
-    posicionEmpleado = empArchi.buscar(dniEmpleado);
-    emp= empArchi.leer(posicionEmpleado);
-    idEmpleado = emp.getIdEmpleado();
-
-
-    bool cargaProductos=false;
-    while (!cargaProductos){ ///ciclo para ingresar productos a una venta
-        cin >> idProducto;
-        posicionProducto = archiProd.buscar(idProducto);
-        prod = archiProd.leer(posicionProducto);
-        cin >> cantidad;
-        /// a partir de aca esta OK el ingreso de productos
-
-        ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
-        importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
-        detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
-        vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
-
-        cin >> opcion; // para ingresar mas productos (1 si, 0 no)
-        if(opcion == 0){
-            cargaProductos=true;
-            ///fin carga de productos
+        else{ //si existe, no se registra un nuevo cliente
+            cout << "El cliente se encuentra registado. " << endl;
+            cout << "Error no se puede efectuar carga masiva " << endl;
+            return;
         }
-    }
-    cin >> formaDePago;
-    if (formaDePago == 1){
-        descuento = 0.1;
-    }
-    else if(formaDePago == 2){
-        descuento = 0;
-    }
 
-    fechaVenta.cargar(); //dia, mes anio
-    importeTotal = importeBruto - (importeBruto * descuento );
-    v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
 
-    if (ventaArchi.guardar(v)){
-        cout << "Registro guardado correctamente." << endl << endl;
+        posicionEmpleado = empArchi.buscar(dniEmpleado);
+        emp= empArchi.leer(posicionEmpleado);
+        idEmpleado = emp.getIdEmpleado();
+
+
+        bool cargaProductos=false;
+        while (!cargaProductos){ ///ciclo para ingresar productos a una venta
+            cin >> idProducto;
+            posicionProducto = archiProd.buscar(idProducto);
+            prod = archiProd.leer(posicionProducto);
+            cin >> cantidad;
+            /// a partir de aca esta OK el ingreso de productos
+
+            ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
+            importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
+            detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
+            vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
+
+            cin >> opcion; // para ingresar mas productos (1 si, 0 no)
+            if(opcion == 0){
+                cargaProductos=true;
+                ///fin carga de productos
+            }
+        }
+        cin >> formaDePago;
+        if (formaDePago == 1){
+            descuento = 0.1;
+        }
+        else if(formaDePago == 2){
+            descuento = 0;
+        }
+
+        fechaVenta.cargar(); //dia, mes anio
+        importeTotal = importeBruto - (importeBruto * descuento );
+        v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
+
+        if (ventaArchi.guardar(v)){
+            cout << "Registro guardado correctamente." << endl << endl;
+        }
+        else{
+            cout << "Hubo un problema al guardar el registro." << endl << endl;
+        }
+        descontarStock(vecDetalleVenta);
     }
-    else{
-        cout << "Hubo un problema al guardar el registro." << endl << endl;
-    }
-    descontarStock(vecDetalleVenta);
 }
 void ManagerVenta::mostrarFechaMayorRecaudacionVenta(){
 
@@ -579,7 +623,7 @@ void ManagerVenta::listarVendedorMenorRecaudacion(){
         }
     }
 
-    for (int i=0; i< cantidadRegistros; i++){
+    for (int i=0; i< cantidadEmpleados; i++){
         if (vendio[i] ==true && cont == 0){
             menorVenta= sumatoriaVentas[i];
             cont++;
@@ -870,4 +914,29 @@ void ManagerVenta::cierreCaja(){
     cout << endl << "El cierre de caja en la fecha " << diaActual.mostrarFecha() << " debe ser: " << acumuladorVentasEfectivo << endl << endl;
 
 }
+
+void ManagerVenta::listarVentasToCsv(){
+    VentaArchivo archivoVenta;
+    DetalleVentaArchivo archivoDetalleVenta;
+    Venta venta;
+    DetalleVenta detalleVenta;
+
+    int cantRegistrosVenta = archivoVenta.getCantidadRegistros();
+    int cantRegistrosDetalleVenta = archivoDetalleVenta.getCantidadRegistros();
+
+    for (int i=0;i<cantRegistrosVenta;i++){
+        venta = archivoVenta.leer(i);
+        cout << venta.mostrarToCsv();
+        for (int j=0; j < cantRegistrosDetalleVenta; j++ ){
+            detalleVenta = archivoDetalleVenta.leer(j);
+            if(venta.getNroFactura() == detalleVenta.getNroFactura()){
+                cout << detalleVenta.mostrarToCsv();
+            }
+        }
+        cout << endl;
+     }
+}
+
+
+
 

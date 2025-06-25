@@ -226,9 +226,7 @@ void MenuManager::menuVentas(std::string dni){
 
             case 505:
                 system("cls");
-                for (int i=0; i<12; i++){
-                    ventaManager.cargaMasivaVentas(dni);
-                }
+                ventaManager.cargaMasivaVentas(dni);
                 system("pause");
                 break;
             case 0:
@@ -726,7 +724,7 @@ void MenuManager::menuReportes(){
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 14) {
+        while (cin.fail() || opcion < 0 || opcion > 15) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
@@ -834,6 +832,11 @@ void MenuManager::menuReportes(){
             case 14:
                 system("cls");
                 costoManager.balancePorFecha();
+                system("pause");
+                break;
+            case 15:
+                system("cls");
+                vManager.listarVentasToCsv();
                 system("pause");
                 break;
             case 0:
