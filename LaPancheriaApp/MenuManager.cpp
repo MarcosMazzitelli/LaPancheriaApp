@@ -743,7 +743,7 @@ void MenuManager::menuReportes(){
         cout << " 11. Listar cantidad de productos vendidos por fecha" << endl;
         cout << " 12. Mostrar ranking de los 10 productos mas vendidos por fecha" << endl;
         cout << endl;
-        cout << " COSTOS:" << endl << endl;
+        cout << " BALANCES:" << endl << endl;
         cout << " 13. Balance por mes" << endl;
         cout << " 14. Balance por fecha" << endl;
         cout << endl;
@@ -752,7 +752,7 @@ void MenuManager::menuReportes(){
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 15) {
+        while (cin.fail() || opcion < 0 || opcion > 14) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
@@ -781,7 +781,7 @@ void MenuManager::menuReportes(){
             cout << " 11. Listar cantidad de productos vendidos por fecha" << endl;
             cout << " 12. Mostrar ranking de los 10 productos mas vendidos por fecha" << endl;
             cout << endl;
-            cout << " COSTOS:" << endl << endl;
+            cout << " BALANCES:" << endl << endl;
             cout << " 13. Balance por mes" << endl;
             cout << " 14. Balance por fecha" << endl;
             cout << endl;
@@ -860,11 +860,6 @@ void MenuManager::menuReportes(){
             case 14:
                 system("cls");
                 costoManager.balancePorFecha();
-                system("pause");
-                break;
-            case 15:
-                system("cls");
-                vManager.listarVentasToCsv();
                 system("pause");
                 break;
             case 0:
