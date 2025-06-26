@@ -31,7 +31,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     FormaDePagoArchivo fdpArchi;
     ArchivoProducto archiProd;
     VentaArchivo ventaArchi;
-    DetalleVentaArchivo archiDetVenta;/// NO se guardo los detalles de ventas en archivo
+    DetalleVentaArchivo archiDetVenta;
     ArchivoEmpleado empArchi;
     ArchivoDetalleIngrediente archivoDetalleIng;
     ArchivoIngrediente archivoIngrediente;
@@ -52,7 +52,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
     int productosDisponibles;
     int nroFactura,idEmpleado,formaDePago, posicion;
     int posArchiFdp;
-    string dniCliente; //Cliente client; /ClienteArchivo aCliente;
+    string dniCliente;
     float importeTotal=0;
     float importeBruto, ImporteProdxCantidad, stockADescontar, cantidadIngredientePorReceta;
     int posicionEmpleado, posicionProducto, posicionProd, cantidadADescontar;
@@ -71,7 +71,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
 
     bool cargaProductos=false;
     while (!cargaProductos){ ///ciclo para ingresar productos a una venta
-        bool hayStock=true;
+        bool hayStock=true;//cada vez que se agregue un nuevo producto al detalle, la bandera se pone en TRUE
         system("cls");
         opcion = pedirYValidarConfirmacion("\nDesea filtrar productos que tengan un ingrediente en particular? \n1)Si \n0)No \n") ;
         if(opcion == 1){
@@ -91,7 +91,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
             }
         }
         else{
-            //si la priemr opcion es 0, se listan los productos normalmente
+            //si la primer opcion es 0, se listan los productos normalmente
             prodManager.listarProductos(true);
         }
 
@@ -104,11 +104,6 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
             system("pause");
             system("cls");
             prodManager.listarProductos(true);
-            cout << "Desea filtrar productos que tengan un ingrediente en particular?" << endl;
-            opcion = pedirYValidarConfirmacion("\nDesea filtrar productos que tengan un ingrediente en particular? \n1)Si \n0)No \n");
-            if(opcion == 1){
-                prodManager.listarProductosPorIngredientes();
-            }
             cout << "Seleccione el producto que desee agregar: ";
             cin >> idProducto;
         }
@@ -127,13 +122,12 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
                 cout << "Ingrese la cantidad del producto " << prod.getNombreProducto() << " a vender: ";
                 cin >> cantidad;
             }
-            cantidadADescontar = cantidad; //Ultima cantidad elegida
+            cantidadADescontar = cantidad; //Ultima cantidad elegida (prod actual)
             /// a partir de aca esta OK el ingreso de productos
             for (int i= 0; i < vecDetalleVenta.size(); i++){
                 if(vecDetalleVenta[i].getIdProducto() == idProducto){
                     //se recorre el vector de detalles de esta venta para acumular la cantidad si es que tiene el mismo producto en otro detalle
                     cantidadADescontar += vecDetalleVenta[i].getCantProducto();
-
                 }
             }
 
@@ -171,7 +165,7 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
             if(hayStock){
                 //Si hay stock se prepara un nuevo detalle de venta con el producto actual y se  pregunta si quiere comprar mas
                 ImporteProdxCantidad = prod.getPrecioUnitario()*cantidad;
-                importeBruto += ImporteProdxCantidad; //Acumulador por todos los detalles que tenga una venta... se utiliza en ventas.
+                importeBruto += ImporteProdxCantidad; //ACUMULADOR por todos los detalles que tenga una venta... se utiliza en ventas.
                 detVenta = DetalleVenta(nroFactura,idProducto,cantidad, prod.getPrecioUnitario(), prod.getCostoProducto(), ImporteProdxCantidad);
                 vecDetalleVenta.push_back(detVenta); //se aumenta el tamanio del vector y se coloca al final el nuevo detalle de venta
             }
@@ -185,30 +179,30 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
             ///fin carga de productos
         }
     }
-
-    fdp.elegirFormaDePago(formaDePago);
-    posArchiFdp = fdpArchi.buscarFormaDePago(formaDePago);
-    fdp = fdpArchi.leer(posArchiFdp);
-    importeTotal = importeBruto - (importeBruto * fdp.getDescuento() );
-    cout<<"ingrese la fecha de venta : "<<endl;
-
-    while(cin.fail() || !fechaVenta.cargar()){
-        cin.clear(); // limpia el estado de error
-        cin.ignore(1000, '\n'); // descarta el resto de la linea
-        cout << "Ingrese una fecha valida." << endl << endl;
-        system("pause");
-        system("cls");
-        cout<<"ingrese la fecha de venta : "<<endl;
-        fechaVenta.cargar();
-    }
-
-    cout << endl << endl;
-    v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);///Mandar fdp no forma de pago
-
-
-
     if(!vecDetalleVenta.empty()){
-        //Si el vector dinamico de detalles de venta esta cargado es porque hubo ventas: Se muestra el detalle de productos en la canasta
+        //Si el vector dinamico de detalles de venta esta cargado es porque hubo ventas:
+
+        fdp.elegirFormaDePago(formaDePago);
+        posArchiFdp = fdpArchi.buscarFormaDePago(formaDePago);
+        fdp = fdpArchi.leer(posArchiFdp);
+        importeTotal = importeBruto - (importeBruto * fdp.getDescuento() );
+        cout<<"ingrese la fecha de venta : "<<endl;
+
+        while(cin.fail() || !fechaVenta.cargar()){
+            cin.clear(); // limpia el estado de error
+            cin.ignore(1000, '\n'); // descarta el resto de la linea
+            cout << "Ingrese una fecha valida." << endl << endl;
+            system("pause");
+            system("cls");
+            cout<<"ingrese la fecha de venta : "<<endl;
+            fechaVenta.cargar();
+        }
+
+        cout << endl << endl;
+
+        v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
+
+        //Se muestra el detalle de productos en la canasta
         cout << "Detalle de venta: " << endl;
         cout << "--------------------------------" << endl;
         for (int i=0; i < vecDetalleVenta.size(); i++){
@@ -251,14 +245,15 @@ void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta){
 
 
     for (int i=0; i < vecDetalleVenta.size(); i++){//for de productos distintos de mi venta
+        //Recorro el vector de instancias de detalle venta y guardo los detalles con sus productos.
         if(archivoDetalleVenta.guardar(vecDetalleVenta[i])){
                 cout << "Producto guardado correctamente." << endl;
         }
         else{
             cout << "Hubo un problema al guardar el producto." << endl;
         }
-        //Recorro el vector de instancias de detalle venta
         for(int j=0; j < archivoDetalleIng.getCantidadRegistros(); j++){
+            //recorre todas las recetas (detalleIng)
             detalleIng = archivoDetalleIng.leer(j);
             if(vecDetalleVenta[i].getIdProducto() == detalleIng.getIdProducto()){
                 // si el producto vendido(detalleVenta) coincide con la receta actual(detalleIng)
@@ -268,7 +263,7 @@ void ManagerVenta::descontarStock(std::vector<DetalleVenta> &vecDetalleVenta){
                 posicion = archivoIngrediente.buscar(detalleIng.getIdIngrediente());
                 if (posicion >= 0){
                     ing = archivoIngrediente.leer(posicion);
-                    ing.descontarStock(stockADescontar);
+                    ing.descontarStock(stockADescontar); ///METODO PROPIO DE LA CLASE INGREDIENTE
                     if (archivoIngrediente.modificar(ing,posicion)){
                         cout << "Stock descontado correctamente" << endl;
                     }
