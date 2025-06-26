@@ -421,6 +421,7 @@ void PersonaManager::modificarEmpleados(){
                             cin >> permiso;
                             while(cin.fail() || permiso!=1 && permiso!=2){
                                 cin.clear();
+                                cin.ignore(1000,'\n');
                                 cout << "Ingrese una opcion valida! \n";
                                 limpiarPantalla();
                                 cout << "Ingrese permiso: 1- Admin o 2- User: \n";

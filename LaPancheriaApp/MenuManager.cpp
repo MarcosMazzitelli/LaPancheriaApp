@@ -44,6 +44,9 @@ void MenuManager::login(){
                 cin >> contrasenia;
             }
             else{
+                cout << endl << "Superaste la cantidad de intentos." << endl << endl;
+                cout << "Saliendo del sistema..." << endl;
+                system("pause");
                 return;
             }
         }
@@ -82,7 +85,7 @@ void MenuManager::menuAdmin(std::string dni){
         cout << "5. Gestion de ventas" << endl;
         cout << "6. Reportes" << endl;
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
 
         cin >> opcion;
@@ -102,7 +105,7 @@ void MenuManager::menuAdmin(std::string dni){
             cout << "5. Gestion de ventas" << endl;
             cout << "6. Reportes" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -171,12 +174,14 @@ void MenuManager::menuVentas(std::string dni){
         cout << "3. Formas de pago" << endl;
         cout << "4. Modificar cliente" << endl;
         cout << "5. Mostrar cierre de caja por fecha" << endl;
+        cout << "6. Listar ventas toCsv" << endl;
+        cout << "7. Listar detalle de ventas toCsv" << endl;
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 5 && opcion != 505) {
+        while (cin.fail() || opcion < 0 || opcion > 7 && opcion != 505) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero valido" << endl;
@@ -190,8 +195,10 @@ void MenuManager::menuVentas(std::string dni){
             cout << "3. Formas de pago" << endl;
             cout << "4. Modificar cliente" << endl;
             cout << "5. Mostrar cierre de caja por fecha" << endl;
+            cout << "6. Listar ventas toCsv" << endl;
+            cout << "7. Listar detalle de ventas toCsv" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -221,6 +228,16 @@ void MenuManager::menuVentas(std::string dni){
             case 5:
                 system("cls");
                 ventaManager.cierreCaja();
+                system("pause");
+                break;
+            case 6:
+                system("cls");
+                ventaManager.listarVentasToCsv();
+                system("pause");
+                break;
+            case 7:
+                system("cls");
+                ventaManager.listarDetalleVentaToCsv();
                 system("pause");
                 break;
 
@@ -272,7 +289,7 @@ void MenuManager::menuVentasRestringido(std::string dni){
             cout << "1. Cargar venta" << endl;
             cout << "2. Listar ventas" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -323,7 +340,7 @@ void MenuManager::menuEmpleados(std::string dni){
         cout << "6. Alta a empleado existente" << endl;
 
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
@@ -344,7 +361,7 @@ void MenuManager::menuEmpleados(std::string dni){
             cout << "6. Alta a empleado existente" << endl;
 
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -412,12 +429,13 @@ void MenuManager::menuProductos(){
         cout << "6. Listar recetas" << endl;
         cout << "7. Listar productos por ingrediente" << endl;
         cout << "8. Listar productos por categoria" << endl;
+        cout << "9. Listar productos toCsv" << endl;
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 8) {
+        while (cin.fail() || opcion < 0 || opcion > 9) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
@@ -434,8 +452,9 @@ void MenuManager::menuProductos(){
             cout << "6. Listar recetas" << endl;
             cout << "7. Listar productos por ingrediente" << endl;
             cout << "8. Listar productos por categoria" << endl;
+            cout << "9. Listar productos toCsv" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -485,6 +504,11 @@ void MenuManager::menuProductos(){
                 prodManager.listarProductosPorCategoria(idCategoria); //solo activos
                 system("pause");
                 break;
+            case 9:
+                system("cls");
+                prodManager.listarProductosToCsv();
+                system("pause");
+                break;
             case 0:
                 cout << "Confirma que desea salir? 1- si  0- no\n";
                 cin >> opcionSalida;
@@ -515,12 +539,13 @@ void MenuManager::menuIngredientes(){
         cout << "5. Alta de ingredientes eliminados" << endl;
         cout << "6. Listar ingredientes" << endl;
         cout << "7. Comprar ingrediente" << endl;
+        cout << "8. Listar ingredientes toCsv" << endl;
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 7) {
+        while (cin.fail() || opcion < 0 || opcion > 8) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
@@ -536,8 +561,9 @@ void MenuManager::menuIngredientes(){
             cout << "5. Alta de ingredientes eliminados" << endl;
             cout << "6. Listar ingredientes" << endl;
             cout << "7. Comprar ingrediente" << endl;
+            cout << "8. Listar ingredientes toCsv" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -579,6 +605,11 @@ void MenuManager::menuIngredientes(){
                 ingManager.comprarIngrediente();
                 system("pause");
                 break;
+            case 8:
+                system("cls");
+                ingManager.listarIngredientesToCsv();
+                system("pause");
+                break;
 
             case 0:
                 cout << "Confirma que desea salir? 1- si  0- no\n";
@@ -610,7 +641,7 @@ void MenuManager::menuCostos(){
         cout << "4. Listar costos fijos por mes" << endl;
         cout << "5. Listar todos los costos fijos" << endl;
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
@@ -629,7 +660,7 @@ void MenuManager::menuCostos(){
             cout << "4. Listar costos fijos por mes" << endl;
             cout << "5. Listar todos los costos fijos" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -715,16 +746,16 @@ void MenuManager::menuReportes(){
         cout << " 11. Listar cantidad de productos vendidos por fecha" << endl;
         cout << " 12. Mostrar ranking de los 10 productos mas vendidos por fecha" << endl;
         cout << endl;
-        cout << " COSTOS:" << endl << endl;
+        cout << " BALANCES:" << endl << endl;
         cout << " 13. Balance por mes" << endl;
         cout << " 14. Balance por fecha" << endl;
         cout << endl;
         cout << " 0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
-        while (cin.fail() || opcion < 0 || opcion > 15) {
+        while (cin.fail() || opcion < 0 || opcion > 14) {
             cin.clear(); // limpia el estado de error
             cin.ignore(1000, '\n'); // descarta el resto de la linea
             cout << "Entrada invalida. Por favor, ingrese un numero correcto" << endl;
@@ -753,12 +784,12 @@ void MenuManager::menuReportes(){
             cout << " 11. Listar cantidad de productos vendidos por fecha" << endl;
             cout << " 12. Mostrar ranking de los 10 productos mas vendidos por fecha" << endl;
             cout << endl;
-            cout << " COSTOS:" << endl << endl;
+            cout << " BALANCES:" << endl << endl;
             cout << " 13. Balance por mes" << endl;
             cout << " 14. Balance por fecha" << endl;
             cout << endl;
             cout << " 0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -832,11 +863,6 @@ void MenuManager::menuReportes(){
             case 14:
                 system("cls");
                 costoManager.balancePorFecha();
-                system("pause");
-                break;
-            case 15:
-                system("cls");
-                vManager.listarVentasToCsv();
                 system("pause");
                 break;
             case 0:
