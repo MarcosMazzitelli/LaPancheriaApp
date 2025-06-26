@@ -1003,6 +1003,7 @@ void ProductosManager::rankingProductosMasVendidos(){
     for(int i=0; i<cantRegistrosProducto; i++){
         for(int j = i+1; j<cantRegistrosProducto; j++){
             if(vectorProductosVendidos[j] > vectorProductosVendidos[i]){
+                //en todas las vueltas de I, se va a poner el valor mayor en esa posicion.
                 //intercambio de cantidades
                 auxCantProductos = vectorProductosVendidos[j];
                 vectorProductosVendidos[j] = vectorProductosVendidos[i];
