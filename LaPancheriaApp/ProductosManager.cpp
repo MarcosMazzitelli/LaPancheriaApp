@@ -982,21 +982,33 @@ void ProductosManager::rankingProductosMasVendidos(){
         vectorProductosVendidos[i] = 0;
         vectorIdProductosVendidos[i] = 0;
     }
+    vector<int> idVentas;
 
     validador.validadorFiltroFecha(fechaDesde,fechaHasta);
     for (int i=0; i < cantRegistrosVenta; i++){
         venta = archivoVenta.leer(i);
+        if (venta.getFechaVenta() <= fechaHasta && venta.getFechaVenta() >= fechaDesde){
+            idVentas.push_back(venta.getNroFactura());
+        }
+    }
+
 
         for (int j=0; j < cantRegistrosDetalleVenta; j++){
             detalleVenta = archivoDetalleVenta.leer(j);
-            if(venta.getFechaVenta() <= fechaHasta && venta.getFechaVenta() >= fechaDesde
-            && venta.getNroFactura() == detalleVenta.getNroFactura() ){
+            bool existe = false;
+            for (int k = 0; k < idVentas.size(); k++){
+                if (detalleVenta.getNroFactura() == idVentas[k]){
+                    existe = true;
+                }
+
+            }
+
+            if(existe){
                 vectorProductosVendidos[detalleVenta.getIdProducto() -1] += detalleVenta.getCantProducto();
                 vectorIdProductosVendidos[detalleVenta.getIdProducto() -1] = detalleVenta.getIdProducto();
 
             }
         }
-    }
 
     int auxId, auxCantProductos;
     ///Metodo burbujeo, en cada vuelta de I coloca el valor maximo en la posicion de I.
