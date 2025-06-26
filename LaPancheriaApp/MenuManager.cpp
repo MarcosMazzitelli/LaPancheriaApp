@@ -44,6 +44,9 @@ void MenuManager::login(){
                 cin >> contrasenia;
             }
             else{
+                cout << endl << "Superaste la cantidad de intentos." << endl << endl;
+                cout << "Saliendo del sistema..." << endl;
+                system("pause");
                 return;
             }
         }
@@ -82,7 +85,7 @@ void MenuManager::menuAdmin(std::string dni){
         cout << "5. Gestion de ventas" << endl;
         cout << "6. Reportes" << endl;
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
 
         cin >> opcion;
@@ -102,7 +105,7 @@ void MenuManager::menuAdmin(std::string dni){
             cout << "5. Gestion de ventas" << endl;
             cout << "6. Reportes" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -174,7 +177,7 @@ void MenuManager::menuVentas(std::string dni){
         cout << "6. Listar ventas toCsv" << endl;
         cout << "7. Listar detalle de ventas toCsv" << endl;
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
@@ -195,7 +198,7 @@ void MenuManager::menuVentas(std::string dni){
             cout << "6. Listar ventas toCsv" << endl;
             cout << "7. Listar detalle de ventas toCsv" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -286,7 +289,7 @@ void MenuManager::menuVentasRestringido(std::string dni){
             cout << "1. Cargar venta" << endl;
             cout << "2. Listar ventas" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -337,7 +340,7 @@ void MenuManager::menuEmpleados(std::string dni){
         cout << "6. Alta a empleado existente" << endl;
 
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
@@ -358,7 +361,7 @@ void MenuManager::menuEmpleados(std::string dni){
             cout << "6. Alta a empleado existente" << endl;
 
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -428,7 +431,7 @@ void MenuManager::menuProductos(){
         cout << "8. Listar productos por categoria" << endl;
         cout << "9. Listar productos toCsv" << endl;
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
@@ -451,7 +454,7 @@ void MenuManager::menuProductos(){
             cout << "8. Listar productos por categoria" << endl;
             cout << "9. Listar productos toCsv" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -538,7 +541,7 @@ void MenuManager::menuIngredientes(){
         cout << "7. Comprar ingrediente" << endl;
         cout << "8. Listar ingredientes toCsv" << endl;
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
@@ -560,7 +563,7 @@ void MenuManager::menuIngredientes(){
             cout << "7. Comprar ingrediente" << endl;
             cout << "8. Listar ingredientes toCsv" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -638,7 +641,7 @@ void MenuManager::menuCostos(){
         cout << "4. Listar costos fijos por mes" << endl;
         cout << "5. Listar todos los costos fijos" << endl;
         cout << "0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
@@ -657,7 +660,7 @@ void MenuManager::menuCostos(){
             cout << "4. Listar costos fijos por mes" << endl;
             cout << "5. Listar todos los costos fijos" << endl;
             cout << "0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
@@ -748,7 +751,7 @@ void MenuManager::menuReportes(){
         cout << " 14. Balance por fecha" << endl;
         cout << endl;
         cout << " 0. Salir" << endl;
-        cout << "===============================" << endl;
+        cout << "========================================================" << endl;
         cout << "Ingrese una opcion: ";
         cin >> opcion;
 
@@ -786,7 +789,7 @@ void MenuManager::menuReportes(){
             cout << " 14. Balance por fecha" << endl;
             cout << endl;
             cout << " 0. Salir" << endl;
-            cout << "===============================" << endl;
+            cout << "========================================================" << endl;
             cout << "Ingrese una opcion: ";
             cin >> opcion;
         }
