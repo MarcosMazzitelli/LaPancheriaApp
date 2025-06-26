@@ -830,7 +830,7 @@ void ManagerVenta::MayorRecaudacionPorPeriodo(){
         vent=archi.leer(i);
         if (vent.getFechaVenta() <= fechaHasta ){
 
-            if (vent.getFechaVenta() >= fechaDesde ){
+            if (vent.getFechaVenta() >= fechaDesde ){ //Sobrecarga de operadores: El objeto de la izquierda llama al operador y el de la derecha se envia por parametro (aux)
                    if(i==0){
                         mayorVenta=vent.getImporteTotal();
                         aux=vent.getFechaVenta();
