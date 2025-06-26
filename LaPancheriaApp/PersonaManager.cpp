@@ -254,7 +254,7 @@ void PersonaManager::altaEmpleado(){
             cin.ignore(1000,'\n');
             cout << "Ingrese una opcion valida! \n";
             limpiarPantalla();
-            listarEmpleados();
+            listarEmpleadosDeBaja();
             cout << "\n\n\n---------------ACTIVAR EMPLEADO------------------" <<endl;
             cout << "Ingrese el ID del empleado a activar: " << endl;
             cin >> id;

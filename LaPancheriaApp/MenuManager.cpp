@@ -368,8 +368,7 @@ void MenuManager::menuEmpleados(std::string dni){
         switch(opcion) {
             case 1:
                 system("cls");
-                //persona.cargarEmpleado();
-                persona.cargarCliente(dni);
+                persona.cargarEmpleado();
                 system("pause");
                 break;
             case 2:
