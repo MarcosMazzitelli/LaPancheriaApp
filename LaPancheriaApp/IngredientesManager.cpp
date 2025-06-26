@@ -407,20 +407,27 @@ void IngredientesManager::eliminarIngrediente(){
                 cout << "Hubo un error al dar de baja el ingrediente" << endl;
             }
             for (int i=0; i < cantRegistrosDetalleIngrediente; i++){
+                //recorro todas las recetas y las instancio
                 detalleIngrediente = archivoDetalleIngrediente.leer(i);
                 if (detalleIngrediente.getIdIngrediente() == idIngrediente){
-                        for (int j=0; j < cantRegistrosDetalleIngrediente; j++){
-                            auxDetalleIngrediente = archivoDetalleIngrediente.leer(j);
-                            if(detalleIngrediente.getIdProducto() == auxDetalleIngrediente.getIdProducto()){
-                                auxDetalleIngrediente.setEstado(false);
-                                if (archivoDetalleIngrediente.modificar(auxDetalleIngrediente, j)){
-                                    cout << "Receta eliminada con exito" << endl;
-                                }
-                                else{
-                                    cout << "Hubo un error al dar de baja la receta" << endl;
-                                }
+                    //si coincide el ID ingrediente con ID de la receta (detalleIng) puedo obtener el ID PRODUCTO
+                    //Recorro desde 0 nuevamente todas las recetas para rastrear desde un principio todas las recetas
+                    //que contengan ese ID producto y darlas de baja a todas
+                    for (int j=0; j < cantRegistrosDetalleIngrediente; j++){
+                        //Se instancian con una nueva variable otras recetas (detalleIng) para comparar
+                        auxDetalleIngrediente = archivoDetalleIngrediente.leer(j);
+                        if(detalleIngrediente.getIdProducto() == auxDetalleIngrediente.getIdProducto()){
+                            //Si coinciden ambas instancias en el atributo ID producto, por mas que no tenga el
+                            //ingrediente que quiero dar de baja, también se dara de baja esa receta.
+                            auxDetalleIngrediente.setEstado(false);
+                            if (archivoDetalleIngrediente.modificar(auxDetalleIngrediente, j)){
+                                cout << "Receta eliminada con exito" << endl;
+                            }
+                            else{
+                                cout << "Hubo un error al dar de baja la receta" << endl;
                             }
                         }
+                    }
                     posicionProducto = archivoProducto.buscar(detalleIngrediente.getIdProducto());
                     producto = archivoProducto.leer(posicionProducto);
                     if(producto.getEstado()){
