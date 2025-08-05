@@ -91,7 +91,7 @@ void IngredientesManager::comprarIngrediente(){
     if (ing.getEstado()){
         cout << "Ingrese la cantidad comprada: ";
         cin >> cantidad;
-        while(cin.fail() || cantidad < 0){
+        while(cin.fail() || cantidad <= 0){
             cin.clear();
             cin.ignore(1000,'\n');
             cout << "Ingrese un valor valido" << endl;
@@ -105,7 +105,7 @@ void IngredientesManager::comprarIngrediente(){
 
         cout << "Ingrese el costo total de la compra: $";
         cin >> costoTotal;
-        while(cin.fail() || costoTotal < 0){
+        while(cin.fail() || costoTotal <= 0){
             cin.clear();
             cin.ignore(1000,'\n');
             cout << "Ingrese un valor valido" << endl;

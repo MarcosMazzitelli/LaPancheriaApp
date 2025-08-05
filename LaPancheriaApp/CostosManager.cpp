@@ -440,8 +440,9 @@ void CostosManager::balanceGananciaPorMes(){
     int cantRegistroEmpleado=archiEmpleado.getCantidadRegistros();
     for(int i=0; i<cantRegistroEmpleado; i++){
         empleado=archiEmpleado.leer(i);
-        if(empleado.getEstado()){
-            //sueldo=empleado.getSueldo();
+        if(empleado.getEstado() &&
+           (empleado.getFechaIngreso().getAnio() < anio ||
+           (empleado.getFechaIngreso().getAnio() == anio && empleado.getFechaIngreso().getMes() <= mes ))){
             acuCostoEmpleado+=empleado.getSueldo();
         }
     }
@@ -526,25 +527,48 @@ void CostosManager::balancePorFecha(){
 
 
     //costo empleados
-    int cantRegistroEmpleado=archiEmpleado.getCantidadRegistros();
 
-    if (fechaDesde.getAnio() == fechaHasta.getAnio()) {
-        cantSueldos = fechaHasta.getMes() - fechaDesde.getMes() + 1;
-    }
-    else{
-        cantSueldos = ((fechaHasta.getAnio() - fechaDesde.getAnio()) * 12) + fechaHasta.getMes() - fechaDesde.getMes() + 1;
-    }
+    int cantRegistroEmpleado = archiEmpleado.getCantidadRegistros();
 
-    for(int i=0; i<cantRegistroEmpleado; i++){
-        empleado=archiEmpleado.leer(i);
+    for(int i = 0; i < cantRegistroEmpleado; i++){
+        empleado = archiEmpleado.leer(i);
 
-        if(empleado.getEstado()){
-            sueldo=empleado.getSueldo()*cantSueldos;
-            acuCostoEmpleado+=sueldo;
+        if(empleado.getEstado() == true){
+
+            // Si el empleado ingresó después de la fechaHasta, no se cuenta
+            if(empleado.getFechaIngreso() <= fechaHasta){
+
+                Fecha ingreso = empleado.getFechaIngreso();
+                int cantSueldos = 0;
+
+                // Si ingresó antes del período, entonces trabajó todo el período
+                if(ingreso <= fechaDesde){
+                    if (fechaDesde.getAnio() == fechaHasta.getAnio()) {
+                        cantSueldos = fechaHasta.getMes() - fechaDesde.getMes() + 1;
+                    }
+                    else{
+                        cantSueldos = ((fechaHasta.getAnio() - fechaDesde.getAnio()) * 12) + fechaHasta.getMes() - fechaDesde.getMes() + 1;
+                    }
+                }
+                // Si ingresó dentro del período
+                else if(ingreso >= fechaDesde && ingreso <= fechaHasta && !(ingreso == fechaDesde)){
+
+                    if (ingreso.getAnio() == fechaHasta.getAnio()) {
+                        cantSueldos = fechaHasta.getMes() - ingreso.getMes() + 1;
+                    }
+                    else{
+                        cantSueldos = ((fechaHasta.getAnio() - ingreso.getAnio()) * 12) + fechaHasta.getMes() - ingreso.getMes() + 1;
+                    }
+                }
+
+                // Sumar sueldo por los meses que trabajó en el período
+                if(cantSueldos > 0){
+                    sueldo = empleado.getSueldo() * cantSueldos;
+                    acuCostoEmpleado += sueldo;
+                }
+            }
         }
     }
-
-
 
 
     cout << "TOTAL DE COSTOS EMPLEADOS DESDE: " <<  fechaDesde.mostrarFecha() << " HASTA: " <<   fechaHasta.mostrarFecha() <<" $"<<  fixed << setprecision(2) << acuCostoEmpleado << endl;
