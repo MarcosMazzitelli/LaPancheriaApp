@@ -22,7 +22,7 @@ Los objetivos abarcan distintos aspectos como lo son:
 Los cuales se buscan articular para poder tener un flujo dinámico y preciso de las distintas tareas que se realizan día a día en el local.
 
  
-![Descripción](./Images/Img_Inicio.png)
+![Menu Inicio](.\LaPancheriaApp/Images/Img_Inicio.png)
 ---
 
 ## 🍔 Productos
