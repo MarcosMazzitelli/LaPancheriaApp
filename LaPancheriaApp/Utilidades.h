@@ -16,3 +16,5 @@ void menuCostos();
 
 int verificarCoincidencia(std::string usuario, std::string contrasenia);
 void limpiarPantalla();
+
+void encabezadoDetalleVenta();

@@ -21,6 +21,8 @@
 #include "Ingrediente.h"
 #include "ArchivoDetalleIngrediente.h"
 #include "Validador.h"
+#include <iomanip>   // setw, left, right, fixed, setprecision
+
 
 using namespace std;
 
@@ -203,17 +205,39 @@ void ManagerVenta::registrarVenta(std::string dniEmpleado){
         v=Venta(nroFactura, dniCliente,idEmpleado,importeTotal,formaDePago,fechaVenta);
 
         //Se muestra el detalle de productos en la canasta
-        cout << "Detalle de venta: " << endl;
-        cout << "--------------------------------" << endl;
+        encabezadoDetalleVenta();
+
         for (int i=0; i < vecDetalleVenta.size(); i++){
             int idProducto = vecDetalleVenta[i].getIdProducto();
             int cant = vecDetalleVenta[i].getCantProducto();
             detVenta = archivoDetalleVenta.leer(i);
             posicionProd = archiProd.buscar(idProducto);
             prod = archiProd.leer(posicionProd);
-            cout << "(x" << cant << ") " << prod.getNombreProducto() << endl;
+
+            float precio = prod.getPrecioUnitario();
+            float importe = precio * cant;
+            cout << left << setw(5) << cant
+            << left << setw(25) << prod.getNombreProducto()
+            << right << setw(10) << fixed << setprecision(2) << precio
+            << right << setw(10) << fixed << setprecision(2) << importe << endl;
+
+        cout << "-------------------------------------------------------------" << endl;
+
+           // cout << "(x" << cant << ") " << prod.getNombreProducto() << endl;
         }
-        cout << "--------------------------------" << endl << endl;
+        // Tabla de totales
+        cout << right << setw(40) << "IMPORTE BRUTO: "
+             << right << setw(10) << fixed << setprecision(2) << importeBruto << endl;
+
+        cout << right << setw(40) << "DESCUENTOS: "
+             << right << setw(10) << fixed << setprecision(2) << fdp.getDescuento() * 100 << "%" << endl;
+
+        cout << right << setw(40) << "IMPORTE NETO: "
+             << right << setw(10) << fixed << setprecision(2) << importeTotal << endl;
+
+        cout << "-------------------------------------------------------------" << endl << endl;
+
+
 
 
 

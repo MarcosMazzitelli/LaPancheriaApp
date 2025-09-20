@@ -21,6 +21,8 @@ Los objetivos abarcan distintos aspectos como lo son:
 
 Los cuales se buscan articular para poder tener un flujo dinámico y preciso de las distintas tareas que se realizan día a día en el local.
 
+ 
+![Descripción](./Images/Img_Inicio.png)
 ---
 
 ## 🍔 Productos
@@ -31,6 +33,23 @@ El sistema permite:
 - Asociar productos con recetas, permitiendo el control de stock automático y cálculo de costos.
 - Ajustar manualmente el stock por auditorías de control, contemplando diferencias mínimas por el tipo de preparación.
 
+ 
+**Menu Productos**
+ 
+![Descripción](./Images/Img_MenuProductos.png)
+
+**Productos** 
+ 
+![Descripción](./Images/Img_ListadoProductos.png)
+
+ 
+**Recetas asociadas**
+ 
+![Descripción](./Images/Img_Recetas.png)
+
+ 
+**Búsqueda de productos por ingredientes**
+![Descripción](./Images/Img_Busqueda.png)
 ---
 
 ## 🧾 Ventas
@@ -43,7 +62,22 @@ Funcionalidades principales:
 - Generación automática de la **factura**.
 - Registro de cliente con DNI. Si es un nuevo cliente, se solicita además nombre y apellido.
 
+**Menu Ventas**
+ 
+![Descripción](./Images/Img_MenuVentas.png)
+
+ 
+**Elección de productos**
+
+![Descripción](./Images/Img_SeleccionVenta.png) 
+
+ 
+**Detalle Venta**
+
+ 
+![Descripción](./Images/Img_DetalleVenta.png) 
 ---
+
 
 ## 📊 Reportes
 
@@ -55,6 +89,16 @@ Los usuarios con permisos de administrador podrán acceder a un menú exclusivo 
   - **Productos más vendidos**,
   - **Mejores vendedores**, entre otros.
 
+ 
+**Menu Reportes**
+
+ 
+![Descripción](./Images/Img_MenuReportes.png) 
+
+**Ranking productos más vendidos**
+ 
+
+![Descripción](./Images/Img_RankingMasVendidos.png) 
 ---
 
 ## 👤 Usuarios
@@ -68,6 +112,12 @@ El sistema permite:
 
 Cada usuario inicia sesión con su **DNI** y **contraseña**. El sistema permite **3 intentos** de login.
 
+ 
+**Login intentos fallidos*
+ 
+![Descripción](./Images/Img_MenuLoginFallido.png) 
+ 
+**
 ---
 
 ## 🧑‍🍳 Empleados
@@ -78,6 +128,10 @@ Permite:
 - Dar de alta o baja según sea necesario.
 - Modificar la información de los registros existentes.
 
+**Menu Empleados
+ 
+
+![Descripción](./Images/Img_MenuEmpleados.png) 
 ---
 
 ## 👥 Clientes

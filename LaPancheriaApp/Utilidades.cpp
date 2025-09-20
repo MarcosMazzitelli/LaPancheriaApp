@@ -1,6 +1,8 @@
 #include "Utilidades.h"
 #include "ArchivoEmpleado.h"
 #include "Empleado.h"
+#include <iomanip>   // setw, left, right, fixed, setprecision
+
 
 #include <iostream>
 using namespace std;
@@ -196,5 +198,19 @@ std::string seleccionarYConvertirUnidad(float &cantidadStock, std::string tipoDe
             }
         }
     }
+}
+
+void encabezadoDetalleVenta(){
+    cout << "Detalle de venta: " << endl;
+    cout << "-------------------------------------------------------------" << endl;
+
+    // Encabezado de la tabla
+    cout << left << setw(5) << "Cant"
+         << left << setw(25) << "Producto"
+         << right << setw(10) << "P.Unit"
+         << right << setw(10) << "Importe" << endl;
+
+    cout << "-------------------------------------------------------------" << endl;
+
 }
 
