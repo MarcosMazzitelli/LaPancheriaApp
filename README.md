@@ -113,11 +113,12 @@ El sistema permite:
 Cada usuario inicia sesión con su **DNI** y **contraseña**. El sistema permite **3 intentos** de login.
 
  
-**Login intentos fallidos*
+**Login intentos fallidos**
+ 
  
 ![Login Fallido](./LaPancheriaApp/Images/Img_MenuLoginFallido.png) 
  
-**
+
 ---
 
 ## 🧑‍🍳 Empleados
