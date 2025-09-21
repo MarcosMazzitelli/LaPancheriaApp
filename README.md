@@ -42,7 +42,17 @@ El sistema permite:
  
 ![Listado de productos](./LaPancheriaApp/Images/Img_ListadoProductos.png)
 
+**Menu Ingredientes**
  
+![Menu Ingredientes](./LaPancheriaApp/Images/Img_MenuIngredientes.png)
+ 
+
+**Listado de ingredientes**
+
+ 
+![Menu Ingredientes](./LaPancheriaApp/Images/Img_ListadoIngredientes.png)
+ 
+
 **Recetas asociadas**
  
 ![Recetas](./LaPancheriaApp/Images/Img_Recetas.png)
