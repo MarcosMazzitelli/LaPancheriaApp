@@ -64,7 +64,7 @@ Funcionalidades principales:
 
 **Menu Ventas**
  
-![Descripción](./Images/Img_MenuVentas.png)
+![Menu Ventas](./LaPancheriaApp/Images/Img_MenuVentas.png)
 
  
 **Elección de productos**
