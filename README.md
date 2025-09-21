@@ -36,20 +36,20 @@ El sistema permite:
  
 **Menu Productos**
  
-![Descripción](./Images/Img_MenuProductos.png)
+![Menu Productos](./LaPancheriaApp/Images/Img_MenuProductos.png)
 
 **Productos** 
  
-![Descripción](./Images/Img_ListadoProductos.png)
+![Listado de productos](./LaPancheriaApp/Images/Img_ListadoProductos.png)
 
  
 **Recetas asociadas**
  
-![Descripción](./Images/Img_Recetas.png)
+![Recetas](./LaPancheriaApp/Images/Img_Recetas.png)
 
  
 **Búsqueda de productos por ingredientes**
-![Descripción](./Images/Img_Busqueda.png)
+![Busqueda por ingredientes](./LaPancheriaApp/Images/Img_Busqueda.png)
 ---
 
 ## 🧾 Ventas
@@ -69,13 +69,13 @@ Funcionalidades principales:
  
 **Elección de productos**
 
-![Descripción](./Images/Img_SeleccionVenta.png) 
+![Eleccion Productos](./LaPancheriaApp/Images/Img_SeleccionVenta.png) 
 
  
 **Detalle Venta**
 
  
-![Descripción](./Images/Img_DetalleVenta.png) 
+![Detalle Venta](./LaPancheriaApp/Images/Img_DetalleVenta.png) 
 ---
 
 
@@ -93,12 +93,12 @@ Los usuarios con permisos de administrador podrán acceder a un menú exclusivo 
 **Menu Reportes**
 
  
-![Descripción](./Images/Img_MenuReportes.png) 
+![Menu Reportes](./LaPancheriaApp/Images/Img_MenuReportes.png) 
 
 **Ranking productos más vendidos**
  
 
-![Descripción](./Images/Img_RankingMasVendidos.png) 
+![Ranking](./LaPancheriaApp/Images/Img_RankingMasVendidos.png) 
 ---
 
 ## 👤 Usuarios
@@ -115,7 +115,7 @@ Cada usuario inicia sesión con su **DNI** y **contraseña**. El sistema permite
  
 **Login intentos fallidos*
  
-![Descripción](./Images/Img_MenuLoginFallido.png) 
+![Login Fallido](./LaPancheriaApp/Images/Img_MenuLoginFallido.png) 
  
 **
 ---
@@ -131,7 +131,7 @@ Permite:
 **Menu Empleados
  
 
-![Descripción](./Images/Img_MenuEmpleados.png) 
+![Menu Empleados](./LaPancheriaApp/Images/Img_MenuEmpleados.png) 
 ---
 
 ## 👥 Clientes
